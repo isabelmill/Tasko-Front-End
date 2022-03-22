@@ -4,16 +4,20 @@ import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <!-- <RouterLink to="/about">About</RouterLink> -->
-      </nav>
-  </header>
-
-  <RouterView />
+  <section class="app-main">
+    <app-header />
+    <router-view />
+  </section>
 </template>
 
-<style>
-</style>
+<script>
+import appHeader from './components/app-header.vue'
+export default {
+  name: 'app',
+  methods: {
+  },
+  components: {
+    appHeader,
+  },
+}
+</script>
