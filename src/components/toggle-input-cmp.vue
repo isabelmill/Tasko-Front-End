@@ -8,7 +8,11 @@
             type="text"
             @submit.prevent="change"
         />
-        <span @click="openEditGroupModal($event)" ref="box" class="icon-sm icon-overflow-menu-horizontal"></span>
+        <span
+            @click="calcPosOfBox($)"
+            ref="box"
+            class="icon-sm icon-overflow-menu-horizontal"
+        ></span>
         <group-edit
             v-if="openGroupEdit"
             :style="{ top: posBoxX + 'px', left: posBoxY + 'px' }"
@@ -40,22 +44,15 @@ export default {
             distanceX: 0,
             distanceY: 0,
             boards: this.$store.getters.boards,
-            board: null,
+            board: this.$store.getters.board,
             groups: null,
             posBoxX: 0,
             posBoxY: 0,
+            boardToEdit: null,
         }
     },
     created() {
         this.txt = this.title
-        // const { _id } = this.$route.params
-        // boardService.getById(_id).then((board) => {
-        //     this.board = board
-        //     this.groups = this.board.groups
-        // })
-    },
-    mounted() {
-        this.calcPosOfBox()
     },
     methods: {
         openTitleEdit() {
@@ -75,19 +72,14 @@ export default {
             this.openGroupEdit = false;
         },
         removeGroup(groupId) {
-            const { _id } = this.$route.params
-            this.board = this.boards.find((board) => board._id === _id)
-            // this.board.groups.splice(groupId, 1)
-            // this.$store.dispatch({ type: 'saveBoard', board: this.board })
+            this.boardToEdit = JSON.parse(JSON.stringify(this.board))
+            this.boardToEdit.groups.splice(groupId, 1)
+            this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
+            this.closeEditMode()
         },
         calcPosOfBox() {
             this.posBoxX = this.$refs['box'].getBoundingClientRect().x
             this.posBoxY = this.$refs['box'].getBoundingClientRect().y
-            console.log('posBoxA:',this.posBoxX);
-            console.log('posBoxA:',this.posBoxY);
-
-            // this.posBoxB = this.$refs['my_box_b'].getBoundingClientRect().x
-
         }
     },
     components: {
