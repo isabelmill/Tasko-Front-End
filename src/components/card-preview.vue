@@ -53,7 +53,6 @@ export default {
         openMiniEdit(ev) {
             this.distanceX= ev.clientX-65;
             this.distanceY= ev.clientY+10;
-            console.log(this.distanceY,this.distanceX)
             this.modalOpen = true;
         },
         openDetails() {
