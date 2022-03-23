@@ -7,7 +7,7 @@
         <router-link class="link" to="/">Templates</router-link>
         <router-link class="link" to="/">Create</router-link>
         <!-- <button class="icon-btn"><font-awesome-icon icon="fa-regular fa-plus-large" /></button> -->
-        <button class="icon-btn">+</button>
+        <button class="icon-btn"><span class="icon-sm icon-add-light"></span></button>
         <!-- search goes here  -->
         <search />
     </section>
