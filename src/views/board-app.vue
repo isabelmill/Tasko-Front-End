@@ -14,7 +14,7 @@
                     <button @click="openBoardEdit()" type="button">Create new board</button>
 
                     <div class="create-board-modal">
-                        <form v-if="isEdit === true">
+                        <form v-if="isEdit === true" v-clickOutside="closeBoardEdit">
                             <div class="create-board-modal-header">
                                 <div class="create-board-modal-header-items">
                                     <h1>Create board</h1>
