@@ -1,6 +1,8 @@
 // group-card
 .group-preview-main {
     width: rem(276px);
+    max-height: rem(530px);
+    height: rem(530px);
     border-radius: 3px;
     background-color: $groupGray;
 }
@@ -16,7 +18,7 @@
         color: $memberBlue;
         font-family: roboto-regular;
         font-weight: 600;
-        font-size: 14px;
+        font-size: rem(14px);
         // background-color: rgb(245, 211, 161);
         border-radius: 3px;
         padding: 4px 8px;
@@ -26,7 +28,7 @@
     input {
         font-family: roboto-regular;
         font-weight: 600;
-        font-size: 14px;
+        font-size: rem(14px);
         color: $memberBlue;
         width: 80%;
         height: rem(28px);
@@ -55,25 +57,46 @@
     }
 }
 
-//card
+//card-preview
 .card-preview {
     font-family: roboto-regular;
     height: rem(40px);
     display: flex;
-    align-items: center;
+    // align-items: center;
     cursor: pointer;
     border-radius: 3px;
     background-color: white;
     margin: 0 8px 8px 8px;
     box-shadow: 0 1px 0 #091e4240;
+
     p {
         color: $memberBlue;
         font-family: roboto-regular;
-        font-size: 14px;
+        font-size: rem(14px);
         margin: 0 8px 0 8px;
     }
+
+    button {
+        display: none;
+    }
+
     &:hover {
         background-color: #eeeef0;
+
+        button {
+            display: block;
+            margin: 3px 3px 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: rem(26px);
+            width: rem(26px);
+            border: none;
+
+            &:hover {
+                background-color: #091e4214;
+            }
+        }
     }
 }
 
@@ -85,7 +108,8 @@
         border: none;
         margin: 2px 0 8px 8px;
         padding: 4px 8px;
-        width: 80%;
+        width: rem(260px);
+        font-family: Roboto-regular;
         &:hover {
             background-color: #091e4214;
         }
@@ -94,4 +118,8 @@
 
 .icon-add {
     @include to-icon("\e901");
+}
+
+.icon-edit {
+    @include to-icon("\e928");
 }
