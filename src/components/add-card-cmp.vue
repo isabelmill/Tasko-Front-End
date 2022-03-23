@@ -1,7 +1,7 @@
 <template>
     <section class="add-card-cmp">
         <button v-if="!show" @click="show = true">
-            <span class="icon-sm icon-add"></span>
+            <span class="icon-sm icon-add-dark"></span>
             <p>Add card</p>
         </button>
         <div v-clickOutside="addCard" v-if="show" class="add-new board-input">

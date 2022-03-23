@@ -9,7 +9,7 @@
             class="add-new-board"
             :style="show ? { 'height': '100px', 'backgroundColor': 'white' } : null"
         >
-            <button v-if="!show" @click="show = true">+ Add another list</button>
+            <button v-if="!show" @click="show = true"><span class="icon-sm icon-add-light"></span>Add another list</button>
             <div v-clickOutside="close" v-if="show" class="add-new board-input">
                 <input placeholder="Title" type="text" v-model="newGroup.title" />
                 <button @click="addNewGroup">Add List</button>

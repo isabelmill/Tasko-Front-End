@@ -85,6 +85,7 @@
 
         button {
             display: block;
+            border-radius: 3px;
             margin: 3px 3px 0 auto;
             display: flex;
             align-items: center;
@@ -116,10 +117,26 @@
     }
 }
 
-.icon-add {
-    @include to-icon("\e901");
+.add-new-board {
+    button {
+        @include btn();
+        
+        width: rem(272px);
+        height: rem(40px);
+        display: flex;
+        align-items: center;
+        gap: 3px
+    }
 }
 
+.icon-add-dark {
+    @include to-icon("\e901");
+    color: $memberBlue;
+}
+.icon-add-light {
+    @include to-icon("\e901");
+    color: #fff;
+}
 .icon-edit {
     @include to-icon("\e928");
 }
