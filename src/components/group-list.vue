@@ -10,7 +10,7 @@
             <input
                 v-clickOutside="changeTitle"
                 v-if="titleIsOpen"
-                v-model="groupToDisplay.title"
+                v-model="group.title"
                 type="text"
                 placeholder="group.title"
                 @submit.prevent="changeTitle"
