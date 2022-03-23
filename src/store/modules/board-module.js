@@ -1,37 +1,33 @@
-import { boardService } from '../../services/board-service.js'
+import {
+    boardService
+} from '../../services/board-service.js'
 
 export default {
     state: {
-        toys: null,
+        boards: null,
         filterBy: null,
     },
     getters: {
-        toys(state) {
-            return state.toys
+        boards(state) {
+            return state.boards
         },
     },
     mutations: {
-        setToys(state, {
-            toys
+        setBoards(state, {
+            boards
         }) {
-            state.toys = toys;
+            state.boards = boards;
         },
-        removeToy(state, {
-            id
-        }) {
-            const idx = state.toys.findIndex((toy) => toy._id === id)
-            state.toys.splice(idx, 1)
+        removeBoard(state, {id}) {
+            const idx = state.boards.findIndex((board) => board._id === id)
+            state.boards.splice(idx, 1)
         },
-        saveToy(state, {
-            toy
-        }) {
-            const idx = state.toys.findIndex((currToy) => currToy._id === toy._id)
-            if (idx !== -1) state.toys.splice(idx, 1, toy)
-            else state.toys.push(toy)
+        saveBoard(state, {board}) {
+            const idx = state.boards.findIndex((currBoard) => currBoard._id === board._id)
+            if (idx !== -1) state.boards.splice(idx, 1, board)
+            else state.boards.push(board)
         },
-        setFilter(state, {
-            filterBy
-        }) {
+        setFilter(state, {filterBy}) {
             state.filterBy = filterBy;
         },
     },
