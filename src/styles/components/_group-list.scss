@@ -1,1 +1,27 @@
 
+.group-edit-modal{
+    position: fixed;
+    width: rem(305px);
+    color: #172b4d;
+    line-height: rem(20px);
+    background-color: #ffffff;
+    border-radius: rem(3px);
+    box-shadow: 0 8px 16px -4px rgb(9 30 66 / 25%), 0 0 0 1px rgb(9 30 66 / 8%);
+    box-sizing: border-box;
+    outline: 0;
+    overflow: hidden;
+    cursor: default;
+
+    .group-modal-header{
+        display: flex;
+        justify-content: space-between;
+    }
+
+    button{
+        cursor: pointer;
+    }
+    a{
+        cursor: pointer;
+    }
+}
+

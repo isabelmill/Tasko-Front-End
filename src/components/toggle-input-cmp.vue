@@ -8,11 +8,20 @@
             type="text"
             @submit.prevent="change"
         />
-        <span class="icon-sm icon-overflow-menu-horizontal"></span>
+        <span @click="openEditGroupModal($event)" class="icon-sm icon-overflow-menu-horizontal"></span>
+        <group-edit 
+            v-if="openGroupEdit"
+            :style="{ top: distanceY + 'px', left: distanceX + 'px' }"
+            v-clickOutside="closeEditMode"
+            @close="closeEditMode"
+            :id = "id"
+            @remove="removeGroup"
+        ></group-edit>
     </section>
 </template>
 
 <script>
+import groupEdit from "./group-edit.vue"
 export default {
     name: "toggle-input",
     props: {
@@ -27,6 +36,9 @@ export default {
         return {
             txt: "",
             titleIsOpen: false,
+            openGroupEdit: false,
+            distanceX: 0,
+            distanceY: 0
         }
     },
     created() {
@@ -41,6 +53,22 @@ export default {
             this.titleIsOpen = false;
             this.$emit('titleChange', { txt: this.txt, id: this.id })
         },
+        openEditGroupModal(ev) {
+            console.log('ev:', ev);
+            this.openGroupEdit = true
+            this.distanceX = ev.clientX
+            this.distanceY = ev.clientY + 5
+        },
+        closeEditMode() {
+            this.openGroupEdit = false;
+        },
+        removeGroup(id){
+            console.log('id:',id);
+
+        }
+    },
+    components: {
+        groupEdit,
     },
     emits: ['titleChange']
 
