@@ -49,6 +49,7 @@ export default {
             this.board.groups.push(this.newGroup)
             this.$store.dispatch({ type: 'saveBoard', board: this.board })
             this.newGroup = boardService.getEmptyGroup()
+            this.show = false;
         },
         close() {
             this.show = false;
