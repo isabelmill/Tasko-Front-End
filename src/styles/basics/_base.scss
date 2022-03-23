@@ -1,60 +1,40 @@
-// ::selection {
-//     background-color: white;
-// }
+* {
+    box-sizing: border-box;
+    font-family: roboto-regular, sans-serif;
+}
 
-// * {
-//     box-sizing: border-box;
-// }
+body {
+    margin: 0;
+    background-color: rgb(87, 87, 87);
+}
 
-// html {
-//     font-family: sans-serif;
-//     color: $clr2;
-//     line-height: lh(26px);
+img {
+    width: 100%;
+}
 
-//     @media (min-width: 1000px) {
-//         font-size: 13px;
-//     }
-// }
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+}
 
-// body {
-//     margin: 0;
-//     // background-color: $clr2;
-// }
+p {
+    margin: 0;
+}
 
-// h1,
-// h2,
-// h3,
-// h4,
-// h5,
-// h6,
-// p {
-//     margin: 0;
-// }
+li {
+    cursor: pointer;
+    list-style-type: none;
+}
 
-// img {
-//     width: 100%;
-// }
+button {
+    cursor: pointer;
+}
 
-// button{
-//     cursor: pointer;
-// }
-
-// .btn {
-//     @include btn;
-
-//     &-dark {
-//         @include btn($type: dark);
-//     }
-
-//     &-light {
-//         @include btn($type: light);
-//     }
-// }
-
-
-
-// // links
-// a {
-//     color: $clr2;
-//     text-decoration: none;
-// }
+a {
+    text-decoration: none;
+    color: inherit;
+}
