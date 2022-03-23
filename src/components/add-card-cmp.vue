@@ -13,6 +13,7 @@
 </template>
 
 <script>
+import { boardService } from '../services/board-service';
 export default {
     name: "add-card",
     props: {
@@ -24,6 +25,7 @@ export default {
         return {
             txt: "",
             show: false,
+            newCard: boardService.getEmptyCard(),
         }
     },
     created() {
@@ -31,7 +33,8 @@ export default {
     methods: {
         addCard() {
             this.show = false;
-            this.$emit('cardAdd', { txt: this.txt, id: this.id })
+            this.newCard.title = this.txt;
+            this.$emit('cardAdd', this.newCard)
             this.txt = "";
         },
     }, unmounted() { },
