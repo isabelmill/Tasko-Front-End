@@ -47,3 +47,34 @@
         @include btn($color: #2c2c2c);
     }
 }
+
+.create-board-modal {
+    position: fixed;
+    width: rem(304px);
+    top: rem(184px);
+    left: rem(650px);
+    color: #172b4d;
+    font-size: rem(14px);
+    line-height: rem(20px);
+    background-color: #ffffff;
+    border-radius: rem(3px);
+    box-shadow: 0 8px 16px -4px rgb(9 30 66 / 25%), 0 0 0 1px rgb(9 30 66 / 8%);
+    box-sizing: border-box;
+    outline: 0;
+    overflow: hidden;
+
+    .create-board-background-preview {
+        img {
+            width: rem(180px);
+        }
+    }
+
+    .create-board-background-color {
+        .blue {
+            width: rem(100px);
+            height: rem(100px);
+            cursor: pointer;
+            background-color: #172b4d;
+        }
+    }
+}

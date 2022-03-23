@@ -174,7 +174,7 @@ function getEmptyGroup() {
     return {
         id: utilService.makeId(),
         title: '',
-        cards: getEmptyCard()
+        cards: []
     }
 }
 
@@ -191,7 +191,7 @@ function getEmptyBoard() {
         background: '',
         labels: [],
         members: [],
-        groups: getEmptyGroup(),
+        groups: [],
         activities: [],
     }
 }

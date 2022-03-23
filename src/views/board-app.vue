@@ -13,13 +13,25 @@
 
                     <button @click="openBoardEdit()" type="button">Create new board</button>
 
-                    <form v-if="isEdit === true" class="create-board-modal">
-                        <h1>Create board</h1>
-                        <label for>Title</label>
-                        <input type="text" v-model="newBoard.title" />
-                        <button @click="saveNewBoard">Create</button>
-                        <button class="edit-close-btn" @click="closeBoardEdit">X</button>
-                    </form>
+                    <div class="create-board-modal">
+                        <form v-if="isEdit === true">
+                            <h1>Create board</h1>
+                            <div class="create-board-background-preview">
+                                <img
+                                    src="https://a.trellocdn.com/prgb/dist/images/board-preview-skeleton.14cda5dc635d1f13bc48.svg"
+                                    alt
+                                />
+                            </div>
+                            <div class="create-board-background-color">
+                                <h1>Hey</h1>
+                                <div class="blue">Hey</div>
+                            </div>
+                            <label for>Board title</label>
+                            <input type="text" v-model="newBoard.title" />
+                            <button @click="saveNewBoard">Create</button>
+                            <button class="edit-close-btn" @click="closeBoardEdit">X</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
