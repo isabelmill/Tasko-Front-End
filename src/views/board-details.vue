@@ -49,8 +49,9 @@ export default {
     },
     methods: {
         addNewGroup() {
-            this.board.groups.push(this.newGroup)
-            this.$store.dispatch({ type: 'saveBoard', board: this.board })
+            this.boardToEdit = JSON.parse(JSON.stringify(this.board))
+            this.boardToEdit.groups.push(this.newGroup)
+            this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
             this.newGroup = boardService.getEmptyGroup()
             this.show = false;
         },

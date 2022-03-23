@@ -8,10 +8,10 @@
             type="text"
             @submit.prevent="change"
         />
-        <span @click="openEditGroupModal($event)" class="icon-sm icon-overflow-menu-horizontal"></span>
+        <span @click="openEditGroupModal($event)" ref="box" class="icon-sm icon-overflow-menu-horizontal"></span>
         <group-edit
             v-if="openGroupEdit"
-            :style="{ top: distanceY + 'px', left: distanceX + 'px' }"
+            :style="{ top: posBoxX + 'px', left: posBoxY + 'px' }"
             v-clickOutside="closeEditMode"
             @close="closeEditMode"
             :id="id"
@@ -42,6 +42,8 @@ export default {
             boards: this.$store.getters.boards,
             board: null,
             groups: null,
+            posBoxX: 0,
+            posBoxY: 0,
         }
     },
     created() {
@@ -51,6 +53,9 @@ export default {
         //     this.board = board
         //     this.groups = this.board.groups
         // })
+    },
+    mounted() {
+        this.calcPosOfBox()
     },
     methods: {
         openTitleEdit() {
@@ -74,6 +79,15 @@ export default {
             this.board = this.boards.find((board) => board._id === _id)
             // this.board.groups.splice(groupId, 1)
             // this.$store.dispatch({ type: 'saveBoard', board: this.board })
+        },
+        calcPosOfBox() {
+            this.posBoxX = this.$refs['box'].getBoundingClientRect().x
+            this.posBoxY = this.$refs['box'].getBoundingClientRect().y
+            console.log('posBoxA:',this.posBoxX);
+            console.log('posBoxA:',this.posBoxY);
+
+            // this.posBoxB = this.$refs['my_box_b'].getBoundingClientRect().x
+
         }
     },
     components: {

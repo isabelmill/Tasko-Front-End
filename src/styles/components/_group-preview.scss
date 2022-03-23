@@ -120,7 +120,7 @@
 .add-new-board {
     button {
         @include btn();
-        
+        background-color: grey;
         width: rem(272px);
         height: rem(40px);
         display: flex;
