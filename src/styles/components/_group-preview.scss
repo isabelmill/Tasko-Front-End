@@ -1,3 +1,25 @@
+// group-card
 .group-preview-main {
     background-color: rgb(109, 173, 173);
+    width: rem(276px);
+    border-radius: 3px;
+    .card-preview {
+        background-color: rgb(116, 15, 199);
+    }
+}
+
+// group-title
+.toggle-input {
+    
+    p {
+        height: 40px;
+        display: flex;
+        align-items: center;
+        background-color: rgb(245, 211, 161);
+        border-radius: 3px;
+    }
+
+    input {
+        background-color: rgb(245, 211, 161);
+    }
 }
