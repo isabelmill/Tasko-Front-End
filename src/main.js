@@ -1,7 +1,7 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
-import store from './store/index.js'
+import store from './store'
 import "./styles/styles.scss";
 import vClickOutside from 'click-outside-vue3'
 const app = createApp(App)
