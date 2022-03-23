@@ -1,37 +1,33 @@
 <!-- card preview inside group list -->
-<template>
-    <section class="group-list">
+<template >
+    <section  @titleChange="changeTitle" class="group-list">
         <section v-for="group in groups" :key="group.id" class="group-preview">
-            <p
-                v-if="!titleIsOpen"
-                class="group-title cursor-pointer"
-                @click="openTitleEdit(group.id)"
-            >{{ group.title }}</p>
-            <input
-                v-clickOutside="changeTitle"
-                v-if="titleIsOpen"
-                v-model="groupToDisplay.title"
-                type="text"
-                placeholder="group.title"
-                @submit.prevent="changeTitle"
-            />
+            <toggle-input-cmp :title="group.title" :id="group.id"></toggle-input-cmp>
+
             <card-preview
                 v-for="card in group.cards"
                 :key="card.id"
                 :groupId="group.id"
                 :card="card"
             ></card-preview>
+
+            <add-card-cmp @cardAdd="addNewCard" :id="group.id"></add-card-cmp>
         </section>
     </section>
 </template>
 
 <script>
 import cardPreview from "./card-preview.vue";
+import toggleInputCmp from "./toggle-input-cmp.vue";
+import addCardCmp from "./add-card-cmp.vue";
 import { boardService } from "../services/board-service.js";
+
 export default {
     name: "group-list",
     components: {
         cardPreview,
+        toggleInputCmp,
+        addCardCmp
     },
     props: {
         groups: {
@@ -42,11 +38,12 @@ export default {
     data() {
         return {
             titleIsOpen: false,
+            show: false,
             groupToDisplay: {
                 title: ""
             },
             board: null,
-            groupId: null,
+            newCard: boardService.getEmptyCard(),
         };
     },
     async created() {
@@ -54,16 +51,29 @@ export default {
         this.board = await boardService.getById(_id)
     },
     methods: {
-        async openTitleEdit(id) {
-            this.groupId = id
-            this.titleIsOpen = true;
-            this.groupToDisplay = await this.board.groups.find(group => group.id === this.groupId)
-        },
-        changeTitle() {
+        changeTitle(answer) {
+            console.log('??')
+            const group = this.board.groups.find(group => group.id === answer.id)
+            group.title = answer.txt
             this.$store.dispatch({ type: 'saveBoard', board: this.board })
             this.titleIsOpen = false;
+        },
+        close() {
+            this.show = false;
+        },
+        addNewCard(answer) {
+            console.log('??')
+            const group = this.board.groups.find(group => group.id === answer.id)
+            console.log(group)
+            this.newCard.title = answer.title
+            group.cards.push(this.newCard)
+            this.$store.dispatch({ type: 'saveBoard', board: this.board })
+            this.newCard = boardService.getEmptyCard()
         }
     },
+    mounted() {
+    },
+
 }
 </script>
 
