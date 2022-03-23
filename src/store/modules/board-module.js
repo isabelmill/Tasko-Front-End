@@ -3,16 +3,23 @@ import { boardService } from '../../services/board-service.js'
 export default {
     state: {
         boards: null,
+        selectedBoard: null,
         filterBy: null,
     },
     getters: {
         boards(state) {
             return state.boards
         },
+        board(state) {
+            return state.selectedBoard
+        }
     },
     mutations: {
         setBoards(state, { boards }) {
             state.boards = boards;
+        },
+        setBoard(state, { board }) {
+            state.selectedBoard = board;
         },
         removeBoard(state, { id }) {
             const idx = state.boards.findIndex((board) => board._id === id)
@@ -32,6 +39,14 @@ export default {
             try {
                 let boards = await boardService.query(state.filterBy)
                 commit({ type: 'setBoards', boards });
+            } catch (err) {
+                console.log('err');
+            }
+        },
+        async loadBoardById({ commit }, { newId }) {
+            try {
+                const board = await boardService.getById(newId)
+                commit({ type: 'setBoard', board });
             } catch (err) {
                 console.log('err');
             }

@@ -1,9 +1,9 @@
 <template>
     <section>
-        <board-header :board="board"/>
+        <board-header v-if="board" :board="board" />
     </section>
     <section v-if="board" class="board-details-main">
-        <group-list :groups="groups"></group-list>
+        <group-list :groups="board.groups"></group-list>
 
         <div
             class="add-new-board"
@@ -12,7 +12,7 @@
             <button v-if="!show" @click="show = true">+ Add another list</button>
             <div v-clickOutside="close" v-if="show" class="add-new board-input">
                 <input placeholder="Title" type="text" v-model="newGroup.title" />
-                <button @click="addNewGroup" >Add List</button>
+                <button @click="addNewGroup">Add List</button>
                 <button @click="show = false">X</button>
             </div>
         </div>
@@ -32,17 +32,16 @@ export default {
     data() {
         return {
             show: false,
-            board: null,
-            groups: null,
+            boardToEdit: null,
             newGroup: boardService.getEmptyGroup()
         }
     },
     created() {
-        const { _id } = this.$route.params
-        boardService.getById(_id).then((board) => {
-            this.board = board
-            this.groups = this.board.groups
-        })
+        // const { _id } = this.$route.params
+        // boardService.getById(_id).then((board) => {
+        //     this.board = board
+        //     this.groups = this.board.groups
+        // })
     },
     methods: {
         addNewGroup() {
@@ -53,10 +52,29 @@ export default {
         },
         close() {
             this.show = false;
-            this.newGroup.title=""
+            this.newGroup.title = ""
         }
     },
+    computed: {
+        board() {
+            return this.$store.getters.board
+        }
+    },
+    watch: {
+        "$route.params.boardId": {
+            async handler(newId) {
+                this.$store.dispatch({type: 'loadBoardById', newId})
+            },
+            immediate: true
+        },
+        // "$store.getters.selectedBoard": {
+        //     handler(newBoard) {
+        //         this.board = newBoard
+        //     }
+        // }
+    }
 }
+
 </script>
 
 <style>

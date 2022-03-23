@@ -1,7 +1,7 @@
 <!-- card preview inside group list -->
 <template >
     <section class="group-list-main">
-        <section v-for="group in groupsToShow" :key="group.id" class="group-preview-main">
+        <section v-for="group in groups" :key="group.id" class="group-preview-main">
             <toggle-input-cmp class="title" @titleChange="changeTitle" :title="group.title" :id="group.id"></toggle-input-cmp>
 
             <card-preview
@@ -35,13 +35,12 @@ export default {
     },
     data() {
         return {
-            groupsToShow: null,
+            groupToEdit: null,
             titleIsOpen: false,
             show: false,
             groupToDisplay: {
                 title: ""
             },
-            board: null,
             newCard: boardService.getEmptyCard(),
         };
     },
@@ -52,7 +51,7 @@ export default {
     },
     methods: {
         changeTitle(answer) {
-            const group = this.board.groups.find(group => group.id === answer.id)
+            const group = JSON.parse(JSON.stringify(this.board.groups.find(group => group.id === answer.id)))
             group.title = answer.txt
             this.$store.dispatch({ type: 'saveBoard', board: this.board })
             this.titleIsOpen = false;
@@ -60,12 +59,13 @@ export default {
         close() {
             this.show = false;
         },
-        addNewCard(answer) {
-            const group = this.board.groups.find(group => group.id === answer.id)
-            this.newCard.title = answer.txt
-            group.cards.push(this.newCard)
-            this.groupsToShow = this.board.groups
-            this.$store.dispatch({ type: 'saveBoard', board: this.board })
+        addNewCard({txt, id}) {
+            this.groupToEdit = JSON.parse(JSON.stringify(this.board.groups.find(group => group.id === id)))
+            this.newCard.title = txt
+            this.groupToEdit.cards.push(this.newCard)
+            // this.groupsToShow = this.board.groups
+            this.$emit('groupUpdated', this.groupToEdit)
+            // this.$store.dispatch({ type: 'saveBoard', board: this.board })
             this.newCard = boardService.getEmptyCard()
         }
     },

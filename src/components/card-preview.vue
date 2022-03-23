@@ -3,8 +3,23 @@
         <p class="card-title cursor-pointer">{{ card.title }}</p>
         <button class="icon-sm icon-edit" @click="openMiniEdit($event)"></button>
     </section>
-    <section style="position:fixed" :style="{top: distanceY+'px',left:distanceX+'px'}" v-clickOutside="closeModal" v-if="modalOpen" class="mini-edit-modal flex">
+    <section
+        style="position:fixed"
+        :style="{ top: distanceY + 'px', left: distanceX + 'px' }"
+        v-clickOutside="closeModal"
+        v-if="modalOpen"
+        class="mini-edit-modal flex"
+    >
         <textarea name="mini-edit-ta" style="resize:none" v-model="cardToDisplay.title"></textarea>
+        <button class="mini-edit-card-details" @click="openDetails">Open card</button>
+        <button class="mini-edit-labels" @click="editLabels">Edit labels</button>
+        <button class="mini-edit-members" @click="openDetails">Change members</button>
+        <button class="mini-edit-cover" @click="openDetails">Channge cover</button>
+        <button class="mini-edit-move" @click="openDetails">Move</button>
+        <button class="mini-edit-copy" @click="openDetails">Copy</button>
+        <button class="mini-edit-dates" @click="openDetails">Edit dates</button>
+        <button class="mini-edit-delete" @click="openDetails">Delete</button>
+
         <button class="mini-edit-save" @click="saveCard"></button>
     </section>
 </template>
@@ -24,8 +39,8 @@ export default {
     },
     data() {
         return {
-            distanceY:0,
-            distanceX:0,
+            distanceY: 0,
+            distanceX: 0,
             modalOpen: false,
             board: null,
             titleIsOpen: false,
@@ -51,8 +66,8 @@ export default {
             this.titleIsOpen = false;
         },
         openMiniEdit(ev) {
-            this.distanceX= ev.clientX-65;
-            this.distanceY= ev.clientY+10;
+            this.distanceX = ev.clientX - 65;
+            this.distanceY = ev.clientY + 10;
             this.modalOpen = true;
         },
         openDetails() {
@@ -69,5 +84,4 @@ export default {
 </script>
 
 <style>
-
 </style>
