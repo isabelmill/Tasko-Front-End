@@ -9,9 +9,11 @@
             class="add-new-board"
             :style="show ? { 'height': '100px', 'backgroundColor': 'white' } : null"
         >
-            <button v-if="!show" @click="show = true"><span class="icon-sm icon-add-light"></span>Add another list</button>
+            <button v-if="!show" @click="show = true">
+                <span class="icon-sm icon-add-light"></span>Add another list
+            </button>
             <div v-clickOutside="close" v-if="show" class="add-new board-input">
-                <input placeholder="Title" type="text" v-model="newGroup.title" />
+                <input @keyup.enter="addNewGroup" placeholder="Title" type="text" v-model="newGroup.title" />
                 <button @click="addNewGroup">Add List</button>
                 <button @click="show = false">X</button>
             </div>
@@ -38,7 +40,7 @@ export default {
         }
     },
     created() {
-
+        // this.$store.dispatch({ type: 'loadBoards' })
         // const { _id } = this.$route.params
         // boardService.getById(_id).then((board) => {
         //     this.board = board
@@ -61,7 +63,7 @@ export default {
             this.boardToEdit = JSON.parse(JSON.stringify(this.board))
             const groupIdx = this.boardToEdit.groups.findIndex(group => group.id === editedGroup.id)
             this.boardToEdit.groups[groupIdx] = editedGroup
-            this.$store.dispatch({type:'saveBoard', board: this.boardToEdit})
+            this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
         }
     },
     computed: {
