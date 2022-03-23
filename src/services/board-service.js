@@ -13,7 +13,7 @@ export const boardService = {
     getById,
     remove,
     updateBoard,
-    saveBoard,
+    save,
     getEmptyCard,
     getEmptyGroup,
     getEmptyBoard,
@@ -35,7 +35,7 @@ function updateBoard(board) {
     return asyncStorageService.put(BOARDS_KEY, board)
 }
 
-function saveBoard(board) {
+function save(board) {
     if (board._id) {
         return asyncStorageService.put(BOARDS_KEY, board);
     } else {
