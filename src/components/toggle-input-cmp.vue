@@ -8,6 +8,7 @@
             type="text"
             @submit.prevent="change"
         />
+        <span class="icon-sm icon-overflow-menu-horizontal"></span>
     </section>
 </template>
 
