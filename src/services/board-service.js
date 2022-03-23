@@ -52,7 +52,7 @@ function _createBoards() {
             "createdAt": 1589983468418,
             "createdBy": {
                 "_id": "u101",
-                "fullname": "Abi Abambi",
+                "fullname": "Isabel Mill",
                 "imgUrl": "http://some-img"
             },
             "background": {},
