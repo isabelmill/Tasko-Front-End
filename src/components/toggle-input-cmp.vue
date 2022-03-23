@@ -1,6 +1,10 @@
 <template>
     <section class="toggle-input">
-        <p v-if="!titleIsOpen" class="group-title cursor-pointer" @click="openTitleEdit">{{ txt }}</p>
+        <p
+            v-if="!titleIsOpen"
+            class="group-title cursor-pointer"
+            @click="openTitleEdit, calcPosOfBox($)"
+        >{{ txt }}</p>
         <input
             v-clickOutside="change"
             v-if="titleIsOpen"
@@ -8,11 +12,7 @@
             type="text"
             @submit.prevent="change"
         />
-        <span
-            @click="calcPosOfBox($)"
-            ref="box"
-            class="icon-sm icon-overflow-menu-horizontal"
-        ></span>
+        <span @click="openEditGroupModal()" ref="box" class="icon-sm icon-overflow-menu-horizontal"></span>
         <group-edit
             v-if="openGroupEdit"
             :style="{ top: posBoxX + 'px', left: posBoxY + 'px' }"
@@ -41,8 +41,6 @@ export default {
             txt: "",
             titleIsOpen: false,
             openGroupEdit: false,
-            distanceX: 0,
-            distanceY: 0,
             boards: this.$store.getters.boards,
             board: this.$store.getters.board,
             groups: null,
@@ -62,24 +60,27 @@ export default {
             this.titleIsOpen = false;
             this.$emit('titleChange', { txt: this.txt, id: this.id })
         },
-        openEditGroupModal(ev) {
-            console.log('ev:', ev);
+        openEditGroupModal() {
+            // console.log('ev:', ev);
             this.openGroupEdit = true
-            this.distanceX = ev.clientX
-            this.distanceY = ev.clientY + 5
+            // this.distanceX = ev.clientX
+            // this.distanceY = ev.clientY + 5
         },
         closeEditMode() {
             this.openGroupEdit = false;
         },
         removeGroup(groupId) {
             this.boardToEdit = JSON.parse(JSON.stringify(this.board))
-            this.boardToEdit.groups.splice(groupId, 1)
+            const idx = this.boardToEdit.groups.findIndex((group) => group.id === groupId)
+            this.boardToEdit.groups.splice(idx, 1)
             this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
             this.closeEditMode()
         },
         calcPosOfBox() {
             this.posBoxX = this.$refs['box'].getBoundingClientRect().x
             this.posBoxY = this.$refs['box'].getBoundingClientRect().y
+            console.log('posBoxX:', this.posBoxX);
+            console.log('posBoxY:', this.posBoxY);
         }
     },
     components: {
