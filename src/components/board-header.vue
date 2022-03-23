@@ -2,12 +2,24 @@
     <section class="board-header-main">
         <nav>
             <button>Board</button>
-            <p class="board-name">Board Name</p>
+            <div class="board-name-edit">
+                <p class="board-name" v-if="!titleIsOpen" @click="openTitleEdit">{{ board.title }}</p>
+                <input
+                    v-clickOutside="changeTitle"
+                    v-if="titleIsOpen"
+                    v-model="board.title"
+                    type="text"
+                    placeholder="board.title"
+                    @submit.prevent="changeBoardTitle"
+                />
+            </div>
+
             <button @click="boardStared">
                 <div :class="updateStar"></div>
             </button>
             <div class="invite">
-                <div class="icon-sm icon-add-member"></div> <p>Invite</p>
+                <div class="icon-sm icon-add-member"></div>
+                <p>Invite</p>
             </div>
         </nav>
         <nav>
@@ -21,15 +33,27 @@
 
 <script>
 export default {
+    props: {
+        board: Object,
+    },
     data() {
         return {
             isStared: false,
+            titleIsOpen: false,
         }
     },
     methods: {
         boardStared() {
             this.isStared = !this.isStared
             // console.log('this.isStared', this.isStared)
+        },
+        openTitleEdit() {
+            this.titleIsOpen = true;
+        },
+        changeTitle() {
+            console.log('board.title:', this.board.title);
+            this.$store.dispatch({ type: 'saveBoard', board: this.board })
+            this.titleIsOpen = false;
         }
     },
     computed: {

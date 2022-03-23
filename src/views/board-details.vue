@@ -1,6 +1,6 @@
 <template>
     <section>
-        <board-header />
+        <board-header :board="board"/>
     </section>
     <section v-if="board" class="board-details-main">
         <group-list :groups="groups"></group-list>
