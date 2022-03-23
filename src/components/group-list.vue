@@ -35,13 +35,13 @@ export default {
     },
     data() {
         return {
-            groupsToShow: [],
+            groupsToShow: null,
             titleIsOpen: false,
             show: false,
             groupToDisplay: {
                 title: ""
             },
-            board: {},
+            board: null,
             newCard: boardService.getEmptyCard(),
         };
     },
@@ -64,6 +64,7 @@ export default {
             const group = this.board.groups.find(group => group.id === answer.id)
             this.newCard.title = answer.txt
             group.cards.push(this.newCard)
+            this.groupsToShow = this.board.groups
             this.$store.dispatch({ type: 'saveBoard', board: this.board })
             this.newCard = boardService.getEmptyCard()
         }
