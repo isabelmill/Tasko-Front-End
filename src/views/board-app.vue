@@ -5,8 +5,10 @@
             <div class="contact">
                 <div class="folders">
                     <p>Boards</p>
+                    <p>templates</p>
+                    <p>Home</p>
                 </div>
-                <div>
+                <div class="folder-info">
                     <board-list v-if="boards" :boards="boards" />
 
                     <button @click="openBoardEdit()" type="button">Create new board</button>
