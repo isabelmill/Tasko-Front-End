@@ -1,6 +1,6 @@
 <template>
-    <section class="card-preview">
-        <p v-if="!titleIsOpen" class="card-title" @click="openTitleEdit">{{ card.title }}</p>
+    <section class="card-preview cursor-pointer">
+        <p v-if="!titleIsOpen" class="card-title cursor-pointer" @click="openTitleEdit">{{ card.title }}</p>
         <input v-model="cardToDisplay.title" type="text" placeholder="card.title" @submit.prevent="changeTitle"> 
         </section>
 </template>
