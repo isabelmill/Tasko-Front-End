@@ -31,7 +31,7 @@ export default {
             this.$emit('cardAdd', { txt: this.txt, id: this.id })
             this.txt="";
         },
-    },
+    },unmounted(){},
     emits: ['cardAdd']
 }
 </script>

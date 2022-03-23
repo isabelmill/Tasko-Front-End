@@ -64,8 +64,8 @@ export default {
         addNewCard(answer) {
             console.log('??')
             const group = this.board.groups.find(group => group.id === answer.id)
-            console.log(group)
-            this.newCard.title = answer.title
+            console.log(answer)
+            this.newCard.title = answer.txt
             group.cards.push(this.newCard)
             this.$store.dispatch({ type: 'saveBoard', board: this.board })
             this.newCard = boardService.getEmptyCard()
