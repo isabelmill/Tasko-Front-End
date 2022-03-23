@@ -8,7 +8,7 @@
                     maxlength="512"
                     v-clickOutside="changeTitle"
                     v-if="titleIsOpen"
-                    v-model="board.title"
+                    v-model="boardToEdit.title"
                     type="text"
                     @submit.prevent="changeBoardTitle"
                 />
@@ -40,6 +40,7 @@ export default {
         return {
             isStared: false,
             titleIsOpen: false,
+            boardToEdit: JSON.parse(JSON.stringify(this.board))
         }
     },
     methods: {
@@ -51,9 +52,8 @@ export default {
             this.titleIsOpen = true;
         },
         changeTitle() {
-            if(!this.board.title) return
-            console.log('board.title:', this.board.title);
-            this.$store.dispatch({ type: 'saveBoard', board: this.board })
+            if(!this.boardToEdit.title) return
+            this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
             this.titleIsOpen = false;
         }
     },
