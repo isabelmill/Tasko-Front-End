@@ -1,8 +1,15 @@
 .app-header-main {
     height: 43px;
-    background-color: $mainBlue ;
-
-    button {
-        @include btn();
+    background-color: $mainBlue;
+    color: #ffff;
+    display: flex;
+    align-items: center;
+    .logo {
+        margin-left: 30px;
+    }
+    .link {
+        margin-left: 10px;
+        height: 32px;
+        @include headerBtn();
     }
 }

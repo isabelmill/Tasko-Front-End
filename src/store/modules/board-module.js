@@ -13,9 +13,7 @@ export default {
         },
     },
     mutations: {
-        setBoards(state, {
-            boards
-        }) {
+        setBoards(state, {boards}) {
             state.boards = boards;
         },
         removeBoard(state, {id}) {
@@ -32,67 +30,34 @@ export default {
         },
     },
     actions: {
-        async loadToys({
-            commit,
-            state
-        }) {
+        async loadBoards({commit,state}) {
             try {
-                let toys = await toyService.query(state.filterBy)
-                commit({
-                    type: 'setToys',
-                    toys
-                });
-
+                let boards = await boardService.query(state.filterBy)
+                commit({type: 'setBoards',boards});
             } catch (err) {
                 console.log('err');
             }
         },
-        async removeToy({
-            commit
-        }, {
-            id
-        }) {
+        async removeBoard({commit}, {id}) {
             try {
-                await toyService.remove(id)
-                commit({
-                    type: 'removeToy',
-                    id
-                });
+                await boardService.remove(id)
+                commit({type: 'removeBoard',id});
             } catch (err) {
                 console.log('err');
             }
         },
-        async saveToy({
-            commit
-        }, {
-            toy
-        }) {
+        async saveToy({commit}, {board}) {
             try {
-                await toyService.save(toy)
-                console.log('res', toy);
-                commit({
-                    type: 'saveToy',
-                    toy
-                });
+                await boardService.save(board)
+                commit({type: 'saveBoard',board});
             } catch (err) {
                 console.log('err');
             }
         },
-        filter({
-            commit,
-            dispatch
-        }, {
-            filterBy
-        }) {
-            // toyService.query(filterBy).then((toys) => {
-            //   commit({type: 'setToys', toys});
-            // });
-            commit({
-                type: 'setFilter',
-                filterBy
-            });
+        filter({commit,dispatch}, {filterBy}) {
+            commit({type: 'setFilter',filterBy});
             dispatch({
-                type: 'loadToys'
+                type: 'loadBoards'
             });
         },
     },
