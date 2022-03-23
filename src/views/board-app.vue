@@ -2,13 +2,20 @@
     <section class="board-app-main">
         <div class="main-container">
             <div class="folders">
-                <a>Boards</a>
+                <p>Boards</p>
             </div>
-            <div class="board-list">
-                <div class="board-preview">
-                    <board-list v-if="boards" :boards="boards" />
-                </div>
-            </div>
+            <h1>YOUR WORKSPACES</h1>
+            <board-list v-if="boards" :boards="boards" />
+
+            <button @click="openBoardEdit()" type="button">Create new board</button>
+
+            <form v-if="isEdit === true" class="create-board-modal">
+                <h1>Create board</h1>
+                <label for>Title</label>
+                <input type="text" v-model="newBoard.title" />
+                <button @click="saveNewBoard">Create</button>
+                <button class="edit-close-btn" @click="closeBoardEdit">X</button>
+            </form>
         </div>
     </section>
 </template>
@@ -22,6 +29,8 @@ export default {
     data() {
         return {
             filterBy: null,
+            isEdit: false,
+            newBoard: boardService.getEmptyBoard(),
         }
     },
     computed: {
@@ -36,7 +45,16 @@ export default {
         setFilter(filterBy) {
             this.$store.dispatch({ type: 'filter', filterBy });
         },
-        addNew() {
+        openBoardEdit() {
+            this.isEdit = true;
+        },
+        closeBoardEdit() {
+            this.isEdit = false;
+        },
+        saveNewBoard() {
+            this.$store.dispatch({ type: 'saveBoard', board: this.newBoard })
+            this.newBoard = boardService.getEmptyBoard()
+            this.isEdit = false
         },
     },
     components: {

@@ -13,7 +13,7 @@ export const boardService = {
     getById,
     remove,
     updateBoard,
-    saveBoard,
+    save,
     getEmptyCard,
     getEmptyGroup,
     getEmptyBoard,
@@ -35,7 +35,7 @@ function updateBoard(board) {
     return asyncStorageService.put(BOARDS_KEY, board)
 }
 
-function saveBoard(board) {
+function save(board) {
     if (board._id) {
         return asyncStorageService.put(BOARDS_KEY, board);
     } else {
@@ -75,7 +75,7 @@ function _createBoards() {
             "groups": [{
                     "id": "g101",
                     "title": "Group 1",
-                    "tasks": [{
+                    "cards": [{
                             "id": "c101",
                             "title": "Replace logo"
                         },
@@ -89,7 +89,7 @@ function _createBoards() {
                 {
                     "id": "g102",
                     "title": "Group 2",
-                    "tasks": [{
+                    "cards": [{
                             "id": "c103",
                             "title": "Do that"
                         },
@@ -159,7 +159,7 @@ function _createBoards() {
         }]
         utilService.saveToStorage(BOARDS_KEY, boards)
     }
-    console.log('boards:',boards);
+    console.log('boards:', boards);
     return boards
 }
 
