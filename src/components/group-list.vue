@@ -1,7 +1,7 @@
 <!-- card preview inside group list -->
 <template >
-    <section  @titleChange="changeTitle" class="group-list">
-        <section v-for="group in groups" :key="group.id" class="group-preview">
+    <section @titleChange="changeTitle" class="group-list-main">
+        <section v-for="group in groups" :key="group.id" class="group-preview-main">
             <toggle-input-cmp :title="group.title" :id="group.id"></toggle-input-cmp>
 
             <card-preview
@@ -10,8 +10,7 @@
                 :groupId="group.id"
                 :card="card"
             ></card-preview>
-
-            <add-card-cmp @cardAdd="addNewCard" :id="group.id"></add-card-cmp>
+        <add-card-cmp @cardAdd="addNewCard" :id="group.id"></add-card-cmp>
         </section>
     </section>
 </template>
