@@ -1,0 +1,60 @@
+// ::selection {
+//     background-color: white;
+// }
+
+// * {
+//     box-sizing: border-box;
+// }
+
+// html {
+//     font-family: sans-serif;
+//     color: $clr2;
+//     line-height: lh(26px);
+
+//     @media (min-width: 1000px) {
+//         font-size: 13px;
+//     }
+// }
+
+// body {
+//     margin: 0;
+//     // background-color: $clr2;
+// }
+
+// h1,
+// h2,
+// h3,
+// h4,
+// h5,
+// h6,
+// p {
+//     margin: 0;
+// }
+
+// img {
+//     width: 100%;
+// }
+
+// button{
+//     cursor: pointer;
+// }
+
+// .btn {
+//     @include btn;
+
+//     &-dark {
+//         @include btn($type: dark);
+//     }
+
+//     &-light {
+//         @include btn($type: light);
+//     }
+// }
+
+
+
+// // links
+// a {
+//     color: $clr2;
+//     text-decoration: none;
+// }
