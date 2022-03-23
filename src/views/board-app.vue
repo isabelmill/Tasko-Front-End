@@ -15,21 +15,31 @@
 
                     <div class="create-board-modal">
                         <form v-if="isEdit === true">
-                            <h1>Create board</h1>
-                            <div class="create-board-background-preview">
+                            <div class="create-board-modal-header">
+                                <div class="create-board-modal-header-items">
+                                    <h1>Create board</h1>
+                                    <button class="edit-close-btn" @click="closeBoardEdit">X</button>
+                                </div>
+                            </div>
+
+                            <div class="create-board-background-preview" :style="{backgroundColor:setColor}">
                                 <img
                                     src="https://a.trellocdn.com/prgb/dist/images/board-preview-skeleton.14cda5dc635d1f13bc48.svg"
                                     alt
                                 />
                             </div>
+                            <h1>Background</h1>
                             <div class="create-board-background-color">
-                                <h1>Hey</h1>
-                                <div class="blue">Hey</div>
+                                <div @click="setBoardColor('#0079BF')" class="blue color-pref"></div>
+                                <div @click="setBoardColor('#D29034')" class="yellow color-pref"></div>
+                                <div @click="setBoardColor('#519839')" class="green color-pref"></div>
+                                <div @click="setBoardColor('#B04632')" class="red color-pref"></div>
+                                <div @click="setBoardColor('#89609E')" class="purple color-pref"></div>
+                                <div class="more color-pref">...</div>
                             </div>
                             <label for>Board title</label>
                             <input type="text" v-model="newBoard.title" />
                             <button @click="saveNewBoard">Create</button>
-                            <button class="edit-close-btn" @click="closeBoardEdit">X</button>
                         </form>
                     </div>
                 </div>
@@ -49,6 +59,7 @@ export default {
             filterBy: null,
             isEdit: false,
             newBoard: boardService.getEmptyBoard(),
+            setColor: '',
         }
     },
     computed: {
@@ -73,6 +84,10 @@ export default {
             this.$store.dispatch({ type: 'saveBoard', board: this.newBoard })
             this.newBoard = boardService.getEmptyBoard()
             this.isEdit = false
+        },
+        setBoardColor(color) {
+            this.setColor = color
+            this.newBoard.background = color
         },
     },
     components: {
