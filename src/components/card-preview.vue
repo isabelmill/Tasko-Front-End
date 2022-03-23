@@ -1,18 +1,11 @@
 <template>
-    <section class="card-preview cursor-pointer">
-        <p
-            v-if="!titleIsOpen"
-            class="card-title cursor-pointer"
-            @click="openTitleEdit"
-        >{{ card.title }}</p>
-        <input
-            v-clickOutside="changeTitle"
-            v-if="titleIsOpen"
-            v-model="cardToDisplay.title"
-            type="text"
-            placeholder="card.title"
-            @submit.prevent="changeTitle"
-        />
+    <section class="card-preview cursor-pointer flex" @click="openDetails">
+        <p class="card-title cursor-pointer">{{ card.title }}</p>
+        <button class="mini-edit" @click="openMiniEdit($event)">edit</button>
+    </section>
+    <section style="position:fixed" :style="{top: distanceY+'px',left:distanceX+'px'}" v-clickOutside="closeModal" v-if="modalOpen" class="mini-edit-modal flex">
+        <textarea name="mini-edit-ta" style="resize:none" v-model="cardToDisplay.title"></textarea>
+        <button class="mini-edit-save" @click="saveCard"></button>
     </section>
 </template>
 
@@ -31,6 +24,9 @@ export default {
     },
     data() {
         return {
+            distanceY:0,
+            distanceX:0,
+            modalOpen: false,
             board: null,
             titleIsOpen: false,
             cardToDisplay: {
@@ -43,7 +39,7 @@ export default {
     },
     methods: {
         openTitleEdit() {
-            this.titleIsOpen = true;
+            // this.titleIsOpen = true;
         },
         async changeTitle() {
             const { _id } = this.$route.params
@@ -53,10 +49,26 @@ export default {
             card.title = this.cardToDisplay.title
             this.$store.dispatch({ type: 'saveBoard', board: this.board })
             this.titleIsOpen = false;
-        }
+        },
+        openMiniEdit(ev) {
+            this.distanceX= ev.clientX-65;
+            this.distanceY= ev.clientY+10;
+            console.log(this.distanceY,this.distanceX)
+            this.modalOpen = true;
+        },
+        openDetails() {
+            // this.$router.push('/card/')
+        },
+        closeModal() {
+            this.modalOpen = false
+        },
+        saveCard() {
+
+        },
     },
 }
 </script>
 
 <style>
+
 </style>

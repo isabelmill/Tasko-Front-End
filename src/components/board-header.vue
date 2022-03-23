@@ -5,11 +5,11 @@
             <div class="board-name-edit">
                 <p class="board-name" v-if="!titleIsOpen" @click="openTitleEdit">{{ board.title }}</p>
                 <input
+                    maxlength="512"
                     v-clickOutside="changeTitle"
                     v-if="titleIsOpen"
                     v-model="board.title"
                     type="text"
-                    placeholder="board.title"
                     @submit.prevent="changeBoardTitle"
                 />
             </div>
@@ -51,6 +51,7 @@ export default {
             this.titleIsOpen = true;
         },
         changeTitle() {
+            if(!this.board.title) return
             console.log('board.title:', this.board.title);
             this.$store.dispatch({ type: 'saveBoard', board: this.board })
             this.titleIsOpen = false;
