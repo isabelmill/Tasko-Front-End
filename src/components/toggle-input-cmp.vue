@@ -69,10 +69,10 @@ export default {
         closeEditMode() {
             this.openGroupEdit = false;
         },
-        removeGroup(boardId) {
+        removeGroup(groupId) {
             const { _id } = this.$route.params
             this.board = this.boards.find((board) => board._id === _id)
-            // this.board.groups.splice(boardId, 1)
+            // this.board.groups.splice(groupId, 1)
             // this.$store.dispatch({ type: 'saveBoard', board: this.board })
         }
     },
