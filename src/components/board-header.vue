@@ -1,5 +1,5 @@
 <template>
-    <section class="board-header-main">
+    <section v-if="board" class="board-header-main">
         <nav>
             <button>Board</button>
             <div class="board-name-edit">
