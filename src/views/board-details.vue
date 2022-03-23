@@ -12,7 +12,7 @@
             <button v-if="!show" @click="show = true">+ Add another list</button>
             <div v-clickOutside="close" v-if="show" class="add-new board-input">
                 <input placeholder="Title" type="text" v-model="newGroup.title" />
-                <button @click="addNewGroup()">Add List</button>
+                <button @click="addNewGroup">Add List</button>
                 <button @click="show = false">X</button>
             </div>
         </div>
@@ -52,6 +52,7 @@ export default {
         },
         close() {
             this.show = false;
+            this.newGroup.title=""
         }
     },
 }
