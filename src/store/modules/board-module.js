@@ -1,6 +1,4 @@
-import {
-    boardService
-} from '../../services/board-service.js'
+import {boardService} from '../../services/board-service.js'
 
 export default {
     state: {
@@ -46,7 +44,7 @@ export default {
                 console.log('err');
             }
         },
-        async saveToy({commit}, {board}) {
+        async saveBoard({commit}, {board}) {
             try {
                 await boardService.save(board)
                 commit({type: 'saveBoard',board});

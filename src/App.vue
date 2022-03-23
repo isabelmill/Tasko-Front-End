@@ -9,6 +9,10 @@
 import appHeader from './components/app-header.vue'
 export default {
   name: 'app',
+    async created() {
+    await this.$store.dispatch({ type: 'loadBoards' })
+
+  },
   methods: {
   },
   components: {

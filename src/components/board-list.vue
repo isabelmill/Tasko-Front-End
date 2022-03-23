@@ -1,0 +1,21 @@
+<template>
+    <div class=" board-list-main">
+        <board-preview v-for="board in boards" :board="board" :key="board._id" />
+    </div>
+</template>
+
+<script>
+import boardPreview from '../components/board-preview.vue'
+
+export default {
+        props: {
+        boards: {
+            type: Array,
+            required: true,
+        },
+    },
+        components: {
+        boardPreview,
+    },
+}
+</script>
