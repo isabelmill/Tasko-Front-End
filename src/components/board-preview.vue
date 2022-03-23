@@ -1,14 +1,19 @@
 <template>
-<div @click="goToDetails" class="board-preview-main">
-<h1>{{board.title}}</h1>
-</div>
+    <div class="board-preview-main">
+        <h1 @click="goToDetails()">{{ board.title }}</h1>
+    </div>
 </template>
 
 <script>
+
 export default {
-name: 'board-preview',
+    name: 'board-preview',
     props: {
         board: Object,
+    },
+    data() {
+        return {
+        }
     },
     methods: {
         goToDetails() {
