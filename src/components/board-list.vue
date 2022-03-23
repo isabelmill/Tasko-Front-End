@@ -1,5 +1,5 @@
 <template>
-    <div class=" board-list-main">
+    <div class="board-list-main">
         <board-preview v-for="board in boards" :board="board" :key="board._id" />
     </div>
 </template>

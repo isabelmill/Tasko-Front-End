@@ -1,0 +1,41 @@
+.board-app-main {
+    background-color: rgb(255, 255, 255);
+    height: 100vh;
+}
+
+.main-container {
+    margin: 40px 0 0 90px;
+    text-align: center;
+}
+
+.contact {
+    margin-top: 20px;
+    // background-color: #555b5f;
+    display: flex;
+
+    button {
+        margin-top: 20px;
+        @include btn($color: #2c2c2c);
+    }
+}
+
+.folders {
+    p {
+        display: flex;
+        align-items: center;
+        background-color: #d3e8f3;
+        font-size: 14px;
+        font-weight: bold;
+        color: #0079bf;
+        border: none;
+        // align-items: ;
+        border-radius: 4px;
+        font-weight: bold;
+        // padding: 6px 8px 6px 0;
+        padding-left: 33px;
+        margin-right: 40px;
+        height: 36px;
+        width: 240px;
+        cursor: pointer;
+    }
+}

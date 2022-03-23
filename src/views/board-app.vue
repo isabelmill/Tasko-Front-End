@@ -1,18 +1,26 @@
 <template>
     <section class="board-app-main">
-        <h1>YOUR WORKSPACES</h1>
-        <board-list v-if="boards" :boards="boards" />
+        <div class="main-container">
+            <h1>YOUR WORKSPACES</h1>
+            <div class="contact">
+                <div class="folders">
+                    <p>Boards</p>
+                </div>
+                <div>
+                    <board-list v-if="boards" :boards="boards" />
 
-        <button @click="openBoardEdit()" type="button">Create new board</button>
+                    <button @click="openBoardEdit()" type="button">Create new board</button>
 
-        <form v-if="isEdit === true" class="create-board-modal">
-            <h1>Create board</h1>
-            <label for>Title</label>
-            <input type="text" v-model="newBoard.title" />
-            <button @click="saveNewBoard">Create</button>
-            <button class="edit-close-btn" @click="closeBoardEdit">X</button>
-        </form>
-
+                    <form v-if="isEdit === true" class="create-board-modal">
+                        <h1>Create board</h1>
+                        <label for>Title</label>
+                        <input type="text" v-model="newBoard.title" />
+                        <button @click="saveNewBoard">Create</button>
+                        <button class="edit-close-btn" @click="closeBoardEdit">X</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </section>
 </template>
 
@@ -49,7 +57,7 @@ export default {
         },
         saveNewBoard() {
             this.$store.dispatch({ type: 'saveBoard', board: this.newBoard })
-            this.newBoard =  boardService.getEmptyBoard()
+            this.newBoard = boardService.getEmptyBoard()
             this.isEdit = false
         },
     },
