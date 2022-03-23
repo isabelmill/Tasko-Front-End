@@ -1,9 +1,9 @@
 <template>
     <section class="add-card-cmp">
         <button v-if="!show" @click="show = true">+ Add card</button>
-        <div v-clickOutside="addNewCard" v-if="show" class="add-new board-input">
+        <div v-clickOutside="addCard" v-if="show" class="add-new board-input">
             <input placeholder="Title" type="text" v-model="txt" />
-            <button @click="addNewCard">Add Card</button>
+            <button @click="addCard">Add Card</button>
             <button @click="show = false">X</button>
         </div>
     </section>
@@ -26,7 +26,7 @@ export default {
     created() {
     },
     methods: {
-        addNewCard() {
+        addCard() {
             this.show = false;
             this.$emit('cardAdd', { txt: this.txt, id: this.id })
             this.txt="";

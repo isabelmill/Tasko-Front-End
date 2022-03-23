@@ -2,11 +2,11 @@
     <section class="toggle-input">
         <p v-if="!titleIsOpen" class="group-title cursor-pointer" @click="openTitleEdit">{{ txt }}</p>
         <input
-            v-clickOutside="changeTitle"
+            v-clickOutside="change"
             v-if="titleIsOpen"
             v-model="txt"
             type="text"
-            @submit.prevent="changeTitle"
+            @submit.prevent="change"
         />
     </section>
 </template>
@@ -34,9 +34,9 @@ export default {
     methods: {
         openTitleEdit() {
             this.titleIsOpen = true
-            
+
         },
-        changeTitle() {
+        change() {
             this.titleIsOpen = false;
             this.$emit('titleChange', { txt: this.txt, id: this.id })
         },
