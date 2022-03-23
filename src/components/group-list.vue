@@ -1,6 +1,6 @@
 <!-- card preview inside group list -->
 <template >
-    <section class="group-list-main">
+    <section  class="group-list-main">
         <section v-for="group in groups" :key="group.id" class="group-preview-main">
             <toggle-input-cmp
                 class="title"
@@ -15,7 +15,7 @@
                 :groupId="group.id"
                 :card="card"
             ></card-preview>
-            <add-card-cmp @cardAdd="addNewCard" :id="group.id"></add-card-cmp>
+            <add-card-cmp @cardAdd="addNewCard" :groupId="group.id"></add-card-cmp>
         </section>
     </section>
 </template>
@@ -59,8 +59,8 @@ export default {
         close() {
             this.show = false;
         },
-        addNewCard(newCard) {
-            this.groupToEdit = JSON.parse(JSON.stringify(this.groups.find(group => group.id === id)))
+        addNewCard({newCard,groupId}) {
+            this.groupToEdit = JSON.parse(JSON.stringify(this.groups.find(group => group.id === groupId)))
             this.groupToEdit.cards.push(newCard)
             this.$emit('groupUpdated', this.groupToEdit)
         }
