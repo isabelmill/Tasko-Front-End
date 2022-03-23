@@ -1,7 +1,7 @@
 <template>
     <section class="card-preview cursor-pointer flex" @click="openDetails">
         <p class="card-title cursor-pointer">{{ card.title }}</p>
-        <button class="mini-edit" @click="openMiniEdit($event)">edit</button>
+        <button class="icon-sm icon-edit" @click="openMiniEdit($event)"></button>
     </section>
     <section
         style="position:fixed"
