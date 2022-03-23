@@ -42,22 +42,24 @@ export default {
     data() {
         return {
             titleIsOpen: false,
-            groupToDisplay: null,
+            groupToDisplay: {
+                title: ""
+            },
             board: null,
             groupId: null,
         };
     },
-    created() {
+    async created() {
         const { _id } = this.$route.params
-        this.board = boardService.getById(_id)
+        this.board = await boardService.getById(_id)
     },
     methods: {
-        openTitleEdit(id) {
+        async openTitleEdit(id) {
             this.groupId = id
             this.titleIsOpen = true;
-            this.groupToDisplay = this.board.groups.find(group => group.id === this.groupId)
+            this.groupToDisplay = await this.board.groups.find(group => group.id === this.groupId)
         },
-         changeTitle() {
+        changeTitle() {
             this.$store.dispatch({ type: 'saveBoard', board: this.board })
             this.titleIsOpen = false;
         }
