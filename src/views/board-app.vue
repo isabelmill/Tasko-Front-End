@@ -1,6 +1,15 @@
 <template>
     <section class="board-app-main">
-        <board-list v-if="boards" :boards="boards" />
+        <div class="main-container">
+            <div class="folders">
+                <a>Boards</a>
+            </div>
+            <div class="board-list">
+                <div class="board-preview">
+                    <board-list v-if="boards" :boards="boards" />
+                </div>
+            </div>
+        </div>
     </section>
 </template>
 
@@ -9,18 +18,18 @@ import { boardService } from '../services/board-service'
 import boardList from '../components/board-list.vue'
 
 export default {
-        name: 'board-app',
-            data() {
+    name: 'board-app',
+    data() {
         return {
             filterBy: null,
         }
     },
-        computed: {
+    computed: {
         boards() {
             return this.$store.getters.boards
         },
     },
-        methods: {
+    methods: {
         loadBoards() {
             boardService.query().then((Boards) => (this.Boards = Boards))
         },
@@ -30,7 +39,7 @@ export default {
         addNew() {
         },
     },
-        components: {
+    components: {
         boardList,
     },
 }

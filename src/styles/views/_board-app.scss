@@ -1,0 +1,39 @@
+.board-app-main {
+    background-color: rgb(255, 255, 255);
+    height: 100vh;
+}
+
+.main-container {
+    display: flex;
+    margin: 40px 0 0 90px;
+
+    a {
+        display: flex;
+        align-items: center;
+        background-color: #d3e8f3;
+        font-size: 14px;
+        font-weight: bold;
+        color: #0079bf;
+        border: none;
+        // align-items: ;
+        border-radius: 4px;
+        font-weight: bold;
+        // padding: 6px 8px 6px 0;
+        padding-left: 33px;
+        margin-right: 40px;
+        height: 36px;
+        width: 240px;
+        cursor: pointer;
+    }
+
+    .board-preview {
+        background-color: rgb(106, 38, 161);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #ffff;
+        border-radius: 3px;
+        height: 97px;
+        width: 195px;
+    }
+}
