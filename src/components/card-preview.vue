@@ -33,10 +33,13 @@ export default {
         return {
             board: null,
             titleIsOpen: false,
-            cardToDisplay: null,
+            cardToDisplay: {
+                title: "",
+            },
         }
     },
     created() {
+
         this.cardToDisplay = this.card;
     },
     methods: {
@@ -45,20 +48,11 @@ export default {
         },
         async changeTitle() {
             const { _id } = this.$route.params
-            this.board = boardService.getById(this._id)
-                .then(board => {
-                    board.groups.find(group => group._id === this.groupId)
-                })
-                .then(group => {
-                    group.cards.find(card => card._id === this.cardToDisplay._id)
-                    })
-                .then(card => {
-                    card.title = this.cardToDisplay.title
-                    this.$store.dispatch({
-                        type: 'saveBoard',
-                        board: this.board,
-                    })
-                })
+            this.board = await boardService.getById(_id)
+            const group = this.board.groups.find(group => group.id === this.groupId)
+            const card = await group.cards.find(card => card.id === this.cardToDisplay.id)
+            card.title = this.cardToDisplay.title
+            this.$store.dispatch({ type: 'saveBoard', board: this.board })
             this.titleIsOpen = false;
         }
     },
