@@ -3,6 +3,15 @@
     </section>-->
     <section v-if="board" class="board-details-main">
         <group-list :groups="groups"></group-list>
+
+        <div class="add-new-board" :style="show ? { 'height': '100px' , 'backgroundColor': 'white' } : null">
+            <button v-if="!show" @click="show = true"  >+ Add another list</button>
+            <div v-if="show" class="add-new board-input">
+               <input  placeholder="Title" type="text"  v-model="newGroup.title">
+               <button @click="addNewGroup()">Add List</button>
+               <button  @click="show = false">X</button>
+            </div>
+        </div>
     </section>
 </template>
 
@@ -15,8 +24,10 @@ export default {
     },
     data() {
         return {
+            show: false,
             board: null,
-            groups:null,
+            groups: null,
+            newGroup: boardService.getEmptyGroup()
         }
     },
     created() {
@@ -25,6 +36,13 @@ export default {
             this.board = board
             this.groups = this.board.groups
         })
+    },
+    methods: {
+        addNewGroup() {
+            this.board.groups.push(this.newGroup)
+            this.$store.dispatch({ type: 'saveBoard', board: this.board })
+            this.newGroup = boardService.getEmptyGroup()
+        },
     },
 }
 </script>

@@ -165,14 +165,14 @@ function _createBoards() {
 
 function getEmptyCard() {
     return {
-        _id: '',
+        id: utilService.makeId(),
         title: '',
     }
 }
 
 function getEmptyGroup() {
     return {
-        _id: '',
+        id: utilService.makeId(),
         title: '',
         cards: getEmptyCard()
     }
