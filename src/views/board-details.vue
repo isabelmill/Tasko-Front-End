@@ -1,26 +1,31 @@
 <template>
-  <!-- <section class="board-header">      
-  </section> -->
-  <section class="board-main">
-      <group-list :boardId="board._id" :groups="board.groups"></group-list>
-  </section>
+    <!-- <section class="board-header">      
+    </section>-->
+    <section v-if="board" class="board-main">
+        <group-list :groups="board.groups"></group-list>
+    </section>
 </template>
 
 <script>
 import groupList from "../components/group-list.vue"
+import { boardService } from "../services/board-service.js"
 export default {
-components:{
-    groupList,
-},
-props:{
-    board:{
-        type: Object,
-        required: true,
-    }
-},
+    components: {
+        groupList,
+    },
+    data() {
+        return {
+            board: null,
+        }
+    },
+    created() {
+        const { _id } = this.$route.params
+        boardService.getById(_id).then((board) => {
+            this.board = board
+        })
+    },
 }
 </script>
 
 <style>
-
 </style>
