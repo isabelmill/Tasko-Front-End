@@ -50,10 +50,11 @@ export default {
     created() {
     },
     methods: {
-        changeTitle(editedCard) {
-            const group = JSON.parse(JSON.stringify(this.board.groups.find(group => group.id === answer.id)))
-            group.title = answer.txt
-            this.$store.dispatch({ type: 'saveBoard', board: this.board })
+        changeTitle({txt,id}) {
+            this.groupToEdit = JSON.parse(JSON.stringify(this.groups.find(group => group.id === id)))
+            this.groupToEdit.title = txt
+            this.$emit('groupUpdated', this.groupToEdit)
+            this.groupToEdit= null
             this.titleIsOpen = false;
         },
         close() {
@@ -63,6 +64,7 @@ export default {
             this.groupToEdit = JSON.parse(JSON.stringify(this.groups.find(group => group.id === groupId)))
             this.groupToEdit.cards.push(newCard)
             this.$emit('groupUpdated', this.groupToEdit)
+            this.groupToEdit= null
         }
     },
     mounted() {
