@@ -2,7 +2,7 @@ import { boardService } from '../../services/board-service.js'
 
 export default {
     state: {
-        boards: null,
+        boards: {},
         selectedBoard: null,
         filterBy: null,
     },
@@ -37,7 +37,8 @@ export default {
     actions: {
         async loadBoards({ commit, state }) {
             try {
-                let boards = await boardService.query(state.filterBy)
+                const boards = await boardService.query(state.filterBy)
+                console.log(boards)
                 commit({ type: 'setBoards', boards });
             } catch (err) {
                 console.log('err');
@@ -48,7 +49,7 @@ export default {
                 const board = await boardService.getById(newId)
                 commit({ type: 'setBoard', board });
             } catch (err) {
-                console.log('err');
+                console.log('err!!');
             }
         },
         async removeBoard({ commit }, { id }) {
@@ -56,15 +57,17 @@ export default {
                 await boardService.remove(id)
                 commit({ type: 'removeBoard', id });
             } catch (err) {
-                console.log('err');
+                console.log('err!!');
             }
         },
         async saveBoard({ commit }, { board }) {
             try {
-                await boardService.save(board)
-                commit({ type: 'saveBoard', board });
+                const newBoard = JSON.parse(JSON.stringify(board))
+                await boardService.save(newBoard)
+                commit({ type: 'saveBoard', board: newBoard });
+                commit({ type: 'setBoard', board: newBoard });
             } catch (err) {
-                console.log('err');
+                console.log('err!!!');
             }
         },
         filter({ commit, dispatch }, { filterBy }) {
