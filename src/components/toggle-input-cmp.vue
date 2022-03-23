@@ -47,7 +47,6 @@ export default {
     methods: {
         openTitleEdit() {
             this.titleIsOpen = true
-
         },
         change() {
             this.titleIsOpen = false;
