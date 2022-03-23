@@ -9,12 +9,12 @@
             @submit.prevent="change"
         />
         <span @click="openEditGroupModal($event)" class="icon-sm icon-overflow-menu-horizontal"></span>
-        <group-edit 
+        <group-edit
             v-if="openGroupEdit"
             :style="{ top: distanceY + 'px', left: distanceX + 'px' }"
             v-clickOutside="closeEditMode"
             @close="closeEditMode"
-            :id = "id"
+            :id="id"
             @remove="removeGroup"
         ></group-edit>
     </section>
@@ -38,11 +38,19 @@ export default {
             titleIsOpen: false,
             openGroupEdit: false,
             distanceX: 0,
-            distanceY: 0
+            distanceY: 0,
+            boards: this.$store.getters.boards,
+            board: null,
+            groups: null,
         }
     },
     created() {
         this.txt = this.title
+        // const { _id } = this.$route.params
+        // boardService.getById(_id).then((board) => {
+        //     this.board = board
+        //     this.groups = this.board.groups
+        // })
     },
     methods: {
         openTitleEdit() {
@@ -62,9 +70,11 @@ export default {
         closeEditMode() {
             this.openGroupEdit = false;
         },
-        removeGroup(id){
-            console.log('id:',id);
-
+        removeGroup(boardId) {
+            const { _id } = this.$route.params
+            this.board = this.boards.find((board) => board._id === _id)
+            // this.board.groups.splice(boardId, 1)
+            // this.$store.dispatch({ type: 'saveBoard', board: this.board })
         }
     },
     components: {
