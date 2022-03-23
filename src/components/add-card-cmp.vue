@@ -5,7 +5,7 @@
             <p>Add card</p>
         </button>
         <div v-clickOutside="addCard" v-if="show" class="add-new board-input">
-            <input @change="addCard" placeholder="Title" type="text" v-model="txt" />
+            <input @keydown.enter="addCard" placeholder="Title" type="text" v-model="txt" />
             <button @click="addCard">Add new Card</button>
             <button @click="show = false">X</button>
         </div>
@@ -35,7 +35,7 @@ export default {
             this.show = false;
             this.newCard.title = this.txt;
             this.$emit('cardAdd', {newCard: this.newCard, groupId: this.groupId})
-            
+
             this.txt = "";
         },
     }, unmounted() { },
@@ -45,3 +45,5 @@ export default {
 
 <style>
 </style>
+
+
