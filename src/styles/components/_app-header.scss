@@ -4,12 +4,47 @@
     color: #ffff;
     display: flex;
     align-items: center;
+
     .logo {
         margin-left: 30px;
     }
+
     .link {
         margin-left: 10px;
         height: 32px;
         @include headerBtn();
+    }
+
+    .icon-btn {
+        margin-left: 20px;
+        @include headerBtnIcon();
+    }
+}
+
+.search-main {
+    input {
+        margin-left: 50px;
+        background-color: rgba(255, 255, 255, 0.2);
+        
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        border-radius: 3px;
+        // box-shadow: none;
+        // box-sizing: border-box;
+        // color: rgba(255, 255, 255, 0.5);
+        // float: left;
+        font-size: 14px;
+        height: 32px;
+        line-height: 19px;
+        // margin-left: 4px;
+        // margin-right: 4px;
+        // outline: none;
+        padding-left: 30px;
+        padding-right: 8px;
+        // transition: width 150ms;
+        width: 250px;
+
+        ::placeholder {
+            color: #ffff;
+        }
     }
 }

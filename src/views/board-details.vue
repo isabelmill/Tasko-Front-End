@@ -1,6 +1,4 @@
 <template>
-  <!-- <section class="board-header">      
-  </section> -->
   <section class="board-main">
       <group-list :groups="board.groups"></group-list>
   </section>
