@@ -13,7 +13,7 @@
                 <span class="icon-sm icon-add-light"></span>Add another list
             </button>
             <div v-clickOutside="close" v-if="show" class="add-new board-input">
-                <input placeholder="Title" type="text" v-model="newGroup.title" />
+                <input @keyup.enter="addNewGroup" placeholder="Title" type="text" v-model="newGroup.title" />
                 <button @click="addNewGroup">Add List</button>
                 <button @click="show = false">X</button>
             </div>
@@ -49,8 +49,9 @@ export default {
     },
     methods: {
         addNewGroup() {
-            this.board.groups.push(this.newGroup)
-            this.$store.dispatch({ type: 'saveBoard', board: this.board })
+            this.boardToEdit = JSON.parse(JSON.stringify(this.board))
+            this.boardToEdit.groups.push(this.newGroup)
+            this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
             this.newGroup = boardService.getEmptyGroup()
             this.show = false;
         },
