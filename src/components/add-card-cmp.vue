@@ -1,6 +1,9 @@
 <template>
     <section class="add-card-cmp">
-        <button v-if="!show" @click="show = true">+ Add card</button>
+        <button v-if="!show" @click="show = true">
+            <span class="icon-sm icon-add"></span>
+            <p>Add card</p>
+        </button>
         <div v-clickOutside="addCard" v-if="show" class="add-new board-input">
             <input placeholder="Title" type="text" v-model="txt" />
             <button @click="addCard">Add Card</button>
@@ -29,9 +32,9 @@ export default {
         addCard() {
             this.show = false;
             this.$emit('cardAdd', { txt: this.txt, id: this.id })
-            this.txt="";
+            this.txt = "";
         },
-    },unmounted(){},
+    }, unmounted() { },
     emits: ['cardAdd']
 }
 </script>
