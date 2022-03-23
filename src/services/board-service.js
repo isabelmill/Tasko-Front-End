@@ -55,7 +55,7 @@ function _createBoards() {
                 "fullname": "Abi Abambi",
                 "imgUrl": "http://some-img"
             },
-            "style": {},
+            "background": {},
             "labels": [{
                     "id": "l101",
                     "title": "Done",
