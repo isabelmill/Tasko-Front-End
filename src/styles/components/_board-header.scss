@@ -66,3 +66,24 @@
     @include to-icon("\e952");
     color: #fff;
 }
+
+.board-name-edit{
+    input {
+        margin-left: rem(50px);
+        background-color: rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        border-radius: 3px;
+        font-size: rem(14px);
+        height: rem(32px);
+        line-height: rem(19px);
+        padding-left: rem(30px);
+        padding-right: rem(8px);
+        width: rem(250px);
+        &::placeholder {
+            color: #fff;
+        }
+        &:hover {
+            background-color: rgba(255, 255, 255, 0.4);
+        }
+    }
+}

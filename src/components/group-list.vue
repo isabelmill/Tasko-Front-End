@@ -1,8 +1,8 @@
 <!-- card preview inside group list -->
 <template >
-    <section @titleChange="changeTitle" class="group-list-main">
-        <section v-for="group in groups" :key="group.id" class="group-preview-main">
-            <toggle-input-cmp :title="group.title" :id="group.id"></toggle-input-cmp>
+    <section  class="group-list-main">
+        <section v-for="group in groupsToShow" :key="group.id" class="group-preview-main">
+            <toggle-input-cmp @titleChange="changeTitle"  :title="group.title" :id="group.id"></toggle-input-cmp>
 
             <card-preview
                 v-for="card in group.cards"
@@ -28,26 +28,27 @@ export default {
         toggleInputCmp,
         addCardCmp
     },
-    props: {
-        groups: {
-            type: Array,
-            required: true,
-        },
+    props:{
+        groups:{
+            type : Array
+        }
     },
     data() {
         return {
+            groupsToShow: [],
             titleIsOpen: false,
             show: false,
             groupToDisplay: {
                 title: ""
             },
-            board: null,
+            board: {},
             newCard: boardService.getEmptyCard(),
         };
     },
     async created() {
         const { _id } = this.$route.params
         this.board = await boardService.getById(_id)
+        this.groupsToShow = this.groups
     },
     methods: {
         changeTitle(answer) {
