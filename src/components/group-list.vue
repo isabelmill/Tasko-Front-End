@@ -52,7 +52,6 @@ export default {
     },
     methods: {
         changeTitle(answer) {
-            console.log('??')
             const group = this.board.groups.find(group => group.id === answer.id)
             group.title = answer.txt
             this.$store.dispatch({ type: 'saveBoard', board: this.board })
