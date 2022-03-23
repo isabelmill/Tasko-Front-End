@@ -4,10 +4,23 @@
 }
 
 .main-container {
-    display: flex;
     margin: 40px 0 0 90px;
+    text-align: center;
+}
 
-    a {
+.contact {
+    margin-top: 20px;
+    // background-color: #555b5f;
+    display: flex;
+
+    button {
+        margin-top: 20px;
+        @include btn($color: #2c2c2c);
+    }
+}
+
+.folders {
+    p {
         display: flex;
         align-items: center;
         background-color: #d3e8f3;
@@ -24,16 +37,5 @@
         height: 36px;
         width: 240px;
         cursor: pointer;
-    }
-
-    .board-preview {
-        background-color: rgb(106, 38, 161);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: #ffff;
-        border-radius: 3px;
-        height: 97px;
-        width: 195px;
     }
 }

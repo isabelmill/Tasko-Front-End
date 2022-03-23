@@ -1,21 +1,25 @@
 <template>
     <section class="board-app-main">
         <div class="main-container">
-            <div class="folders">
-                <p>Boards</p>
-            </div>
             <h1>YOUR WORKSPACES</h1>
-            <board-list v-if="boards" :boards="boards" />
+            <div class="contact">
+                <div class="folders">
+                    <p>Boards</p>
+                </div>
+                <div>
+                    <board-list v-if="boards" :boards="boards" />
 
-            <button @click="openBoardEdit()" type="button">Create new board</button>
+                    <button @click="openBoardEdit()" type="button">Create new board</button>
 
-            <form v-if="isEdit === true" class="create-board-modal">
-                <h1>Create board</h1>
-                <label for>Title</label>
-                <input type="text" v-model="newBoard.title" />
-                <button @click="saveNewBoard">Create</button>
-                <button class="edit-close-btn" @click="closeBoardEdit">X</button>
-            </form>
+                    <form v-if="isEdit === true" class="create-board-modal">
+                        <h1>Create board</h1>
+                        <label for>Title</label>
+                        <input type="text" v-model="newBoard.title" />
+                        <button @click="saveNewBoard">Create</button>
+                        <button class="edit-close-btn" @click="closeBoardEdit">X</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </section>
 </template>
