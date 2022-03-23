@@ -1,46 +1,46 @@
 .app-header-main {
-    height: 43px;
+    height: rem(43px);
     background-color: $mainBlue;
     color: #ffff;
     display: flex;
     align-items: center;
 
     .logo {
-        margin-left: 30px;
+        margin-left: rem(30px);
     }
 
     .link {
-        margin-left: 10px;
-        height: 32px;
+        margin-left: rem(10px);
+        height: rem(32px);
         @include headerBtn();
     }
 
     .icon-btn {
-        margin-left: 20px;
+        margin-left: rem(20px);
         @include headerBtnIcon();
     }
 }
 
 .search-main {
     input {
-        margin-left: 50px;
+        margin-left: rem(50px);
         background-color: rgba(255, 255, 255, 0.2);
         border: 1px solid rgba(255, 255, 255, 0.25);
         border-radius: 3px;
-        font-size: 14px;
-        height: 32px;
-        line-height: 19px;
-        padding-left: 30px;
-        padding-right: 8px;
-        width: 250px;
+        font-size: rem(14px);
+        height: rem(32px);
+        line-height: rem(19px);
+        padding-left: rem(30px);
+        padding-right: rem(8px);
+        width: rem(250px);
         // box-shadow: none;
         // box-sizing: border-box;
         // float: left;
         // margin-left: 4px;
         // margin-right: 4px;
         // outline: none;
-        ::placeholder {
-            color: #ffff;
+        &::placeholder {
+            color: #fff;
         }
         &:hover {
             background-color: rgba(255, 255, 255, 0.4);

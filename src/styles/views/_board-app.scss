@@ -9,7 +9,7 @@
 }
 
 .contact {
-    margin-top: 20px;
+    margin-top: rem(20px);
     background-color: #555b5f;
     display: flex;
 }
@@ -19,7 +19,7 @@
         display: flex;
         align-items: center;
         background-color: #d3e8f3;
-        font-size: 14px;
+        font-size: rem(14px);
         font-weight: bold;
         color: #0079bf;
         border: none;
@@ -27,8 +27,8 @@
         font-weight: bold;
         padding-left: 33px;
         margin: 0 0 5px 40px;
-        height: 36px;
-        width: 240px;
+        height: rem(36px);
+        width: rem(240px);
         cursor: pointer;
 
         &:hover {
@@ -38,12 +38,12 @@
 }
 
 .folder-info {
-    margin-left: 75px;
+    margin-left: rem(75px);
     display: flex;
-    gap: 50px;
+    gap: rem(50px);
 
     button {
-        margin-top: 20px;
+        margin-top: rem(20px);
         @include btn($color: #2c2c2c);
     }
 }

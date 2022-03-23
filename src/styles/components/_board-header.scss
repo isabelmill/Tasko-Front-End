@@ -1,0 +1,68 @@
+.board-header-main {
+    background-color: rgb(107, 141, 130);
+    height: rem(55px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    nav {
+        display: flex;
+        align-items: center;
+        margin-left: rem(32px);
+        margin-right: rem(32px);
+        gap: 5px;
+    }
+
+    button {
+        @include btn();
+
+        p {
+            margin-left: 5px;
+        }
+    }
+    .invite {
+        @include inviteBtn();
+
+        p {
+            margin-left: 5px;
+        }
+    }
+    .board-name {
+        font-size: rem(18px);
+        font-weight: 400;
+        line-height: rem(32px);
+        padding: 0 12px;
+        cursor: pointer;
+        color: #fff;
+        height: rem(34px);
+
+        &:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 3px;
+
+        }
+    }
+}
+
+.icon-star {
+    @include to-icon("\e966");
+    color: #fff;
+    &:hover {
+        color: $mainYellow;
+    }
+}
+
+.icon-starred {
+    @include to-icon("\e967");
+    color: $mainYellow;
+}
+
+.icon-add-member {
+    @include to-icon("\e902");
+    color: #fff;
+}
+
+.icon-overflow-menu-horizontal {
+    @include to-icon("\e952");
+    color: #fff;
+}

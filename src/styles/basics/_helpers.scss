@@ -1,3 +1,22 @@
+// icons
+.icon {
+    &-sm {
+        font-family: icomoon;
+        font-size: rem(16px);
+        color: #42526e;
+    }
+    &-md {
+        font-family: icomoon;
+        font-size: rem(20px);
+        color: #42526e;
+    }
+    &-lg {
+        font-family: icomoon;
+        font-size: rem(24px);
+        color: #42526e;
+    }
+}
+
 // Flex
 .flex {
     display: flex;

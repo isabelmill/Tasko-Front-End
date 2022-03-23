@@ -1,7 +1,7 @@
 // SETUP
-@import "./fontawesome/scss/fontawesome.scss";
-@import "./fontawesome/scss/solid.scss";
-@import "./fontawesome/scss/brands.scss";
+// @import "./fontawesome/scss/fontawesome.scss";
+// @import "./fontawesome/scss/solid.scss";
+// @import "./fontawesome/scss/brands.scss";
 
 @import 'setup/typography';
 @import 'setup/variables';
@@ -15,6 +15,7 @@
 
 // // COMPONENTS
 @import './components/app-header';
+@import './components/board-header';
 @import './components/board-preview';
 
 // // views

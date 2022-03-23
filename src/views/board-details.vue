@@ -1,6 +1,7 @@
 <template>
-    <!-- <section class="board-header">      
-    </section>-->
+    <section>
+        <board-header />
+    </section>
     <section v-if="board" class="board-details-main">
         <group-list :groups="groups"></group-list>
     </section>
@@ -9,14 +10,17 @@
 <script>
 import groupList from "../components/group-list.vue"
 import { boardService } from "../services/board-service.js"
+import boardHeader from "../components/board-header.vue"
+
 export default {
     components: {
         groupList,
+        boardHeader
     },
     data() {
         return {
             board: null,
-            groups:null,
+            groups: null,
         }
     },
     created() {
