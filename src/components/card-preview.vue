@@ -6,9 +6,14 @@
 </template>
 
 <script>
+import { boardService } from "../services/board-service";
 export default {
     name: 'card-preview',
     props: {
+        boardId:{
+          type: String,
+          required: true,  
+        },
         card: {
             type: Object,
             required: true,
@@ -16,6 +21,7 @@ export default {
     },
     data() {
         return {
+            board: null,
             titleIsOpen: false,
             cardToDisplay: null,
         }
@@ -28,7 +34,17 @@ export default {
             this.titleIsOpen=true;
         },
         changeTitle(){
-            
+            this.board = boardService.getById(this.boardId)
+            .then(board =>{
+                board.groups.cards.find(card => card._id === this.cardToDisplay._id)
+            })
+            .then(card=> {
+                card.title = this.cardToDisplay.title
+                this.$store.dispatch({
+                    type: 'saveBoard',
+                    board: this.board,
+                })
+                })
             this.titleIsOpen=false;
         }
     },

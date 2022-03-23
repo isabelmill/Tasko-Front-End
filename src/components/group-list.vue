@@ -2,7 +2,7 @@
 <template>
   <section class="group-list">
       <section v-for="group in groups" :key="group._id" class="group-preview">
-          <card-preview v-for="card in group.cards" :key="card._id" :card="card"></card-preview>
+          <card-preview v-for="card in group.cards" :key="card._id" :card="card" :boardId="this.boardId"></card-preview>
       </section>
   </section>
 </template>
@@ -15,6 +15,10 @@ components:{
     cardPreview,
 },
 props:{
+    boardId:{
+        type: String,
+        required: true,
+    },
     groups:{
         type: Array,
         required: true,

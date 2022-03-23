@@ -2,7 +2,7 @@
   <!-- <section class="board-header">      
   </section> -->
   <section class="board-main">
-      <group-list :groups="board.groups"></group-list>
+      <group-list :boardId="board._id" :groups="board.groups"></group-list>
   </section>
 </template>
 
