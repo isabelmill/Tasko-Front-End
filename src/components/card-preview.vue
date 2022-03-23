@@ -10,10 +10,11 @@ name: 'card-preview',
 props: {
     card:{
         type: Object,
+        required:true,
     },
 },
 methods:{
-    
+
 },
 }
 </script>
