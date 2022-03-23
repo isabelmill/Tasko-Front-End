@@ -4,12 +4,15 @@
     <section v-if="board" class="board-details-main">
         <group-list :groups="groups"></group-list>
 
-        <div class="add-new-board" :style="show ? { 'height': '100px' , 'backgroundColor': 'white' } : null">
-            <button v-if="!show" @click="show = true"  >+ Add another list</button>
-            <div v-if="show" class="add-new board-input">
-               <input  placeholder="Title" type="text"  v-model="newGroup.title">
-               <button @click="addNewGroup()">Add List</button>
-               <button  @click="show = false">X</button>
+        <div
+            class="add-new-board"
+            :style="show ? { 'height': '100px', 'backgroundColor': 'white' } : null"
+        >
+            <button v-if="!show" @click="show = true">+ Add another list</button>
+            <div v-clickOutside="close" v-if="show" class="add-new board-input">
+                <input placeholder="Title" type="text" v-model="newGroup.title" />
+                <button @click="addNewGroup()">Add List</button>
+                <button @click="show = false">X</button>
             </div>
         </div>
     </section>
@@ -43,6 +46,9 @@ export default {
             this.$store.dispatch({ type: 'saveBoard', board: this.board })
             this.newGroup = boardService.getEmptyGroup()
         },
+        close() {
+            this.show = false;
+        }
     },
 }
 </script>
