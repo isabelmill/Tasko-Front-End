@@ -1,8 +1,8 @@
 <template>
     <!-- <section class="board-header">      
     </section>-->
-    <section v-if="board" class="board-main">
-        <group-list :groups="board.groups"></group-list>
+    <section v-if="board" class="board-details-main">
+        <group-list :groups="groups"></group-list>
     </section>
 </template>
 
@@ -16,12 +16,14 @@ export default {
     data() {
         return {
             board: null,
+            groups:null,
         }
     },
     created() {
         const { _id } = this.$route.params
         boardService.getById(_id).then((board) => {
             this.board = board
+            this.groups = this.board.groups
         })
     },
 }
