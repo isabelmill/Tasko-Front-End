@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import { boardService } from "../services/board-service";
+import { boardService } from "../services/board-service.js";
 export default {
     name: 'card-preview',
     props: {
@@ -34,21 +34,17 @@ export default {
             board: null,
             titleIsOpen: false,
             cardToDisplay: null,
-            _id: null,
         }
     },
     created() {
-        this._id = this.$route.params
         this.cardToDisplay = this.card;
     },
     methods: {
         openTitleEdit() {
             this.titleIsOpen = true;
         },
-        changeTitle() {
-            const test = boardService.getById(this._id)
-            .then(board=> console.log(board))
-            // console.log(test)
+        async changeTitle() {
+            const { _id } = this.$route.params
             this.board = boardService.getById(this._id)
                 .then(board => {
                     board.groups.find(group => group._id === this.groupId)
