@@ -1,8 +1,8 @@
 <!-- card preview inside group list -->
 <template>
-    <section class="group-list">
+    <section @titleChange="changeTitle"  class="group-list">
         <section v-for="group in groups" :key="group.id" class="group-preview">
-            <toggle-input-cmp @titleChange="changeTitle" :title="group.title" :id="group.id"></toggle-input-cmp>
+            <toggle-input-cmp :title="group.title" :id="group.id"></toggle-input-cmp>
             <card-preview
                 v-for="card in group.cards"
                 :key="card.id"
@@ -44,7 +44,8 @@ export default {
     },
     methods: {
         changeTitle(answer) {
-            let group = this.board.groups.find(group => group.id === answer.id)
+            console.log(answer)
+            const group = this.board.groups.find(group => group.id === answer.id)
             group.title = answer.txt
             // console.log(group.title)
             this.$store.dispatch({ type: 'saveBoard', board: this.board })
