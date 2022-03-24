@@ -1,6 +1,7 @@
 <template>
     <section class="card-details-main">
-        <section class="card-details-title">{{card.title}}
+        <section class="card-details-title flex">
+            <p>{{card.title}}</p>
             <button class="exit-btn" @click="closeModal">X</button>
         </section>
         <section class="card-details-description"></section>
@@ -32,19 +33,27 @@ export default {
 
 <style>
 .card-details-main {
-    /* position: fixed;
-    width: 60%;
-    height: 500px;
-    background-color: red;
-    top: 0;
+    /* position: fixed; */
+    /* width: 60%; */
+    height: 450px;
+    margin: 0;
+    /* background-color: red; */
+    /* top: 0; */
     display: flex;
     justify-content: center;
-    border-radius: 2px;
-    margin: 48px 0 80px;
+    /* border-radius: 2px; */
+    /* margin: 48px 0 80px; */
     overflow: hidden;
-    width: 768px;
-    z-index: 25;
-    left: 30px;
-    align-self: center; */
+    width: 718px;
+    /* z-index: 25; */
+    /* left: 30px; */
+    /* align-self: center; */
+}
+
+
+
+.exit-btn{
+    height: 48px;
+    width:48px;
 }
 </style>
