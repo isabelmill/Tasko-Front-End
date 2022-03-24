@@ -3,11 +3,15 @@
         <board-header v-if="board" :board="board" />
     </section>
     <section v-if="board" class="board-details-main" :style="{ 'backgroundColor':board.background}">
+<<<<<<< HEAD
         <group-list
             @openCardDetails="openCardDetailsModal"
             @groupUpdated="updateGroup"
             :groups="board.groups"
         ></group-list>
+=======
+        <group-list @openCardDetails="openCardDetailsModal" @groupUpdated="updateGroup" :groups="board.groups"></group-list>
+>>>>>>> 8b4cd9aba186bdd6b727e7c0fd2903de82da3df5
 
         <div
             class="add-new-board"
