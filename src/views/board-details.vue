@@ -40,15 +40,10 @@ export default {
         }
     },
     created() {
-        // this.$store.dispatch({ type: 'loadBoards' })
-        // const { _id } = this.$route.params
-        // boardService.getById(_id).then((board) => {
-        //     this.board = board
-        //     this.groups = this.board.groups
-        // })
     },
     methods: {
         addNewGroup() {
+            if(!this.newGroup.title) return
             this.boardToEdit = JSON.parse(JSON.stringify(this.board))
             this.boardToEdit.groups.push(this.newGroup)
             this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })

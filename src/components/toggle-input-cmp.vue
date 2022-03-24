@@ -8,10 +8,14 @@
             type="text"
             @submit.prevent="change"
         />
-        <span @click="openEditGroupModal($event)" ref="box" class="icon-sm icon-overflow-menu-horizontal"></span>
+        <span
+            @click="calcPosOfBox(), openEditGroupModal()"
+            ref="box"
+            class="icon-sm icon-overflow-menu-horizontal"
+        ></span>
         <group-edit
             v-if="openGroupEdit"
-            :style="{ top: posBoxX + 'px', left: posBoxY + 'px' }"
+            :style="{ top: '143' + 'px', left: pos.left  + 'px' }"
             v-clickOutside="closeEditMode"
             @close="closeEditMode"
             :id="id"
@@ -37,25 +41,15 @@ export default {
             txt: "",
             titleIsOpen: false,
             openGroupEdit: false,
-            distanceX: 0,
-            distanceY: 0,
             boards: this.$store.getters.boards,
-            board: null,
+            board: this.$store.getters.board,
             groups: null,
-            posBoxX: 0,
-            posBoxY: 0,
+            pos: 0,
+            boardToEdit: null,
         }
     },
     created() {
         this.txt = this.title
-        // const { _id } = this.$route.params
-        // boardService.getById(_id).then((board) => {
-        //     this.board = board
-        //     this.groups = this.board.groups
-        // })
-    },
-    mounted() {
-        this.calcPosOfBox()
     },
     methods: {
         openTitleEdit() {
@@ -65,28 +59,21 @@ export default {
             this.titleIsOpen = false;
             this.$emit('titleChange', { txt: this.txt, id: this.id })
         },
-        openEditGroupModal(ev) {
-            console.log('ev:', ev);
+        openEditGroupModal() {
             this.openGroupEdit = true
-            this.distanceX = ev.clientX
-            this.distanceY = ev.clientY + 5
         },
         closeEditMode() {
             this.openGroupEdit = false;
         },
         removeGroup(groupId) {
-            const { _id } = this.$route.params
-            this.board = this.boards.find((board) => board._id === _id)
-            // this.board.groups.splice(groupId, 1)
-            // this.$store.dispatch({ type: 'saveBoard', board: this.board })
+            this.boardToEdit = JSON.parse(JSON.stringify(this.board))
+            const idx = this.boardToEdit.groups.findIndex((group) => group.id === groupId)
+            this.boardToEdit.groups.splice(idx, 1)
+            this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
+            this.closeEditMode()
         },
         calcPosOfBox() {
-            this.posBoxX = this.$refs['box'].getBoundingClientRect().x
-            this.posBoxY = this.$refs['box'].getBoundingClientRect().y
-            console.log('posBoxA:',this.posBoxX);
-            console.log('posBoxA:',this.posBoxY);
-
-            // this.posBoxB = this.$refs['my_box_b'].getBoundingClientRect().x
+            this.pos = this.$refs['box'].getBoundingClientRect()
 
         }
     },

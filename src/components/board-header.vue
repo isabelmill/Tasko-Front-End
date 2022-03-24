@@ -46,13 +46,12 @@ export default {
     methods: {
         boardStared() {
             this.isStared = !this.isStared
-            // console.log('this.isStared', this.isStared)
         },
         openTitleEdit() {
             this.titleIsOpen = true;
         },
         changeTitle() {
-            if(!this.boardToEdit.title) return
+            if (!this.boardToEdit.title) return
             this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
             this.titleIsOpen = false;
         }
@@ -62,6 +61,7 @@ export default {
             if (this.isStared) return `icon-sm icon-starred`
             else return `icon-sm icon-star`
         },
+
     }
 }
 </script>
