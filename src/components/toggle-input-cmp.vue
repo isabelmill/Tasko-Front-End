@@ -42,9 +42,6 @@ export default {
             txt: "",
             titleIsOpen: false,
             openGroupEdit: false,
-            boards: this.$store.getters.boards,
-            board: this.$store.getters.board,
-            groups: null,
             pos: 0,
             boardToEdit: null,
         }
@@ -68,10 +65,7 @@ export default {
             this.openGroupEdit = false;
         },
         removeGroup(groupId) {
-            this.boardToEdit = JSON.parse(JSON.stringify(this.board))
-            const idx = this.boardToEdit.groups.findIndex((group) => group.id === groupId)
-            this.boardToEdit.groups.splice(idx, 1)
-            this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
+            this.$emit('groupDelete', groupId)
             this.closeEditMode()
         },
         calcPosOfBox() {
@@ -82,7 +76,7 @@ export default {
     components: {
         groupEdit,
     },
-    emits: ['titleChange']
+    emits: ['titleChange','groupDelete']
 
 }
 </script>

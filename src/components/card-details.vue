@@ -7,17 +7,40 @@
                     <p>{{ card.title }}</p>
                 </div>
             </div>
-            <span class="icon-xl icon-close" @click="closeModal"></span>
+            <div class="card-details-icon">
+                <span class="icon-lg icon-close" @click="closeModal"></span>
+            </div>
         </div>
 
         <div class="card-details-list-name">
             <p>in list Group 1</p>
         </div>
 
-        <section class="card-details-main flex">
-            <section class="card-details-description">Description</section>
-            <section class="card-details-activity">Activity</section>
+        <section class="card-details-actions-container">
+            <section class="card-details-main flex">
+                <div class="card-details-members-labels-date">
+                    <label for>Members</label>
+                    <label for>Labels</label>
+                    <label for>Due date</label>
+                </div>
+
+                <div class="card-details-description">
+                    <span class="icon-xl icon-desc"></span>
+                    <h3>Description</h3>
+                </div>
+
+                <div class="card-details-input">
+                    <div class="open-input-btn">Add a more detailed description...</div>
+                    <!-- <input type="text" /> -->
+                </div>
+
+                <div class="card-details-activity">
+                    <span class="icon-xl icon-activity"></span>
+                    <h3>Activity</h3>
+                </div>
+            </section>
         </section>
+
         <section class="card-details-actions flex">
             <button ref="labelBtn" class="card-details-btn" @click="editLabels">Edit labels</button>
             <button ref="membersBtn" class="card-details-btn" @click="changeMembers">Change members</button>
@@ -29,7 +52,15 @@
         </section>
     </section>
     <section v-if="shown">
-        <component @cardEdit="editCard" @actionsClose="closeMenu" :board="board" :card="card" :groupId="groupId" :pos="pos" :is="currModal"></component>
+        <component
+            @cardEdit="editCard"
+            @actionsClose="closeMenu"
+            :board="board"
+            :card="card"
+            :group="group"
+            :pos="pos"
+            :is="currModal"
+        ></component>
     </section>
 </template>
 
@@ -42,8 +73,8 @@ export default {
         card: {
             type: Object
         },
-        groupId: {
-            type: String
+        group: {
+            type: Object
         },
         board: {
             type: Object
@@ -65,19 +96,19 @@ export default {
         closeModal() {
             this.$emit('closeDialog')
         },
-        closeMenu(){
-            this.shown=false;
+        closeMenu() {
+            this.shown = false;
         },
         editLabels() {
             this.pos = this.$refs['labelBtn'].getBoundingClientRect()
             this.shown = !this.shown
             this.currModal = "labelModal"
         },
-        cardEdit(card){
-            this.$emit('cardModified',{card,groupId:this.groupId})
+        editCard(card) {
+            this.$emit('cardModified', { card, group: this.group })
         }
     },
-    emits: ['closeDialog','cardModified']
+    emits: ['closeDialog', 'cardModified']
 
 }
 
