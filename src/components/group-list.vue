@@ -8,7 +8,7 @@
                 :title="group.title"
                 :id="group.id"
             ></toggle-input-cmp>
-            <section class="scroller">
+            <section class="scroller-group">
                 <card-preview
                     v-for="card in group.cards"
                     :key="card.id"
