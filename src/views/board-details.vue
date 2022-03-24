@@ -143,7 +143,7 @@ export default {
 
 <style>
 .modal {
-    max-height: 500px;
+    max-height: 600px;
     margin-top: 80px;
     border-radius: 2px;
     max-width: 768px;
