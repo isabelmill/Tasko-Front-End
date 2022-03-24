@@ -11,7 +11,7 @@
 
         <div
             class="add-new-group"
-            :style="show ? { 'height': '100px', 'backgroundColor': 'white' } : null"
+            :style="show ? { 'height': '100px' } : null"
         >
             <button class="add-another-list-btn" v-if="!show" @click="show = true">
                 <span class="icon-sm icon-add-light"></span>Add another list
