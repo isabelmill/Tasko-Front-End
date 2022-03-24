@@ -6,7 +6,7 @@
         <group-list @groupUpdated="updateGroup" :groups="board.groups"></group-list>
 
         <div
-            class="add-new-board"
+            class="add-new-group"
             :style="show ? { 'height': '100px', 'backgroundColor': 'white' } : null"
         >
             <button v-if="!show" @click="show = true">

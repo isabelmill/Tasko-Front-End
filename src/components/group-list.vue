@@ -1,6 +1,6 @@
 <!-- card preview inside group list -->
 <template >
-    <section  class="group-list-main">
+    <section class="group-list-main">
         <section v-for="group in groups" :key="group.id" class="group-preview-main">
             <toggle-input-cmp
                 class="title"
@@ -8,14 +8,15 @@
                 :title="group.title"
                 :id="group.id"
             ></toggle-input-cmp>
-
-            <card-preview
-                v-for="card in group.cards"
-                :key="card.id"
-                :groupId="group.id"
-                :card="card"
-            ></card-preview>
-            <add-card-cmp @cardAdd="addNewCard" :groupId="group.id"></add-card-cmp>
+            <section class="scroller">
+                <card-preview
+                    v-for="card in group.cards"
+                    :key="card.id"
+                    :groupId="group.id"
+                    :card="card"
+                ></card-preview>
+            </section>
+                <add-card-cmp @cardAdd="addNewCard" :groupId="group.id"></add-card-cmp>
         </section>
     </section>
 </template>
@@ -50,21 +51,21 @@ export default {
     created() {
     },
     methods: {
-        changeTitle({txt,id}) {
+        changeTitle({ txt, id }) {
             this.groupToEdit = JSON.parse(JSON.stringify(this.groups.find(group => group.id === id)))
             this.groupToEdit.title = txt
             this.$emit('groupUpdated', this.groupToEdit)
-            this.groupToEdit= null
+            this.groupToEdit = null
             this.titleIsOpen = false;
         },
         close() {
             this.show = false;
         },
-        addNewCard({newCard,groupId}) {
+        addNewCard({ newCard, groupId }) {
             this.groupToEdit = JSON.parse(JSON.stringify(this.groups.find(group => group.id === groupId)))
             this.groupToEdit.cards.push(newCard)
             this.$emit('groupUpdated', this.groupToEdit)
-            this.groupToEdit= null
+            this.groupToEdit = null
         }
     },
     mounted() {
