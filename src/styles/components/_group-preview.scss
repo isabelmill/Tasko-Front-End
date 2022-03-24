@@ -2,8 +2,9 @@
 .group-preview-main {
     width: rem(276px);
     // min-height: rem(80px);
-    // height: auto;
-    max-height: rem(620px);
+    height: min-content;
+    // max-height: rem(620px);
+    
     border-radius: 3px;
     background-color: $groupGray;
 }
@@ -67,7 +68,7 @@
     cursor: pointer;
     border-radius: 3px;
     background-color: white;
-    margin: 0 8px 8px 8px;
+    margin: 0 4px 8px 8px;
     box-shadow: 0 1px 0 #091e4240;
 
     p {
@@ -130,33 +131,26 @@
     }
 }
 
-.scroller {
-    // width: 300px;
-    // height: auto;
-    // width: 8px;
-    // height: 8px;
-    // overflow-x: visible;
+//scrollbar
+.scroller-group {
     overflow-x: hidden;
     overflow-y: auto;
-    // flex: 1 1 auto;
-    margin: 0 4px;
-    // min-height: 0;
-    // padding: 0 4px;
-    // z-index: 1;
+    margin: 0 4px 0 0;
     max-height: 100%;
-
-    max-height: rem(520px);
-
-    // overflow-y: auto;
-    // overflow-x: hidden;
-    // // scrollbar-color: rebeccapurple green;
-    // scrollbar-width: thin;
+    // max-height: rem(520px);
+    max-height: 57vh;
 }
-.scroller::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
-    background-color: rgb(127, 131, 131);
-    color: black;
+.scroller-group::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+.scroller-group::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background: #bfc4ce;
+}
+.scroller-group::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: #a7afbc;
 }
 
 .icon-add-dark {
