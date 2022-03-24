@@ -2,17 +2,19 @@
     <section>
         <board-header v-if="board" :board="board" />
     </section>
-    <section v-if="board" class="board-details-main" :style="{ 'backgroundColor': board.background }">
+    <section
+        v-if="board"
+        class="board-details-main"
+        :style="{ 'backgroundColor': board.background }"
+    >
         <group-list
+            @removeGroup="groupRemove"
             @openCardDetails="openCardDetailsModal"
             @groupUpdated="updateGroup"
             :groups="board.groups"
         ></group-list>
 
-        <div
-            class="add-new-group"
-            :style="show ? { 'height': '100px' } : null"
-        >
+        <div class="add-new-group" :style="show ? { 'height': '100px' } : null">
             <button class="add-another-list-btn" v-if="!show" @click="show = true">
                 <span class="icon-sm icon-add-light"></span>Add another list
             </button>
@@ -31,7 +33,14 @@
         </div>
     </section>
     <dialog ref="cardDetailsModal" class="modal">
-        <card-details v-if="isCardOpen" @cardModified="updateCard" @closeDialog="closeDiag" :board="board" :card="cardToOpen" :groupId="cardToOpenGroupId"></card-details>
+        <card-details
+            v-if="isCardOpen"
+            @cardModified="updateCard"
+            @closeDialog="closeDiag"
+            :board="board"
+            :card="cardToOpen"
+            :groupId="cardToOpenGroupId"
+        ></card-details>
     </dialog>
 </template>
 
@@ -59,9 +68,16 @@ export default {
         }
     },
     created() {
-        
+
     },
     methods: {
+        groupRemove(groupId) {
+            console.log('Yes')
+            this.boardToEdit = JSON.parse(JSON.stringify(this.board))
+            const idx = this.boardToEdit.groups.findIndex((group) => group.id === groupId)
+            this.boardToEdit.groups.splice(idx, 1)
+            this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
+        },
         addNewGroup() {
             if (!this.newGroup.title) return
             this.boardToEdit = JSON.parse(JSON.stringify(this.board))
@@ -74,11 +90,11 @@ export default {
             this.show = false;
             this.newGroup.title = ""
         },
-        updateCard({card,groupId}){
-            this.groupToEdit = JSON.parse(JSON.stringify(this.board)).groups.find(group=> group.id === groupId)
-            const cardToEditIdx = this.groupToEdit.cards.findIndex(cardToFind=> cardToFind.id === card.id)
+        updateCard({ card, groupId }) {
+            this.groupToEdit = JSON.parse(JSON.stringify(this.board)).groups.find(group => group.id === groupId)
+            const cardToEditIdx = this.groupToEdit.cards.findIndex(cardToFind => cardToFind.id === card.id)
             this.groupToEdit.cards[cardToEditIdx] = card
-            this.updateGroup(this.groupToEdit)            
+            this.updateGroup(this.groupToEdit)
         },
         updateGroup(editedGroup) {
             this.boardToEdit = JSON.parse(JSON.stringify(this.board))

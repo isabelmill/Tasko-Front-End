@@ -4,6 +4,7 @@
         <section v-for="group in groups" :key="group.id" class="group-preview-main">
             <toggle-input-cmp
                 class="title"
+                @groupDelete="deleteGroup"
                 @titleChange="changeTitle"
                 :title="group.title"
                 :id="group.id"
@@ -70,11 +71,14 @@ export default {
         },
         openCardModal(info) {
             this.$emit('openCardDetails', info)
+        },
+        deleteGroup(groupId){
+            this.$emit('removeGroup',groupId)
         }
     },
     mounted() {
     },
-    emits: ['openCardDetails','groupUpdated']
+    emits: ['openCardDetails','removeGroup']
 
 }
 </script>
