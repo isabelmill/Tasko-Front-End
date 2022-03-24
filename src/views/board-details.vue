@@ -38,8 +38,8 @@
             @cardModified="updateCard"
             @closeDialog="closeDiag"
             :board="board"
-            :card="cardToOpen"
-            :group="cardToOpenGroup"
+            :card="cardToShow"
+            :group="groupToShow"
         ></card-details>
     </dialog>
 </template>
@@ -60,8 +60,8 @@ export default {
         return {
             show: false,
             isCardOpen: false,
-            cardToOpen: {},
-            cardToOpenGroup: null,
+            selectedCardIdx: null,
+            selectedCardGroupIdx: null,
             boardToEdit: null,
             groupToEdit: null,
             newGroup: boardService.getEmptyGroup(),
@@ -91,9 +91,10 @@ export default {
             this.newGroup.title = ""
         },
         updateCard({ card, group }) {
-            this.groupToEdit = JSON.parse(JSON.stringify(this.board)).groups.find(groupToFind => groupToFind.id === group.id)
+            this.groupToEdit = JSON.parse(JSON.stringify(group))
             const cardToEditIdx = this.groupToEdit.cards.findIndex(cardToFind => cardToFind.id === card.id)
             this.groupToEdit.cards[cardToEditIdx] = card
+            console.log(this.groupToEdit);
             this.updateGroup(this.groupToEdit)
         },
         updateGroup(editedGroup) {
@@ -104,8 +105,8 @@ export default {
         },
         openCardDetailsModal(info) {
             this.isCardOpen = true
-            this.cardToOpen = info.card
-            this.cardToOpenGroup = info.group
+            this.selectedCardIdx = this.board.groups.find(group => group.id === info.group.id).cards.findIndex(card => card.id === info.card.id)
+            this.selectedCardGroupIdx = this.board.groups.findIndex(group => group.id === info.group.id)
             this.$refs.cardDetailsModal.showModal()
         },
         closeDiag() {
@@ -116,6 +117,12 @@ export default {
     computed: {
         board() {
             return this.$store.getters.board
+        },
+        cardToShow() {
+            return this.board.groups[this.selectedCardGroupIdx].cards[this.selectedCardIdx]
+        },
+        groupToShow() {
+            return this.board.groups[this.selectedCardGroupIdx]
         }
     },
     watch: {

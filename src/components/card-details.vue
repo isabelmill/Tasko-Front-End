@@ -20,7 +20,9 @@
             <section class="card-details-main flex">
                 <div class="card-details-members-labels-date">
                     <label for>Members</label>
-                    <label for>Labels</label>
+                    <label for>{Labels}
+                        <section v-for="label in card.labels" :key="label.id">{{label.color}}</section>
+                    </label>
                     <label for>Due date</label>
                 </div>
 
