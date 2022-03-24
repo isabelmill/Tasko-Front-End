@@ -39,7 +39,7 @@
             @closeDialog="closeDiag"
             :board="board"
             :card="cardToOpen"
-            :groupId="cardToOpenGroupId"
+            :group="group"
         ></card-details>
     </dialog>
 </template>
@@ -105,7 +105,7 @@ export default {
         openCardDetailsModal(info) {
             this.isCardOpen = true
             this.cardToOpen = info.card
-            this.cardToOpenGroupId = info.groupId
+            this.cardToOpenGroupId = info.group
             this.$refs.cardDetailsModal.showModal()
         },
         closeDiag() {

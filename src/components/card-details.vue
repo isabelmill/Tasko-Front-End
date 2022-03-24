@@ -73,8 +73,8 @@ export default {
         card: {
             type: Object
         },
-        groupId: {
-            type: String
+        group: {
+            type: Object
         },
         board: {
             type: Object
@@ -105,7 +105,7 @@ export default {
             this.currModal = "labelModal"
         },
         cardEdit(card) {
-            this.$emit('cardModified', { card, groupId: this.groupId })
+            this.$emit('cardModified', { card, groupId: this.group.id })
         }
     },
     emits: ['closeDialog', 'cardModified']
