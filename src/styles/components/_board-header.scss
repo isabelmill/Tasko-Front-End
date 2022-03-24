@@ -27,9 +27,6 @@
         justify-content: center;
         gap: 4px;
         margin: 0;
-        // padding: 0;
-        span {
-        }
     }
 
     .invite {
@@ -70,28 +67,25 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    // margin-bottom: 1px;
     p {
         display: flex;
         align-items: center;
         justify-content: center;
         font-weight: bold;
         font-size: rem(16px);
-        height: rem(31px);
-        // padding: 0 10px 0 5px;
+        height: rem(32px);
         background-color: rgba(255, 255, 255, 0.3);
         border-radius: 3px;
-        &:hover {
-        }
     }
     input {
         text-align: center;
-        height: rem(31px);
+        height: rem(32px);
         background-color: rgba(255, 255, 255, 0.2);
         border: 1px solid rgba(255, 255, 255, 0.25);
         border-radius: 3px;
         font-size: rem(16px);
         font-weight: bold;
-        // padding: 0 15px 0 15px;
         white-space: nowrap;
         transition: all 0.1s;
         box-shadow: inset 0 0 0 2px #0079bf;
@@ -104,5 +98,8 @@
         &:focus {
             outline: none !important;
         }
+    }
+    &:hover {
+        background-color: rgba(255, 255, 255, 0.3);
     }
 }

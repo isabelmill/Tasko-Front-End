@@ -68,8 +68,6 @@
         display: flex;
         font-weight: bold;
         height: 32px;
-        line-height: 32px;
-        // margin: 0 8px 8px 0;
         margin-left: 4px;
         padding: 0;
         white-space: nowrap;
@@ -97,19 +95,11 @@
         border-radius: 3px;
         font-size: rem(14px);
         height: rem(32px);
-        line-height: rem(19px);
         padding-left: rem(30px);
         padding-right: rem(8px);
         width: rem(250px);
 
         background: transparent url("../../assets/svg/search.svg") no-repeat 13px center;
-
-        // box-shadow: none;
-        // box-sizing: border-box;
-        // float: left;
-        // margin-left: 4px;
-        // margin-right: 4px;
-        // outline: none;
         &::placeholder {
             color: #fff;
         }
@@ -133,7 +123,6 @@
     position: fixed;
     width: rem(305px);
     color: #172b4d;
-    line-height: rem(20px);
     background-color: #ffffff;
     border-radius: rem(3px);
     box-shadow: 0 8px 16px -4px rgb(9 30 66 / 25%), 0 0 0 1px rgb(9 30 66 / 8%);
