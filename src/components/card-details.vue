@@ -58,12 +58,7 @@ export default {
         return {
             currModal: null,
             shown: false,
-<<<<<<< HEAD
-            distanceX: 0,
-            distanceY: 0,
-=======
             pos: 0,
->>>>>>> fab922d895a26d270775d1e7b55074106bd9ffdd
         }
     },
     methods: {
@@ -74,10 +69,7 @@ export default {
             this.shown=false;
         },
         editLabels() {
-<<<<<<< HEAD
-=======
             this.pos = this.$refs['labelBtn'].getBoundingClientRect()
->>>>>>> fab922d895a26d270775d1e7b55074106bd9ffdd
             this.shown = !this.shown
             this.currModal = "labelModal"
         },
@@ -85,11 +77,7 @@ export default {
             this.$emit('cardModified',{card,groupId:this.groupId})
         }
     },
-<<<<<<< HEAD
-    emits: ['closeDialog']
-=======
     emits: ['closeDialog','cardModified']
->>>>>>> fab922d895a26d270775d1e7b55074106bd9ffdd
 
 }
 
