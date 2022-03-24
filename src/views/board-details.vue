@@ -2,7 +2,7 @@
     <section>
         <board-header v-if="board" :board="board" />
     </section>
-    <section v-if="board" class="board-details-main" :style="{ 'backgroundColor':board.background}">
+    <section v-if="board" class="board-details-main" :style="{ 'backgroundColor': board.background }">
         <group-list
             @openCardDetails="openCardDetailsModal"
             @groupUpdated="updateGroup"
@@ -13,23 +13,30 @@
             class="add-new-group"
             :style="show ? { 'height': '100px', 'backgroundColor': 'white' } : null"
         >
-            <button v-if="!show" @click="show = true">
+            <button class="add-another-list-btn" v-if="!show" @click="show = true">
                 <span class="icon-sm icon-add-light"></span>Add another list
             </button>
-            <div v-clickOutside="close" v-if="show" class="add-new board-input">
-                <input
+            <div v-clickOutside="close" v-if="show" class="add-new-group-in">
+                <textarea
                     @keyup.enter="addNewGroup"
-                    placeholder="Title"
+                    placeholder="Enter list title..."
                     type="text"
                     v-model="newGroup.title"
                 />
-                <button @click="addNewGroup">Add List</button>
-                <button @click="show = false">X</button>
+                <div class="controls-add-list">
+                    <button class="btn-add-card-in" @click="addNewGroup">Add List</button>
+                    <span class="icon-lg icon-close" @click="show = false"></span>
+                </div>
             </div>
         </div>
     </section>
     <dialog ref="cardDetailsModal" class="modal cursor-pointer">
-        <card-details v-if="isCardOpen" @closeDialog="closeDiag" :card="cardToOpen" :GroupId="cardToOpenGroupId"></card-details>
+        <card-details
+            v-if="isCardOpen"
+            @closeDialog="closeDiag"
+            :card="cardToOpen"
+            :GroupId="cardToOpenGroupId"
+        ></card-details>
     </dialog>
 </template>
 
@@ -78,13 +85,13 @@ export default {
             this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
         },
         openCardDetailsModal(info) {
-            this.isCardOpen =true
+            this.isCardOpen = true
             this.cardToOpen = info.card
             this.cardToOpenGroupId = info.groupId
             this.$refs.cardDetailsModal.showModal()
         },
         closeDiag() {
-            this.isCardOpen =false
+            this.isCardOpen = false
             this.$refs.cardDetailsModal.close()
         }
     },
@@ -118,7 +125,7 @@ export default {
     border-radius: 2px;
     max-width: 768px;
     border: 0;
-    box-shadow: 0 0 1em rgb(0, 0, 0/.3);
+    box-shadow: 0 0 1em rgb(0, 0, 0/0.3);
 }
 
 .modal::backdrop {

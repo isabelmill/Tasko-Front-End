@@ -15,7 +15,6 @@
             />
             <div>
                 <button class="btn-add-card-in" @click="addCard">Add card</button>
-                <!-- <button class="icon-md icon-close" @click="show = false"></button> -->
                 <span class="icon-lg icon-close" @click="show = false"></span>
             </div>
         </div>

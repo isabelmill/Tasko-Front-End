@@ -4,7 +4,6 @@
     // min-height: rem(80px);
     height: min-content;
     // max-height: rem(620px);
-
     border-radius: 3px;
     background-color: $groupGray;
 }
@@ -21,7 +20,6 @@
         font-family: roboto-regular;
         font-weight: 600;
         font-size: rem(14px);
-        // background-color: rgb(245, 211, 161);
         border-radius: 3px;
         padding: 4px 8px;
         margin: 0 8px 0 8px;
@@ -138,6 +136,7 @@
                 width: rem(80px);
                 height: rem(32px);
                 border-radius: 3px;
+                cursor: pointer;
             }
             span {
                 cursor: pointer;
@@ -152,7 +151,6 @@
     textarea {
         overflow: hidden;
         overflow-wrap: break-word;
-        resize: none;
         height: rem(54px);
         padding: 20px;
 
@@ -178,8 +176,19 @@
     }
 }
 
+//add another list
 .add-new-group {
-    button {
+    // height: rem(85px);
+    border-radius: 3px;
+    .add-new-group-in {
+        width: rem(276px);
+        // min-height: rem(80px);
+        // height: min-content;
+        // max-height: rem(620px);
+        border-radius: 3px;
+        background-color: $groupGray;
+    }
+    .add-another-list-btn {
         @include btn();
         // background-color: grey;
         width: rem(272px);
@@ -187,6 +196,47 @@
         display: flex;
         align-items: center;
         gap: 3px;
+    }
+    .controls-add-list {
+        display: flex;
+        margin: 8px 0 0 4px;
+        .btn-add-card-in {
+            background-color: #0079bf;
+            border: none;
+            box-shadow: none;
+            color: #fff;
+            width: rem(80px);
+            height: rem(32px);
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        span {
+            cursor: pointer;
+            height: rem(32px);
+            width: rem(32px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+    textarea {
+        overflow: hidden;
+        overflow-wrap: break-word;
+        font-family: roboto-regular;
+        // font-size: rem(14px);
+        color: $memberBlue;
+        width: 80%;
+        height: rem(35px);
+        border-radius: 3px;
+        padding: 8px 12px;
+        display: flex;
+        align-items: center;
+        border: none;
+        margin: 4px;
+        box-shadow: inset 0 0 0 2px $mainBlue;
+        &:focus {
+            outline: none !important;
+        }
     }
 }
 
@@ -211,7 +261,6 @@
     border-radius: 10px;
     background: #a7afbc;
 }
-
 
 //icons
 .icon-add-dark {
