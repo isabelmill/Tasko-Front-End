@@ -39,7 +39,7 @@
             @closeDialog="closeDiag"
             :board="board"
             :card="cardToOpen"
-            :group="group"
+            :group="cardToOpenGroup"
         ></card-details>
     </dialog>
 </template>
@@ -61,7 +61,7 @@ export default {
             show: false,
             isCardOpen: false,
             cardToOpen: {},
-            cardToOpenGroupId: null,
+            cardToOpenGroup: null,
             boardToEdit: null,
             groupToEdit: null,
             newGroup: boardService.getEmptyGroup(),
@@ -90,8 +90,8 @@ export default {
             this.show = false;
             this.newGroup.title = ""
         },
-        updateCard({ card, groupId }) {
-            this.groupToEdit = JSON.parse(JSON.stringify(this.board)).groups.find(group => group.id === groupId)
+        updateCard({ card, group }) {
+            this.groupToEdit = JSON.parse(JSON.stringify(this.board)).groups.find(groupToFind => groupToFind.id === group.id)
             const cardToEditIdx = this.groupToEdit.cards.findIndex(cardToFind => cardToFind.id === card.id)
             this.groupToEdit.cards[cardToEditIdx] = card
             this.updateGroup(this.groupToEdit)
@@ -105,7 +105,7 @@ export default {
         openCardDetailsModal(info) {
             this.isCardOpen = true
             this.cardToOpen = info.card
-            this.cardToOpenGroupId = info.group
+            this.cardToOpenGroup = info.group
             this.$refs.cardDetailsModal.showModal()
         },
         closeDiag() {

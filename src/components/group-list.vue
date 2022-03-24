@@ -14,7 +14,7 @@
                 @openCard="openCardModal"
                     v-for="card in group.cards"
                     :key="card.id"
-                    :groupId="group.id"
+                    :group="group"
                     :card="card"
                 ></card-preview>
             </section>
@@ -79,7 +79,7 @@ export default {
     },
     mounted() {
     },
-    emits: ['openCardDetails','removeGroup']
+    emits: ['openCardDetails','removeGroup','groupUpdated']
 
 }
 </script>

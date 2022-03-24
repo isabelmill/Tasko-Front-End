@@ -57,7 +57,7 @@
             @actionsClose="closeMenu"
             :board="board"
             :card="card"
-            :groupId="groupId"
+            :group="group"
             :pos="pos"
             :is="currModal"
         ></component>
@@ -104,8 +104,8 @@ export default {
             this.shown = !this.shown
             this.currModal = "labelModal"
         },
-        cardEdit(card) {
-            this.$emit('cardModified', { card, groupId: this.group.id })
+        editCard(card) {
+            this.$emit('cardModified', { card, group: this.group })
         }
     },
     emits: ['closeDialog', 'cardModified']

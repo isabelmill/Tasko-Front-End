@@ -35,8 +35,8 @@ import { boardService } from "../services/board-service.js";
 export default {
     name: 'card-preview',
     props: {
-        groupId: {
-            type: String
+        group: {
+            type: Object
         },
         card: {
             type: Object,
@@ -50,7 +50,7 @@ export default {
             modalOpen: false,
             board: null,
             titleIsOpen: false,
-            cardToDisplay: {
+            cardToEdit: {
                 title: "",
             },
             isActionsOpen: false,
@@ -58,19 +58,15 @@ export default {
         }
     },
     created() {
-        this.cardToDisplay = this.card;
     },
     methods: {
         openTitleEdit() {
             // this.titleIsOpen = true;
         },
-        async changeTitle() {
-            const { _id } = this.$route.params
-            this.board = await boardService.getById(_id)
-            const group = this.board.groups.find(group => group.id === this.groupId)
-            const card = await group.cards.find(card => card.id === this.cardToDisplay.id)
-            card.title = this.cardToDisplay.title
-            this.$store.dispatch({ type: 'saveBoard', board: this.board })
+         changeTitle(title) {
+            this.cardToEdit = JSON.parse(JSON.stringify(this.card))
+            this.cardToEdit.title = title
+            this.$emit('editCard',{card:this.cardToEdit,group:this.group})
             this.titleIsOpen = false;
         },
         openMiniEdit(ev) {
@@ -79,7 +75,7 @@ export default {
             this.modalOpen = true;
         },
         openDetails() {
-            this.$emit('openCard', { card: this.card, groupId: this.groupId })
+            this.$emit('openCard', { card: this.card, group: this.group })
         },
         closeModal() {
             this.modalOpen = false
@@ -88,7 +84,7 @@ export default {
 
         },
     },
-    emits: ['openCard'],
+    emits: ['openCard','editCard'],
 }
 </script>
 
