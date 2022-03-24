@@ -8,6 +8,17 @@
 
     .logo {
         margin-left: rem(30px);
+        height: rem(32px);
+        // width: rem(32px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+
+        img {
+            height: rem(16px);
+            width: rem(16px); 
+        }
     }
 
     .link {
@@ -15,7 +26,7 @@
         gap: rem(8px);
         align-items: center;
         justify-content: center;
-        
+
         margin-left: rem(10px);
         height: rem(32px);
         @include headerBtn();
@@ -26,7 +37,7 @@
         gap: rem(8px);
         align-items: center;
         justify-content: center;
-        
+
         margin-left: rem(10px);
         height: rem(32px);
         @include headerBtn();
@@ -37,8 +48,6 @@
         @include headerBtnIcon();
     }
 }
-
-
 
 .search-main {
     input {
@@ -74,7 +83,7 @@
     }
 }
 
-.starred-boards-modal{
+.starred-boards-modal {
     position: fixed;
     width: rem(305px);
     color: #172b4d;
@@ -87,12 +96,12 @@
     overflow: hidden;
     cursor: default;
 
-    .starred-boards-header{
+    .starred-boards-header {
         display: flex;
         justify-content: space-between;
     }
 
-    button{
+    button {
         cursor: pointer;
     }
 }
