@@ -1,7 +1,8 @@
 <template>
     <section class="board-app-main">
         <div class="main-container" >
-            <h1>YOUR WORKSPACES</h1>
+            <h1>Starred boards</h1>
+            <h1>Recently viewed</h1>
             <div class="contact">
                 <div class="folders">
                     <p>Boards</p>
@@ -99,3 +100,5 @@ export default {
     },
 }
 </script>
+
+<!-- rgba(0,0,0,.32) -->
