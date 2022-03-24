@@ -1,10 +1,6 @@
 <template>
     <section class="toggle-input">
-        <p
-            v-if="!titleIsOpen"
-            class="group-title cursor-pointer"
-            @click="openTitleEdit, calcPosOfBox($)"
-        >{{ txt }}</p>
+        <p v-if="!titleIsOpen" class="group-title cursor-pointer" @click="openTitleEdit">{{ txt }}</p>
         <input
             v-clickOutside="change"
             v-if="titleIsOpen"
@@ -12,10 +8,14 @@
             type="text"
             @submit.prevent="change"
         />
-        <span @click="openEditGroupModal()" ref="box" class="icon-sm icon-overflow-menu-horizontal"></span>
+        <span
+            @click="calcPosOfBox(), openEditGroupModal()"
+            ref="box"
+            class="icon-sm icon-overflow-menu-horizontal"
+        ></span>
         <group-edit
             v-if="openGroupEdit"
-            :style="{ top: posBoxX + 'px', left: posBoxY + 'px' }"
+            :style="{ top: '143' + 'px', left: pos.left  + 'px' }"
             v-clickOutside="closeEditMode"
             @close="closeEditMode"
             :id="id"
@@ -44,8 +44,7 @@ export default {
             boards: this.$store.getters.boards,
             board: this.$store.getters.board,
             groups: null,
-            posBoxX: 0,
-            posBoxY: 0,
+            pos: 0,
             boardToEdit: null,
         }
     },
@@ -61,10 +60,7 @@ export default {
             this.$emit('titleChange', { txt: this.txt, id: this.id })
         },
         openEditGroupModal() {
-            // console.log('ev:', ev);
             this.openGroupEdit = true
-            // this.distanceX = ev.clientX
-            // this.distanceY = ev.clientY + 5
         },
         closeEditMode() {
             this.openGroupEdit = false;
@@ -77,10 +73,8 @@ export default {
             this.closeEditMode()
         },
         calcPosOfBox() {
-            this.posBoxX = this.$refs['box'].getBoundingClientRect().x
-            this.posBoxY = this.$refs['box'].getBoundingClientRect().y
-            console.log('posBoxX:', this.posBoxX);
-            console.log('posBoxY:', this.posBoxY);
+            this.pos = this.$refs['box'].getBoundingClientRect()
+
         }
     },
     components: {
