@@ -31,7 +31,7 @@
         </div>
     </section>
     <dialog ref="cardDetailsModal" class="modal">
-        <card-details v-if="isCardOpen" @closeDialog="closeDiag" :board="board" :card="cardToOpen" :groupId="cardToOpenGroupId"></card-details>
+        <card-details v-if="isCardOpen" @cardModified="updateCard" @closeDialog="closeDiag" :board="board" :card="cardToOpen" :groupId="cardToOpenGroupId"></card-details>
     </dialog>
 </template>
 
@@ -73,6 +73,12 @@ export default {
         close() {
             this.show = false;
             this.newGroup.title = ""
+        },
+        updateCard({card,groupId}){
+            this.groupToEdit = JSON.parse(JSON.stringify(this.board)).groups.find(group=> group.id === groupId)
+            const cardToEditIdx = this.groupToEdit.cards.findIndex(cardToFind=> cardToFind.id === card.id)
+            this.groupToEdit.cards[cardToEditIdx] = card
+            this.updateGroup(this.groupToEdit)            
         },
         updateGroup(editedGroup) {
             this.boardToEdit = JSON.parse(JSON.stringify(this.board))

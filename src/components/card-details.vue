@@ -1,24 +1,36 @@
 <template>
     <section class="card-details-container flex">
-        <button class="exit-btn" @click="closeModal">X</button>
+        <div class="card-details-header">
+            <div class="card-details-header-icon">
+                <span class="icon-xl icon-card"></span>
+                <div class="card-details-title flex">
+                    <p>{{ card.title }}</p>
+                </div>
+            </div>
+            <span class="icon-xl icon-close" @click="closeModal"></span>
+        </div>
+
+        <div class="card-details-list-name">
+            <p>in list Group 1</p>
+        </div>
+
         <section class="card-details-main flex">
-            <section class="card-details-title flex">
-                <p>{{ card.title }}</p>
-            </section>
             <section class="card-details-description">Description</section>
             <section class="card-details-activity">Activity</section>
         </section>
         <section class="card-details-actions flex">
-            <button class="card-details-btn" @click="editLabels">Edit labels</button>
-            <button class="card-details-btn" @click="changeMembers">Change members</button>
-            <button class="card-details-btn" @click="changeCover">Channge cover</button>
-            <button class="card-details-btn" @click="moveCard">Move</button>
-            <button class="card-details-btn" @click="copyCard">Copy</button>
-            <button class="card-details-btn" @click="editDates">Edit dates</button>
-            <button class="card-details-btn" @click="deleteCard">Delete</button>
+            <button ref="labelBtn" class="card-details-btn" @click="editLabels">Edit labels</button>
+            <button ref="membersBtn" class="card-details-btn" @click="changeMembers">Change members</button>
+            <button ref="coverBtn" class="card-details-btn" @click="changeCover">Channge cover</button>
+            <button ref="moveBtn" class="card-details-btn" @click="moveCard">Move</button>
+            <button ref="copyBtn" class="card-details-btn" @click="copyCard">Copy</button>
+            <button ref="datesBtn" class="card-details-btn" @click="editDates">Edit dates</button>
+            <button ref="deleteBtn" class="card-details-btn" @click="deleteCard">Delete</button>
         </section>
     </section>
-    <component :board="board" :card="card" :groupId="groupId" v-if="currModal&&shown" :is="currModal"></component>
+    <section v-if="shown">
+        <component @cardEdit="editCard" @actionsClose="closeMenu" :board="board" :card="card" :groupId="groupId" :pos="pos" :is="currModal"></component>
+    </section>
 </template>
 
 <script>
@@ -33,7 +45,7 @@ export default {
         groupId: {
             type: String
         },
-        board:{
+        board: {
             type: Object
         }
     },
@@ -45,21 +57,39 @@ export default {
     data() {
         return {
             currModal: null,
-            shown:false,
+            shown: false,
+<<<<<<< HEAD
             distanceX: 0,
             distanceY: 0,
+=======
+            pos: 0,
+>>>>>>> fab922d895a26d270775d1e7b55074106bd9ffdd
         }
     },
     methods: {
         closeModal() {
             this.$emit('closeDialog')
         },
+        closeMenu(){
+            this.shown=false;
+        },
         editLabels() {
-            this.shown=!this.shown
+<<<<<<< HEAD
+=======
+            this.pos = this.$refs['labelBtn'].getBoundingClientRect()
+>>>>>>> fab922d895a26d270775d1e7b55074106bd9ffdd
+            this.shown = !this.shown
             this.currModal = "labelModal"
+        },
+        cardEdit(card){
+            this.$emit('cardModified',{card,groupId:this.groupId})
         }
     },
-    emits:['closeDialog']
+<<<<<<< HEAD
+    emits: ['closeDialog']
+=======
+    emits: ['closeDialog','cardModified']
+>>>>>>> fab922d895a26d270775d1e7b55074106bd9ffdd
 
 }
 
@@ -69,7 +99,7 @@ export default {
 .card-details-container {
     /* position: fixed; */
     /* width: 60%; */
-    height: 450px;
+    /* height: 450px; */
     margin: 0;
     /* background-color: red; */
     /* top: 0; */

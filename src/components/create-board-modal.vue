@@ -16,7 +16,7 @@
                 />
                 </div>
             </div>
-            <h1>Background</h1>
+            <label class="background-label">Background</label>
             <div class="create-board-background-color">
                 <div @click="setBoardColor('#0079BF')" class="blue color-pref"></div>
                 <div @click="setBoardColor('#D29034')" class="yellow color-pref"></div>
