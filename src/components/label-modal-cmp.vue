@@ -45,7 +45,6 @@ export default {
         }
     },
     created() {
-        // console.log(this.board.labels[0].color)
     },
     methods: {
         close() {
@@ -53,15 +52,12 @@ export default {
         },
         addLabelToCard(label) {
             if (!this.cardToEdit) this.cardToEdit = JSON.parse(JSON.stringify(this.card))
-            console.log(this.cardToEdit)
             if (this.cardToEdit.labels.length) {
-                console.log(label.id);
                 const idx = this.cardToEdit.labels.findIndex(cardLabel => cardLabel.id === label.id)
                 if (idx === -1) this.cardToEdit.labels.push(label)
                 else this.cardToEdit.labels.splice(idx, 1)
             }
             else {
-                console.log('got here');
                 this.cardToEdit.labels.push(label)
             }
             this.$emit('cardEdit', this.cardToEdit)
