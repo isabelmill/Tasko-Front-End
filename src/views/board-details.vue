@@ -2,17 +2,8 @@
     <section>
         <board-header v-if="board" :board="board" />
     </section>
-<<<<<<< HEAD
     <section v-if="board" class="board-details-main" :style="{ 'backgroundColor':board.background}">
-        <group-list @groupUpdated="updateGroup" :groups="board.groups"></group-list>
-=======
-    <section v-if="board" class="board-details-main">
-        <group-list
-            @openCardDetails="openCardDetailsModal"
-            @groupUpdated="updateGroup"
-            :groups="board.groups"
-        ></group-list>
->>>>>>> 378c3517213d0d8b82320250ed63cfff1149d2cc
+        <group-list @openCardDetails="openCardDetailsModal" @groupUpdated="updateGroup" :groups="board.groups"></group-list>
 
         <div
             class="add-new-board"
