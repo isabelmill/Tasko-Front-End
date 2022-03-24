@@ -9,18 +9,13 @@ html,
 input,
 select,
 textarea {
-    // color: #172b4d;
     font-family: Roboto-regular, Helvetica, sans-serif;
-    // font-size: 14px;
-    // font-weight: 400;
-    line-height: 20px;
     box-shadow: none;
     resize: none;
 }
 
 body {
     margin: 0;
-    // background-color: aqua;
 }
 
 img {
@@ -61,9 +56,4 @@ textarea {
     transition-property: background-color, border-color, box-shadow;
     transition-timing-function: ease;
 }
-
-// :root {
-//     --dynamic-background-color: hsla(0,0%,0%,0.16)
-//     --dynamic-background-color-transparent: hsla(0,0%,0%,0.16);
-//   }
 

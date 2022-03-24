@@ -52,6 +52,7 @@ export default {
             this.$emit('actionsClose')
         },
         addLabelToCard(label) {
+            console.log('new label', label)
             this.cardToEdit = JSON.parse(JSON.stringify(this.card))
             console.log(this.cardToEdit)
             if (this.cardToEdit.labels) {

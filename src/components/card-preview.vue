@@ -1,6 +1,9 @@
 <template>
-    <section class="card-preview cursor-pointer flex" >
-        <p class="card-title cursor-pointer " @click="openDetails">{{ card.title }}</p>
+    <section class="card-preview cursor-pointer flex">
+        <ul v-if="card.labels">
+            <li v-for="label in card.labels" :key="label.id">{{label}}</li>
+        </ul>
+        <p class="card-title cursor-pointer" @click="openDetails">{{ card.title }}</p>
         <button class="icon-sm icon-edit" @click="openMiniEdit($event)"></button>
     </section>
     <section
@@ -63,10 +66,10 @@ export default {
         openTitleEdit() {
             // this.titleIsOpen = true;
         },
-         changeTitle(title) {
+        changeTitle(title) {
             this.cardToEdit = JSON.parse(JSON.stringify(this.card))
             this.cardToEdit.title = title
-            this.$emit('editCard',{card:this.cardToEdit,group:this.group})
+            this.$emit('editCard', { card: this.cardToEdit, group: this.group })
             this.titleIsOpen = false;
         },
         openMiniEdit(ev) {
@@ -84,7 +87,7 @@ export default {
 
         },
     },
-    emits: ['openCard','editCard'],
+    emits: ['openCard', 'editCard'],
 }
 </script>
 
@@ -122,7 +125,6 @@ export default {
     left: rem(650px);
     color: #172b4d;
     font-size: rem(14px);
-    line-height: rem(20px);
     background-color: #ffffff;
     border-radius: rem(3px);
     box-shadow: 0 8px 16px -4px rgb(9 30 66 / 25%), 0 0 0 1px rgb(9 30 66 / 8%);
@@ -131,7 +133,7 @@ export default {
     overflow: hidden;
     gap: 20px;
 }
-.card-title{
+.card-title {
     width: 230px;
 }
 </style>
