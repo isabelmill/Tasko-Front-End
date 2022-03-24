@@ -10,7 +10,7 @@
         ></group-list>
 
         <div
-            class="add-new-board"
+            class="add-new-group"
             :style="show ? { 'height': '100px', 'backgroundColor': 'white' } : null"
         >
             <button v-if="!show" @click="show = true">
@@ -28,8 +28,8 @@
             </div>
         </div>
     </section>
-    <dialog ref="cardDetailsModal" class="modal">
-        <card-details :card="cardToOpen" :GroupId="cardToOpenGroupId"></card-details>
+    <dialog ref="cardDetailsModal" class="modal cursor-pointer">
+        <card-details @closeDialog="closeDiag" :card="cardToOpen" :GroupId="cardToOpenGroupId"></card-details>
     </dialog>
 </template>
 
@@ -82,6 +82,9 @@ export default {
             this.cardToOpenGroupId = info.groupId
             this.$refs.cardDetailsModal.showModal()
         },
+        closeDiag() {
+            this.$refs.cardDetailsModal.close()
+        }
     },
     computed: {
         board() {
@@ -94,7 +97,7 @@ export default {
                 this.$store.dispatch({ type: 'loadBoardById', newId })
             },
             immediate: true
-        
+
         }
         // "$store.getters.selectedBoard": {
         //     handler(newBoard) {
@@ -107,5 +110,21 @@ export default {
 </script>
 
 <style>
+.modal {
+    width: 60%;
+    height: 500px;
+    margin-top: 80px;
+    display: flex;
+    justify-content: center;
+    border-radius: 2px;
+    width: 768px;
+    z-index: 25;
+    border: 0;
+    box-shadow: 0 0 1em rgb(0, 0, 0/.3);
+}
 
+.modal::backdrop {
+    background: black;
+    opacity: 0.3;
+}
 </style>

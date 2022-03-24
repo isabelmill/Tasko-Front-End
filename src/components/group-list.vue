@@ -8,14 +8,14 @@
                 :title="group.title"
                 :id="group.id"
             ></toggle-input-cmp>
-
-            <card-preview
-                @openCard="openCardModal"
-                v-for="card in group.cards"
-                :key="card.id"
-                :groupId="group.id"
-                :card="card"
-            ></card-preview>
+            <section class="scroller">
+                <card-preview
+                    v-for="card in group.cards"
+                    :key="card.id"
+                    :groupId="group.id"
+                    :card="card"
+                ></card-preview>
+            </section>
             <add-card-cmp @cardAdd="addNewCard" :groupId="group.id"></add-card-cmp>
         </section>
     </section>
@@ -68,7 +68,7 @@ export default {
             this.groupToEdit = null
         },
         openCardModal(info) {
-            this.$emit('openCardDetails',info)
+            this.$emit('openCardDetails', info)
         }
     },
     mounted() {

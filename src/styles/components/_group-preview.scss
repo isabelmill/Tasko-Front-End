@@ -1,8 +1,9 @@
 // group-card
 .group-preview-main {
     width: rem(276px);
-    max-height: rem(530px);
-    height: rem(530px);
+    // min-height: rem(80px);
+    // height: auto;
+    max-height: rem(620px);
     border-radius: 3px;
     background-color: $groupGray;
 }
@@ -117,16 +118,45 @@
     }
 }
 
-.add-new-board {
+.add-new-group {
     button {
         @include btn();
-        background-color: grey;
+        // background-color: grey;
         width: rem(272px);
         height: rem(40px);
         display: flex;
         align-items: center;
-        gap: 3px
+        gap: 3px;
     }
+}
+
+.scroller {
+    // width: 300px;
+    // height: auto;
+    // width: 8px;
+    // height: 8px;
+    // overflow-x: visible;
+    overflow-x: hidden;
+    overflow-y: auto;
+    // flex: 1 1 auto;
+    margin: 0 4px;
+    // min-height: 0;
+    // padding: 0 4px;
+    // z-index: 1;
+    max-height: 100%;
+
+    max-height: rem(520px);
+
+    // overflow-y: auto;
+    // overflow-x: hidden;
+    // // scrollbar-color: rebeccapurple green;
+    // scrollbar-width: thin;
+}
+.scroller::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+    background-color: rgb(127, 131, 131);
+    color: black;
 }
 
 .icon-add-dark {

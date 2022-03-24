@@ -7,7 +7,11 @@
         <nav>
             <button>Board</button>
             <div class="board-name-edit">
-                <p class="board-name" v-if="!titleIsOpen" @click="openTitleEdit">{{ board.title }}</p>
+                <p
+                    class="board-name"
+                    v-if="!titleIsOpen"
+                    @click="openTitleEdit"
+                >{{ board.title }}</p>
                 <input
                     maxlength="512"
                     v-clickOutside="changeTitle"
@@ -15,6 +19,8 @@
                     v-model="boardToEdit.title"
                     type="text"
                     @submit.prevent="changeBoardTitle"
+                    @keydown="calculateTxtLen"
+                    :style="updateWidth"
                 />
             </div>
 
@@ -44,8 +50,13 @@ export default {
         return {
             isStared: false,
             titleIsOpen: false,
-            boardToEdit: JSON.parse(JSON.stringify(this.board))
+            boardToEdit: JSON.parse(JSON.stringify(this.board)),
+            titleLength: 0
+
         }
+    },
+    created() {
+        this.calculateTxtLen()
     },
     methods: {
         boardStared() {
@@ -60,6 +71,10 @@ export default {
             if (!this.boardToEdit.title) return
             this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
             this.titleIsOpen = false;
+        },
+        calculateTxtLen() {
+            this.titleLength = this.boardToEdit.title.length
+            console.log(this.updateWidth)
         }
     },
     computed: {
@@ -67,6 +82,9 @@ export default {
             if ( this.board.isStarred) return `icon-sm icon-starred`
             else return `icon-sm icon-star`
         },
+        updateWidth() {
+            return `width: ${20 + (this.titleLength * 9) + 'px'};`
+        }
 
     }
 }
