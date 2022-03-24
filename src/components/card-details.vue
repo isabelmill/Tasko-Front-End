@@ -7,7 +7,6 @@
         <section class="card-details-description"></section>
         <section class="card-details-activity"></section>
         <section class="card-details-actions flex">
-            <button class="card-details-btn" @click="openDetails">Open card</button>
             <button class="card-details-btn" @click="editLabels">Edit labels</button>
             <button class="card-details-btn" @click="changeMembers">Change members</button>
             <button class="card-details-btn" @click="changeCover">Channge cover</button>
@@ -62,8 +61,23 @@ export default {
 .exit-btn {
     height: 48px;
     width: 48px;
+    border: 0;
+    border-radius: 2px
 }
 
+.exit-btn:hover{
+    background-color: grey;
+}
+.card-details-btn{
+    margin-bottom: 8px;
+    padding: 12px, 6px;
+    border: 0;
+    border-radius: 2px;
+}
+
+.card-details-btn:hover{
+  background-color: grey; 
+}
 .card-details-actions{
     flex-direction: column;
 }
