@@ -72,7 +72,6 @@ export default {
     },
     methods: {
         groupRemove(groupId) {
-            console.log('Yes')
             this.boardToEdit = JSON.parse(JSON.stringify(this.board))
             const idx = this.boardToEdit.groups.findIndex((group) => group.id === groupId)
             this.boardToEdit.groups.splice(idx, 1)
@@ -94,7 +93,6 @@ export default {
             this.groupToEdit = JSON.parse(JSON.stringify(group))
             const cardToEditIdx = this.groupToEdit.cards.findIndex(cardToFind => cardToFind.id === card.id)
             this.groupToEdit.cards[cardToEditIdx] = card
-            console.log(this.groupToEdit);
             this.updateGroup(this.groupToEdit)
         },
         updateGroup(editedGroup) {
