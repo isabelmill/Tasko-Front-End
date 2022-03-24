@@ -109,7 +109,7 @@
 ///add card
 .add-card-cmp {
     .btn-add-card-out {
-        background-color: #ebecf0;
+        background-color: #e3e4e6;
         display: flex;
         gap: 5px;
         border-radius: 3px;
@@ -124,7 +124,7 @@
         }
     }
     div {
-        width: rem(251px);
+        width: rem(260px);
     }
     .add-new-card-input {
         div {
@@ -155,7 +155,7 @@
     textarea {
         overflow: hidden;
         overflow-wrap: break-word;
-        height: rem(54px);
+        // height: rem(54px);
         padding: 20px;
 
         display: flex;

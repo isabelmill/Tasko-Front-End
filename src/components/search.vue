@@ -1,6 +1,6 @@
 <template>
   <section class="search-main">
-      <input type="text" placeholder="search">
+    <input type="text" placeholder="Search" />
   </section>
 </template>
 

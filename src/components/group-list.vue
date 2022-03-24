@@ -14,11 +14,11 @@
                 @openCard="openCardModal"
                     v-for="card in group.cards"
                     :key="card.id"
-                    :groupId="group.id"
+                    :group="group"
                     :card="card"
                 ></card-preview>
             </section>
-            <add-card-cmp @cardAdd="addNewCard" :groupId="group.id"></add-card-cmp>
+            <add-card-cmp @cardAdd="addNewCard" :group="group"></add-card-cmp>
         </section>
     </section>
 </template>
@@ -63,8 +63,9 @@ export default {
         close() {
             this.show = false;
         },
-        addNewCard({ newCard, groupId }) {
-            this.groupToEdit = JSON.parse(JSON.stringify(this.groups.find(group => group.id === groupId)))
+        addNewCard({ newCard, group }) {
+            console.log(group)
+            this.groupToEdit = JSON.parse(JSON.stringify(this.groups.find(groupToCheck => groupToCheck.id === group.id)))
             this.groupToEdit.cards.push(newCard)
             this.$emit('groupUpdated', this.groupToEdit)
             this.groupToEdit = null
@@ -78,7 +79,7 @@ export default {
     },
     mounted() {
     },
-    emits: ['openCardDetails','removeGroup']
+    emits: ['openCardDetails','removeGroup','groupUpdated']
 
 }
 </script>

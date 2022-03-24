@@ -184,6 +184,17 @@ function getEmptyCard() {
     return {
         id: utilService.makeId(),
         title: '',
+        labels: [],
+        createdAt: Date.now(),
+        checklist: {
+            title: 'Checklist',
+            todos: [],
+        },
+        attachment: {},
+        cover: {},
+        members: [],
+        dueDate: '',
+        isWatched: false,
     }
 }
 
