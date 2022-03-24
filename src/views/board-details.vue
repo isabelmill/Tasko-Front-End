@@ -3,7 +3,11 @@
         <board-header v-if="board" :board="board" />
     </section>
     <section v-if="board" class="board-details-main">
-        <group-list @groupUpdated="updateGroup" :groups="board.groups"></group-list>
+        <group-list
+            @openCardDetails="openCardDetailsModal"
+            @groupUpdated="updateGroup"
+            :groups="board.groups"
+        ></group-list>
 
         <div
             class="add-new-board"
@@ -13,27 +17,38 @@
                 <span class="icon-sm icon-add-light"></span>Add another list
             </button>
             <div v-clickOutside="close" v-if="show" class="add-new board-input">
-                <input @keyup.enter="addNewGroup" placeholder="Title" type="text" v-model="newGroup.title" />
+                <input
+                    @keyup.enter="addNewGroup"
+                    placeholder="Title"
+                    type="text"
+                    v-model="newGroup.title"
+                />
                 <button @click="addNewGroup">Add List</button>
                 <button @click="show = false">X</button>
             </div>
         </div>
     </section>
+    <card-details :card="cardToOpen" :GroupId="cardToOpenGroupId" v-if="isCardOpen"></card-details>
 </template>
 
 <script>
 import groupList from "../components/group-list.vue"
 import { boardService } from "../services/board-service.js"
 import boardHeader from "../components/board-header.vue"
+import cardDetails from "../components/card-details.vue"
 
 export default {
     components: {
         groupList,
-        boardHeader
+        boardHeader,
+        cardDetails
     },
     data() {
         return {
             show: false,
+            isCardOpen: false,
+            cardToOpen: {},
+            cardToOpenGroupId: null,
             boardToEdit: null,
             groupToEdit: null,
             newGroup: boardService.getEmptyGroup(),
@@ -43,7 +58,7 @@ export default {
     },
     methods: {
         addNewGroup() {
-            if(!this.newGroup.title) return
+            if (!this.newGroup.title) return
             this.boardToEdit = JSON.parse(JSON.stringify(this.board))
             this.boardToEdit.groups.push(this.newGroup)
             this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
@@ -59,7 +74,12 @@ export default {
             const groupIdx = this.boardToEdit.groups.findIndex(group => group.id === editedGroup.id)
             this.boardToEdit.groups[groupIdx] = editedGroup
             this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
-        }
+        },
+        openCardDetailsModal(info) {
+            this.cardToOpen = info.card
+            this.cardToOpenGroupId = info.groupId
+            this.isCardOpen = true
+        },
     },
     computed: {
         board() {
