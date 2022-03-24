@@ -51,7 +51,6 @@ export default {
 }
 
 
-
 .exit-btn{
     height: 48px;
     width:48px;
