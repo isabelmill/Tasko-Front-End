@@ -1,6 +1,6 @@
 <!-- card preview inside group list -->
 <template >
-    <section  class="group-list-main">
+    <section class="group-list-main">
         <section v-for="group in groups" :key="group.id" class="group-preview-main">
             <toggle-input-cmp
                 class="title"
@@ -10,6 +10,7 @@
             ></toggle-input-cmp>
 
             <card-preview
+                @openCard="openCardModal"
                 v-for="card in group.cards"
                 :key="card.id"
                 :groupId="group.id"
@@ -50,25 +51,29 @@ export default {
     created() {
     },
     methods: {
-        changeTitle({txt,id}) {
+        changeTitle({ txt, id }) {
             this.groupToEdit = JSON.parse(JSON.stringify(this.groups.find(group => group.id === id)))
             this.groupToEdit.title = txt
             this.$emit('groupUpdated', this.groupToEdit)
-            this.groupToEdit= null
+            this.groupToEdit = null
             this.titleIsOpen = false;
         },
         close() {
             this.show = false;
         },
-        addNewCard({newCard,groupId}) {
+        addNewCard({ newCard, groupId }) {
             this.groupToEdit = JSON.parse(JSON.stringify(this.groups.find(group => group.id === groupId)))
             this.groupToEdit.cards.push(newCard)
             this.$emit('groupUpdated', this.groupToEdit)
-            this.groupToEdit= null
+            this.groupToEdit = null
+        },
+        openCardModal(info) {
+            this.$emit('openCardDetails',info)
         }
     },
     mounted() {
     },
+    emits: ['openCardDetails']
 
 }
 </script>

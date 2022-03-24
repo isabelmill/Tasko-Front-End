@@ -5,7 +5,7 @@
             <p>Add card</p>
         </button>
         <div v-clickOutside="addCard" v-if="show" class="add-new board-input">
-            <input @keydown.enter="addCard" placeholder="Title" type="text" v-model="txt" />
+            <input v-focus @keydown.enter="addCard" placeholder="Title" type="text" v-model="txt" />
             <button @click="addCard">Add new Card</button>
             <button @click="show = false">X</button>
         </div>
@@ -33,6 +33,7 @@ export default {
     methods: {
         addCard() {
             this.show = false;
+            if (!this.txt) return
             this.newCard.title = this.txt;
             this.$emit('cardAdd', {newCard: this.newCard, groupId: this.groupId})
 
