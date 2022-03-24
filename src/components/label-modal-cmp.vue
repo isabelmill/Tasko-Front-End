@@ -4,7 +4,7 @@
         <hr />
         <search></search>
         <p class="mini-title">Labels</p>
-        <section :v-for="label in board.labels" :key="label.id" class="label-container flex">
+        <section v-for="label in board.labels" :key="label.id" class="label-container flex">
             <div :style="{backgroundColor:'label.color'}"></div>
             <button>edit</button>
         </section>
@@ -32,7 +32,6 @@ export default {
         }
     },
     created(){
-        console.log(this.board)
     }
 
 }

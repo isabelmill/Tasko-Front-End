@@ -18,7 +18,9 @@
             <button class="card-details-btn" @click="deleteCard">Delete</button>
         </section>
     </section>
-    <component :board="board" :card="card" :groupId="groupId" v-if="currModal&&shown" :is="currModal"></component>
+    <section v-if="shown">
+        <component :board="board" :card="card" :groupId="groupId" :is="currModal"></component>
+    </section>
 </template>
 
 <script>
@@ -33,7 +35,7 @@ export default {
         groupId: {
             type: String
         },
-        board:{
+        board: {
             type: Object
         }
     },
@@ -45,7 +47,7 @@ export default {
     data() {
         return {
             currModal: null,
-            shown:false,
+            shown: false,
             distanceX: 0,
             distanceY: 0,
         }
@@ -55,11 +57,11 @@ export default {
             this.$emit('closeDialog')
         },
         editLabels() {
-            this.shown=!this.shown
+            this.shown = !this.shown
             this.currModal = "labelModal"
         }
     },
-    emits:['closeDialog']
+    emits: ['closeDialog']
 
 }
 
