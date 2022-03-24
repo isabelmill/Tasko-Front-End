@@ -16,7 +16,7 @@
                     :card="card"
                 ></card-preview>
             </section>
-                <add-card-cmp @cardAdd="addNewCard" :groupId="group.id"></add-card-cmp>
+            <add-card-cmp @cardAdd="addNewCard" :groupId="group.id"></add-card-cmp>
         </section>
     </section>
 </template>
@@ -66,10 +66,14 @@ export default {
             this.groupToEdit.cards.push(newCard)
             this.$emit('groupUpdated', this.groupToEdit)
             this.groupToEdit = null
+        },
+        openCardModal(info) {
+            this.$emit('openCardDetails', info)
         }
     },
     mounted() {
     },
+    emits: ['openCardDetails']
 
 }
 </script>

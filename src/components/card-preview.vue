@@ -10,17 +10,23 @@
         v-if="modalOpen"
         class="mini-edit-modal flex"
     >
-        <textarea name="mini-edit-ta" style="resize:none" v-model="cardToDisplay.title"></textarea>
-        <button class="mini-edit-card-details" @click="openDetails">Open card</button>
-        <button class="mini-edit-labels" @click="editLabels">Edit labels</button>
-        <button class="mini-edit-members" @click="openDetails">Change members</button>
-        <button class="mini-edit-cover" @click="openDetails">Channge cover</button>
-        <button class="mini-edit-move" @click="openDetails">Move</button>
-        <button class="mini-edit-copy" @click="openDetails">Copy</button>
-        <button class="mini-edit-dates" @click="openDetails">Edit dates</button>
-        <button class="mini-edit-delete" @click="openDetails">Delete</button>
-
-        <button class="mini-edit-save" @click="saveCard"></button>
+        <section class="mini-edit-main">
+            <textarea name="mini-edit-ta" style="resize:none" v-model="cardToDisplay.title"></textarea>
+            <button class="mini-edit-save" @click="saveCard">Save</button>
+        </section>
+        <section class="mini-edit-actions">
+            <button class="mini-edit-btn" @click="openDetails">Open card</button>
+            <button class="mini-edit-btn" @click="editLabels">Edit labels</button>
+            <button class="mini-edit-btn" @click="changeMembers">Change members</button>
+            <button class="mini-edit-btn" @click="changeCover">Channge cover</button>
+            <button class="mini-edit-btn" @click="moveCard">Move</button>
+            <button class="mini-edit-btn" @click="copyCard">Copy</button>
+            <button class="mini-edit-btn" @click="editDates">Edit dates</button>
+            <button class="mini-edit-btn" @click="deleteCard">Delete</button>
+        </section>
+        <section class="actions-modal">
+            <component v-if="isActionsOpen" :card="card" :is="activeComponent"></component>
+        </section>
     </section>
 </template>
 
@@ -47,6 +53,8 @@ export default {
             cardToDisplay: {
                 title: "",
             },
+            isActionsOpen: false,
+            activeComponent: null,
         }
     },
     created() {
@@ -71,7 +79,7 @@ export default {
             this.modalOpen = true;
         },
         openDetails() {
-            // this.$router.push('/card/')
+            this.$emit('openCard', { card: this.card, groupId: this.groupId })
         },
         closeModal() {
             this.modalOpen = false
@@ -80,8 +88,51 @@ export default {
 
         },
     },
+    emits: ['openCard'],
 }
 </script>
 
 <style>
+/* TO ADD TO SCSS!!!!!!!!! */
+.mini-edit-main {
+    display: flex;
+    flex-direction: column;
+}
+
+.mini-edit-actions {
+    display: flex;
+    flex-direction: column;
+}
+
+.mini-edit-btn {
+    background: #0009;
+    border-radius: 3px;
+    clear: both;
+    color: #e6e6e6;
+    display: block;
+    float: left;
+    margin: 0 0 4px 8px;
+    padding: 6px 12px 6px 8px;
+    text-decoration: none;
+    transition: transform 85ms ease-in;
+    opacity: 60%;
+}
+.mini-edit-modal {
+    display: flex;
+    flex-direction: row;
+    position: fixed;
+    width: rem(304px);
+    top: rem(184px);
+    left: rem(650px);
+    color: #172b4d;
+    font-size: rem(14px);
+    line-height: rem(20px);
+    background-color: #ffffff;
+    border-radius: rem(3px);
+    box-shadow: 0 8px 16px -4px rgb(9 30 66 / 25%), 0 0 0 1px rgb(9 30 66 / 8%);
+    box-sizing: border-box;
+    outline: 0;
+    overflow: hidden;
+    gap: 20px;
+}
 </style>

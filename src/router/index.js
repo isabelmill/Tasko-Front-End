@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import home from '../views/home.vue'
 import boardApp from '../views/board-app.vue'
 import boardDetails from '../views/board-details.vue'
-import cardDetails from '../views/card-details.vue'
+
 
 const router = createRouter({
     history: createWebHistory(
@@ -21,10 +21,6 @@ const router = createRouter({
             path: '/board/:boardId',
             name: 'board-details',
             component: boardDetails,
-            children: [{
-                path: '/card/',
-                component: cardDetails
-            }]
         },
         // {
         //   path: '/about',
