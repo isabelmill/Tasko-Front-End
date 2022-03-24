@@ -54,6 +54,7 @@ export default {
             this.$emit('actionsClose')
         },
         addLabelToCard(label) {
+            console.log('new labal', label)
             if (!this.cardToEdit) this.cardToEdit = JSON.parse(JSON.stringify(this.card))
             if (this.cardToEdit.labels.length) {
                 const idx = this.cardToEdit.labels.findIndex(cardLabel => cardLabel.id === label.id)
