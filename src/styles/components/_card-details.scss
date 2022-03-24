@@ -1,6 +1,7 @@
 .card-details-container {
     display: flex;
     flex-direction: column;
+
     .card-details-header {
         display: flex;
         justify-content: space-between;
@@ -8,18 +9,21 @@
         padding-right: 16px;
         padding-top: 25px;
         padding-top: 12px;
+
         .card-details-header-icon {
             display: flex;
             flex-direction: row;
-            gap: 10px;
+            gap: 17px;
             align-items: center;
             justify-content: center;
+
             p {
                 font-size: 20px;
                 font-weight: 600;
                 line-height: 24px;
             }
         }
+
         .card-details-icon {
             display: flex;
             align-items: center;
@@ -30,30 +34,35 @@
             width: 32px;
             cursor: pointer;
             transition: background-color 85ms, color 85ms;
+
             &:hover {
                 background-color: #091e4214;
                 color: #42526e;
             }
         }
     }
+
     .card-details-list-name {
         p {
             padding-left: 59px;
             padding-bottom: 30px;
         }
     }
+
     .card-details-edit {
         display: flex;
         flex-direction: column;
+
         // padding-right: 20px;
         label {
             color: #5e6c84;
-            font-size: 12px;
+            font-size: 14px;
             font-weight: 600;
             line-height: 20px;
             margin-bottom: -4px;
             margin-bottom: 8px;
         }
+
         .card-details-btn {
             display: flex;
             align-items: center;
@@ -69,26 +78,64 @@
             font-weight: 100;
             margin-bottom: 8px;
             width: 165px;
+
             &:hover {
                 background-color: #091e4214;
             }
         }
     }
+
     .card-details-actions-container {
         display: flex;
-        align-items: center;
+        align-items: start;
         justify-content: center;
         padding: 0 16px 8px 16px;
+
         .card-details-main {
             .card-details-members-labels-date {
+                // height: 220px;
                 display: flex;
-                gap: 5px;
+                gap: 16px;
+                .card-details-labels-container{
+                    display: flex;
+                    flex-direction: row;
+                .card-details-labels{
+                    .card-details-label{
+                        border-radius: 3px;
+                        box-sizing: border-box;
+                        display: block;
+                        float: left;
+                        font-weight: 600;
+                        height: 32px;
+                        line-height: 32px;
+                        margin: 0 4px 4px 0;
+                        min-width: 40px;
+                        padding: 0 12px;
+                        width: auto;
+                        cursor: pointer;
+                    }
+                    p{
+                        color: white;
+                        font-size: 15px;
+                    }
+                }
             }
+                label {
+                    color: #5e6c84;
+                    font-size: 14px;
+                    font-weight: 600;
+                    line-height: 20px;
+                    margin-bottom: -4px;
+                    margin-bottom: 8px;
+                }
+            }
+
             .card-details-description {
                 display: flex;
                 gap: 17px;
                 align-items: center;
                 min-height: 32px;
+
                 h3 {
                     font-size: 16px;
                     line-height: 20px;
@@ -99,14 +146,17 @@
                     width: auto;
                 }
             }
+
             .card-details-activity-show-details {
                 display: flex;
                 justify-content: space-between;
+
                 .card-details-activity {
                     display: flex;
                     gap: 17px;
                     align-items: center;
                     min-height: 32px;
+
                     h3 {
                         font-size: 16px;
                         line-height: 20px;
@@ -117,15 +167,18 @@
                         width: auto;
                     }
                 }
+
                 button {
                     @include cardDetailsBtn()
                 }
             }
+
             .card-details-input-user-comment {
                 display: flex;
                 align-items: center;
                 justify-items: center;
                 gap: 9px;
+
                 .card-details-user-avatar {
                     display: flex;
                     align-items: center;
@@ -138,6 +191,7 @@
                     background-color: #172b4d;
                     color: white;
                 }
+
                 .card-details-input-comment {
                     input {
                         // padding: 8px 12px;
@@ -153,12 +207,14 @@
                         border-radius: 10px;
                         gap: 30px;
                         width: rem(510px);
+
                         &:hover {
                             box-shadow: 1px 1px 5px -2px rgb(0 0 0 / 18%);
                         }
                     }
                 }
             }
+
             .card-details-input {
                 .open-input-btn {
                     background-color: #091e420a;
@@ -172,6 +228,7 @@
                     margin-left: 42px;
                     width: rem(512px);
                     height: rem(55px);
+
                     &:hover {
                         background-color: #091e4214;
                         border: none;

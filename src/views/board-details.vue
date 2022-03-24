@@ -31,6 +31,7 @@
                 </div>
             </div>
         </div>
+        
     </section>
     <dialog ref="cardDetailsModal" class="modal">
         <card-details

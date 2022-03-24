@@ -13,8 +13,7 @@
         </div>
 
         <div class="card-details-list-name">
-            <p>in list Group 1</p>
-            <!-- <p>{{group.title}}</p> -->
+            <p>in list {{ group.title }}</p>
         </div>
 
         <section class="card-details-actions-container-edit-btns flex">
@@ -22,10 +21,25 @@
                 <section class="card-details-main flex">
                     <div class="card-details-members-labels-date">
                         <label for>Members</label>
-                        <label for>
-                            {Labels}
-                            <section v-for="label in card.labels" :key="label.id">{{ label.color }}</section>
-                        </label>
+                        <div class="card-detail-labels-container-main">
+                        <label v-if="card.labels.length > 0" for>Labels</label>
+                        <div class="card-details-labels-container"
+                            v-if="card.labels.length > 0"
+                            for>
+                            <section
+                                class="card-details-labels"
+                                v-for="label in card.labels"
+                                :key="label.id"
+                            >
+                                <div
+                                    class="card-details-label"
+                                    :style="{ 'backgroundColor': label.color }"
+                                >
+                                    <p>{{ label.title }}</p>
+                                </div>
+                            </section>
+                        </div>
+                        </div>
                         <label for>Due date</label>
                     </div>
 
