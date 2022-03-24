@@ -2,7 +2,7 @@
     <section>
         <board-header v-if="board" :board="board" />
     </section>
-    <section v-if="board" class="board-details-main" :style="{ 'backgroundColor': board.background }">
+    <section v-if="board" class="board-details-main" :style="{ 'backgroundColor':board.background}">
         <group-list
             @openCardDetails="openCardDetailsModal"
             @groupUpdated="updateGroup"
@@ -29,7 +29,7 @@
         </div>
     </section>
     <dialog ref="cardDetailsModal" class="modal cursor-pointer">
-        <card-details @closeDialog="closeDiag" :card="cardToOpen" :GroupId="cardToOpenGroupId"></card-details>
+        <card-details v-if="isCardOpen" @closeDialog="closeDiag" :card="cardToOpen" :GroupId="cardToOpenGroupId"></card-details>
     </dialog>
 </template>
 
@@ -78,11 +78,13 @@ export default {
             this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
         },
         openCardDetailsModal(info) {
+            this.isCardOpen =true
             this.cardToOpen = info.card
             this.cardToOpenGroupId = info.groupId
             this.$refs.cardDetailsModal.showModal()
         },
         closeDiag() {
+            this.isCardOpen =false
             this.$refs.cardDetailsModal.close()
         }
     },
@@ -111,14 +113,10 @@ export default {
 
 <style>
 .modal {
-    width: 60%;
-    height: 500px;
+    max-height: 500px;
     margin-top: 80px;
-    display: flex;
-    justify-content: center;
     border-radius: 2px;
-    width: 768px;
-    z-index: 25;
+    max-width: 768px;
     border: 0;
     box-shadow: 0 0 1em rgb(0, 0, 0/.3);
 }
