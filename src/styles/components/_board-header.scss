@@ -54,39 +54,30 @@
 }
 
 .board-name-edit {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     color: #fff;
     cursor: pointer;
-
     p {
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: rem(18px);
         font-weight: 700;
         font-size: rem(18px);
-        // cursor: pointer;
         height: rem(34px);
-        padding: 0 20px 0 20px;
-        // padding-top: 2px;
+        // padding: 0 10px 0 5px;
         &:hover {
             background-color: rgba(255, 255, 255, 0.3);
             border-radius: 3px;
         }
     }
     input {
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        text-align: center;
         height: rem(34px);
         background-color: rgba(255, 255, 255, 0.2);
         border: 1px solid rgba(255, 255, 255, 0.25);
         border-radius: 3px;
         font-size: rem(18px);
         font-weight: 700;
-        padding: 0 15px 0 15px;
+        // padding: 0 15px 0 15px;
         white-space: nowrap;
         transition: all 0.1s;
         box-shadow: inset 0 0 0 2px #0079bf;
@@ -98,7 +89,6 @@
         }
         &:focus {
             outline: none !important;
-           
         }
     }
 }

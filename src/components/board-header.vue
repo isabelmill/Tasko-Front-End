@@ -8,6 +8,7 @@
             <button>Board</button>
             <div class="board-name-edit">
                 <p
+                 :style="updateWidth"
                     class="board-name"
                     v-if="!titleIsOpen"
                     @click="openTitleEdit"
@@ -19,7 +20,7 @@
                     v-model="boardToEdit.title"
                     type="text"
                     @submit.prevent="changeBoardTitle"
-                    @keydown="calculateTxtLen"
+                    @keyup="calculateTxtLen"
                     :style="updateWidth"
                 />
             </div>
@@ -83,7 +84,7 @@ export default {
             else return `icon-sm icon-star`
         },
         updateWidth() {
-            return `width: ${20 + (this.titleLength * 9) + 'px'};`
+            return `width: ${24 + (this.titleLength * 8) + 'px'};`
         }
 
     }
