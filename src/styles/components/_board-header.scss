@@ -21,6 +21,17 @@
         }
     }
 
+    .board-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        margin: 0;
+        // padding: 0;
+        span {
+        }
+    }
+
     .invite {
         @include inviteBtn();
 
@@ -56,27 +67,30 @@
 .board-name-edit {
     color: #fff;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     p {
         display: flex;
         align-items: center;
         justify-content: center;
-        font-weight: 700;
-        font-size: rem(18px);
-        height: rem(34px);
+        font-weight: bold;
+        font-size: rem(16px);
+        height: rem(31px);
         // padding: 0 10px 0 5px;
+        background-color: rgba(255, 255, 255, 0.3);
+        border-radius: 3px;
         &:hover {
-            background-color: rgba(255, 255, 255, 0.3);
-            border-radius: 3px;
         }
     }
     input {
         text-align: center;
-        height: rem(34px);
+        height: rem(31px);
         background-color: rgba(255, 255, 255, 0.2);
         border: 1px solid rgba(255, 255, 255, 0.25);
         border-radius: 3px;
-        font-size: rem(18px);
-        font-weight: 700;
+        font-size: rem(16px);
+        font-weight: bold;
         // padding: 0 15px 0 15px;
         white-space: nowrap;
         transition: all 0.1s;
