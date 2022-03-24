@@ -2,7 +2,7 @@
     <section
         v-if="board"
         class="board-header-main"
-        :style="{ 'backgroundColor': boardToEdit.background }"
+        :style="{ 'backgroundColor': board.background }"
     >
         <nav>
             <button>Board</button>
@@ -64,7 +64,7 @@ export default {
     },
     computed: {
         updateStar() {
-            if (this.isStared) return `icon-sm icon-starred`
+            if ( this.board.isStarred) return `icon-sm icon-starred`
             else return `icon-sm icon-star`
         },
 
