@@ -6,7 +6,7 @@
         </div>
         <div class="modal-starred-boards-list">
             <ul v-for="board in boards" :board="board" :key="board">
-                <li v-if="board.isStarred">{{board.title}}</li>
+                <li @click="goToDetails(board)" v-if="board.isStarred">{{ board.title }}</li>
             </ul>
         </div>
     </div>
@@ -24,6 +24,11 @@ export default {
     methods: {
         closeModal() {
             this.$emit("close");
+        },
+        goToDetails(board) {
+            console.log('this.board:', board);
+            this.$emit("close");
+            this.$router.push(`/board/${board._id}`)
         },
     },
 }
