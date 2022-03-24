@@ -17,6 +17,7 @@ export const boardService = {
     getEmptyCard,
     getEmptyGroup,
     getEmptyBoard,
+    getEmptyActivity,
 }
 
 function query() {
@@ -49,13 +50,14 @@ function _createBoards() {
         boards = [{
             "_id": "b101",
             "title": "Robot dev proj",
+            "isStarred": false,
             "createdAt": 1589983468418,
             "createdBy": {
                 "_id": "u101",
                 "fullname": "Isabel Mill",
                 "imgUrl": "http://some-img"
             },
-            "background": {},
+            "background": '',
             "labels": [{
                     "id": "l101",
                     "title": "Done",
@@ -161,6 +163,21 @@ function _createBoards() {
     }
     console.log('boards:', boards);
     return boards
+}
+
+function getEmptyActivity() {
+    return {
+        id: utilService.makeId(),
+        txt: '',
+        createdAt: Date.now(),
+        isStarred: false,
+        byMember: {
+            _id: "u101",
+            fullname: "Isabel Mill",
+            imgUrl: "http://some-img"
+        },
+        task: {}
+    }
 }
 
 function getEmptyCard() {

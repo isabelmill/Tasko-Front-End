@@ -20,11 +20,24 @@
         @include headerBtn();
     }
 
+    a {
+        display: flex;
+        gap: rem(8px);
+        align-items: center;
+        justify-content: center;
+        
+        margin-left: rem(10px);
+        height: rem(32px);
+        @include headerBtn();
+    }
+
     .icon-btn {
         margin-left: rem(20px);
         @include headerBtnIcon();
     }
 }
+
+
 
 .search-main {
     input {
@@ -57,5 +70,28 @@
     }
     input:focus {
         outline-offset: 0;
+    }
+}
+
+.starred-boards-modal{
+    position: fixed;
+    width: rem(305px);
+    color: #172b4d;
+    line-height: rem(20px);
+    background-color: #ffffff;
+    border-radius: rem(3px);
+    box-shadow: 0 8px 16px -4px rgb(9 30 66 / 25%), 0 0 0 1px rgb(9 30 66 / 8%);
+    box-sizing: border-box;
+    outline: 0;
+    overflow: hidden;
+    cursor: default;
+
+    .starred-boards-header{
+        display: flex;
+        justify-content: space-between;
+    }
+
+    button{
+        cursor: pointer;
     }
 }

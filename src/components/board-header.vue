@@ -1,5 +1,9 @@
 <template>
-    <section v-if="board" class="board-header-main">
+    <section
+        v-if="board"
+        class="board-header-main"
+        :style="{ 'backgroundColor': boardToEdit.background }"
+    >
         <nav>
             <button>Board</button>
             <div class="board-name-edit">
@@ -46,6 +50,8 @@ export default {
     methods: {
         boardStared() {
             this.isStared = !this.isStared
+            this.boardToEdit.isStarred = !this.boardToEdit.isStarred
+            this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
         },
         openTitleEdit() {
             this.titleIsOpen = true;
