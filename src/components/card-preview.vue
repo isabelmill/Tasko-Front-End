@@ -24,6 +24,9 @@
             <button class="mini-edit-btn" @click="editDates">Edit dates</button>
             <button class="mini-edit-btn" @click="deleteCard">Delete</button>
         </section>
+        <section class="actions-modal">
+            <component v-if="isActionsOpen" :card="card" :is="activeComponent"></component>
+        </section>
     </section>
 </template>
 
@@ -50,6 +53,8 @@ export default {
             cardToDisplay: {
                 title: "",
             },
+            isActionsOpen: false,
+            activeComponent: null,
         }
     },
     created() {
@@ -74,7 +79,7 @@ export default {
             this.modalOpen = true;
         },
         openDetails() {
-            this.$emit('openCard',{card:this.card, groupId: this.groupId})
+            this.$emit('openCard', { card: this.card, groupId: this.groupId })
         },
         closeModal() {
             this.modalOpen = false
@@ -83,7 +88,7 @@ export default {
 
         },
     },
-    emits:['openCard'],
+    emits: ['openCard'],
 }
 </script>
 

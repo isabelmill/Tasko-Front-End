@@ -28,7 +28,9 @@
             </div>
         </div>
     </section>
-    <card-details :card="cardToOpen" :GroupId="cardToOpenGroupId" v-if="isCardOpen"></card-details>
+    <dialog ref="cardDetailsModal" class="modal">
+        <card-details :card="cardToOpen" :GroupId="cardToOpenGroupId"></card-details>
+    </dialog>
 </template>
 
 <script>
@@ -78,7 +80,7 @@ export default {
         openCardDetailsModal(info) {
             this.cardToOpen = info.card
             this.cardToOpenGroupId = info.groupId
-            this.isCardOpen = true
+            this.$refs.cardDetailsModal.showModal()
         },
     },
     computed: {
@@ -92,7 +94,8 @@ export default {
                 this.$store.dispatch({ type: 'loadBoardById', newId })
             },
             immediate: true
-        },
+        
+        }
         // "$store.getters.selectedBoard": {
         //     handler(newBoard) {
         //         this.board = newBoard
