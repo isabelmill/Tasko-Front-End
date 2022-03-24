@@ -1,6 +1,11 @@
 <template>
   <section class="app-header-main">
-    <router-link class="logo" to="/board">Mello</router-link>
+    <router-link to="/board">
+      <div class="logo">
+        <img src="../assets/svg/trello.svg" alt="logo" />
+        <span>Mello</span>
+      </div>
+    </router-link>
     <router-link class="link" to="/">
       Workspaces
       <svg
