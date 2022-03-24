@@ -1,0 +1,38 @@
+.card-details-container{
+    display: flex;
+    flex-direction: column;
+    .card-details-header{
+        display: flex;
+        justify-content: space-between;
+        margin-left: 24px ;
+
+        .card-details-header-icon{
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            align-items: center;
+            justify-content: center;
+
+            p{
+                font-size: 20px;
+                font-weight: 600;
+                line-height: 24px;
+            }
+        }
+    }
+}
+
+.modal{
+    padding: unset;
+}
+
+
+
+
+
+
+
+
+.icon-card {
+    @include to-icon("\e912");
+}

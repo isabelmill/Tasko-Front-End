@@ -1,10 +1,20 @@
 <template>
     <section class="card-details-container flex">
-        <button class="exit-btn" @click="closeModal">X</button>
+        <div class="card-details-header">
+            <div class="card-details-header-icon">
+                <span class="icon-xl icon-card"></span>
+                <div class="card-details-title flex">
+                    <p>{{ card.title }}</p>
+                </div>
+            </div>
+            <span class="icon-xl icon-close" @click="closeModal"></span>
+        </div>
+
+        <div class="card-details-list-name">
+            <p>in list Group 1</p>
+        </div>
+
         <section class="card-details-main flex">
-            <section class="card-details-title flex">
-                <p>{{ card.title }}</p>
-            </section>
             <section class="card-details-description">Description</section>
             <section class="card-details-activity">Activity</section>
         </section>
@@ -18,7 +28,13 @@
             <button class="card-details-btn" @click="deleteCard">Delete</button>
         </section>
     </section>
-    <component :board="board" :card="card" :groupId="groupId" v-if="currModal&&shown" :is="currModal"></component>
+    <component
+        :board="board"
+        :card="card"
+        :groupId="groupId"
+        v-if="currModal && shown"
+        :is="currModal"
+    ></component>
 </template>
 
 <script>
@@ -33,7 +49,7 @@ export default {
         groupId: {
             type: String
         },
-        board:{
+        board: {
             type: Object
         }
     },
@@ -45,7 +61,7 @@ export default {
     data() {
         return {
             currModal: null,
-            shown:false,
+            shown: false,
             distanceX: 0,
             distanceY: 0,
         }
@@ -55,11 +71,11 @@ export default {
             this.$emit('closeDialog')
         },
         editLabels() {
-            this.shown=!this.shown
+            this.shown = !this.shown
             this.currModal = "labelModal"
         }
     },
-    emits:['closeDialog']
+    emits: ['closeDialog']
 
 }
 
@@ -69,7 +85,7 @@ export default {
 .card-details-container {
     /* position: fixed; */
     /* width: 60%; */
-    height: 450px;
+    /* height: 450px; */
     margin: 0;
     /* background-color: red; */
     /* top: 0; */
