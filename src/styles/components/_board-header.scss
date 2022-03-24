@@ -20,31 +20,12 @@
             margin-left: 5px;
         }
     }
+
     .invite {
         @include inviteBtn();
 
         p {
             margin-left: 5px;
-        }
-    }
-    .board-name {
-        font-size: rem(18px);
-        font-weight: 400;
-        line-height: rem(32px);
-        cursor: pointer;
-        color: #fff;
-        height: rem(34px);
-        text-align: center;
-        font-size: 18px;
-        font-weight: 700;
-        padding: 0 12px;
-        padding-top: 2px;
-        
-
-        &:hover {
-            background-color: rgba(255, 255, 255, 0.3);
-            border-radius: 3px;
-
         }
     }
 }
@@ -72,30 +53,45 @@
     color: #fff;
 }
 
-.board-name-edit{
+.board-name-edit { 
+    
+    .board-name {
+        text-align: center;
+        font-size: 18px;
+        font-weight: 700;
+        font-size: rem(18px);
+        cursor: pointer;
+        color: #fff;
+        height: rem(34px);
+        padding: 0 12px;
+        padding-top: 2px;
+    }
+
     input {
         background-color: rgba(255, 255, 255, 0.2);
         border: 1px solid rgba(255, 255, 255, 0.25);
         border-radius: 3px;
-        // height: rem(32px);
-        line-height: rem(19px);
+        height: rem(34px);
         color: #fff;
         font-size: rem(18px);
-        cursor: pointer;
-        text-align: center;
-        padding: 0 12px;
-        height: rem(34px);
         font-weight: 700;
+        cursor: pointer;
+        padding: 0 12px;
         width: unset;
         &::placeholder {
             color: #fff;
         }
-        &:hover {
-            background-color: rgba(255, 255, 255, 0.4);
-        }
         &:focus {
             outline: none !important;
             box-shadow: inset 0 0 0 2px #0079bf;
+            background-color: #fff;
+            color: $memberBlue;
         }
+    }
+
+    &:hover {
+        background-color: rgba(255, 255, 255, 0.3);
+        border-radius: 3px;
+
     }
 }
