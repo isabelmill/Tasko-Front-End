@@ -1,12 +1,21 @@
 <template>
-    <section class="card-details-main">
+    <section class="card-details-main flex">
         <section class="card-details-title flex">
-            <p>{{card.title}}</p>
+            <p>{{ card.title }}</p>
             <button class="exit-btn" @click="closeModal">X</button>
         </section>
         <section class="card-details-description"></section>
         <section class="card-details-activity"></section>
-        <section class="card-details-actions"></section>
+        <section class="card-details-actions flex">
+            <button class="card-details-btn" @click="openDetails">Open card</button>
+            <button class="card-details-btn" @click="editLabels">Edit labels</button>
+            <button class="card-details-btn" @click="changeMembers">Change members</button>
+            <button class="card-details-btn" @click="changeCover">Channge cover</button>
+            <button class="card-details-btn" @click="moveCard">Move</button>
+            <button class="card-details-btn" @click="copyCard">Copy</button>
+            <button class="card-details-btn" @click="editDates">Edit dates</button>
+            <button class="card-details-btn" @click="deleteCard">Delete</button>
+        </section>
     </section>
 </template>
 
@@ -23,8 +32,8 @@ export default {
     },
     created() {
     },
-    methods:{
-        closeModal(){
+    methods: {
+        closeModal() {
             this.$emit('closeDialog')
         },
     }
@@ -50,9 +59,12 @@ export default {
     /* align-self: center; */
 }
 
-
-.exit-btn{
+.exit-btn {
     height: 48px;
-    width:48px;
+    width: 48px;
+}
+
+.card-details-actions{
+    flex-direction: column;
 }
 </style>
