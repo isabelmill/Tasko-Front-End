@@ -1,6 +1,6 @@
 <template>
     <section class="board-app-main">
-        <div class="main-container">
+        <div class="main-container" >
             <h1>YOUR WORKSPACES</h1>
             <div class="contact">
                 <div class="folders">
@@ -22,7 +22,10 @@
                                 </div>
                             </div>
 
-                            <div class="create-board-background-preview" :style="{backgroundColor:setColor}">
+                            <div
+                                class="create-board-background-preview"
+                                :style="{ backgroundColor: setColor }"
+                            >
                                 <img
                                     src="https://a.trellocdn.com/prgb/dist/images/board-preview-skeleton.14cda5dc635d1f13bc48.svg"
                                     alt
@@ -81,6 +84,7 @@ export default {
             this.isEdit = false;
         },
         saveNewBoard() {
+            if (!this.newBoard.title) return
             this.$store.dispatch({ type: 'saveBoard', board: this.newBoard })
             this.newBoard = boardService.getEmptyBoard()
             this.isEdit = false

@@ -2,7 +2,7 @@
     <section>
         <board-header v-if="board" :board="board" />
     </section>
-    <section v-if="board" class="board-details-main">
+    <section v-if="board" class="board-details-main" :style="{ 'backgroundColor':board.background}">
         <group-list @groupUpdated="updateGroup" :groups="board.groups"></group-list>
 
         <div
@@ -84,4 +84,5 @@ export default {
 </script>
 
 <style>
+
 </style>

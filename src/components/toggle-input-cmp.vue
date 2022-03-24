@@ -15,7 +15,7 @@
         ></span>
         <group-edit
             v-if="openGroupEdit"
-            :style="{ top: '143' + 'px', left: pos.left  + 'px' }"
+            :style="{ top: '143' + 'px', left: pos.left + 'px' }"
             v-clickOutside="closeEditMode"
             @close="closeEditMode"
             :id="id"
