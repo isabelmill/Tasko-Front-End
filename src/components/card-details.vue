@@ -19,22 +19,18 @@
             <section class="card-details-activity">Activity</section>
         </section>
         <section class="card-details-actions flex">
-            <button class="card-details-btn" @click="editLabels">Edit labels</button>
-            <button class="card-details-btn" @click="changeMembers">Change members</button>
-            <button class="card-details-btn" @click="changeCover">Channge cover</button>
-            <button class="card-details-btn" @click="moveCard">Move</button>
-            <button class="card-details-btn" @click="copyCard">Copy</button>
-            <button class="card-details-btn" @click="editDates">Edit dates</button>
-            <button class="card-details-btn" @click="deleteCard">Delete</button>
+            <button ref="labelBtn" class="card-details-btn" @click="editLabels">Edit labels</button>
+            <button ref="membersBtn" class="card-details-btn" @click="changeMembers">Change members</button>
+            <button ref="coverBtn" class="card-details-btn" @click="changeCover">Channge cover</button>
+            <button ref="moveBtn" class="card-details-btn" @click="moveCard">Move</button>
+            <button ref="copyBtn" class="card-details-btn" @click="copyCard">Copy</button>
+            <button ref="datesBtn" class="card-details-btn" @click="editDates">Edit dates</button>
+            <button ref="deleteBtn" class="card-details-btn" @click="deleteCard">Delete</button>
         </section>
     </section>
-    <component
-        :board="board"
-        :card="card"
-        :groupId="groupId"
-        v-if="currModal && shown"
-        :is="currModal"
-    ></component>
+    <section v-if="shown">
+        <component @cardEdit="editCard" @actionsClose="closeMenu" :board="board" :card="card" :groupId="groupId" :pos="pos" :is="currModal"></component>
+    </section>
 </template>
 
 <script>
@@ -62,20 +58,38 @@ export default {
         return {
             currModal: null,
             shown: false,
+<<<<<<< HEAD
             distanceX: 0,
             distanceY: 0,
+=======
+            pos: 0,
+>>>>>>> fab922d895a26d270775d1e7b55074106bd9ffdd
         }
     },
     methods: {
         closeModal() {
             this.$emit('closeDialog')
         },
+        closeMenu(){
+            this.shown=false;
+        },
         editLabels() {
+<<<<<<< HEAD
+=======
+            this.pos = this.$refs['labelBtn'].getBoundingClientRect()
+>>>>>>> fab922d895a26d270775d1e7b55074106bd9ffdd
             this.shown = !this.shown
             this.currModal = "labelModal"
+        },
+        cardEdit(card){
+            this.$emit('cardModified',{card,groupId:this.groupId})
         }
     },
+<<<<<<< HEAD
     emits: ['closeDialog']
+=======
+    emits: ['closeDialog','cardModified']
+>>>>>>> fab922d895a26d270775d1e7b55074106bd9ffdd
 
 }
 
