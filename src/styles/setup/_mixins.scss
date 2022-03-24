@@ -2,9 +2,7 @@
     display: inline-flex;
     align-items: center;
     text-decoration: none;
-    line-height: rem(20px);
     height: rem(32px);
-    // font-size: rem(14px);
     font-family: roboto-regular;
     font-weight: 400;
     padding: 6px;
@@ -23,8 +21,7 @@
     display: inline-flex;
     align-items: center;
     text-decoration: none;
-    line-height: rem(20px);
-    height: rem(34px);
+    height: rem(31px);
     font-size: rem(14px);
     font-family: roboto-regular;
     font-weight: 400;
@@ -43,7 +40,6 @@
     display: inline-flex;
     align-items: center;
     text-decoration: none;
-    line-height: rem(20px);
     height: rem(34px);
     font-size: rem(14px);
     font-family: roboto-regular;
@@ -73,8 +69,6 @@
     text-decoration: none;
     height: rem(32px);
     width: rem(32px);
-    line-height: 32px;
-    // margin: 0 4px 0 0;
     white-space: nowrap;
     &:hover {
         background-color: rgba(255, 255, 255, 0.3);

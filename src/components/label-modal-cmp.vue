@@ -4,18 +4,21 @@
         :style="{ top: pos.bottom + 8 + 'px', left: pos.left + 'px' }"
         class="label-modal"
     >
-        <p class="main-title">Labels</p>
-        <hr />
+        <div class="main-title-container">
+            <span class="main-title">Labels</span>
+        </div>
         <search></search>
-        <p class="mini-title">Labels</p>
-        <section v-for="label in board.labels" :key="label.id" class="label-container flex">
-            <div
-                class="label-color"
-                style="width:100px"
-                :style="{ backgroundColor: label.color }"
-                @click="addLabelToCard(label)"
-            >{{ label.title }}</div>
-            <button>edit</button>
+        <section>
+            <span class="mini-title">Labels</span>
+            <section v-for="label in board.labels" :key="label.id" class="label-container flex">
+                <div
+                    class="label-color"
+                    style="width:100px"
+                    :style="{ backgroundColor: label.color }"
+                    @click="addLabelToCard(label)"
+                >{{ label.title }}</div>
+                <button @click="openEditLabel(label)">edit</button>
+            </section>
         </section>
     </section>
 </template>
@@ -63,6 +66,9 @@ export default {
             this.$emit('cardEdit', this.cardToEdit)
 
         },
+        openEditLabel(label) {
+
+        }
     },
     emits: ['actionsClose', 'cardEdit']
 
@@ -72,11 +78,28 @@ export default {
 <style>
 .label-modal {
     position: fixed;
+    width: 280px;
+    padding: 12px;
     background-color: white;
-    border: 1px solid black;
+    border: 0;
 }
-.main-title {
+.main-title-container {
     text-align: center;
+}
+
+.main-title {
+    border-bottom: 1px solid #091e4221;
+    box-sizing: border-box;
+    color: #5e6c84;
+    display: block;
+    line-height: 40px;
+    margin: 0 12px;
+    overflow: hidden;
+    padding: 0 32px;
+    position: relative;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    z-index: 1;
 }
 .label-container {
     margin-bottom: 2px;

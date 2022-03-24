@@ -98,7 +98,6 @@
             height: rem(26px);
             width: rem(26px);
             border: none;
-
             &:hover {
                 background-color: #091e4214;
             }
@@ -155,7 +154,6 @@
     textarea {
         overflow: hidden;
         overflow-wrap: break-word;
-        // height: rem(54px);
         padding: 20px;
 
         display: flex;

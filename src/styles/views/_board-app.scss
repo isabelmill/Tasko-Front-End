@@ -1,5 +1,4 @@
 .board-app-main {
-    // background-color: rgb(255, 255, 255);
     height: 100vh;
 }
 
@@ -43,7 +42,6 @@
     gap: rem(50px);
 
     button {
-        // margin-top: rem(20px);
         @include btn($color: #2c2c2c);
     }
 }
@@ -55,7 +53,6 @@
     left: rem(650px);
     color: #172b4d;
     font-size: rem(14px);
-    line-height: rem(20px);
     background-color: #ffffff;
     border-radius: rem(3px);
     box-shadow: 0 8px 16px -4px rgb(9 30 66 / 25%), 0 0 0 1px rgb(9 30 66 / 8%);
@@ -72,7 +69,6 @@
         display: block;
         font-size: 12px;
         font-weight: 700;
-        line-height: 16px;
         margin-bottom: 4px;
         margin-top: 12px;
         text-align: left;
@@ -119,7 +115,6 @@
             font-size: 14px;
             font-weight: 400;
             margin: 0;
-            line-height: 40px;
             
             
             h1 {
@@ -195,13 +190,12 @@
 ::-webkit-scrollbar {
     height: 12px;
     width: 12px;
-    
 }
 /* Track */
 ::-webkit-scrollbar-track {
     // border-radius: 10px;
     background: none;
-    margin: 5px;
+    // margin: 5px;
 }
 /* Handle */
 ::-webkit-scrollbar-thumb {
