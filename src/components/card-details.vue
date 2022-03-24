@@ -9,17 +9,17 @@
             <section class="card-details-activity">Activity</section>
         </section>
         <section class="card-details-actions flex">
-            <button class="card-details-btn" @click="editLabels">Edit labels</button>
-            <button class="card-details-btn" @click="changeMembers">Change members</button>
-            <button class="card-details-btn" @click="changeCover">Channge cover</button>
-            <button class="card-details-btn" @click="moveCard">Move</button>
-            <button class="card-details-btn" @click="copyCard">Copy</button>
-            <button class="card-details-btn" @click="editDates">Edit dates</button>
-            <button class="card-details-btn" @click="deleteCard">Delete</button>
+            <button ref="labelBtn" class="card-details-btn" @click="editLabels">Edit labels</button>
+            <button ref="membersBtn" class="card-details-btn" @click="changeMembers">Change members</button>
+            <button ref="coverBtn" class="card-details-btn" @click="changeCover">Channge cover</button>
+            <button ref="moveBtn" class="card-details-btn" @click="moveCard">Move</button>
+            <button ref="copyBtn" class="card-details-btn" @click="copyCard">Copy</button>
+            <button ref="datesBtn" class="card-details-btn" @click="editDates">Edit dates</button>
+            <button ref="deleteBtn" class="card-details-btn" @click="deleteCard">Delete</button>
         </section>
     </section>
     <section v-if="shown">
-        <component :board="board" :card="card" :groupId="groupId" :is="currModal"></component>
+        <component @cardEdit="editCard" @actionsClose="closeMenu" :board="board" :card="card" :groupId="groupId" :pos="pos" :is="currModal"></component>
     </section>
 </template>
 
@@ -48,20 +48,26 @@ export default {
         return {
             currModal: null,
             shown: false,
-            distanceX: 0,
-            distanceY: 0,
+            pos: 0,
         }
     },
     methods: {
         closeModal() {
             this.$emit('closeDialog')
         },
+        closeMenu(){
+            this.shown=false;
+        },
         editLabels() {
+            this.pos = this.$refs['labelBtn'].getBoundingClientRect()
             this.shown = !this.shown
             this.currModal = "labelModal"
+        },
+        cardEdit(card){
+            this.$emit('cardModified',{card,groupId:this.groupId})
         }
     },
-    emits: ['closeDialog']
+    emits: ['closeDialog','cardModified']
 
 }
 
