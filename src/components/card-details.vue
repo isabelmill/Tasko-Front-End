@@ -1,6 +1,8 @@
 <template>
     <section class="card-details-main">
-        <section class="card-details-title">{{card.title}}</section>
+        <section class="card-details-title">{{card.title}}
+            <button class="exit-btn" @click="closeModal">X</button>
+        </section>
         <section class="card-details-description"></section>
         <section class="card-details-activity"></section>
         <section class="card-details-actions"></section>
@@ -20,6 +22,11 @@ export default {
     },
     created() {
     },
+    methods:{
+        closeModal(){
+            this.$emit('closeDialog')
+        },
+    }
 }
 </script>
 
