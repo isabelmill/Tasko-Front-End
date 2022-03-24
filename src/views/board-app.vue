@@ -1,6 +1,7 @@
 <template>
     <section class="board-app-main">
-        <div class="main-container" >
+        <div class="main-container">
+            <!-- <unsplash></unsplash> -->
             <h1>Starred boards</h1>
             <h1>Recently viewed</h1>
             <div class="contact">
@@ -11,41 +12,19 @@
                 </div>
                 <div class="folder-info">
                     <board-list v-if="boards" :boards="boards" />
-
-                    <button @click="openBoardEdit()" type="button">Create new board</button>
-
-                    <div class="create-board-modal">
-                        <form v-if="isEdit === true" v-clickOutside="closeBoardEdit">
-                            <div class="create-board-modal-header">
-                                <div class="create-board-modal-header-items">
-                                    <h1>Create board</h1>
-                                    <button class="edit-close-btn" @click="closeBoardEdit">X</button>
-                                </div>
-                            </div>
-
-                            <div
-                                class="create-board-background-preview"
-                                :style="{ backgroundColor: setColor }"
-                            >
-                                <img
-                                    src="https://a.trellocdn.com/prgb/dist/images/board-preview-skeleton.14cda5dc635d1f13bc48.svg"
-                                    alt
-                                />
-                            </div>
-                            <h1>Background</h1>
-                            <div class="create-board-background-color">
-                                <div @click="setBoardColor('#0079BF')" class="blue color-pref"></div>
-                                <div @click="setBoardColor('#D29034')" class="yellow color-pref"></div>
-                                <div @click="setBoardColor('#519839')" class="green color-pref"></div>
-                                <div @click="setBoardColor('#B04632')" class="red color-pref"></div>
-                                <div @click="setBoardColor('#89609E')" class="purple color-pref"></div>
-                                <div class="more color-pref">...</div>
-                            </div>
-                            <label for>Board title</label>
-                            <input type="text" v-model="newBoard.title" />
-                            <button @click="saveNewBoard">Create</button>
-                        </form>
-                    </div>
+                    <button
+                        @click="openBoardEdit(), calcPosOfBox()"
+                        ref="button"
+                        type="button"
+                    >Create new board</button>
+                    <create-board-modal
+                        v-if="isEdit"
+                        v-clickOutside="closeBoardEdit"
+                        @close="closeBoardEdit"
+                        @add="saveNewBoard"
+                        :style="{ top: pos.top + 'px', left: '830' + 'px' }"
+                        :newBoard="newBoard"
+                    ></create-board-modal>
                 </div>
             </div>
         </div>
@@ -55,6 +34,8 @@
 <script>
 import { boardService } from '../services/board-service'
 import boardList from '../components/board-list.vue'
+import unsplash from '../components/unsplash.vue'
+import createBoardModal from '../components/create-board-modal.vue'
 
 export default {
     name: 'board-app',
@@ -64,6 +45,7 @@ export default {
             isEdit: false,
             newBoard: boardService.getEmptyBoard(),
             setColor: '',
+            pos: 0,
         }
     },
     computed: {
@@ -84,21 +66,25 @@ export default {
         closeBoardEdit() {
             this.isEdit = false;
         },
-        saveNewBoard() {
-            if (!this.newBoard.title) return
-            this.$store.dispatch({ type: 'saveBoard', board: this.newBoard })
+        saveNewBoard(newboard) {
+            if (!newboard.title) return
+            this.$store.dispatch({ type: 'saveBoard', board: newboard })
             this.newBoard = boardService.getEmptyBoard()
             this.isEdit = false
         },
-        setBoardColor(color) {
-            this.setColor = color
-            this.newBoard.background = color
+        calcPosOfBox() {
+            this.pos = this.$refs['starred'].getBoundingClientRect()
+
         },
+        calcPosOfBox() {
+            this.pos = this.$refs['button'].getBoundingClientRect()
+
+        }
     },
     components: {
         boardList,
+        unsplash,
+        createBoardModal
     },
 }
 </script>
-
-<!-- rgba(0,0,0,.32) -->
