@@ -1,6 +1,6 @@
 <template>
-    <section class="card-preview cursor-pointer flex" @click="openDetails">
-        <p class="card-title cursor-pointer">{{ card.title }}</p>
+    <section class="card-preview cursor-pointer flex" >
+        <p class="card-title cursor-pointer " @click="openDetails">{{ card.title }}</p>
         <button class="icon-sm icon-edit" @click="openMiniEdit($event)"></button>
     </section>
     <section
@@ -134,5 +134,8 @@ export default {
     outline: 0;
     overflow: hidden;
     gap: 20px;
+}
+.card-title{
+    width: 230px;
 }
 </style>

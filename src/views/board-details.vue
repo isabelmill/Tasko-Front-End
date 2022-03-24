@@ -28,8 +28,8 @@
             </div>
         </div>
     </section>
-    <dialog ref="cardDetailsModal" class="modal cursor-pointer">
-        <card-details v-if="isCardOpen" @closeDialog="closeDiag" :card="cardToOpen" :GroupId="cardToOpenGroupId"></card-details>
+    <dialog ref="cardDetailsModal" class="modal">
+        <card-details v-if="isCardOpen" @closeDialog="closeDiag" :board="board" :card="cardToOpen" :groupId="cardToOpenGroupId"></card-details>
     </dialog>
 </template>
 
@@ -57,6 +57,7 @@ export default {
         }
     },
     created() {
+        
     },
     methods: {
         addNewGroup() {

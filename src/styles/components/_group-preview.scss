@@ -4,7 +4,7 @@
     // min-height: rem(80px);
     height: min-content;
     // max-height: rem(620px);
-    
+
     border-radius: 3px;
     background-color: $groupGray;
 }
@@ -104,17 +104,76 @@
 }
 
 .add-card-cmp {
-    button:first-of-type {
+    .btn-add-card-out {
+        background-color: #ebecf0;
         display: flex;
+        // align-items: center;
+        // text-align: center;
+        gap: 5px;
         border-radius: 3px;
-        // color: #5e6c84;
+        color: #5e6c84;
         border: none;
         margin: 2px 0 8px 8px;
         padding: 4px 8px;
-        width: rem(260px);
+        width: rem(251px);
         font-family: Roboto-regular;
         &:hover {
             background-color: #091e4214;
+        }
+    }
+    div {
+        width: rem(251px);
+    }
+    .add-new-card-input {
+        div {
+            display: flex;
+            float: left;
+            margin: 8px 0 0 8px;
+
+            .btn-add-card-in {
+                background-color: #0079bf;
+                border: none;
+                box-shadow: none;
+                color: #fff;
+                width: rem(80px);
+                height: rem(32px);
+                border-radius: 3px;
+            }
+            span {
+                cursor: pointer;
+                height: 32px;
+                width: 32px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+    }
+    textarea {
+        overflow: hidden;
+        overflow-wrap: break-word;
+        resize: none;
+        height: rem(54px);
+        padding: 20px;
+
+        display: flex;
+        justify-content: start;
+        align-items: flex-start;
+
+        height: rem(75px);
+        width: 100%;
+        border-radius: 3px;
+        border: none;
+        margin: 0 4px 8px 8px;
+        box-shadow: 0 1px 0 #091e4240;
+        color: $memberBlue;
+        font-family: roboto-regular;
+        margin: 0 8px 0 8px;
+        &:hover {
+            background-color: #eeeef0;
+        }
+        &:focus {
+            outline: none !important;
         }
     }
 }
@@ -153,9 +212,15 @@
     background: #a7afbc;
 }
 
+
+//icons
 .icon-add-dark {
     @include to-icon("\e901");
     color: $memberBlue;
+}
+.icon-add-gray {
+    @include to-icon("\e901");
+    color: #5e6c84;
 }
 .icon-add-light {
     @include to-icon("\e901");
@@ -164,5 +229,11 @@
 .icon-edit {
     @include to-icon("\e928");
 }
-
-
+.icon-close {
+    @include to-icon("\e91c");
+    color: #6b778c;
+    &:hover {
+        color: #172b4d;
+        text-decoration: none;
+    }
+}
