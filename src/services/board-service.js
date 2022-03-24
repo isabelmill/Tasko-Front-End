@@ -79,11 +79,13 @@ function _createBoards() {
                     "title": "Group 1",
                     "cards": [{
                             "id": "c101",
-                            "title": "Replace logo"
+                            "title": "Replace logo",
+                            "labels": [],
                         },
                         {
                             "id": "c102",
-                            "title": "Add Samples"
+                            "title": "Add Samples",
+                            "labels": [],
                         }
                     ],
                     "style": {}
@@ -93,13 +95,15 @@ function _createBoards() {
                     "title": "Group 2",
                     "cards": [{
                             "id": "c103",
-                            "title": "Do that"
+                            "title": "Do that",
+                            "labels": [],
                         },
                         {
                             "id": "c104",
                             "title": "Help me",
                             "status": "in-progress",
                             "description": "description",
+
                             "comments": [{
                                 "id": "ZdPnm",
                                 "txt": "also @yaronb please CR this",
@@ -125,7 +129,7 @@ function _createBoards() {
                                 "fullname": "Tal Tarablus",
                                 "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
                             }],
-                            "labelIds": ["l101", "l102"],
+                            "labels": [],
                             "createdAt": 1590999730348,
                             "dueDate": 16156215211,
                             "byMember": {
@@ -184,6 +188,17 @@ function getEmptyCard() {
     return {
         id: utilService.makeId(),
         title: '',
+        labels: [],
+        createdAt: Date.now(),
+        checklist: {
+            title: 'Checklist',
+            todos: [],
+        },
+        attachment: {},
+        cover: {},
+        members: [],
+        dueDate: '',
+        isWatched: false,
     }
 }
 

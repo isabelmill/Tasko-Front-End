@@ -14,7 +14,7 @@
                 style="width:100px"
                 :style="{ backgroundColor: label.color }"
                 @click="addLabelToCard(label)"
-            ></div>
+            >{{ label.title }}</div>
             <button>edit</button>
         </section>
     </section>
@@ -32,8 +32,8 @@ export default {
         card: {
             type: Object
         },
-        groupId: {
-            type: String
+        group: {
+            type: Object
         },
         pos: {
             type: Object
@@ -45,31 +45,26 @@ export default {
         }
     },
     created() {
-        // console.log(this.board.labels[0].color)
     },
     methods: {
         close() {
             this.$emit('actionsClose')
         },
         addLabelToCard(label) {
-            console.log('new label', label)
-            this.cardToEdit = JSON.parse(JSON.stringify(this.card))
-            console.log(this.cardToEdit)
-            if (this.cardToEdit.labels) {
-                console.log('yes')
-                this.$emit('cardEdit', this.cardToEdit)
-            const labelIdx = this.cardToEdit.labels.findIndex(cardLabel => cardLabel.id === label.id)
-            if(labelIdx === -1)
-                this.cardToEdit.labels.splice(labelIdx, 1)
-                else this.cardToEdit.labels.push(label)
-                return
+            if (!this.cardToEdit) this.cardToEdit = JSON.parse(JSON.stringify(this.card))
+            if (this.cardToEdit.labels.length) {
+                const idx = this.cardToEdit.labels.findIndex(cardLabel => cardLabel.id === label.id)
+                if (idx === -1) this.cardToEdit.labels.push(label)
+                else this.cardToEdit.labels.splice(idx, 1)
             }
-            this.cardToEdit['labels'] = []
-            this.cardToEdit.labels.push(label)
+            else {
+                this.cardToEdit.labels.push(label)
+            }
             this.$emit('cardEdit', this.cardToEdit)
-},
+
+        },
     },
-emits: ['actionsClose', 'cardEdit']
+    emits: ['actionsClose', 'cardEdit']
 
 }
 </script>

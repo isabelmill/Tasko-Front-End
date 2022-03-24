@@ -1,9 +1,9 @@
 <template>
-    <section class="card-preview cursor-pointer flex">
-        <ul v-if="card.labels">
-            <li v-for="label in card.labels" :key="label.id">{{label}}</li>
-        </ul>
-        <p class="card-title cursor-pointer" @click="openDetails">{{ card.title }}</p>
+    <section class="card-preview cursor-pointer flex" >
+        <div v-if="card.labels.length">
+            <div v-for="label in card.labels" :key="label.id"></div>
+        </div>
+        <p class="card-title cursor-pointer " @click="openDetails">{{ card.title }}</p>
         <button class="icon-sm icon-edit" @click="openMiniEdit($event)"></button>
     </section>
     <section
