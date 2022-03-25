@@ -55,7 +55,7 @@ function _createBoards() {
             "createdBy": {
                 "_id": "u101",
                 "fullname": "Isabel Mill",
-                "imgUrl": "http://some-img"
+                "imgUrl": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZmlsZXxlbnwwfHwwfHw%3D&w=1000&q=80"
             },
             "background": '',
             "labels": [{
@@ -72,12 +72,12 @@ function _createBoards() {
             "members": [{
                 "_id": "u101",
                 "fullname": "Tal Tarablus",
-                "imgUrl": "https://www.google.com"
+                "imgUrl": "https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
             }],
             "groups": [{
                     "id": "g101",
                     "title": "Group 1",
-                    "props":{
+                    "props": {
                         "orientation": "vertical",
                         "className": "card-container",
                     },
@@ -85,18 +85,18 @@ function _createBoards() {
                             "id": "c101",
                             "title": "Replace logo",
                             "labels": [],
-                            "props":{
+                            "props": {
                                 "className": "card",
-                                "style":{}
+                                "style": {}
                             }
                         },
                         {
                             "id": "c102",
                             "title": "Add Samples",
                             "labels": [],
-                            "props":{
+                            "props": {
                                 "className": "card",
-                                "style":{}
+                                "style": {}
                             }
                         }
                     ],
@@ -105,7 +105,7 @@ function _createBoards() {
                 {
                     "id": "g102",
                     "title": "Group 2",
-                    "props":{
+                    "props": {
                         "orientation": "vertical",
                         "className": "card-container",
                     },
@@ -113,9 +113,9 @@ function _createBoards() {
                             "id": "c103",
                             "title": "Do that",
                             "labels": [],
-                            "props":{
+                            "props": {
                                 "className": "card",
-                                "style":{}
+                                "style": {}
                             }
                         },
                         {
@@ -123,9 +123,9 @@ function _createBoards() {
                             "title": "Help me",
                             "status": "in-progress",
                             "description": "description",
-                            "props":{
+                            "props": {
                                 "className": "card",
-                                "style":{}
+                                "style": {}
                             },
 
                             "comments": [{
@@ -135,7 +135,7 @@ function _createBoards() {
                                 "byMember": {
                                     "_id": "u101",
                                     "fullname": "Tal Tarablus",
-                                    "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
+                                    "imgUrl": "https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
                                 }
                             }],
                             "checklists": [{
@@ -151,7 +151,7 @@ function _createBoards() {
                                 "_id": "u101",
                                 "username": "Tal",
                                 "fullname": "Tal Tarablus",
-                                "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
+                                "imgUrl": "https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
                             }],
                             "labels": [],
                             "createdAt": 1590999730348,
@@ -160,7 +160,7 @@ function _createBoards() {
                                 "_id": "u101",
                                 "username": "Tal",
                                 "fullname": "Tal Tarablus",
-                                "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
+                                "imgUrl": "hhttps://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
                             },
                             "style": {
                                 "bgColor": "#26de81"
@@ -184,8 +184,6 @@ function _createBoards() {
                     "title": "Replace Logo"
                 }
             }],
-            // for monday
-            "cmpsOrder": ["status-picker", "member-picker", "date-picker"]
         }]
         utilService.saveToStorage(BOARDS_KEY, boards)
     }
@@ -223,9 +221,9 @@ function getEmptyCard() {
         members: [],
         dueDate: '',
         isWatched: false,
-        props:{
+        props: {
             className: 'card',
-            style:{}
+            style: {}
         }
     }
 }
@@ -235,9 +233,9 @@ function getEmptyGroup() {
         id: utilService.makeId(),
         title: '',
         cards: [],
-        props:{
+        props: {
             orientation: 'vertical',
-            className:'card-container'
+            className: 'card-container'
         }
     }
 }

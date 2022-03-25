@@ -1,11 +1,11 @@
 // group-card
 .group-preview-main {
-    width: rem(276px) !important;
+    width: rem(276px);
     // min-height: rem(80px);
-    height: min-content !important ;
+    height: min-content !important;
     // max-height: rem(620px);
-    border-radius: 3px !important;
-    background-color: $groupGray !important;
+    border-radius: 3px;
+    background-color: $groupGray;
 }
 
 // group-title
@@ -14,7 +14,6 @@
     display: flex;
     align-items: center;
     color: $memberBlue;
-
     p {
         color: $memberBlue;
         font-family: roboto-regular;
@@ -24,7 +23,6 @@
         padding: 4px 8px;
         margin: 0 8px 0 8px;
     }
-
     input {
         font-family: roboto-regular;
         font-weight: 600;
@@ -65,13 +63,10 @@
     margin: 0 4px 8px 8px;
     padding: 6px 8px 2px;
     box-shadow: 0 1px 0 hsla(218, 76%, 15%, 0.251);
-
     overflow: hidden;
     position: relative;
-
     display: flex;
     flex-direction: column;
-
     .card-title {
         font-family: roboto-regular;
         margin: 0 0 4px;
@@ -80,7 +75,6 @@
         overflow-wrap: break-word;
         overflow: hidden;
     }
-
     button {
         position: absolute;
         right: 0px;
@@ -95,10 +89,8 @@
         border: none;
         display: none;
     }
-
     &:hover {
         background-color: #eeeef0;
-
         button {
             display: block;
             &:hover {
@@ -106,11 +98,9 @@
             }
         }
     }
-
     .labels {
         overflow: auto;
         position: relative;
-
         .label {
             border-radius: 4px;
             color: #fff;
@@ -146,13 +136,13 @@
             }
         }
     }
-
     .card-bar {
         display: flex;
         justify-content: space-between;
         margin: 4px;
     }
 }
+
 ////Pencil-modal
 .card-modal-edit {
     background-color: #fff;
@@ -175,6 +165,7 @@
         font-size: 14px;
     }
 }
+
 .mini-edit-actions {
     button {
         cursor: pointer;
@@ -221,7 +212,6 @@
             display: flex;
             float: left;
             margin: 8px 0 8px 8px;
-
             .btn-add-card-in {
                 background-color: #0079bf;
                 border: none;
@@ -246,11 +236,9 @@
         overflow: hidden;
         overflow-wrap: break-word;
         padding: 20px;
-
         display: flex;
         justify-content: start;
         align-items: flex-start;
-
         height: rem(75px);
         width: 100%;
         border-radius: 3px;
@@ -337,14 +325,17 @@
     // max-height: rem(520px);
     max-height: calc(75vh - 100px);
 }
+
 .scroller-group::-webkit-scrollbar {
     width: 8px;
     height: 8px;
 }
+
 .scroller-group::-webkit-scrollbar-track {
     border-radius: 10px;
     background: #bfc4ce;
 }
+
 .scroller-group::-webkit-scrollbar-thumb {
     border-radius: 10px;
     background: #a7afbc;
@@ -355,17 +346,21 @@
     @include to-icon("\e901");
     color: $memberBlue;
 }
+
 .icon-add-gray {
     @include to-icon("\e901");
     color: #5e6c84;
 }
+
 .icon-add-light {
     @include to-icon("\e901");
     color: #fff;
 }
+
 .icon-edit {
     @include to-icon("\e928");
 }
+
 .icon-close {
     @include to-icon("\e91c");
     color: #6b778c;
@@ -373,24 +368,4 @@
         color: #172b4d;
         text-decoration: none;
     }
-}
-
-.smooth-dnd-container.horizontal > .smooth-dnd-draggable-wrapper {
-    height: min-content;
-    // display: block;
-    // vertical-align: unset;
-}
-
-.smooth-dnd-container.horizontal {
-    // display: unset;
-}
-
-.smooth-dnd-container {
-    // position: unset;
-    // min-height: unset;
-    // min-width: unset;
-}
-
-.smooth-dnd-container.horizontal {
-    display: flex !important;
 }

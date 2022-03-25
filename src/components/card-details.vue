@@ -202,6 +202,7 @@
 
 <script>
 import labelModal from "./label-modal-cmp.vue";
+import memebersModal from "./icons/memebers-modal-cmp.vue";
 export default {
 
     name: 'card-details',
@@ -217,7 +218,8 @@ export default {
         }
     },
     components: {
-        labelModal
+        labelModal,
+        memebersModal
     },
     created() {
     },
@@ -236,9 +238,14 @@ export default {
         closeMenu() {
             this.shown = false;
         },
+        changeMembers(){
+            this.pos = this.$refs['membersBtn'].getBoundingClientRect()
+            this.shown = true
+            this.currModal = "memebersModal"
+        },
         editLabels() {
             this.pos = this.$refs['labelBtn'].getBoundingClientRect()
-            this.shown = !this.shown
+            this.shown =  true
             this.currModal = "labelModal"
         },
         editCard(card) {
