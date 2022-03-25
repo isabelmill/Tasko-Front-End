@@ -246,6 +246,7 @@
         display: flex;
         align-items: center;
         gap: rem(3px);
+        padding-left: 16px;
     }
     .controls-add-list {
         display: flex;
@@ -293,9 +294,9 @@
     overflow-x: hidden;
     overflow-y: auto;
     margin: 0 4px 0 0;
-    max-height: 100%;
+    // max-height: 100%;
     // max-height: rem(520px);
-    max-height: 57vh;
+    max-height: calc(75vh - 100px);
 }
 .scroller-group::-webkit-scrollbar {
     width: 8px;

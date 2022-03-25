@@ -1,6 +1,6 @@
 <!-- card preview inside group list -->
 <template >
-    <section class="group-list-main">
+    <section class="group-list-main scroll-groups">
         <section v-for="group in groups" :key="group.id" class="group-preview-main">
             <toggle-input-cmp
                 class="title"
@@ -20,24 +20,25 @@
             </section>
             <add-card-cmp @cardAdd="addNewCard" :group="group"></add-card-cmp>
         </section>
-    </section>
-    <div class="add-new-group" :style="show ? { 'height': '100px' } : null">
-        <button class="add-another-list-btn" v-if="!show" @click="show = true">
-            <span class="icon-sm icon-add-light"></span>Add another list
-        </button>
-        <div v-clickOutside="close" v-if="show" class="add-new-group-in">
-            <textarea
-                @keyup.enter="addNewGroup"
-                placeholder="Enter list title..."
-                type="text"
-                v-model="newGroup.title"
-            />
-            <div class="controls-add-list">
-                <button class="btn-add-card-in" @click="addNewGroup">Add List</button>
-                <span class="icon-lg icon-close" @click="show = false"></span>
+
+        <div class="add-new-group" :style="show ? { 'height': '100px' } : null">
+            <button class="add-another-list-btn" v-if="!show" @click="show = true">
+                <span class="icon-sm icon-add-light"></span>Add another list
+            </button>
+            <div v-clickOutside="close" v-if="show" class="add-new-group-in">
+                <textarea
+                    @keyup.enter="addNewGroup"
+                    placeholder="Enter list title..."
+                    type="text"
+                    v-model="newGroup.title"
+                />
+                <div class="controls-add-list">
+                    <button class="btn-add-card-in" @click="addNewGroup">Add List</button>
+                    <span class="icon-lg icon-close" @click="show = false"></span>
+                </div>
             </div>
         </div>
-    </div>
+    </section>
 </template>
 
 <script>
@@ -106,7 +107,7 @@ export default {
     },
     mounted() {
     },
-    emits: ['openCardDetails', 'removeGroup', 'groupUpdated','addGroup']
+    emits: ['openCardDetails', 'removeGroup', 'groupUpdated', 'addGroup']
 
 }
 </script>

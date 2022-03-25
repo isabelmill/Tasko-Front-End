@@ -1,5 +1,5 @@
 .board-header-main {
-    background-color: #055d9188;
+    background-color: #0079bf;
     height: rem(52px);
     display: flex;
     justify-content: space-between;
@@ -8,14 +8,13 @@
     nav {
         display: flex;
         align-items: center;
-        margin-left: rem(32px);
-        margin-right: rem(32px);
+        margin-left: rem(8px);
+        margin-right: rem(8px);
         gap: 5px;
     }
 
     button {
         @include btn();
-
         p {
             margin-left: 5px;
         }

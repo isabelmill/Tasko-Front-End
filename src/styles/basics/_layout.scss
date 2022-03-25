@@ -1,16 +1,38 @@
 .board-details-main {
     display: flex;
     gap: 8px;
-    height: 88vh;
-    background-color: #026ba7b0;
+    height: calc(100vh - 95px);
+    background-color: #0079bf;
 }
-
 .group-list-main {
     display: flex;
     gap: 8px;
-    margin: 7px 0 0 13px;
+    margin: 0 8px 8px 8px;
 }
 
-.add-new-group {
-    margin: 7px 0 0 0px;
+/////groups-scrollbar
+.scroll-groups {
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+.scroll-groups::-webkit-scrollbar {
+    height: 12px;
+    width: 12px;
+}
+.scroll-groups::-webkit-scrollbar-track {
+    border-radius: 4px;
+    background: #00000026; 
+}
+.scroll-groups::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: #70aad0
+}
+.scroll-groups::-webkit-scrollbar-button {
+    width: 24px;
+}
+
+/////////////main
+::-webkit-scrollbar {
+    overflow-x: hidden;
+    overflow-y: hidden;
 }

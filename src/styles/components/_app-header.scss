@@ -1,15 +1,13 @@
 .app-header-main {
     height: rem(43px);
     background-color: $mainBlue;
-    // background-color: rgba(0,0,0,.32);
     color: #ffff;
     display: flex;
     align-items: center;
+    padding: 0 8px 0 8px;
 
     .logo {
-        margin-left: rem(30px);
         height: rem(32px);
-        // width: rem(32px);
         display: flex;
         justify-content: center;
         align-items: center;
@@ -27,7 +25,6 @@
         align-items: center;
         justify-content: center;
 
-        margin-left: rem(10px);
         height: rem(32px);
         @include headerBtn();
     }
@@ -38,21 +35,20 @@
         align-items: center;
         justify-content: center;
 
-        margin-left: rem(10px);
         height: rem(32px);
         @include headerBtn();
     }
 
     .icon-btn {
-        margin-left: rem(20px);
+        margin-left: rem(4px);
         @include headerBtnIcon();
     }
 }
 
 .search-nav {
-    margin-left:auto;
-    margin-right: 8px;
+    margin-left: auto;
     display: flex;
+    gap: 4px;
     justify-content: center;
     align-items: center;
     .span-icon {
@@ -68,7 +64,6 @@
         display: flex;
         font-weight: bold;
         height: 32px;
-        margin-left: 4px;
         padding: 0;
         white-space: nowrap;
         cursor: pointer;
@@ -87,9 +82,8 @@
 }
 
 .search-main {
-
     input {
-        margin-left: rem(50px);
+        // margin-left: rem(50px);
         background-color: rgba(255, 255, 255, 0.2);
         border: 1px solid rgba(255, 255, 255, 0.25);
         border-radius: 3px;
