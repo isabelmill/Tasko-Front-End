@@ -27,8 +27,8 @@
                     :board="board"
                 ></card-preview>
             </section>
-        </Draggable>
             <add-card-cmp @cardAdd="addNewCard" :group="group"></add-card-cmp>
+        </Draggable>
             <div class="add-new-group" :style="show ? { 'height': '100px' } : null">
                 <button class="add-another-list-btn" v-if="!show" @click="show = true">
                     <span class="icon-sm icon-add-light"></span>Add another list
