@@ -1,5 +1,6 @@
 <template>
     <section
+        v-if="!isLabelEditOpen"
         v-clickOutside="close"
         :style="{ top: pos.bottom + 8 + 'px', left: pos.left + 'px' }"
         class="label-modal"
@@ -21,12 +22,25 @@
             </section>
         </section>
     </section>
+    <label-editor-modal-cmp
+        v-if="isLabelEditOpen"
+        :board="board"
+        :label="currLabel"
+        :pos="pos"
+        @saveLabel="saveLabelToBoard"
+        @closeEditLabel="closeLabelEdit"
+        @closeBoth="closeModal"
+    ></label-editor-modal-cmp>
 </template>
 
 <script>
 import search from './search.vue'
+import labelEditorModalCmp from "./label-editor-modal-cmp.vue"
 export default {
-    components: { search },
+    components: {
+        search,
+        labelEditorModalCmp
+    },
     name: 'label-modal',
     props: {
         board: {
@@ -45,11 +59,25 @@ export default {
     data() {
         return {
             cardToEdit: null,
+            isLabelEditOpen: false,
+            currLabelIdx: null,
         }
+    },
+    computed: {
+        currLabel() {
+            return this.board.labels[this.currLabelIdx]
+        },
     },
     created() {
     },
     methods: {
+        closeLabelEdit() {
+            this.isLabelEditOpen = false
+        },
+        closeModal() {
+            this.isLabelEditOpen = false;
+            this.close()
+        },
         close() {
             this.$emit('actionsClose')
         },
@@ -67,7 +95,11 @@ export default {
 
         },
         openEditLabel(label) {
-
+            this.isLabelEditOpen = true;
+            this.currLabelIdx = this.board.labels.findIndex(labelToFind => labelToFind.id === label.id)
+        },
+        saveLabelToBoard(label){
+            // this.$emit()
         }
     },
     emits: ['actionsClose', 'cardEdit']
