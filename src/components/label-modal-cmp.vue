@@ -9,16 +9,15 @@
             <span class="main-title">Labels</span>
         </div>
         <search></search>
-        <section>
+        <section class="actions-modal-main">
             <span class="mini-title">Labels</span>
             <section v-for="label in board.labels" :key="label.id" class="label-container flex">
                 <div
                     class="label-color"
-                    style="width:100px"
                     :style="{ backgroundColor: label.color }"
                     @click="addLabelToCard(label.id)"
                 >{{ label.title }}</div>
-                <button @click="openEditLabel(label)">edit</button>
+                <button class="icon-sm icon-edit" @click="openEditLabel(label)"></button>
             </section>
         </section>
     </section>
@@ -100,49 +99,18 @@ export default {
             this.isLabelEditOpen = true;
             this.currLabelIdx = this.board.labels.findIndex(labelToFind => labelToFind.id === label.id)
         },
-        saveLabelToBoard(label){
+        saveLabelToBoard(label) {
             this.currLabelIdx = this.board.labels.findIndex(labelToFind => labelToFind.id === label.id)
             this.labelsToEdit = JSON.parse(JSON.stringify(this.board.labels))
             this.labelsToEdit[this.currLabelIdx] = label
-            this.$emit('boardEdit', {key : 'labels' , val: this.labelsToEdit})
+            this.$emit('boardEdit', { key: 'labels', val: this.labelsToEdit })
         }
     },
-    emits: ['actionsClose', 'cardEdit','boardEdit']
+    emits: ['actionsClose', 'cardEdit', 'boardEdit']
 
 }
 </script>
 
 <style>
-.label-modal {
-    position: fixed;
-    width: 280px;
-    padding: 12px;
-    background-color: white;
-    border: 0;
-}
-.main-title-container {
-    text-align: center;
-}
 
-.main-title {
-    border-bottom: 1px solid #091e4221;
-    box-sizing: border-box;
-    color: #5e6c84;
-    display: block;
-    line-height: 40px;
-    margin: 0 12px;
-    overflow: hidden;
-    padding: 0 32px;
-    position: relative;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    z-index: 1;
-}
-.label-container {
-    margin-bottom: 2px;
-}
-
-.label-color:hover {
-    opacity: 70%;
-}
 </style>
