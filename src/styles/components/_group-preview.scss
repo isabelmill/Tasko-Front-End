@@ -112,9 +112,6 @@
         position: relative;
 
         .label {
-            // -webkit-font-smoothing: antialiased;
-            // -moz-osx-font-smoothing: grayscale;
-            // background-color: #b3bac5;
             border-radius: 4px;
             color: #fff;
             display: block;
@@ -156,7 +153,7 @@
         margin: 4px;
     }
 }
-
+////Pencil-modal
 .card-modal-edit {
     background-color: #fff;
     textarea {
@@ -178,19 +175,24 @@
         font-size: 14px;
     }
 }
-
 .mini-edit-actions {
     button {
         cursor: pointer;
         position: relative;
         background: rgba(0, 0, 0, 0.6);
         border-radius: 3px;
+        border: none;
         margin: 0 0 4px 8px;
         padding: 6px 12px 6px 8px;
         transition: margin-left 85ms ease-in;
         display: flex;
         color: #fff;
         line-height: 19px;
+        &:hover {
+            background: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            margin-left: 13px;
+        }
     }
 }
 
@@ -374,8 +376,8 @@
 }
 
 .smooth-dnd-container.horizontal > .smooth-dnd-draggable-wrapper {
- height: min-content;
-// display: block;
+    height: min-content;
+    // display: block;
     // vertical-align: unset;
 }
 
