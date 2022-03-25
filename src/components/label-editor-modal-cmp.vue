@@ -1,0 +1,72 @@
+<template>
+    <section
+        v-clickOutside="close"
+        :style="{ top: pos.bottom + 8 + 'px', left: pos.left + 'px' }"
+        class="label-modal"
+    >
+        <div class="main-title-container">
+            <button @click="closeEditLabel">back</button>
+
+            <span class="main-title">Change label</span>
+        </div>
+        <section>
+            <span class="mini-title">name</span>
+            <input @submit.prevent type="text" v-model="name" />
+            <section class="color-picker">
+                <div
+                    class="label-color"
+                    style="width:50px"
+                    @click="editLabel(label)"
+                >{{ label.title }}</div>
+            </section>
+            <button @click="saveLabel">save</button>
+            <button @click="closeEditLabel">exit</button>
+        </section>
+    </section>
+</template>
+
+<script>
+export default {
+    name: 'label-editor',
+    props: {
+        label: {
+            type: Object
+        },
+        pos: {
+            type: Object
+        },
+        board: {
+            type: Object
+        }
+    },
+    data() {
+        return {
+            name: '',
+            color: '',
+            labelToEdit: '',
+        }
+    },
+    created(){
+        this.name = this.label.title
+        this.color = this.label.color
+    },
+    methods: {
+        save(){
+            this.labelToEdit = JSON.parse(JSON.stringify(this.label))
+            this.labelToEdit.name = this.name
+            this.labelToEdit.color = this.color
+            this.$emit('saveLabel',this.labelToEdit)
+        },
+        close() {
+            this.$emit('closeBoth')
+        },
+        closeEditLabel() {
+            this.$emit('closeEditLabel')
+        }
+    },
+    emits: ['closeBoth', 'closeEditLabel','saveLabel']
+}
+</script>
+
+<style>
+</style>

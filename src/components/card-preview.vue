@@ -1,14 +1,20 @@
 <template>
-    <section ref="card" class="card-preview cursor-pointer flex">
+    <section class="card-preview cursor-pointer flex">
         <div v-if="card.labels.length" class="labels">
-            <div v-for="label in card.labels" :key="label.id">{{ label.title }}</div>
+            <div class="label" v-for="label in card.labels" :key="label.id">{{ label.title }}</div>
         </div>
-        <p class="card-title cursor-pointer" @click="openDetails">{{ card.title }}</p>
-
-        <button
-            class="icon-sm icon-edit"
-            @click="openMiniEdit($event)"
-        ></button>
+        <div>
+            <p class="card-title cursor-pointer" @click="openDetails">{{ card.title }}</p>
+        </div>
+        <div class="card-bar">
+            <div class="card-bar-icon">
+                <p>(soon...)</p>
+            </div>
+            <div class="card-bar-members">
+               <p>(soon...)</p> 
+            </div>
+        </div>
+        <button class="icon-sm icon-edit" @click="openMiniEdit($event)"></button>
     </section>
     <section
         style="position:fixed"
@@ -65,10 +71,6 @@ export default {
         }
     },
     created() {
-        
-    },
-    mounted() {
-        // this.calcPosOfBtn()
     },
     methods: {
         openTitleEdit() {
