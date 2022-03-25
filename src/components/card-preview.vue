@@ -68,7 +68,7 @@ export default {
         
     },
     mounted() {
-        this.calcPosOfBtn()
+        // this.calcPosOfBtn()
     },
     methods: {
         openTitleEdit() {
