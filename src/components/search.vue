@@ -1,6 +1,7 @@
 <template>
   <section class="search-main">
     <label class="search-box" for="search">
+      <input type="search" name="search" id="search" placeholder="search">
       <svg
         width="20"
         height="20"
