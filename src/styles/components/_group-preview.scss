@@ -1,11 +1,11 @@
 // group-card
 .group-preview-main {
-    width: rem(276px);
+    width: rem(276px) !important;
     // min-height: rem(80px);
-    height: min-content;
+    height: min-content !important ;
     // max-height: rem(620px);
-    border-radius: 3px;
-    background-color: $groupGray;
+    border-radius: 3px !important;
+    background-color: $groupGray !important;
 }
 
 // group-title
@@ -66,10 +66,8 @@
     padding: 6px 8px 2px;
     box-shadow: 0 1px 0 hsla(218, 76%, 15%, 0.251);
 
-    position: relative;
     overflow: hidden;
     position: relative;
-    z-index: 10;
 
     display: flex;
     flex-direction: column;
@@ -112,10 +110,10 @@
     .labels {
         overflow: auto;
         position: relative;
-        
+
         .label {
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
+            // -webkit-font-smoothing: antialiased;
+            // -moz-osx-font-smoothing: grayscale;
             // background-color: #b3bac5;
             border-radius: 4px;
             color: #fff;
@@ -218,7 +216,7 @@
         width: 100%;
         border-radius: 3px;
         border: none;
-        margin: 0 4px 8px 8px;
+        // margin: 0 4px 8px 8px;
         box-shadow: 0 1px 0 #091e4240;
         color: $memberBlue;
         font-family: roboto-regular;
@@ -335,4 +333,24 @@
         color: #172b4d;
         text-decoration: none;
     }
+}
+
+.smooth-dnd-container.horizontal > .smooth-dnd-draggable-wrapper {
+    // height: min-content;
+display: block;
+    // vertical-align: unset;
+}
+
+.smooth-dnd-container.horizontal {
+    display: unset;
+}
+
+.smooth-dnd-container {
+    position: unset;
+    min-height: unset;
+    min-width: unset;
+}
+
+.smooth-dnd-container.horizontal{
+    display: flex !important;
 }
