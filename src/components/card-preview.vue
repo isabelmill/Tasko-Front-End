@@ -6,7 +6,6 @@
         <p class="card-title cursor-pointer" @click="openDetails">{{ card.title }}</p>
 
         <button
-            :style="{ top: 500 + 'px', left: pos.left + 'px' }"
             class="icon-sm icon-edit"
             @click="openMiniEdit($event)"
         ></button>
@@ -63,7 +62,6 @@ export default {
             },
             isActionsOpen: false,
             activeComponent: null,
-            pos: 0,
         }
     },
     created() {
@@ -73,10 +71,6 @@ export default {
         this.calcPosOfBtn()
     },
     methods: {
-        calcPosOfBtn() {
-            this.pos = this.$refs['card'].getBoundingClientRect()
-            console.log('this.pos', this.pos)
-        },
         openTitleEdit() {
             // this.titleIsOpen = true;
         },
