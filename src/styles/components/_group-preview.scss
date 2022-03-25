@@ -1,11 +1,11 @@
 // group-card
 .group-preview-main {
-    width: rem(276px);
+    width: rem(276px) !important;
     // min-height: rem(80px);
-    height: min-content;
+    height: min-content !important ;
     // max-height: rem(620px);
-    border-radius: 3px;
-    background-color: $groupGray;
+    border-radius: 3px !important;
+    background-color: $groupGray !important;
 }
 
 // group-title
@@ -333,4 +333,24 @@
         color: #172b4d;
         text-decoration: none;
     }
+}
+
+.smooth-dnd-container.horizontal > .smooth-dnd-draggable-wrapper {
+    // height: min-content;
+display: block;
+    // vertical-align: unset;
+}
+
+.smooth-dnd-container.horizontal {
+    display: unset;
+}
+
+.smooth-dnd-container {
+    position: unset;
+    min-height: unset;
+    min-width: unset;
+}
+
+.smooth-dnd-container.horizontal{
+    display: flex !important;
 }
