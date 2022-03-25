@@ -61,13 +61,28 @@ function _createBoards() {
             "labels": [{
                     "id": "l101",
                     "title": "Done",
-                    "color": "#61bd4f"
+                    "color": "#0079BF"
                 },
                 {
                     "id": "l102",
                     "title": "Progress",
-                    "color": "#61bd33"
-                }
+                    "color": "#D29034"
+                },
+                {
+                    "id": "l103",
+                    "title": "",
+                    "color": "#519839"
+                },
+                {
+                    "id": "l104",
+                    "title": "",
+                    "color": "#B04632"
+                },
+                {
+                    "id": "l105",
+                    "title": "",
+                    "color": "#89609E"
+                },
             ],
             "members": [{
                 "_id": "u101",
@@ -85,6 +100,7 @@ function _createBoards() {
                             "id": "c101",
                             "title": "Replace logo",
                             "labels": [],
+                            "members": [],
                             "props": {
                                 "className": "card",
                                 "style": {}
@@ -94,6 +110,7 @@ function _createBoards() {
                             "id": "c102",
                             "title": "Add Samples",
                             "labels": [],
+                            "members": [],
                             "props": {
                                 "className": "card",
                                 "style": {}
@@ -113,6 +130,7 @@ function _createBoards() {
                             "id": "c103",
                             "title": "Do that",
                             "labels": [],
+                            "members": [],
                             "props": {
                                 "className": "card",
                                 "style": {}
@@ -251,7 +269,32 @@ function getEmptyBoard() {
             imgUrl: "http://some-img"
         },
         background: '',
-        labels: [],
+        labels: [{
+                id: "l101",
+                title: "",
+                color: "#0079BF"
+            },
+            {
+                id: "l102",
+                title: "",
+                color: "#D29034"
+            },
+            {
+                id: "l103",
+                title: "",
+                color: "#519839"
+            },
+            {
+                id: "l104",
+                title: "",
+                color: "#B04632"
+            },
+            {
+                id: "l105",
+                title: "",
+                color: "#89609E"
+            },
+        ],
         members: [],
         groups: [],
         activities: [],

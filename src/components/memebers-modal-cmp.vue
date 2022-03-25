@@ -11,12 +11,11 @@
         <!-- <search></search> -->
         <section>
             <span class="mini-title">Board members</span>
-            <section v-for="member in board.members" :key="member._id" class="label-container flex">
+            <section  @click="addMemberToCard(member)" v-for="member in board.members" :key="member._id" class="label-container flex">
                 <img :src="member.imgUrl" class="profile-image">
                 <div
                     class="label-color"
                     style="width:100px"
-                    @click="addMemberToCard(member._id)"
                 >{{ member.fullname }}</div>
             </section>
         </section>
@@ -47,7 +46,7 @@ export default {
     },
     data() {
         return {
-            cardToEdit: null,
+            cardToEdit: JSON.parse(JSON.stringify(this.card)),
             isLabelEditOpen: false,
             currLabelIdx: null,
             labelsToEdit: null,
@@ -68,11 +67,12 @@ export default {
         close() {
             this.$emit('actionsClose')
         },
-        addMemberToCard(memberId) {
+        addMemberToCard(member) {
             // console.log('new labal', label)
             if (!this.cardToEdit) this.cardToEdit = JSON.parse(JSON.stringify(this.card))
+            console.log(this.cardToEdit)
             if (this.cardToEdit.members.length) {
-                const idx = this.cardToEdit.members.findIndex(cardMember => cardMember._id === memberId)
+                const idx = this.cardToEdit.members.findIndex(cardMember => cardMember._id === member._id)
                 if (idx === -1) this.cardToEdit.members.push(member)
                 else this.cardToEdit.members.splice(idx, 1)
             }
@@ -120,5 +120,13 @@ export default {
 
 .label-color:hover {
     opacity: 70%;
+}
+
+.profile-image{
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    border: 2px solid white;
+    /* filter: drop-shadow(0 0 8px #ff5722); */
 }
 </style>

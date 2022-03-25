@@ -23,7 +23,7 @@
     </section>
     <section
         style="position:fixed"
-        :style="{ top: distanceY + 'px', left: distanceX + 'px' }"
+        :style="{top: distanceY + 'px', left: distanceX + 'px' }"
         v-clickOutside="closeModal"
         v-if="modalOpen"
         class="mini-edit-modal flex"
@@ -101,6 +101,9 @@ export default {
             this.titleIsOpen = false;
         },
         openMiniEdit(ev) {
+
+
+            //To edit quick modal edit position//
             this.distanceX = ev.clientX - 65;
             this.distanceY = ev.clientY + 10;
             this.modalOpen = true;

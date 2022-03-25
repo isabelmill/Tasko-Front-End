@@ -202,7 +202,7 @@
 
 <script>
 import labelModal from "./label-modal-cmp.vue";
-import memebersModal from "./icons/memebers-modal-cmp.vue";
+import memebersModal from "./memebers-modal-cmp.vue";
 export default {
 
     name: 'card-details',
