@@ -1,8 +1,12 @@
 <template>
     <section class="card-preview cursor-pointer flex">
-        <div v-if="card.labels.length&&board.labels.length" class="labels">
-            <div class="label" v-for="label in card.labels" :key="label" :style="{ 'backgroundColor': board.labels[board.labels.findIndex(labelToFind=>labelToFind.id === label)].color }">
-                {{ board.labels[board.labels.findIndex(labelToFind=>labelToFind.id === label)].title }}</div>
+        <div v-if="card.labels.length && board.labels.length" class="labels">
+            <div
+                class="label"
+                v-for="label in card.labels"
+                :key="label"
+                :style="{ 'backgroundColor': board.labels[board.labels.findIndex(labelToFind => labelToFind.id === label)].color }"
+            >{{ board.labels[board.labels.findIndex(labelToFind => labelToFind.id === label)].title }}</div>
         </div>
         <div>
             <p class="card-title cursor-pointer" @click="openDetails">{{ card.title }}</p>
@@ -12,7 +16,7 @@
                 <p>(soon...)</p>
             </div>
             <div class="card-bar-members">
-               <p>(soon...)</p> 
+                <p>(soon...)</p>
             </div>
         </div>
         <button class="icon-sm icon-edit" @click="openMiniEdit($event)"></button>
@@ -25,7 +29,9 @@
         class="mini-edit-modal flex"
     >
         <section class="mini-edit-main">
-            <textarea name="mini-edit-ta" style="resize:none" v-model="card.title"></textarea>
+            <div class="card-modal-edit">
+                <textarea name="mini-edit-ta" style="resize:none" v-model="card.title"></textarea>
+            </div>
             <button class="mini-edit-save" @click="saveCard">Save</button>
         </section>
         <section class="mini-edit-actions">
@@ -105,10 +111,9 @@ export default {
 
 <style>
 /* TO ADD TO SCSS!!!!!!!!! */
-.mini-edit-main {
+/* .mini-edit-main {
     display: flex;
     flex-direction: column;
-    
 }
 
 .mini-edit-actions {
@@ -149,5 +154,5 @@ export default {
 }
 .card-title {
     width: 230px;
-}
+} */
 </style>
