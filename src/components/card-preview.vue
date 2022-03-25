@@ -1,5 +1,5 @@
 <template>
-    <section ref="card" class="card-preview cursor-pointer flex">
+    <section class="card-preview cursor-pointer flex">
         <div v-if="card.labels.length" class="labels">
             <div v-for="label in card.labels" :key="label.id">{{ label.title }}</div>
         </div>
@@ -66,9 +66,6 @@ export default {
     },
     created() {
         
-    },
-    mounted() {
-        this.calcPosOfBtn()
     },
     methods: {
         openTitleEdit() {
