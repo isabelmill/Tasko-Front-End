@@ -1,9 +1,19 @@
 <template>
-    <section class="card-preview cursor-pointer flex" >
-        <div v-if="card.labels.length">
-            <div v-for="label in card.labels" :key="label.id"></div>
+    <section class="card-preview cursor-pointer flex">
+        <div v-if="card.labels.length" class="labels">
+            <div class="label" v-for="label in card.labels" :key="label.id">{{ label.title }}</div>
         </div>
-        <p class="card-title cursor-pointer " @click="openDetails">{{ card.title }}</p>
+        <div>
+            <p class="card-title cursor-pointer" @click="openDetails">{{ card.title }}</p>
+        </div>
+        <div class="card-bar">
+            <div class="card-bar-icon">
+                <p>(soon...)</p>
+            </div>
+            <div class="card-bar-members">
+               <p>(soon...)</p> 
+            </div>
+        </div>
         <button class="icon-sm icon-edit" @click="openMiniEdit($event)"></button>
     </section>
     <section
@@ -61,6 +71,7 @@ export default {
         }
     },
     created() {
+
     },
     methods: {
         openTitleEdit() {
@@ -84,7 +95,6 @@ export default {
             this.modalOpen = false
         },
         saveCard() {
-
         },
     },
     emits: ['openCard', 'editCard'],

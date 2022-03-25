@@ -11,7 +11,7 @@
             ></toggle-input-cmp>
             <section class="scroller-group">
                 <card-preview
-                @openCard="openCardModal"
+                    @openCard="openCardModal"
                     v-for="card in group.cards"
                     :key="card.id"
                     :group="group"
@@ -21,6 +21,23 @@
             <add-card-cmp @cardAdd="addNewCard" :group="group"></add-card-cmp>
         </section>
     </section>
+    <div class="add-new-group" :style="show ? { 'height': '100px' } : null">
+        <button class="add-another-list-btn" v-if="!show" @click="show = true">
+            <span class="icon-sm icon-add-light"></span>Add another list
+        </button>
+        <div v-clickOutside="close" v-if="show" class="add-new-group-in">
+            <textarea
+                @keyup.enter="addNewGroup"
+                placeholder="Enter list title..."
+                type="text"
+                v-model="newGroup.title"
+            />
+            <div class="controls-add-list">
+                <button class="btn-add-card-in" @click="addNewGroup">Add List</button>
+                <span class="icon-lg icon-close" @click="show = false"></span>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -38,6 +55,9 @@ export default {
     props: {
         groups: {
             type: Array
+        },
+        newGroup: {
+            type: Object
         }
     },
     data() {
@@ -48,6 +68,7 @@ export default {
             groupToDisplay: {
                 title: ""
             },
+            show: false,
         };
     },
     created() {
@@ -60,9 +81,6 @@ export default {
             this.groupToEdit = null
             this.titleIsOpen = false;
         },
-        close() {
-            this.show = false;
-        },
         addNewCard({ newCard, group }) {
             console.log(group)
             this.groupToEdit = JSON.parse(JSON.stringify(this.groups.find(groupToCheck => groupToCheck.id === group.id)))
@@ -73,13 +91,20 @@ export default {
         openCardModal(info) {
             this.$emit('openCardDetails', info)
         },
-        deleteGroup(groupId){
-            this.$emit('removeGroup',groupId)
+        deleteGroup(groupId) {
+            this.$emit('removeGroup', groupId)
+        },
+        close() {
+            this.show = false;
+            this.newGroup.title = ""
+        },
+        addNewGroup() {
+            this.$emit('addGroup', this.newGroup)
         }
     },
     mounted() {
     },
-    emits: ['openCardDetails','removeGroup','groupUpdated']
+    emits: ['openCardDetails', 'removeGroup', 'groupUpdated','addGroup']
 
 }
 </script>

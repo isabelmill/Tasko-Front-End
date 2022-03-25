@@ -12,26 +12,11 @@
             @openCardDetails="openCardDetailsModal"
             @groupUpdated="updateGroup"
             :groups="board.groups"
+            :newGroup="newGroup"
+            @addGroup="addNewGroup"
         ></group-list>
 
-        <div class="add-new-group" :style="show ? { 'height': '100px' } : null">
-            <button class="add-another-list-btn" v-if="!show" @click="show = true">
-                <span class="icon-sm icon-add-light"></span>Add another list
-            </button>
-            <div v-clickOutside="close" v-if="show" class="add-new-group-in">
-                <textarea
-                    @keyup.enter="addNewGroup"
-                    placeholder="Enter list title..."
-                    type="text"
-                    v-model="newGroup.title"
-                />
-                <div class="controls-add-list">
-                    <button class="btn-add-card-in" @click="addNewGroup">Add List</button>
-                    <span class="icon-lg icon-close" @click="show = false"></span>
-                </div>
-            </div>
-        </div>
-        
+
     </section>
     <dialog ref="cardDetailsModal" class="modal">
         <card-details
@@ -59,7 +44,7 @@ export default {
     },
     data() {
         return {
-            show: false,
+
             isCardOpen: false,
             selectedCardIdx: null,
             selectedCardGroupIdx: null,
@@ -78,10 +63,10 @@ export default {
             this.boardToEdit.groups.splice(idx, 1)
             this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
         },
-        addNewGroup() {
-            if (!this.newGroup.title) return
+        addNewGroup(newGroup) {
+            if (!newGroup.title) return
             this.boardToEdit = JSON.parse(JSON.stringify(this.board))
-            this.boardToEdit.groups.push(this.newGroup)
+            this.boardToEdit.groups.push(newGroup)
             this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
             this.newGroup = boardService.getEmptyGroup()
             this.show = false;
