@@ -4,12 +4,12 @@
         class="group-list-main scroll-groups"
         orientation="horizontal"
         @drop="onGroupDrop($event)"
-        drag-handle-selector=".column-drag-handle"
+        drag-handle-selector=".group-preview-main"
         @drag-start="dragStart"
         :drop-placeholder="upperDropPlaceholderOptions"
     >
         <Draggable v-for="group in groups" :key="group.id" class="group-preview-main">
-            <span class="column-drag-handle">&#x2630;</span>
+            <!-- <span class="column-drag-handle">&#x2630;</span> -->
             <toggle-input-cmp
                 class="title"
                 @groupDelete="deleteGroup"
@@ -129,9 +129,7 @@ export default {
         },
         onGroupDrop(dropResult) {
             const boardToEdit = Object.assign({}, this.board)
-            console.log('boardToEdit:', boardToEdit);
             boardToEdit.groups = applyDrag(boardToEdit.groups, dropResult)
-            // this.board = scene
             this.$emit('groupDnd', boardToEdit)
         },
         dragStart() {
