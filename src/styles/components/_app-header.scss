@@ -125,6 +125,7 @@
 
 .starred-boards-modal {
     position: fixed;
+    z-index: 20;
     width: rem(305px);
     color: #172b4d;
     background-color: #ffffff;
