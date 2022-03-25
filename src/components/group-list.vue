@@ -8,7 +8,8 @@
         :drop-placeholder="upperDropPlaceholderOptions"
         
     >
-        <Draggable v-for="group in groups" :key="group.id" class="group-preview-main">
+        <Draggable v-for="group in groups" :key="group.id" class="group-preview-main ">
+        <div :class="group.props.className">
             <!-- <span class="column-drag-handle">&#x2630;</span> -->
             <toggle-input-cmp
                 class="title"
@@ -29,15 +30,18 @@
                 :drop-placeholder="dropPlaceholderOptions"
             >
                 <Draggable v-for="card in group.cards" :key="card.id">
+                <div :class="card.props.className" >
                     <card-preview
                         @openCard="openCardModal"
                         :group="group"
                         :card="card"
                         :board="board"
                     ></card-preview>
+                    </div>
                 </Draggable>
             </Container>
             <add-card-cmp @cardAdd="addNewCard" :group="group"></add-card-cmp>
+            </div>
         </Draggable>
         <div class="add-new-group" :style="show ? { 'height': '100px' } : null">
             <button class="add-another-list-btn" v-if="!show" @click="show = true">
@@ -143,13 +147,12 @@ export default {
             this.$emit('addGroup', this.newGroup)
         },
         onGroupDrop(dropResult) {
-            this.boardToEdit = JSON.parse(JSON.stringify(this.board))
             this.boardToEdit.groups = applyDrag(this.boardToEdit.groups, dropResult)
             this.$emit('groupDnd', this.boardToEdit)
         },
         onCardDrop(groupId, dropResult) {
+            console.log('groupId:',groupId);
             if (dropResult.removedIndex !== null || dropResult.addedIndex !== null) {
-                this.boardToEdit = JSON.parse(JSON.stringify(this.board))
                 const newGroup = this.boardToEdit.groups.filter(p => p.id === groupId)[0]
                 const groupIndex = this.boardToEdit.groups.indexOf(newGroup)
                 const newColumn = JSON.parse(JSON.stringify(newGroup))
@@ -164,7 +167,7 @@ export default {
             }
         },
         log(...params) {
-            console.log(...params)
+            // console.log(...params)
         }
     },
     mounted() {

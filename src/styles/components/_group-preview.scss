@@ -337,19 +337,19 @@
 }
 
 .smooth-dnd-container.horizontal > .smooth-dnd-draggable-wrapper {
-    // height: min-content;
-display: block;
+ height: min-content;
+// display: block;
     // vertical-align: unset;
 }
 
 .smooth-dnd-container.horizontal {
-    display: unset;
+    // display: unset;
 }
 
 .smooth-dnd-container {
-    position: unset;
-    min-height: unset;
-    min-width: unset;
+    // position: unset;
+    // min-height: unset;
+    // min-width: unset;
 }
 
 .smooth-dnd-container.horizontal{
