@@ -46,6 +46,9 @@
 
 <script>
 import { boardService } from "../services/board-service.js";
+import { Container, Draggable } from "vue3-smooth-dnd";
+import { applyDrag, generateItems } from '../services/dnd-service.js'
+
 export default {
     name: 'card-preview',
     props: {
@@ -59,6 +62,10 @@ export default {
             type: Object,
             required: true,
         },
+    },
+        components: {
+        Container,
+        Draggable,
     },
     data() {
         return {

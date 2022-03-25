@@ -5,8 +5,8 @@
         orientation="horizontal"
         @drop="onGroupDrop($event)"
         drag-handle-selector=".group-preview-main"
-        @drag-start="dragStart"
         :drop-placeholder="upperDropPlaceholderOptions"
+        
     >
         <Draggable v-for="group in groups" :key="group.id" class="group-preview-main">
             <!-- <span class="column-drag-handle">&#x2630;</span> -->
@@ -17,35 +17,45 @@
                 :title="group.title"
                 :id="group.id"
             ></toggle-input-cmp>
-            <section class="scroller-group">
-                <card-preview
-                    @openCard="openCardModal"
-                    v-for="card in group.cards"
-                    :key="card.id"
-                    :group="group"
-                    :card="card"
-                    :board="board"
-                ></card-preview>
-            </section>
+            <Container
+                class="scroller-group"
+                group-name="col"
+                :get-child-payload="getCardPayload(group.id)"
+                @drag-start="(e) => log('drag start', e)"
+                @drag-end="(e) => log('drag end', e)"
+                drag-class="card-ghost"
+                drop-class="card-ghost-drop"
+                @drop="(e) => onCardDrop(group.id, e)"
+                :drop-placeholder="dropPlaceholderOptions"
+            >
+                <Draggable v-for="card in group.cards" :key="card.id">
+                    <card-preview
+                        @openCard="openCardModal"
+                        :group="group"
+                        :card="card"
+                        :board="board"
+                    ></card-preview>
+                </Draggable>
+            </Container>
             <add-card-cmp @cardAdd="addNewCard" :group="group"></add-card-cmp>
         </Draggable>
-            <div class="add-new-group" :style="show ? { 'height': '100px' } : null">
-                <button class="add-another-list-btn" v-if="!show" @click="show = true">
-                    <span class="icon-sm icon-add-light"></span>Add another list
-                </button>
-                <div v-clickOutside="close" v-if="show" class="add-new-group-in">
-                    <textarea
-                        @keyup.enter="addNewGroup"
-                        placeholder="Enter list title..."
-                        type="text"
-                        v-model="newGroup.title"
-                    />
-                    <div class="controls-add-list">
-                        <button class="btn-add-card-in" @click="addNewGroup">Add List</button>
-                        <span class="icon-lg icon-close" @click="show = false"></span>
-                    </div>
+        <div class="add-new-group" :style="show ? { 'height': '100px' } : null">
+            <button class="add-another-list-btn" v-if="!show" @click="show = true">
+                <span class="icon-sm icon-add-light"></span>Add another list
+            </button>
+            <div v-clickOutside="close" v-if="show" class="add-new-group-in">
+                <textarea
+                    @keyup.enter="addNewGroup"
+                    placeholder="Enter list title..."
+                    type="text"
+                    v-model="newGroup.title"
+                />
+                <div class="controls-add-list">
+                    <button class="btn-add-card-in" @click="addNewGroup">Add List</button>
+                    <span class="icon-lg icon-close" @click="show = false"></span>
                 </div>
             </div>
+        </div>
     </Container>
 </template>
 
@@ -99,6 +109,11 @@ export default {
     },
     created() {
     },
+    computed: {
+        boardToEdit() {
+            return JSON.parse(JSON.stringify(this.board))
+        }
+    },
     methods: {
         changeTitle({ txt, id }) {
             this.groupToEdit = JSON.parse(JSON.stringify(this.groups.find(group => group.id === id)))
@@ -128,17 +143,33 @@ export default {
             this.$emit('addGroup', this.newGroup)
         },
         onGroupDrop(dropResult) {
-            const boardToEdit = Object.assign({}, this.board)
-            boardToEdit.groups = applyDrag(boardToEdit.groups, dropResult)
-            this.$emit('groupDnd', boardToEdit)
+            this.boardToEdit = JSON.parse(JSON.stringify(this.board))
+            this.boardToEdit.groups = applyDrag(this.boardToEdit.groups, dropResult)
+            this.$emit('groupDnd', this.boardToEdit)
         },
-        dragStart() {
-            console.log('drag started')
+        onCardDrop(groupId, dropResult) {
+            if (dropResult.removedIndex !== null || dropResult.addedIndex !== null) {
+                this.boardToEdit = JSON.parse(JSON.stringify(this.board))
+                const newGroup = this.boardToEdit.groups.filter(p => p.id === groupId)[0]
+                const groupIndex = this.boardToEdit.groups.indexOf(newGroup)
+                const newColumn = JSON.parse(JSON.stringify(newGroup))
+                newColumn.cards = applyDrag(newColumn.cards, dropResult)
+                this.boardToEdit.groups.splice(groupIndex, 1, newColumn)
+                this.$emit('groupDnd', this.boardToEdit)
+            }
         },
+        getCardPayload(groupId) {
+            return index => {
+                return this.boardToEdit.groups.filter(p => p.id === groupId)[0].cards[index]
+            }
+        },
+        log(...params) {
+            console.log(...params)
+        }
     },
     mounted() {
     },
-    emits: ['openCardDetails', 'removeGroup', 'groupUpdated', 'addGroup','groupDnd']
+    emits: ['openCardDetails', 'removeGroup', 'groupUpdated', 'addGroup', 'groupDnd']
 
 }
 </script>
