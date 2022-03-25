@@ -30,7 +30,9 @@
     >
         <section class="mini-edit-main">
             <div class="card-modal-edit">
-                <textarea name="mini-edit-ta" style="resize:none" v-model="card.title"></textarea>
+                <div>
+                    <textarea name="mini-edit-ta" style="resize:none" v-model="card.title"></textarea>
+                </div>
             </div>
             <button class="mini-edit-save" @click="saveCard">Save</button>
         </section>
@@ -69,7 +71,7 @@ export default {
             required: true,
         },
     },
-        components: {
+    components: {
         Container,
         Draggable,
     },

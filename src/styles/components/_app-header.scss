@@ -94,6 +94,9 @@
             right: 223px;
             top: 0px;
         }
+        &:focus-within {
+            color: #172b4d;
+        }
     }
     input {
         background-color: rgba(255, 255, 255, 0.2);

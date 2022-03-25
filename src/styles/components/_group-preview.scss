@@ -1,11 +1,11 @@
 // group-card
 .group-preview-main {
-    width: rem(276px) !important;
+    width: rem(280px);
     // min-height: rem(80px);
-    height: min-content !important ;
+    height: min-content !important;
     // max-height: rem(620px);
-    border-radius: 3px !important;
-    background-color: $groupGray !important;
+    border-radius: 3px;
+    background-color: $groupGray;
 }
 
 // group-title
@@ -65,7 +65,7 @@
     margin: 0 4px 8px 8px;
     padding: 6px 8px 2px;
     box-shadow: 0 1px 0 hsla(218, 76%, 15%, 0.251);
-
+    width: rem(260px);
     overflow: hidden;
     position: relative;
 
@@ -153,8 +153,9 @@
         margin: 4px;
     }
 }
+
 ////Pencil-modal
-.card-modal-edit {
+.mini-edit-main {
     background-color: #fff;
     textarea {
         overflow: hidden;
@@ -173,6 +174,9 @@
         display: block;
         margin-bottom: 12px;
         font-size: 14px;
+    }
+    button {
+        @include btnAddCard();
     }
 }
 .mini-edit-actions {
@@ -198,6 +202,7 @@
 
 ///add card
 .add-card-cmp {
+    width: rem(276px);
     .btn-add-card-out {
         background-color: #e3e4e6;
         display: flex;
@@ -207,7 +212,7 @@
         border: none;
         margin: 2px 0 8px 8px;
         padding: 4px 8px;
-        width: rem(251px);
+        width: rem(260px);
         font-family: Roboto-regular;
         &:hover {
             background-color: #091e4214;
@@ -223,14 +228,7 @@
             margin: 8px 0 8px 8px;
 
             .btn-add-card-in {
-                background-color: #0079bf;
-                border: none;
-                box-shadow: none;
-                color: #fff;
-                width: rem(80px);
-                height: rem(32px);
-                border-radius: 3px;
-                cursor: pointer;
+                @include btnAddCard();
             }
             span {
                 cursor: pointer;
@@ -252,7 +250,7 @@
         align-items: flex-start;
 
         height: rem(75px);
-        width: 100%;
+        width: rem(243px);
         border-radius: 3px;
         border: none;
         // margin: 0 4px 8px 8px;
@@ -291,13 +289,7 @@
         display: flex;
         margin: 8px 0 0 4px;
         .btn-add-card-in {
-            background-color: #0079bf;
-            border: none;
-            box-shadow: none;
-            color: #fff;
-            height: rem(32px);
-            border-radius: 3px;
-            cursor: pointer;
+            @include btnAddCard();
         }
         span {
             cursor: pointer;
@@ -332,9 +324,7 @@
 .scroller-group {
     overflow-x: hidden;
     overflow-y: auto;
-    margin: 0 4px 0 0;
-    // max-height: 100%;
-    // max-height: rem(520px);
+    margin: 0 4px 0 4px;
     max-height: calc(75vh - 100px);
 }
 .scroller-group::-webkit-scrollbar {

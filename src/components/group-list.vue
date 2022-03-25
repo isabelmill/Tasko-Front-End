@@ -8,7 +8,7 @@
         :drop-placeholder="upperDropPlaceholderOptions"
         
     >
-        <Draggable v-for="group in groups" :key="group.id" class="group-preview-main ">
+        <Draggable v-for="group in groups" :key="group.id" class="group-preview-main">
         <div :class="group.props.className">
             <!-- <span class="column-drag-handle">&#x2630;</span> -->
             <toggle-input-cmp
