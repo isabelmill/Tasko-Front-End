@@ -19,7 +19,7 @@
                     @click="editLabel(label)"
                 >{{ label.title }}</div>
             </section>
-            <button @click="saveLabel">save</button>
+            <button @click="save">save</button>
             <button @click="closeEditLabel">exit</button>
         </section>
     </section>
@@ -53,9 +53,10 @@ export default {
     methods: {
         save(){
             this.labelToEdit = JSON.parse(JSON.stringify(this.label))
-            this.labelToEdit.name = this.name
+            this.labelToEdit.title = this.name
             this.labelToEdit.color = this.color
             this.$emit('saveLabel',this.labelToEdit)
+            this.closeEditLabel()
         },
         close() {
             this.$emit('closeBoth')

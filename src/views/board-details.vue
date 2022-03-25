@@ -11,9 +11,11 @@
             @removeGroup="groupRemove"
             @openCardDetails="openCardDetailsModal"
             @groupUpdated="updateGroup"
+            :board="board"
             :groups="board.groups"
             :newGroup="newGroup"
             @addGroup="addNewGroup"
+            @groupDnd="updateBoardDnd"
         ></group-list>
 
 
@@ -21,6 +23,7 @@
     <dialog ref="cardDetailsModal" class="modal">
         <card-details
             v-if="isCardOpen"
+            @boardModified="updateBoard"
             @cardModified="updateCard"
             @closeDialog="closeDiag"
             :board="board"
@@ -87,6 +90,11 @@ export default {
             this.boardToEdit.groups[groupIdx] = editedGroup
             this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
         },
+        updateBoard({key,val}){
+            this.boardToEdit = JSON.parse(JSON.stringify(this.board))
+            this.boardToEdit[key]=val
+            this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
+        },
         openCardDetailsModal(info) {
             this.isCardOpen = true
             this.selectedCardIdx = this.board.groups.find(group => group.id === info.group.id).cards.findIndex(card => card.id === info.card.id)
@@ -96,6 +104,10 @@ export default {
         closeDiag() {
             this.isCardOpen = false
             this.$refs.cardDetailsModal.close()
+        },
+        updateBoardDnd(newBoard){
+            // this.boardToEdit = newBoard
+            this.$store.dispatch({ type: 'saveBoard', board: newBoard })
         }
     },
     computed: {

@@ -1,15 +1,7 @@
 <!-- card preview inside group list -->
 <template >
-    <Container
-        class="group-list-main scroll-groups"
-        orientation="horizontal"
-        @drop="onGroupDrop($event)"
-        drag-handle-selector=".column-drag-handle"
-        @drag-start="dragStart"
-        :drop-placeholder="upperDropPlaceholderOptions"
-    >
-        <Draggable v-for="group in groups" :key="group.id" class="group-preview-main">
-            <span class="column-drag-handle">&#x2630;</span>
+    <section class="group-list-main">
+        <section v-for="group in groups" :key="group.id" class="group-preview-main">
             <toggle-input-cmp
                 class="title"
                 @groupDelete="deleteGroup"
@@ -27,26 +19,26 @@
                     :board="board"
                 ></card-preview>
             </section>
-        </Draggable>
             <add-card-cmp @cardAdd="addNewCard" :group="group"></add-card-cmp>
-            <div class="add-new-group" :style="show ? { 'height': '100px' } : null">
-                <button class="add-another-list-btn" v-if="!show" @click="show = true">
-                    <span class="icon-sm icon-add-light"></span>Add another list
-                </button>
-                <div v-clickOutside="close" v-if="show" class="add-new-group-in">
-                    <textarea
-                        @keyup.enter="addNewGroup"
-                        placeholder="Enter list title..."
-                        type="text"
-                        v-model="newGroup.title"
-                    />
-                    <div class="controls-add-list">
-                        <button class="btn-add-card-in" @click="addNewGroup">Add List</button>
-                        <span class="icon-lg icon-close" @click="show = false"></span>
-                    </div>
-                </div>
+        </section>
+    </section>
+    <div class="add-new-group" :style="show ? { 'height': '100px' } : null">
+        <button class="add-another-list-btn" v-if="!show" @click="show = true">
+            <span class="icon-sm icon-add-light"></span>Add another list
+        </button>
+        <div v-clickOutside="close" v-if="show" class="add-new-group-in">
+            <textarea
+                @keyup.enter="addNewGroup"
+                placeholder="Enter list title..."
+                type="text"
+                v-model="newGroup.title"
+            />
+            <div class="controls-add-list">
+                <button class="btn-add-card-in" @click="addNewGroup">Add List</button>
+                <span class="icon-lg icon-close" @click="show = false"></span>
             </div>
-    </Container>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -54,7 +46,6 @@ import cardPreview from "./card-preview.vue";
 import toggleInputCmp from "./toggle-input-cmp.vue";
 import addCardCmp from "./add-card-cmp.vue";
 import { Container, Draggable } from "vue3-smooth-dnd";
-import { applyDrag, generateItems } from '../services/dnd-service.js'
 
 export default {
     name: "group-list",
@@ -72,7 +63,7 @@ export default {
         newGroup: {
             type: Object
         },
-        board: {
+        board:{
             type: Object
         },
     },
@@ -85,16 +76,6 @@ export default {
                 title: ""
             },
             show: false,
-            upperDropPlaceholderOptions: {
-                className: 'cards-drop-preview',
-                animationDuration: '150',
-                showOnTop: true
-            },
-            dropPlaceholderOptions: {
-                className: 'drop-preview',
-                animationDuration: '150',
-                showOnTop: true
-            }
         };
     },
     created() {
@@ -126,21 +107,11 @@ export default {
         },
         addNewGroup() {
             this.$emit('addGroup', this.newGroup)
-        },
-        onGroupDrop(dropResult) {
-            const boardToEdit = Object.assign({}, this.board)
-            console.log('boardToEdit:', boardToEdit);
-            boardToEdit.groups = applyDrag(boardToEdit.groups, dropResult)
-            // this.board = scene
-            this.$emit('groupDnd', boardToEdit)
-        },
-        dragStart() {
-            console.log('drag started')
-        },
+        }
     },
     mounted() {
     },
-    emits: ['openCardDetails', 'removeGroup', 'groupUpdated', 'addGroup','groupDnd']
+    emits: ['openCardDetails', 'removeGroup', 'groupUpdated','addGroup']
 
 }
 </script>

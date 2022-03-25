@@ -16,7 +16,7 @@
                     class="label-color"
                     style="width:100px"
                     :style="{ backgroundColor: label.color }"
-                    @click="addLabelToCard(label)"
+                    @click="addLabelToCard(label.id)"
                 >{{ label.title }}</div>
                 <button @click="openEditLabel(label)">edit</button>
             </section>
@@ -61,6 +61,7 @@ export default {
             cardToEdit: null,
             isLabelEditOpen: false,
             currLabelIdx: null,
+            labelsToEdit: null,
         }
     },
     computed: {
@@ -81,16 +82,16 @@ export default {
         close() {
             this.$emit('actionsClose')
         },
-        addLabelToCard(label) {
-            console.log('new labal', label)
+        addLabelToCard(labelId) {
+            // console.log('new labal', label)
             if (!this.cardToEdit) this.cardToEdit = JSON.parse(JSON.stringify(this.card))
             if (this.cardToEdit.labels.length) {
-                const idx = this.cardToEdit.labels.findIndex(cardLabel => cardLabel.id === label.id)
-                if (idx === -1) this.cardToEdit.labels.push(label)
+                const idx = this.cardToEdit.labels.findIndex(cardLabel => cardLabel === labelId)
+                if (idx === -1) this.cardToEdit.labels.push(labelId)
                 else this.cardToEdit.labels.splice(idx, 1)
             }
             else {
-                this.cardToEdit.labels.push(label)
+                this.cardToEdit.labels.push(labelId)
             }
             this.$emit('cardEdit', this.cardToEdit)
 
@@ -100,10 +101,13 @@ export default {
             this.currLabelIdx = this.board.labels.findIndex(labelToFind => labelToFind.id === label.id)
         },
         saveLabelToBoard(label){
-            // this.$emit()
+            this.currLabelIdx = this.board.labels.findIndex(labelToFind => labelToFind.id === label.id)
+            this.labelsToEdit = JSON.parse(JSON.stringify(this.board.labels))
+            this.labelsToEdit[this.currLabelIdx] = label
+            this.$emit('boardEdit', {key : 'labels' , val: this.labelsToEdit})
         }
     },
-    emits: ['actionsClose', 'cardEdit']
+    emits: ['actionsClose', 'cardEdit','boardEdit']
 
 }
 </script>
