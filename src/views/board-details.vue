@@ -15,6 +15,7 @@
             :groups="board.groups"
             :newGroup="newGroup"
             @addGroup="addNewGroup"
+            @groupDnd="updateBoardDnd"
         ></group-list>
 
 
@@ -103,6 +104,10 @@ export default {
         closeDiag() {
             this.isCardOpen = false
             this.$refs.cardDetailsModal.close()
+        },
+        updateBoardDnd(newBoard){
+            // this.boardToEdit = newBoard
+            this.$store.dispatch({ type: 'saveBoard', board: newBoard })
         }
     },
     computed: {

@@ -1,7 +1,15 @@
 <!-- card preview inside group list -->
 <template >
-    <section class="group-list-main">
-        <section v-for="group in groups" :key="group.id" class="group-preview-main">
+    <Container
+        class="group-list-main"
+        orientation="horizontal"
+        @drop="onGroupDrop($event)"
+        drag-handle-selector=".column-drag-handle"
+        @drag-start="dragStart"
+        :drop-placeholder="upperDropPlaceholderOptions"
+    >
+        <Draggable v-for="group in groups" :key="group.id" class="group-preview-main">
+            <span class="column-drag-handle">&#x2630;</span>
             <toggle-input-cmp
                 class="title"
                 @groupDelete="deleteGroup"
@@ -20,8 +28,8 @@
                 ></card-preview>
             </section>
             <add-card-cmp @cardAdd="addNewCard" :group="group"></add-card-cmp>
-        </section>
-    </section>
+        </Draggable>
+    </Container>
     <div class="add-new-group" :style="show ? { 'height': '100px' } : null">
         <button class="add-another-list-btn" v-if="!show" @click="show = true">
             <span class="icon-sm icon-add-light"></span>Add another list
@@ -46,6 +54,7 @@ import cardPreview from "./card-preview.vue";
 import toggleInputCmp from "./toggle-input-cmp.vue";
 import addCardCmp from "./add-card-cmp.vue";
 import { Container, Draggable } from "vue3-smooth-dnd";
+import { applyDrag, generateItems } from '../services/dnd-service.js'
 
 export default {
     name: "group-list",
@@ -63,7 +72,7 @@ export default {
         newGroup: {
             type: Object
         },
-        board:{
+        board: {
             type: Object
         },
     },
@@ -76,6 +85,16 @@ export default {
                 title: ""
             },
             show: false,
+            upperDropPlaceholderOptions: {
+                className: 'cards-drop-preview',
+                animationDuration: '150',
+                showOnTop: true
+            },
+            dropPlaceholderOptions: {
+                className: 'drop-preview',
+                animationDuration: '150',
+                showOnTop: true
+            }
         };
     },
     created() {
@@ -107,11 +126,21 @@ export default {
         },
         addNewGroup() {
             this.$emit('addGroup', this.newGroup)
-        }
+        },
+        onGroupDrop(dropResult) {
+            const boardToEdit = Object.assign({}, this.board)
+            console.log('boardToEdit:', boardToEdit);
+            boardToEdit.groups = applyDrag(boardToEdit.groups, dropResult)
+            // this.board = scene
+            this.$emit('groupDnd', boardToEdit)
+        },
+        dragStart() {
+            console.log('drag started')
+        },
     },
     mounted() {
     },
-    emits: ['openCardDetails', 'removeGroup', 'groupUpdated','addGroup']
+    emits: ['openCardDetails', 'removeGroup', 'groupUpdated', 'addGroup','groupDnd']
 
 }
 </script>

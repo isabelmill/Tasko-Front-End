@@ -1,7 +1,7 @@
 <!-- card preview inside group list -->
 <template >
-    <Container class="group-list-main" orientation="horizontal" @drop="onGroupDrop($event)">
-        <Draggable v-for="(group) in groups" :key="group.id" class="group-preview-main">
+    <section class="group-list-main">
+        <section v-for="group in groups" :key="group.id" class="group-preview-main">
             <toggle-input-cmp
                 class="title"
                 @groupDelete="deleteGroup"
@@ -16,11 +16,12 @@
                     :key="card.id"
                     :group="group"
                     :card="card"
+                    :board="board"
                 ></card-preview>
             </section>
             <add-card-cmp @cardAdd="addNewCard" :group="group"></add-card-cmp>
-        </Draggable>
-    </Container>
+        </section>
+    </section>
     <div class="add-new-group" :style="show ? { 'height': '100px' } : null">
         <button class="add-another-list-btn" v-if="!show" @click="show = true">
             <span class="icon-sm icon-add-light"></span>Add another list
@@ -45,7 +46,6 @@ import cardPreview from "./card-preview.vue";
 import toggleInputCmp from "./toggle-input-cmp.vue";
 import addCardCmp from "./add-card-cmp.vue";
 import { Container, Draggable } from "vue3-smooth-dnd";
-import { applyDrag, generateItems } from '../services/dnd-service.js'
 
 export default {
     name: "group-list",
@@ -62,7 +62,10 @@ export default {
         },
         newGroup: {
             type: Object
-        }
+        },
+        board:{
+            type: Object
+        },
     },
     data() {
         return {
@@ -73,7 +76,6 @@ export default {
                 title: ""
             },
             show: false,
-            newGroups: null,
         };
     },
     created() {
@@ -105,18 +107,11 @@ export default {
         },
         addNewGroup() {
             this.$emit('addGroup', this.newGroup)
-        },
-        onGroupDrop(dropResult) {
-            let newGroup = JSON.parse(JSON.stringify(this.groups))
-            console.log('dropResult:', dropResult);
-            // const scene = Object.assign({}, this.scene)
-            newGroup = applyDrag(newGroup, dropResult)
-            // this.scene = scene
-        },
+        }
     },
     mounted() {
     },
-    emits: ['openCardDetails', 'removeGroup', 'groupUpdated', 'addGroup']
+    emits: ['openCardDetails', 'removeGroup', 'groupUpdated','addGroup']
 
 }
 </script>
