@@ -24,7 +24,7 @@
         class="mini-edit-modal flex"
     >
         <section class="mini-edit-main">
-            <textarea name="mini-edit-ta" style="resize:none" v-model="cardToDisplay.title"></textarea>
+            <textarea name="mini-edit-ta" style="resize:none" v-model="card.title"></textarea>
             <button class="mini-edit-save" @click="saveCard">Save</button>
         </section>
         <section class="mini-edit-actions">
