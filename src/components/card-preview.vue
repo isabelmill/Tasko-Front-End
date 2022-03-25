@@ -105,6 +105,7 @@ export default {
 .mini-edit-main {
     display: flex;
     flex-direction: column;
+    
 }
 
 .mini-edit-actions {
@@ -141,6 +142,7 @@ export default {
     outline: 0;
     overflow: hidden;
     gap: 20px;
+    z-index: 20;
 }
 .card-title {
     width: 230px;

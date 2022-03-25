@@ -1,5 +1,4 @@
-
-.group-edit-modal{
+.group-edit-modal {
     position: fixed;
     width: rem(305px);
     color: #172b4d;
@@ -10,17 +9,15 @@
     outline: 0;
     overflow: hidden;
     cursor: default;
-
-    .group-modal-header{
+    z-index: 20;
+    .group-modal-header {
         display: flex;
         justify-content: space-between;
     }
-
-    button{
+    button {
         cursor: pointer;
     }
-    a{
+    a {
         cursor: pointer;
     }
 }
-
