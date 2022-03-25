@@ -77,15 +77,27 @@ function _createBoards() {
             "groups": [{
                     "id": "g101",
                     "title": "Group 1",
+                    "props":{
+                        "orientation": "vertical",
+                        "className": "card-container",
+                    },
                     "cards": [{
                             "id": "c101",
                             "title": "Replace logo",
                             "labels": [],
+                            "props":{
+                                "className": "card",
+                                "style":{}
+                            }
                         },
                         {
                             "id": "c102",
                             "title": "Add Samples",
                             "labels": [],
+                            "props":{
+                                "className": "card",
+                                "style":{}
+                            }
                         }
                     ],
                     "style": {}
@@ -93,16 +105,28 @@ function _createBoards() {
                 {
                     "id": "g102",
                     "title": "Group 2",
+                    "props":{
+                        "orientation": "vertical",
+                        "className": "card-container",
+                    },
                     "cards": [{
                             "id": "c103",
                             "title": "Do that",
                             "labels": [],
+                            "props":{
+                                "className": "card",
+                                "style":{}
+                            }
                         },
                         {
                             "id": "c104",
                             "title": "Help me",
                             "status": "in-progress",
                             "description": "description",
+                            "props":{
+                                "className": "card",
+                                "style":{}
+                            },
 
                             "comments": [{
                                 "id": "ZdPnm",
@@ -199,6 +223,10 @@ function getEmptyCard() {
         members: [],
         dueDate: '',
         isWatched: false,
+        props:{
+            className: 'card',
+            style:{}
+        }
     }
 }
 
@@ -206,7 +234,11 @@ function getEmptyGroup() {
     return {
         id: utilService.makeId(),
         title: '',
-        cards: []
+        cards: [],
+        props:{
+            orientation: 'vertical',
+            className:'card-container'
+        }
     }
 }
 
