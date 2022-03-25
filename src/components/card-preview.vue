@@ -1,7 +1,8 @@
 <template>
     <section class="card-preview cursor-pointer flex">
-        <div v-if="card.labels.length" class="labels">
-            <div class="label" v-for="label in card.labels" :key="label.id">{{ label.title }}</div>
+        <div v-if="card.labels.length&&board.labels.length" class="labels">
+            <div class="label" v-for="label in card.labels" :key="label" :style="{ 'backgroundColor': board.labels[board.labels.findIndex(labelToFind=>labelToFind.id === label)].color }">
+                {{ board.labels[board.labels.findIndex(labelToFind=>labelToFind.id === label)].title }}</div>
         </div>
         <div>
             <p class="card-title cursor-pointer" @click="openDetails">{{ card.title }}</p>
@@ -48,6 +49,9 @@ import { boardService } from "../services/board-service.js";
 export default {
     name: 'card-preview',
     props: {
+        board: {
+            type: Object
+        },
         group: {
             type: Object
         },
@@ -61,7 +65,7 @@ export default {
             distanceY: 0,
             distanceX: 0,
             modalOpen: false,
-            board: null,
+            // board: null,
             titleIsOpen: false,
             cardToEdit: {
                 title: "",

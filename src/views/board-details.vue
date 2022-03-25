@@ -11,6 +11,7 @@
             @removeGroup="groupRemove"
             @openCardDetails="openCardDetailsModal"
             @groupUpdated="updateGroup"
+            :board="board"
             :groups="board.groups"
             :newGroup="newGroup"
             @addGroup="addNewGroup"
@@ -21,6 +22,7 @@
     <dialog ref="cardDetailsModal" class="modal">
         <card-details
             v-if="isCardOpen"
+            @boardModified="updateBoard"
             @cardModified="updateCard"
             @closeDialog="closeDiag"
             :board="board"
@@ -85,6 +87,11 @@ export default {
             this.boardToEdit = JSON.parse(JSON.stringify(this.board))
             const groupIdx = this.boardToEdit.groups.findIndex(group => group.id === editedGroup.id)
             this.boardToEdit.groups[groupIdx] = editedGroup
+            this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
+        },
+        updateBoard({key,val}){
+            this.boardToEdit = JSON.parse(JSON.stringify(this.board))
+            this.boardToEdit[key]=val
             this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
         },
         openCardDetailsModal(info) {

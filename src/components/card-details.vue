@@ -33,13 +33,13 @@
                                 <section
                                     class="card-details-labels"
                                     v-for="label in card.labels"
-                                    :key="label.id"
+                                    :key="label"
                                 >
                                     <div
                                         class="card-details-label"
-                                        :style="{ 'backgroundColor': label.color }"
+                                        :style="{ 'backgroundColor': board.labels[board.labels.findIndex(labelToFind=>labelToFind.id === label)].color }"
                                     >
-                                        <p>{{ label.title }}</p>
+                                        <p>{{ board.labels[board.labels.findIndex(labelToFind=>labelToFind.id === label)].title }}</p>
                                     </div>
                                 </section>
                             </div>
@@ -188,6 +188,7 @@
     </section>
     <section v-if="shown">
         <component
+            @boardEdit="editBoard"
             @cardEdit="editCard"
             @actionsClose="closeMenu"
             :board="board"
@@ -246,8 +247,11 @@ export default {
         closeInput() {
             this.showInput = false
         },
+        editBoard(editedAttribute) {
+            this.$emit('boardModified', editedAttribute)
+        }
     },
-    emits: ['closeDialog', 'cardModified']
+    emits: ['closeDialog', 'cardModified', 'boardModified']
 
 }
 

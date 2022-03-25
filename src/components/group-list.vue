@@ -16,6 +16,7 @@
                     :key="card.id"
                     :group="group"
                     :card="card"
+                    :board="board"
                 ></card-preview>
             </section>
             <add-card-cmp @cardAdd="addNewCard" :group="group"></add-card-cmp>
@@ -60,7 +61,10 @@ export default {
         },
         newGroup: {
             type: Object
-        }
+        },
+        board:{
+            type: Object
+        },
     },
     data() {
         return {
