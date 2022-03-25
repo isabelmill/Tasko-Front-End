@@ -1,5 +1,6 @@
 <template>
     <section class="card-details-container flex">
+        <!-- Header  -->
         <div class="card-details-header">
             <div class="card-details-header-icon">
                 <span class="icon-xl icon-card"></span>
@@ -16,33 +17,37 @@
             <p>in list {{ group.title }}</p>
         </div>
 
+        <!-- Lables members and date adding area  -->
         <section class="card-details-actions-container-edit-btns flex">
             <section class="card-details-actions-container">
                 <section class="card-details-main flex">
                     <div class="card-details-members-labels-date">
                         <label for>Members</label>
                         <div class="card-detail-labels-container-main">
-                        <label v-if="card.labels.length > 0" for>Labels</label>
-                        <div class="card-details-labels-container"
-                            v-if="card.labels.length > 0"
-                            for>
-                            <section
-                                class="card-details-labels"
-                                v-for="label in card.labels"
-                                :key="label.id"
+                            <label v-if="card.labels.length > 0" for>Labels</label>
+                            <div
+                                class="card-details-labels-container"
+                                v-if="card.labels.length > 0"
+                                for
                             >
-                                <div
-                                    class="card-details-label"
-                                    :style="{ 'backgroundColor': label.color }"
+                                <section
+                                    class="card-details-labels"
+                                    v-for="label in card.labels"
+                                    :key="label.id"
                                 >
-                                    <p>{{ label.title }}</p>
-                                </div>
-                            </section>
-                        </div>
+                                    <div
+                                        class="card-details-label"
+                                        :style="{ 'backgroundColor': label.color }"
+                                    >
+                                        <p>{{ label.title }}</p>
+                                    </div>
+                                </section>
+                            </div>
                         </div>
                         <label for>Due date</label>
                     </div>
 
+                    <!-- Description adding area  -->
                     <div class="card-details-description">
                         <span class="icon-xl icon-desc"></span>
                         <h3>Description</h3>
@@ -50,7 +55,7 @@
 
                     <div class="card-details-input">
                         <div class="open-input-btn">Add a more detailed description...</div>
-                        <!-- <input type="text" /> -->
+                        <!-- add text area here  -->
                     </div>
 
                     <div class="card-details-activity-show-details">
@@ -61,17 +66,50 @@
                         <button>Show details</button>
                     </div>
 
+                    <!-- comment adding area  -->
                     <div class="card-details-input-user-comment">
                         <div class="card-details-user-avatar">
-                            <div>I</div>
+                            <div>AB</div>
                         </div>
-                        <div class="card-details-input-comment">
-                            <input placeholder="Write a comment..." type="text" />
+                        <div
+                            @click="showInput = true"
+                            v-clickOutside="closeInput"
+                            class="card-details-input-comment"
+                            :style="showInput ? {
+                                'padding-bottom': '56px',
+                                'margin-top': '38px', 'padding-top': '18px',
+                                'cursor': 'default'
+                            } : null"
+                        >
+                            <div
+                                class="input-icon-btns"
+                                :style="showInput ? { 'padding-top': '50px' } : null"
+                            >
+                                <input
+                                    :style="showInput ? null : { 'padding-top': '10px' }"
+                                    placeholder="Write a comment..."
+                                    type="text"
+                                />
+                                <div class="card-details-all-btns">
+                                    <button v-if="showInput" class="card-details-save-btn">Save</button>
+                                    <div
+                                        v-if="showInput"
+                                        :style="showInput ? { 'padding-top': '20px' } : null"
+                                        class="icon-btns-inside-input"
+                                    >
+                                        <span class="icon-smd icon-attachment"></span>
+                                        <span class="icon-smd icon-shtrudel"></span>
+                                        <span class="icon-smd icon-smiley"></span>
+                                        <span class="icon-smd icon-card"></span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </section>
             </section>
 
+            <!-- the side-bar with all btn actions and editing  -->
             <section class="card-details-edit">
                 <label for>Add to card</label>
 
@@ -136,8 +174,6 @@
                     Copy
                 </button>
 
-                <!-- <button ref="archiveBtn" class="card-details-btn" >Archive</button> -->
-
                 <button ref="deleteBtn" class="card-details-btn" @click="deleteCard">
                     <span class="icon-smd icon-archive"></span>
                     Delete
@@ -189,6 +225,7 @@ export default {
             currModal: null,
             shown: false,
             pos: 0,
+            showInput: false,
         }
     },
     methods: {
@@ -205,7 +242,10 @@ export default {
         },
         editCard(card) {
             this.$emit('cardModified', { card, group: this.group })
-        }
+        },
+        closeInput() {
+            this.showInput = false
+        },
     },
     emits: ['closeDialog', 'cardModified']
 
