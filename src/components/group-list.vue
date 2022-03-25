@@ -5,42 +5,39 @@
         orientation="horizontal"
         @drop="onGroupDrop($event)"
         drag-handle-selector=".group-preview-main"
-        :drop-placeholder="upperDropPlaceholderOptions"
-        
     >
         <Draggable v-for="group in groups" :key="group.id" class="group-preview-main">
-        <div :class="group.props.className">
-            <!-- <span class="column-drag-handle">&#x2630;</span> -->
-            <toggle-input-cmp
-                class="title"
-                @groupDelete="deleteGroup"
-                @titleChange="changeTitle"
-                :title="group.title"
-                :id="group.id"
-            ></toggle-input-cmp>
-            <Container
-                class="scroller-group"
-                group-name="col"
-                :get-child-payload="getCardPayload(group.id)"
-                @drag-start="(e) => log('drag start', e)"
-                @drag-end="(e) => log('drag end', e)"
-                drag-class="card-ghost"
-                drop-class="card-ghost-drop"
-                @drop="(e) => onCardDrop(group.id, e)"
-                :drop-placeholder="dropPlaceholderOptions"
-            >
-                <Draggable v-for="card in group.cards" :key="card.id">
-                <div :class="card.props.className" >
-                    <card-preview
-                        @openCard="openCardModal"
-                        :group="group"
-                        :card="card"
-                        :board="board"
-                    ></card-preview>
-                    </div>
-                </Draggable>
-            </Container>
-            <add-card-cmp @cardAdd="addNewCard" :group="group"></add-card-cmp>
+            <div :class="group.props.className">
+                <!-- <span class="column-drag-handle">&#x2630;</span> -->
+                <toggle-input-cmp
+                    class="title"
+                    @groupDelete="deleteGroup"
+                    @titleChange="changeTitle"
+                    :title="group.title"
+                    :id="group.id"
+                ></toggle-input-cmp>
+                <Container
+                    drag-class="tilt"
+                    class="scroller-group"
+                    group-name="col"
+                    orientation="vertical"
+                    :get-child-payload="getCardPayload(group.id)"
+                    @drag-start="(e) => log('drag start', e)"
+                    @drag-end="(e) => log('drag end', e)"
+                    @drop="(e) => onCardDrop(group.id, e)"
+                >
+                    <Draggable v-for="card in group.cards" :key="card.id">
+                        <div :class="card.props.className">
+                            <card-preview
+                                @openCard="openCardModal"
+                                :group="group"
+                                :card="card"
+                                :board="board"
+                            ></card-preview>
+                        </div>
+                    </Draggable>
+                </Container>
+                <add-card-cmp @cardAdd="addNewCard" :group="group"></add-card-cmp>
             </div>
         </Draggable>
         <div class="add-new-group" :style="show ? { 'height': '100px' } : null">
@@ -99,16 +96,7 @@ export default {
                 title: ""
             },
             show: false,
-            upperDropPlaceholderOptions: {
-                className: 'cards-drop-preview',
-                animationDuration: '150',
-                showOnTop: true
-            },
-            dropPlaceholderOptions: {
-                className: 'drop-preview',
-                animationDuration: '150',
-                showOnTop: true
-            }
+
         };
     },
     created() {
@@ -151,7 +139,7 @@ export default {
             this.$emit('groupDnd', this.boardToEdit)
         },
         onCardDrop(groupId, dropResult) {
-            console.log('groupId:',groupId);
+            console.log('groupId:', groupId);
             if (dropResult.removedIndex !== null || dropResult.addedIndex !== null) {
                 const newGroup = this.boardToEdit.groups.filter(p => p.id === groupId)[0]
                 const groupIndex = this.boardToEdit.groups.indexOf(newGroup)

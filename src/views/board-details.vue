@@ -18,8 +18,8 @@
             @groupDnd="updateBoardDnd"
         ></group-list>
 
-
     </section>
+
     <dialog ref="cardDetailsModal" class="modal">
         <card-details
             v-if="isCardOpen"
