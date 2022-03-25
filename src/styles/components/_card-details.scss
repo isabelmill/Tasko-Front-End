@@ -95,30 +95,34 @@
                 // height: 220px;
                 display: flex;
                 gap: 16px;
-                .card-details-labels-container{
+
+                .card-details-labels-container {
                     display: flex;
                     flex-direction: row;
-                .card-details-labels{
-                    .card-details-label{
-                        border-radius: 3px;
-                        box-sizing: border-box;
-                        display: block;
-                        float: left;
-                        font-weight: 600;
-                        height: 32px;
-                        line-height: 32px;
-                        margin: 0 4px 4px 0;
-                        min-width: 40px;
-                        padding: 0 12px;
-                        width: auto;
-                        cursor: pointer;
-                    }
-                    p{
-                        color: white;
-                        font-size: 15px;
+
+                    .card-details-labels {
+                        .card-details-label {
+                            border-radius: 3px;
+                            box-sizing: border-box;
+                            display: block;
+                            float: left;
+                            font-weight: 600;
+                            height: 32px;
+                            line-height: 32px;
+                            margin: 0 4px 4px 0;
+                            min-width: 40px;
+                            padding: 0 12px;
+                            width: auto;
+                            cursor: pointer;
+                        }
+
+                        p {
+                            color: white;
+                            font-size: 15px;
+                        }
                     }
                 }
-            }
+
                 label {
                     color: #5e6c84;
                     font-size: 14px;
@@ -148,6 +152,8 @@
             .card-details-activity-show-details {
                 display: flex;
                 justify-content: space-between;
+                margin-bottom: 18px;
+                min-height: 32px;
 
                 .card-details-activity {
                     display: flex;
@@ -176,9 +182,13 @@
                 align-items: center;
                 justify-items: center;
                 gap: 9px;
+                height: 40px;
+
+
 
                 .card-details-user-avatar {
                     display: flex;
+                    position: static;
                     align-items: center;
                     justify-content: center;
                     font-family: Roboto-regular, Helvetica, sans-serif;
@@ -191,23 +201,85 @@
                 }
 
                 .card-details-input-comment {
-                    input {
-                        // padding: 8px 12px;
-                        cursor: pointer;
+                    cursor: pointer;
+                    display: flex;
+                    height: 40px;
+                    width: 650px;
+                    padding: 15px;
+                    align-items: center;
+                    background-color: rgb(255, 255, 255);
+                    border: 2px solid rgb(239, 238, 236);
+                    border-radius: 3px;
+                    width: rem(510px);
+                    transition-duration: 85ms;
+                    // transition-property: padding-bottom;
+                    // transition-property: margin-top;
+                    transition-timing-function: ease;
+
+                    .input-icon-btns {
                         display: flex;
-                        height: 40px;
+                        flex-direction: column;
                         width: 650px;
-                        padding: 15px;
-                        align-items: center;
-                        justify-content: space-between;
+
+                        input {
+                            font-size: 15px;
+                        }
+
+                        .card-details-all-btns {
+                            display: flex;
+                            flex-direction: row;
+                            justify-content: space-between;
+                            align-items: center;
+                            padding-bottom: 10px;
+
+                            .card-details-save-btn {
+                                background-color: #0079bf;
+                                border: none;
+                                box-shadow: none;
+                                color: #fff;
+                                height: 20px;
+                                border-radius: 3px;
+                                width: rem(52px);
+                                height: rem(25px);
+                                margin-top: 10px;
+                                cursor: pointer;
+
+                                &:hover{
+                                    background-color: #026aa7;
+                                    border: none;
+                                    box-shadow: none;
+                                    color: #fff;
+                                }
+
+                                button {
+                                    cursor: pointer;
+                                }
+                            }
+
+                            .icon-btns-inside-input {
+                                display: flex;
+                                justify-content: end;
+                                gap: 25px;
+                                span{
+                                    cursor: pointer;
+
+                                }
+                            }
+                        }
+                    }
+
+                    &:hover {
+                        box-shadow: 1px 1px 5px -2px rgb(0 0 0 / 18%);
+                    }
+
+                    input {
+                        cursor: pointer;
                         background-color: rgb(255, 255, 255);
                         border: 2px solid rgb(239, 238, 236);
-                        border-radius: 10px;
-                        gap: 30px;
-                        width: rem(510px);
+                        border: none;
 
-                        &:hover {
-                            box-shadow: 1px 1px 5px -2px rgb(0 0 0 / 18%);
+                        &:focus {
+                            outline: none !important;
                         }
                     }
                 }
@@ -217,7 +289,6 @@
                 .open-input-btn {
                     background-color: #091e420a;
                     border: none;
-                    border-radius: 3px;
                     box-shadow: none;
                     padding: 8px 12px;
                     cursor: pointer;
@@ -226,6 +297,8 @@
                     margin-left: 42px;
                     width: rem(512px);
                     height: rem(55px);
+                    border-radius: 3px;
+                    font-size: 15px;
 
                     &:hover {
                         background-color: #091e4214;
@@ -240,18 +313,15 @@
 
 .card-details-actions-container-edit-btns {
     width: unset;
-    // gap: 18px;
-    // background-color: #172b4d;
 }
 
 .modal {
     padding: unset;
     background-color: rgb(244, 245, 247);
-    // 
     // overflow-x: hidden;
     overflow: hidden;
     width: 770px;
-    height: 1500px;
+    height: 1000px;
     // max-height: unset;
     max-width: unset;
     margin-top: 45px;
@@ -315,4 +385,12 @@
 
 .icon-share {
     @include to-icon("\e963");
+}
+
+.icon-shtrudel {
+    @include to-icon("\e947");
+}
+
+.icon-smiley {
+    @include to-icon("\e92a");
 }
