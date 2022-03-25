@@ -65,7 +65,6 @@ export default {
             distanceY: 0,
             distanceX: 0,
             modalOpen: false,
-            // board: null,
             titleIsOpen: false,
             cardToEdit: {
                 title: "",
