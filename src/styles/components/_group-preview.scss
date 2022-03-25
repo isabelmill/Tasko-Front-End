@@ -157,6 +157,43 @@
     }
 }
 
+.card-modal-edit {
+    background-color: #fff;
+    textarea {
+        overflow: hidden;
+        overflow-wrap: break-word;
+        color: #504658;
+        resize: none;
+        height: 90px;
+        padding: 0;
+        width: 100%;
+        outline: none;
+        border: none;
+        background-color: #fff;
+        box-sizing: border-box;
+        border-radius: 3px;
+        font-family: Segoe UI;
+        display: block;
+        margin-bottom: 12px;
+        font-size: 14px;
+    }
+}
+
+.mini-edit-actions {
+    button {
+        cursor: pointer;
+        position: relative;
+        background: rgba(0, 0, 0, 0.6);
+        border-radius: 3px;
+        margin: 0 0 4px 8px;
+        padding: 6px 12px 6px 8px;
+        transition: margin-left 85ms ease-in;
+        display: flex;
+        color: #fff;
+        line-height: 19px;
+    }
+}
+
 ///add card
 .add-card-cmp {
     .btn-add-card-out {
@@ -352,6 +389,6 @@
     // min-width: unset;
 }
 
-.smooth-dnd-container.horizontal{
+.smooth-dnd-container.horizontal {
     display: flex !important;
 }
