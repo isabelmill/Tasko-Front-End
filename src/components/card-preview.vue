@@ -71,7 +71,6 @@ export default {
         }
     },
     created() {
-
     },
     methods: {
         openTitleEdit() {

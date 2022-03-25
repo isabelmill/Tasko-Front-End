@@ -44,6 +44,8 @@
 import cardPreview from "./card-preview.vue";
 import toggleInputCmp from "./toggle-input-cmp.vue";
 import addCardCmp from "./add-card-cmp.vue";
+// import { Container, Draggable } from 'vue-smooth-dnd'
+// import { applyDrag, generateItems } from '../services/dnd-utils.js'
 
 export default {
     name: "group-list",
