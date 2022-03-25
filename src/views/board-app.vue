@@ -74,7 +74,6 @@ export default {
         },
         calcPosOfBox() {
             this.pos = this.$refs['starred'].getBoundingClientRect()
-
         },
         calcPosOfBox() {
             this.pos = this.$refs['button'].getBoundingClientRect()
