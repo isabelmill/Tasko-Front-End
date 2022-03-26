@@ -142,11 +142,6 @@ export default {
             immediate: true
 
         }
-        // "$store.getters.selectedBoard": {
-        //     handler(newBoard) {
-        //         this.board = newBoard
-        //     }
-        // }
     }
 }
 

@@ -22,7 +22,26 @@
             <section class="card-details-actions-container">
                 <section class="card-details-main flex">
                     <div class="card-details-members-labels-date">
-                        <label for>Members</label>
+                        <div class="card-detail-member-container-main">
+                            <label v-if="card.members.length > 0" for>Members</label>
+                            <div
+                                class="card-details-members-container"
+                                v-if="card.members.length > 0"
+                                for
+                            >
+                                <section
+                                    class="card-details-members"
+                                    v-for="member in card.members"
+                                    :key="member._id"
+                                >
+                                    <div class="card-details-member-img">
+                                       <img :src="member.imgUrl" alt="">
+                                    </div>
+
+                                </section>
+                            </div>
+                        </div>
+
                         <div class="card-detail-labels-container-main">
                             <label v-if="card.labels.length > 0" for>Labels</label>
                             <div
@@ -44,6 +63,7 @@
                                 </section>
                             </div>
                         </div>
+
                         <label for>Due date</label>
                     </div>
 
