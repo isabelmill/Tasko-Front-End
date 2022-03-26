@@ -100,8 +100,8 @@ export default {
         }
     },
     created() {
-        this.calculateTxtLen()
         this.title = this.board.title
+        this.calculateTxtLen()
     },
     computed: {
         boardToEdit() {
@@ -118,7 +118,6 @@ export default {
             this.titleIsOpen = true;
         },
         changeTitle() {
-            // this.boardToEdit.title = this.title
             if (!this.title) return
             this.$emit('titleChange', this.title)
             this.titleIsOpen = false;
@@ -134,6 +133,7 @@ export default {
             else return `icon-sm icon-star`
         },
         updateWidth() {
+            console.log('this.titleLength:',this.titleLength);
             return `width: ${24 + (this.titleLength * 8) + 'px'};`
         }
 
