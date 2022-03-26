@@ -148,6 +148,7 @@
                     font-size: 16px;
                     font-family: roboto-regular;
                     margin-bottom: unset;
+                    cursor: pointer;
                 }
             }
             .card-details-activity-show-details {
@@ -185,16 +186,6 @@
                 height: 40px;
                 .card-details-user-avatar {
                     display: flex;
-                    // position: static;
-                    // align-items: center;
-                    // justify-content: center;
-                    // font-family: Roboto-regular, Helvetica, sans-serif;
-                    // border-radius: 25em;
-                    // height: 32px;
-                    // color: white;
-                    // width: 32px;
-                    // background-color: #172b4d;
-                    // color: white;
                 }
                 .card-details-input-comment {
                     cursor: pointer;
@@ -215,9 +206,6 @@
                         display: flex;
                         flex-direction: column;
                         width: 650px;
-                        // input {
-                        //     font-size: 15px;
-                        // }
                         .card-details-all-btns {
                             display: flex;
                             flex-direction: row;
@@ -270,7 +258,6 @@
                 }
             }
             .card-details-input {
-                // padding-left: 15px;
                 .card-details-text-add-btn {
                     display: flex;
                     align-items: center;
@@ -348,7 +335,7 @@
     // overflow-x: hidden;
     // overflow: hidden;
     width: 770px;
-    height: 1000px;
+    height: 900px;
     // max-height: unset;
     max-width: unset;
     margin-top: 45px;
@@ -429,3 +416,4 @@
 .icon-close {
     @include to-icon("\e91c")
 }
+

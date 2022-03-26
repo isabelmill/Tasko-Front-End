@@ -22,10 +22,6 @@ const router = createRouter({
             name: 'board-details',
             component: boardDetails,
         },
-        // {
-        //   path: '/about',
-        //   name: 'about',
-        // }
     ]
 })
 

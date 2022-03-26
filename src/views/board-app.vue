@@ -71,6 +71,8 @@ export default {
             this.$store.dispatch({ type: 'saveBoard', board: newboard })
             this.newBoard = boardService.getEmptyBoard()
             this.isEdit = false
+            console.log('newboard:',newboard);
+            this.$router.push(`/board/${newboard._id}`)
         },
         calcPosOfBox() {
             this.pos = this.$refs['starred'].getBoundingClientRect()
