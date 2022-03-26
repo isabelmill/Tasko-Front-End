@@ -1,41 +1,36 @@
 <template>
     <section
-        v-if="!isLabelEditOpen"
         v-clickOutside="close"
         :style="{ top: pos.bottom + 8 + 'px', left: pos.left + 'px' }"
         class="label-modal"
     >
         <div class="main-title-container">
             <div class="icon-sm icon-close" @click="close"></div>
-            <span class="main-title">Labels</span>
+            <span class="main-title">Dates</span>
         </div>
         <section class="actions-modal-main">
             <section class="date-picker">
-
+                <datepicker v-model="date" inline autoApply typeabble />
             </section>
             <button type="button" @click="saveDate" class="create-btn">Save</button>
-             <button type="button" @click="remove" class="create-btn">Remove</button>
+            <button type="button" @click="remove" class="create-btn">Remove</button>
         </section>
     </section>
 </template>
 
 <script>
-
-import {ref} from 'vue'
+import { ref } from 'vue'
 import search from './search.vue'
 export default {
     components: {
         search,
-        
-
     },
-    name: 'date-modal',
+    name: 'dates-modal',
     setup() {
         const date = ref(new Date());
         return {
             date,
         }
-
     },
     props: {
         board: {
@@ -53,18 +48,13 @@ export default {
     },
     data() {
         return {
-            cardToEdit: null,
-            isLabelEditOpen: false,
-            currLabelIdx: null,
-            labelsToEdit: null,
-            isCreate: false,
-            inline: true,
+            
         }
     },
     computed: {
-        currLabel() {
-            return this.board.labels[this.currLabelIdx]
-        },
+        cardToEdit(){
+            return JSON.parse(JSON.stringify(this.card))
+        }
     },
     created() {
     },
@@ -72,10 +62,14 @@ export default {
         close() {
             this.$emit('actionsClose')
         },
+        saveDate(){
+            this.cardToEdit.date = this.date.getTime()
+            this.$emit('cardEdit',this.cardToEdit)
+            this.$emit('actionsClose')
+        }
 
     },
     emits: ['actionsClose', 'cardEdit', 'boardEdit']
-
 }
 </script>
 
