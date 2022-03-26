@@ -54,12 +54,12 @@
                     class="board-name"
                     v-if="!titleIsOpen"
                     @click="openTitleEdit"
-                >{{ board.title }}</p>
+                >{{title }}</p>
                 <input
                     maxlength="512"
                     v-clickOutside="changeTitle"
                     v-if="titleIsOpen"
-                    v-model="boardToEdit.title"
+                    v-model="title"
                     type="text"
                     @submit.prevent="changeBoardTitle"
                     @keyup="calculateTxtLen"
@@ -94,12 +94,19 @@ export default {
             isStared: false,
             titleIsOpen: false,
             boardToEdit: JSON.parse(JSON.stringify(this.board)),
-            titleLength: 0
+            titleLength: 0,
+            title: ''
 
         }
     },
     created() {
         this.calculateTxtLen()
+        this.title = this.board.title
+    },
+    computed: {
+        boardToEdit() {
+            return JSON.parse(JSON.stringify(this.board))
+        }
     },
     methods: {
         boardStared() {
@@ -111,12 +118,13 @@ export default {
             this.titleIsOpen = true;
         },
         changeTitle() {
-            if (!this.boardToEdit.title) return
-            this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
+            // this.boardToEdit.title = this.title
+            if (!this.title) return
+            this.$emit('titleChange', this.title)
             this.titleIsOpen = false;
         },
         calculateTxtLen() {
-            this.titleLength = this.boardToEdit.title.length
+            this.titleLength = this.title.length
             console.log(this.updateWidth)
         }
     },

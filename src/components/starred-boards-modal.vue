@@ -22,25 +22,22 @@
             </div>
         </div>
         <div class="modal-starred-boards-list">
-            <div
-                class="modal-starred-board-list"
-
-            >
-            <div class="boards-render-modal-starred"                 v-for="board in boards"
-                :board="board"
-                :key="board">
+            <div class="modal-starred-board-list">
                 <div
-                v-if="board.isStarred"
-                    class="board-background-starred-modal"
-                    :style="{ 'backgroundColor': board.background }"
-                ></div>
-
-                <div
-                    class="modal-starred-board"
+                    class="boards-render-modal-starred"
                     @click="goToDetails(board)"
-                    v-if="board.isStarred"
-                >{{ board.title }}</div>
-            </div>
+                    v-for="board in boards"
+                    :board="board"
+                    :key="board"
+                >
+                    <div
+                        v-if="board.isStarred"
+                        class="board-background-starred-modal"
+                        :style="{ 'backgroundColor': board.background }"
+                    ></div>
+
+                    <div class="modal-starred-board" v-if="board.isStarred">{{ board.title }}</div>
+                </div>
             </div>
         </div>
     </div>
