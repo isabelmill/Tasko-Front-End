@@ -6,7 +6,12 @@
         @drop="onGroupDrop($event)"
         drag-handle-selector=".group-preview-main"
     >
-        <Draggable v-for="group in groups" :key="group.id" class="group-preview-main">
+        <Draggable
+            v-for="group in groups"
+            :key="group.id"
+            class="group-preview-main"
+            drag-class="tilt"
+        >
             <div :class="group.props.className">
                 <!-- <span class="column-drag-handle">&#x2630;</span> -->
                 <toggle-input-cmp
@@ -17,8 +22,8 @@
                     :id="group.id"
                 ></toggle-input-cmp>
                 <Container
-                    drag-class="tilt"
                     class="scroller-group"
+                    drag-class="tilt"
                     group-name="col"
                     orientation="vertical"
                     :get-child-payload="getCardPayload(group.id)"
