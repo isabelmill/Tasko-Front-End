@@ -1,17 +1,10 @@
 <template>
     <div class="group-edit-modal">
-
-
         <div class="group-modal-header">
-            <h1>List actions</h1>
-            <button @click="closeModal">X</button>
-        </div>
-
-                <!-- <div class="starred-boards-header">
-            <div class="header-text-starred-boards-modal">
-                <h1>Starred boards</h1>
+            <div class="header-text-group-modal">
+                <h1>List actions</h1>
             </div>
-            <div class="header-close-starred-boards-modal" @click="closeModal">
+            <div class="header-close-edit-group-modal" @click="closeModal">
                 <svg
                     width="14"
                     height="14"
@@ -27,10 +20,13 @@
                     />
                 </svg>
             </div>
-        </div> -->
+        </div>
 
         <div class="group-modal-actions-list">
-            <a @click="removeList(id)">Remove this list</a>
+            <!-- <div class="group-modal-action">Add card...</div>
+            <div class="group-modal-action" >Copy list...</div>
+            <div class="group-modal-action" >Move list...</div> -->
+            <div class="group-modal-action" @click="removeList(id)">Remove this list</div>
         </div>
     </div>
 </template>
@@ -38,7 +34,7 @@
 <script>
 
 export default {
-        props: {
+    props: {
         id: {
             type: String
         }
@@ -48,7 +44,7 @@ export default {
             this.$emit("close");
         },
         removeList(id) {
-           this.$emit('remove', id)
+            this.$emit('remove', id)
         },
     },
 }
