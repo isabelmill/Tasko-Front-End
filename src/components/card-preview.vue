@@ -39,7 +39,10 @@
         >
             <section class="modal-edit">
                 <div class="modal-card">
-                    <div v-if="cardToDisplay.labels.length && cardToDisplay.labels.length" class="labels">
+                    <div
+                        v-if="cardToDisplay.labels.length && cardToDisplay.labels.length"
+                        class="labels"
+                    >
                         <div
                             class="label"
                             v-for="label in cardToDisplay.labels"
@@ -48,7 +51,11 @@
                         >{{ board.labels[board.labels.findIndex(labelToFind => labelToFind.id === label)].title }}</div>
                     </div>
                     <div>
-                        <textarea name="mini-edit-ta" style="resize:none" v-model="cardToDisplay.title"></textarea>
+                        <textarea
+                            name="mini-edit-ta"
+                            style="resize:none"
+                            v-model="cardToDisplay.title"
+                        ></textarea>
                     </div>
                 </div>
                 <div>
@@ -71,6 +78,7 @@
            
             -->
             <component
+                @boardEdit="editBoard"
                 @cardEdit="showEditedCard"
                 @actionsClose="closeMenu"
                 :board="board"
@@ -141,6 +149,9 @@ export default {
         openTitleEdit() {
             // this.titleIsOpen = true;
         },
+        editBoard(editedAttribute) {
+            this.$emit('boardUpdated', editedAttribute)
+        },
         changeMembers() {
             // this.modalOpen = false;
             this.posOfEditor = this.$refs['membersBtn'].getBoundingClientRect()
@@ -177,7 +188,7 @@ export default {
             this.shown = false
             this.$emit('openCard', { card: this.card, group: this.group })
         },
-        
+
         openAllLabels() {
             this.isLabelClicked = !this.isLabelClicked
             this.$emit('openAllLabels', this.isLabelClicked)
@@ -191,12 +202,12 @@ export default {
             this.groupToEdit.cards.splice(cardIdx, 1)
             this.$emit('deleteCard', this.groupToEdit)
         },
-        showEditedCard(card){
+        showEditedCard(card) {
             this.cardToDisplay = card
         },
         saveCard() {
-                this.$emit('editCard', {card:this.cardToDisplay, group:this.group})  
-                this.closeModal()
+            this.$emit('editCard', { card: this.cardToDisplay, group: this.group })
+            this.closeModal()
         },
         setMemberLetters(fullname) {
             const firstLetters = fullname
@@ -215,6 +226,6 @@ export default {
             // isLabelOpen = !isLabelOpen
         },
     },
-    emits: ['openCard', 'editCard', 'openAllLabels', 'deleteCard'],
+    emits: ['openCard', 'editCard', 'openAllLabels', 'deleteCard','boardUpdated'],
 }
 </script>

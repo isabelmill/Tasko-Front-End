@@ -32,9 +32,10 @@
                     @drop="(e) => onCardDrop(group.id, e)"
                 >
                     <Draggable v-for="card in group.cards" :key="card.id">
-                        <div >
+                        <div>
                             <card-preview
-                            @deleteCard="cardDelete"
+                            @boardUpdated="modifyBoard"
+                                @deleteCard="cardDelete"
                                 @openCard="openCardModal"
                                 @openAllLabels="onOpenAllLabels"
                                 @editCard="saveCardToBoard"
@@ -122,6 +123,9 @@ export default {
             this.groupToEdit = null
             this.titleIsOpen = false;
         },
+        modifyBoard(adjustmentOfBoard){
+            this.$emit('boardModified', adjustmentOfBoard)
+        },
         addNewCard({ newCard, group }) {
             console.log(group)
             this.groupToEdit = JSON.parse(JSON.stringify(this.groups.find(groupToCheck => groupToCheck.id === group.id)))
@@ -129,8 +133,8 @@ export default {
             this.$emit('groupUpdated', this.groupToEdit)
             this.groupToEdit = null
         },
-        cardDelete(updatedGroup){
-          this.$emit('groupUpdated', updatedGroup)  
+        cardDelete(updatedGroup) {
+            this.$emit('groupUpdated', updatedGroup)
         },
         openCardModal(info) {
             this.$emit('openCardDetails', info)
@@ -139,13 +143,14 @@ export default {
             console.log('isLabelOpen', isLabelClicked)
             this.isLabelOpen = isLabelClicked
         },
-        saveCardToBoard({card,group}){
+        saveCardToBoard({ card, group }) {
             this.groupToEdit = JSON.parse(JSON.stringify(group))
             console.log(card)
             const cardIdx = this.groupToEdit.cards.findIndex(cardToFind => cardToFind.id === card.id)
-            this.groupToEdit.cards.splice(cardIdx,1,card)
+            this.groupToEdit.cards.splice(cardIdx, 1, card)
             this.$emit('groupUpdated', this.groupToEdit)
         },
+        
         deleteGroup(groupId) {
             this.$emit('removeGroup', groupId)
         },
@@ -182,7 +187,7 @@ export default {
     },
     mounted() {
     },
-    emits: ['openCardDetails', 'removeGroup', 'groupUpdated', 'addGroup', 'groupDnd']
+    emits: ['openCardDetails', 'removeGroup', 'groupUpdated', 'addGroup', 'groupDnd','boardModified']
 
 }
 </script>
