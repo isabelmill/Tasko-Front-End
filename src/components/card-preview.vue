@@ -39,16 +39,16 @@
         >
             <section class="modal-edit">
                 <div class="modal-card">
-                    <div v-if="card.labels.length && board.labels.length" class="labels">
+                    <div v-if="cardToDisplay.labels.length && cardToDisplay.labels.length" class="labels">
                         <div
                             class="label"
-                            v-for="label in card.labels"
+                            v-for="label in cardToDisplay.labels"
                             :key="label"
                             :style="{ 'backgroundColor': board.labels[board.labels.findIndex(labelToFind => labelToFind.id === label)].color }"
                         >{{ board.labels[board.labels.findIndex(labelToFind => labelToFind.id === label)].title }}</div>
                     </div>
                     <div>
-                        <textarea name="mini-edit-ta" style="resize:none" v-model="card.title"></textarea>
+                        <textarea name="mini-edit-ta" style="resize:none" v-model="cardToDisplay.title"></textarea>
                     </div>
                 </div>
                 <div>
@@ -67,13 +67,20 @@
             </section>
         </section>
         <section v-if="shown">
-        <!-- @boardEdit="editBoard"
-            @cardEdit="editCard"
-        @actionsClose="closeMenu"-->
-        <component style="z-index: 50" :board="board" :card="card" :group="group" :pos="posOfEditor" :is="currModal"></component>
+            <!-- @boardEdit="editBoard"
+           
+            -->
+            <component
+                @cardEdit="showEditedCard"
+                @actionsClose="closeMenu"
+                :board="board"
+                :card="cardToDisplay"
+                :group="group"
+                :pos="posOfEditor"
+                :is="currModal"
+            ></component>
+        </section>
     </section>
-    </section>
-    
 </template>
 
 <script>
@@ -83,6 +90,7 @@ import { applyDrag, generateItems } from '../services/dnd-service.js';
 import labelModal from "./label-modal-cmp.vue";
 import memebersModal from "./memebers-modal-cmp.vue";
 import datesModal from "./date-modal-cmp.vue";
+// import { throws } from "assert";
 
 export default {
     name: 'card-preview',
@@ -106,7 +114,8 @@ export default {
         Draggable,
         labelModal,
         memebersModal,
-        datesModal
+        datesModal,
+        // throws
     },
     data() {
         return {
@@ -117,6 +126,7 @@ export default {
             modalOpen: false,
             titleIsOpen: false,
             groupToEdit: {},
+            cardToDisplay: JSON.parse(JSON.stringify(this.card)),
             cardToEdit: {
                 title: "",
             },
@@ -167,6 +177,7 @@ export default {
             this.shown = false
             this.$emit('openCard', { card: this.card, group: this.group })
         },
+        
         openAllLabels() {
             this.isLabelClicked = !this.isLabelClicked
             this.$emit('openAllLabels', this.isLabelClicked)
@@ -180,16 +191,23 @@ export default {
             this.groupToEdit.cards.splice(cardIdx, 1)
             this.$emit('deleteCard', this.groupToEdit)
         },
+        showEditedCard(card){
+            this.cardToDisplay = card
+        },
         saveCard() {
+                this.$emit('editCard', {card:this.cardToDisplay, group:this.group})  
+                this.closeModal()
         },
         setMemberLetters(fullname) {
             const firstLetters = fullname
                 .split(' ')
                 .map(word => word[0])
                 .join('');
-            console.log(firstLetters)
             return firstLetters.toUpperCase()
         },
+        closeMenu() {
+            this.shown = false
+        }
     },
     computed: {
         openLabels() {

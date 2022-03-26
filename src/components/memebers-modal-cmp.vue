@@ -6,6 +6,7 @@
         class="label-modal"
     >
         <div class="main-title-container">
+            <div class="icon-sm icon-close" @click="close"></div>
             <span class="main-title">Members</span>
         </div>
          <input class="main-input" type="text" />
@@ -87,7 +88,6 @@ export default {
                 .split(' ')
                 .map(word => word[0])
                 .join('');
-            console.log(firstLetters)
             return firstLetters.toUpperCase()
         },
     },

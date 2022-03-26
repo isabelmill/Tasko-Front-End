@@ -32,11 +32,12 @@
                     @drop="(e) => onCardDrop(group.id, e)"
                 >
                     <Draggable v-for="card in group.cards" :key="card.id">
-                        <div :class="card.props.className">
+                        <div >
                             <card-preview
                             @deleteCard="cardDelete"
                                 @openCard="openCardModal"
                                 @openAllLabels="onOpenAllLabels"
+                                @editCard="saveCardToBoard"
                                 :group="group"
                                 :card="card"
                                 :board="board"
@@ -137,6 +138,13 @@ export default {
         onOpenAllLabels(isLabelClicked) {
             console.log('isLabelOpen', isLabelClicked)
             this.isLabelOpen = isLabelClicked
+        },
+        saveCardToBoard({card,group}){
+            this.groupToEdit = JSON.parse(JSON.stringify(group))
+            console.log(card)
+            const cardIdx = this.groupToEdit.cards.findIndex(cardToFind => cardToFind.id === card.id)
+            this.groupToEdit.cards.splice(cardIdx,1,card)
+            this.$emit('groupUpdated', this.groupToEdit)
         },
         deleteGroup(groupId) {
             this.$emit('removeGroup', groupId)
