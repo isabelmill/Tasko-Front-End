@@ -13,11 +13,12 @@
             <input @submit.prevent type="text" v-model="name" />
             <span class="mini-title">Color</span>
             <section class="create-board-background-color">
+                <div @click="setLabelColor('#61BD4F')" class="green color-pref"></div>
+                <div @click="setLabelColor('#F2D600')" class="yellow color-pref"></div>
+                <div @click="setLabelColor('#FF9F1A')" class="orange color-pref"></div>
+                <div @click="setLabelColor('#EB5A46')" class="red color-pref"></div>
+                <div @click="setLabelColor('#C377E0')" class="purple color-pref"></div>
                 <div @click="setLabelColor('#0079BF')" class="blue color-pref"></div>
-                <div @click="setLabelColor('#D29034')" class="yellow color-pref"></div>
-                <div @click="setLabelColor('#519839')" class="green color-pref"></div>
-                <div @click="setLabelColor('#B04632')" class="red color-pref"></div>
-                <div @click="setLabelColor('#89609E')" class="purple color-pref"></div>
                 <div class="more color-pref">...</div>
             </section>
             <button @click="save">save</button>

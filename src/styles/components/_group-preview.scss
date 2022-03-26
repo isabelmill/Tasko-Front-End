@@ -266,30 +266,35 @@
     z-index: 20;
     width: 100%;
     height: 100%;
-    background-color: rgb(0, 0, 0, 0.5);
+    background-color: #0009;
     position: fixed;
     top: 0;
     right: 0;
 
-    .modal-card{
-        background-color: #fff;
-        textarea {
-            overflow: hidden;
-            overflow-wrap: break-word;
-            color: #504658;
-            resize: none;
-            height: 90px;
-            padding: 0;
-            width: 100%;
-            outline: none;
-            border: none;
+    .mini-edit-modal-second {
+        display: flex;
+    }
+
+    .modal-edit {
+        width: rem(260px);
+        .modal-card {
             background-color: #fff;
-            box-sizing: border-box;
             border-radius: 3px;
-            font-family: Segoe UI;
-            display: block;
             margin-bottom: 12px;
-            font-size: 14px;
+
+            textarea {
+                overflow: hidden;
+                overflow-wrap: break-word;
+                color: #504658;
+                resize: none;
+                height: rem(90px);
+                margin: 4px;
+                border: none;
+                width: 95%;
+                font-family: roboto-regular, Helvetica, sans-serif;
+                font-size: rem(14px);
+                font-weight: 400;
+            }
         }
         button {
             @include btnAddCard();
@@ -309,6 +314,7 @@
             display: flex;
             color: #fff;
             line-height: 19px;
+
             &:hover {
                 background: rgba(0, 0, 0, 0.8);
                 color: #fff;
@@ -317,7 +323,6 @@
         }
     }
 }
-
 
 //scrollbar
 .scroller-group {
@@ -368,5 +373,18 @@
     &:hover {
         color: #172b4d;
         text-decoration: none;
+    }
+}
+
+.icon-close-in-pencil-modal {
+    @include to-icon("\e91c");
+    cursor: pointer;
+    color: #42526e;
+    position: fixed;
+    right: 0;
+    &:hover {
+        color: #fff;
+        width: 28px;
+        height: 28px;
     }
 }

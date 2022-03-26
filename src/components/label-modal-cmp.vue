@@ -5,18 +5,22 @@
         :style="{ top: pos.bottom + 8 + 'px', left: pos.left + 'px' }"
         class="label-modal"
     >
+        <div class="icon-sm icon-close"></div>
         <div class="main-title-container">
             <span class="main-title">Labels</span>
         </div>
-        <search></search>
         <section class="actions-modal-main">
+            <input type="text" />
             <span class="mini-title">Labels</span>
             <section v-for="label in board.labels" :key="label.id" class="label-container flex">
                 <div
                     class="label-color"
                     :style="{ backgroundColor: label.color }"
                     @click="addLabelToCard(label.id)"
-                >{{ label.title }}</div>
+                >
+                    {{ label.title }}
+                    <div class="icon-sm icon-check"></div>
+                </div>
                 <button class="icon-sm icon-edit" @click="openEditLabel(label)"></button>
             </section>
         </section>
@@ -85,8 +89,9 @@ export default {
             // console.log('new labal', label)
             if (!this.cardToEdit) this.cardToEdit = JSON.parse(JSON.stringify(this.card))
             if (this.cardToEdit.labels.length) {
+                const boardLabelIdx = this.board.labels.findIndex(labelToFind => labelToFind.id === labelId)
                 const idx = this.cardToEdit.labels.findIndex(cardLabel => cardLabel === labelId)
-                if (idx === -1) this.cardToEdit.labels.push(labelId)
+                if (idx === -1) this.cardToEdit.labels.splice(boardLabelIdx, 0, labelId)
                 else this.cardToEdit.labels.splice(idx, 1)
             }
             else {
@@ -112,5 +117,4 @@ export default {
 </script>
 
 <style>
-
 </style>

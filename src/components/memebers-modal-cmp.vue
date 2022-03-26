@@ -89,44 +89,5 @@ export default {
 </script>
 
 <style>
-.label-modal {
-    position: fixed;
-    width: 280px;
-    padding: 12px;
-    background-color: white;
-    border: 0;
-}
-.main-title-container {
-    text-align: center;
-}
 
-.main-title {
-    border-bottom: 1px solid #091e4221;
-    box-sizing: border-box;
-    color: #5e6c84;
-    display: block;
-    line-height: 40px;
-    margin: 0 12px;
-    overflow: hidden;
-    padding: 0 32px;
-    position: relative;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    z-index: 1;
-}
-.label-container {
-    margin-bottom: 2px;
-}
-
-.label-color:hover {
-    opacity: 70%;
-}
-
-.profile-image{
-    height: 40px;
-    width: 40px;
-    border-radius: 50%;
-    border: 2px solid white;
-    /* filter: drop-shadow(0 0 8px #ff5722); */
-}
 </style>
