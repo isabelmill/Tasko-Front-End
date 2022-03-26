@@ -39,6 +39,7 @@
 
 .icon-star {
     @include to-icon("\e966");
+    width: 20px;
     color: #fff;
     &:hover {
         color: $mainYellow;
@@ -48,6 +49,7 @@
 .icon-starred {
     @include to-icon("\e967");
     color: $mainYellow;
+    width: 20px;
 }
 
 .icon-add-member {
