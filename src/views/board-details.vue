@@ -13,6 +13,7 @@
         :style="{ 'backgroundColor': board.background }"
     >
         <group-list
+        @boardModified="updateBoard"
             @removeGroup="groupRemove"
             @openCardDetails="openCardDetailsModal"
             @groupUpdated="updateGroup"
