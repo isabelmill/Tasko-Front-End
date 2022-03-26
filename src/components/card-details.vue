@@ -35,9 +35,8 @@
                                     :key="member._id"
                                 >
                                     <div class="card-details-member-img">
-                                       <img :src="member.imgUrl" alt="">
+                                        <img :src="member.imgUrl" alt />
                                     </div>
-
                                 </section>
                             </div>
                         </div>
@@ -254,6 +253,7 @@
 <script>
 import labelModal from "./label-modal-cmp.vue";
 import memebersModal from "./memebers-modal-cmp.vue";
+import dateModal from "./date-modal-cmp.vue";
 export default {
 
     name: 'card-details',
@@ -270,7 +270,8 @@ export default {
     },
     components: {
         labelModal,
-        memebersModal
+        memebersModal,
+        dateModal
     },
     created() {
         this.description = this.card.description
@@ -307,6 +308,11 @@ export default {
             this.shown = true
             this.currModal = "labelModal"
         },
+        editDates() {
+            this.pos = this.$refs['datesBtn'].getBoundingClientRect()
+            this.currModal = "dateModal"
+            this.shown = true
+        },
         editCard(card) {
             this.$emit('cardModified', { card, group: this.group })
         },
@@ -326,7 +332,8 @@ export default {
             this.cardToEdit.description = this.description
             this.$emit('cardModified', { card: this.cardToEdit, group: this.group })
             this.showDesc = false
-        }
+        },
+
     },
     emits: ['closeDialog', 'cardModified', 'boardModified']
 

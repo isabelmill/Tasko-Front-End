@@ -5,6 +5,8 @@ import store from './store'
 import "./styles/styles.scss";
 import vClickOutside from 'click-outside-vue3'
 import { focusDirective } from './directives'
+import datePicker from '@vuepic/vue-datepicker'
+import '@vuepic/vue-datepicker/dist/main.css'
 
 const app = createApp(App)
 
@@ -12,6 +14,7 @@ const app = createApp(App)
 app.directive('clickOutside', vClickOutside.directive)
 app.directive('focus', focusDirective)
 
+app.component('datePicker', datePicker)
 app.use(router)
 app.use(store)
 

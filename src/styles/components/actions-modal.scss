@@ -217,6 +217,14 @@
             opacity: 80%;
         }
     }
+    .date-picker {
+        border: none;
+        outline: none;
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        margin-top: 8px;
+    }
     .members-container {
         margin-bottom: 2px;
     }
