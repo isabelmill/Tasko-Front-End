@@ -1,5 +1,5 @@
 <template>
-    <section class="card-preview cursor-pointer flex">
+    <section ref="card-modal" class="card-preview cursor-pointer flex">
         <div v-if="card.labels.length && board.labels.length" class="labels">
             <div
                 class="label"
@@ -21,33 +21,35 @@
         </div>
         <button class="icon-sm icon-edit" @click="openMiniEdit($event)"></button>
     </section>
-    <section
-        style="position:fixed"
-        :style="{top: distanceY + 'px', left: distanceX + 'px' }"
-        v-clickOutside="closeModal"
-        v-if="modalOpen"
-        class="mini-edit-modal flex"
-    >
-        <section class="mini-edit-main">
-            <div class="card-modal-edit">
-                <div>
+
+    <section class="mini-edit-modal-main flex" v-if="modalOpen">
+        <span class="icon-xl icon-close-in-pencil-modal" @click="closeModal"></span>
+        <section
+            class="mini-edit-modal-second"
+            style="position:fixed;"
+            :style="{ top: pos.top + 'px', left: pos.left + 'px' }"
+        >
+            <section class="modal-edit">
+                <div class="modal-card">
                     <textarea name="mini-edit-ta" style="resize:none" v-model="card.title"></textarea>
                 </div>
-            </div>
-            <button class="mini-edit-save" @click="saveCard">Save</button>
-        </section>
-        <section class="mini-edit-actions">
-            <button class="mini-edit-btn" @click="openDetails">Open card</button>
-            <button class="mini-edit-btn" @click="editLabels">Edit labels</button>
-            <button class="mini-edit-btn" @click="changeMembers">Change members</button>
-            <button class="mini-edit-btn" @click="changeCover">Channge cover</button>
-            <button class="mini-edit-btn" @click="moveCard">Move</button>
-            <button class="mini-edit-btn" @click="copyCard">Copy</button>
-            <button class="mini-edit-btn" @click="editDates">Edit dates</button>
-            <button class="mini-edit-btn" @click="deleteCard">Delete</button>
-        </section>
-        <section class="actions-modal">
-            <component v-if="isActionsOpen" :card="card" :is="activeComponent"></component>
+                <div>
+                    <button class="mini-edit-save" @click="saveCard">Save</button>
+                </div>
+            </section>
+            <section class="modal-actions-btns">
+                <button @click="openDetails">Open card</button>
+                <button @click="editLabels">Edit labels</button>
+                <button @click="changeMembers">Change members</button>
+                <button @click="changeCover">Channge cover</button>
+                <button @click="moveCard">Move</button>
+                <button @click="copyCard">Copy</button>
+                <button @click="editDates">Edit dates</button>
+                <button @click="deleteCard">Delete</button>
+            </section>
+            <section class="actions-modal">
+                <component v-if="isActionsOpen" :card="card" :is="activeComponent"></component>
+            </section>
         </section>
     </section>
 </template>
@@ -77,8 +79,7 @@ export default {
     },
     data() {
         return {
-            distanceY: 0,
-            distanceX: 0,
+            pos: 0,
             modalOpen: false,
             titleIsOpen: false,
             cardToEdit: {
@@ -100,12 +101,11 @@ export default {
             this.$emit('editCard', { card: this.cardToEdit, group: this.group })
             this.titleIsOpen = false;
         },
-        openMiniEdit(ev) {
-
-
-            //To edit quick modal edit position//
-            this.distanceX = ev.clientX - 65;
-            this.distanceY = ev.clientY + 10;
+        calcPosOfModal() {
+            this.pos = this.$refs['card-modal'].getBoundingClientRect()
+        },
+        openMiniEdit() {
+            this.calcPosOfModal()
             this.modalOpen = true;
         },
         openDetails() {
@@ -122,49 +122,4 @@ export default {
 </script>
 
 <style>
-/* TO ADD TO SCSS!!!!!!!!! */
-/* .mini-edit-main {
-    display: flex;
-    flex-direction: column;
-}
-
-.mini-edit-actions {
-    display: flex;
-    flex-direction: column;
-}
-
-.mini-edit-btn {
-    background: #0009;
-    border-radius: 3px;
-    clear: both;
-    color: #e6e6e6;
-    display: block;
-    float: left;
-    margin: 0 0 4px 8px;
-    padding: 6px 12px 6px 8px;
-    text-decoration: none;
-    transition: transform 85ms ease-in;
-    opacity: 60%;
-}
-.mini-edit-modal {
-    display: flex;
-    flex-direction: row;
-    position: fixed;
-    width: rem(304px);
-    top: rem(184px);
-    left: rem(650px);
-    color: #172b4d;
-    font-size: rem(14px);
-    background-color: #ffffff;
-    border-radius: rem(3px);
-    box-shadow: 0 8px 16px -4px rgb(9 30 66 / 25%), 0 0 0 1px rgb(9 30 66 / 8%);
-    box-sizing: border-box;
-    outline: 0;
-    overflow: hidden;
-    gap: 20px;
-    z-index: 20;
-}
-.card-title {
-    width: 230px;
-} */
 </style>

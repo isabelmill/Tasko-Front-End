@@ -1,6 +1,11 @@
 <template>
     <section>
-        <board-header v-if="board" :board="board" />
+        <board-header
+            v-if="board"
+            :board="board"
+            @titleChange="updateBoardTitle"
+            @starredChange="isStarredBoard"
+        />
     </section>
     <section
         v-if="board"
@@ -17,7 +22,6 @@
             @addGroup="addNewGroup"
             @groupDnd="updateBoardDnd"
         ></group-list>
-
     </section>
 
     <dialog ref="cardDetailsModal" class="modal">
@@ -90,9 +94,9 @@ export default {
             this.boardToEdit.groups[groupIdx] = editedGroup
             this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
         },
-        updateBoard({key,val}){
+        updateBoard({ key, val }) {
             this.boardToEdit = JSON.parse(JSON.stringify(this.board))
-            this.boardToEdit[key]=val
+            this.boardToEdit[key] = val
             this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
         },
         openCardDetailsModal(info) {
@@ -105,9 +109,18 @@ export default {
             this.isCardOpen = false
             this.$refs.cardDetailsModal.close()
         },
-        updateBoardDnd(newBoard){
-            // this.boardToEdit = newBoard
+        updateBoardDnd(newBoard) {
             this.$store.dispatch({ type: 'saveBoard', board: newBoard })
+        },
+        updateBoardTitle(title) {
+            this.boardToEdit = JSON.parse(JSON.stringify(this.board))
+            this.boardToEdit.title = title
+            this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
+        },
+        isStarredBoard(isStarred) {
+            this.boardToEdit = JSON.parse(JSON.stringify(this.board))
+            this.boardToEdit.isStarred = isStarred
+            this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
         }
     },
     computed: {

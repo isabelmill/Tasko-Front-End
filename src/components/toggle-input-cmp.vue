@@ -70,7 +70,6 @@ export default {
         },
         calcPosOfBox() {
             this.pos = this.$refs['box'].getBoundingClientRect()
-
         }
     },
     components: {
