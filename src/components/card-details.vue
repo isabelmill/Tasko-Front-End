@@ -37,9 +37,9 @@
                                 >
                                     <div
                                         class="card-details-label"
-                                        :style="{ 'backgroundColor': board.labels[board.labels.findIndex(labelToFind=>labelToFind.id === label)].color }"
+                                        :style="{ 'backgroundColor': board.labels[board.labels.findIndex(labelToFind => labelToFind.id === label)].color }"
                                     >
-                                        <p>{{ board.labels[board.labels.findIndex(labelToFind=>labelToFind.id === label)].title }}</p>
+                                        <p>{{ board.labels[board.labels.findIndex(labelToFind => labelToFind.id === label)].title }}</p>
                                     </div>
                                 </section>
                             </div>
@@ -53,14 +53,32 @@
                         <h3>Description</h3>
                     </div>
 
-                    <div class="card-details-input" :style="showDesc ? {
-                                'padding-left': '42px',
-                                'padding-top': '18px'
-                            } : null">
-                        <div v-if="!showDesc" @click="showDesc = true" class="open-input-btn">Add a more detailed description...</div>
-                        <textarea 
+                    <div
+                        class="card-details-input"
+                        :style="showDesc ? {
+                            'padding-left': '42px',
+                            'padding-top': '18px'
+                        } : null"
                         v-clickOutside="closeTextArea"
-                        placeholder="Add a more detailed description..." v-if="showDesc"  name="description" id="" cols="60" rows="4"></textarea>
+                    >
+                        <div
+                            v-if="!showDesc"
+                            @click="showDesc = true"
+                            class="open-input-btn"
+                        >Add a more detailed description...</div>
+                        <textarea
+                            v-focus
+                            placeholder="Add a more detailed description..."
+                            v-if="showDesc"
+                            name="description"
+                            id
+                            cols="60"
+                            rows="4"
+                        ></textarea>
+                        <div v-if="showDesc" class="card-details-text-add-btn">
+                            <button>Save</button>
+                            <span @click="closeTextArea" class="icon-xl icon-close"></span>
+                        </div>
                     </div>
 
                     <div class="card-details-activity-show-details">
@@ -244,14 +262,14 @@ export default {
         closeMenu() {
             this.shown = false;
         },
-        changeMembers(){
+        changeMembers() {
             this.pos = this.$refs['membersBtn'].getBoundingClientRect()
             this.shown = true
             this.currModal = "memebersModal"
         },
         editLabels() {
             this.pos = this.$refs['labelBtn'].getBoundingClientRect()
-            this.shown =  true
+            this.shown = true
             this.currModal = "labelModal"
         },
         editCard(card) {
