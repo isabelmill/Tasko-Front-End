@@ -19,11 +19,11 @@
                     @click="addLabelToCard(label.id)"
                 >
                     {{ label.title }}
-                    <div class="icon-sm icon-check"></div>
+                    <div v-if="card.labels.includes(label.id)" class="icon-sm icon-check"></div>
                 </div>
                 <button class="icon-sm icon-edit" @click="openEditLabel(label)"></button>
             </section>
-            <button @click="createNewLabel" class="create-btn"></button>
+            <button type="button" @click="createNewLabel" class="create-btn">Create a new label</button>
         </section>
     </section>
     <label-editor-modal-cmp
