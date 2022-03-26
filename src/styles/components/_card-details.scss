@@ -1,7 +1,6 @@
 .card-details-container {
     display: flex;
     flex-direction: column;
-
     .card-details-header {
         display: flex;
         justify-content: space-between;
@@ -9,20 +8,17 @@
         padding-right: 16px;
         padding-top: 25px;
         padding-top: 12px;
-
         .card-details-header-icon {
             display: flex;
             flex-direction: row;
             gap: 17px;
             align-items: center;
             justify-content: center;
-
             p {
                 font-size: 20px;
                 font-weight: 600;
             }
         }
-
         .card-details-icon {
             display: flex;
             align-items: center;
@@ -33,25 +29,21 @@
             width: 32px;
             cursor: pointer;
             transition: background-color 85ms, color 85ms;
-
             &:hover {
                 background-color: #091e4214;
                 color: #42526e;
             }
         }
     }
-
     .card-details-list-name {
         p {
             padding-left: 59px;
             padding-bottom: 30px;
         }
     }
-
     .card-details-edit {
         display: flex;
         flex-direction: column;
-
         // padding-right: 20px;
         label {
             color: #5e6c84;
@@ -61,7 +53,6 @@
             margin-bottom: -4px;
             margin-bottom: 8px;
         }
-
         .card-details-btn {
             display: flex;
             align-items: center;
@@ -77,25 +68,21 @@
             font-weight: 100;
             margin-bottom: 8px;
             width: 165px;
-
             &:hover {
                 background-color: #091e4214;
             }
         }
     }
-
     .card-details-actions-container {
         display: flex;
         align-items: start;
         justify-content: center;
         padding: 0 16px 8px 16px;
-
         .card-details-main {
             .card-details-members-labels-date {
                 // height: 220px;
                 display: flex;
                 gap: 16px;
-
                 .card-details-members-container {
                     .card-details-members {
                         padding-top: 8px;
@@ -107,17 +94,12 @@
                                 width: 32px;
                                 border-radius: 50%;
                             }
-
                         }
                     }
                 }
-
                 .card-details-labels-container {
                     display: flex;
                     flex-direction: row;
-
-
-
                     .card-details-labels {
                         padding-top: 8px;
                         .card-details-label {
@@ -134,14 +116,12 @@
                             width: auto;
                             cursor: pointer;
                         }
-
                         p {
                             color: white;
                             font-size: 15px;
                         }
                     }
                 }
-
                 label {
                     color: #5e6c84;
                     font-size: 14px;
@@ -151,13 +131,11 @@
                     // padding-bottom: 12px;
                 }
             }
-
             .card-details-description {
                 display: flex;
                 gap: 17px;
                 align-items: center;
                 min-height: 32px;
-
                 h3 {
                     font-size: 16px;
                     display: inline-block;
@@ -166,7 +144,6 @@
                     min-width: 40px;
                     width: auto;
                 }
-
                 button {
                     @include cardDetailsBtn();
                     background-color: #091e420a;
@@ -176,19 +153,16 @@
                     margin-bottom: unset;
                 }
             }
-
             .card-details-activity-show-details {
                 display: flex;
                 justify-content: space-between;
                 margin-bottom: 18px;
                 min-height: 32px;
-
                 .card-details-activity {
                     display: flex;
                     gap: 17px;
                     align-items: center;
                     min-height: 32px;
-
                     h3 {
                         font-size: 16px;
                         line-height: 20px;
@@ -199,7 +173,6 @@
                         width: auto;
                     }
                 }
-
                 button {
                     @include cardDetailsBtn();
                     background-color: #091e420a;
@@ -207,14 +180,12 @@
                     font-family: roboto-regular;
                 }
             }
-
             .card-details-input-user-comment {
                 display: flex;
                 align-items: center;
                 justify-items: center;
                 gap: 9px;
                 height: 40px;
-
                 .card-details-user-avatar {
                     display: flex;
                     position: static;
@@ -228,7 +199,6 @@
                     background-color: #172b4d;
                     color: white;
                 }
-
                 .card-details-input-comment {
                     cursor: pointer;
                     display: flex;
@@ -244,12 +214,10 @@
                     // transition-property: padding-bottom;
                     // transition-property: margin-top;
                     transition-timing-function: ease;
-
                     .input-icon-btns {
                         display: flex;
                         flex-direction: column;
                         width: 650px;
-
                         // input {
                         //     font-size: 15px;
                         // }
@@ -259,7 +227,6 @@
                             justify-content: space-between;
                             align-items: center;
                             padding-bottom: 10px;
-
                             .card-details-save-btn {
                                 background-color: #0079bf;
                                 border: none;
@@ -271,50 +238,41 @@
                                 height: rem(25px);
                                 margin-top: 10px;
                                 cursor: pointer;
-
                                 &:hover {
                                     background-color: #026aa7;
                                     border: none;
                                     box-shadow: none;
                                     color: #fff;
                                 }
-
                                 button {
                                     cursor: pointer;
                                 }
                             }
-
                             .icon-btns-inside-input {
                                 display: flex;
                                 justify-content: end;
                                 gap: 25px;
-
                                 span {
                                     cursor: pointer;
                                 }
                             }
                         }
                     }
-
                     &:hover {
                         box-shadow: 1px 1px 5px -2px rgb(0 0 0 / 18%);
                     }
-
                     input {
                         cursor: pointer;
                         background-color: rgb(255, 255, 255);
                         border: 2px solid rgb(239, 238, 236);
                         border: none;
-
                         &:focus {
                             outline: none;
                         }
                     }
                 }
             }
-
             .card-details-input {
-
                 // padding-left: 15px;
                 .card-details-text-add-btn {
                     display: flex;
@@ -322,7 +280,6 @@
                     margin-top: 7px;
                     margin-bottom: 17px;
                     gap: 10px;
-
                     button {
                         background-color: #0079bf;
                         height: rem(31px);
@@ -334,7 +291,6 @@
                         font-size: 14px;
                         font-weight: 400;
                         cursor: pointer;
-
                         &:hover {
                             background-color: #026aa7;
                             border: none;
@@ -342,31 +298,25 @@
                             color: #fff;
                         }
                     }
-
                     span {
                         cursor: pointer;
                     }
                 }
-
                 textarea {
                     border-color: #091e4221;
                     height: 108px;
                     border-radius: 3px;
                     font-size: 15px;
                     padding: 12px;
-
                     &:focus {
                         outline-color: #0079BF;
                     }
-
                 }
-
                 .card-description {
                     margin-top: 15px;
                     margin-bottom: 35px;
                     padding-left: 42px;
                 }
-
                 .open-input-btn {
                     background-color: #091e420a;
                     border: none;
@@ -380,8 +330,6 @@
                     height: rem(55px);
                     border-radius: 3px;
                     font-size: 15px;
-
-
                     &:hover {
                         background-color: #091e4214;
                         border: none;
@@ -389,7 +337,6 @@
                     }
                 }
             }
-
         }
     }
 }
