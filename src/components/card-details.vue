@@ -48,44 +48,46 @@
                     </div>
 
                     <!-- Description adding area  -->
-                    <div class="card-details-description">
-                        <span class="icon-xl icon-desc"></span>
-                        <h3>Description</h3>
-                    </div>
-
-                    <div
-                        class="card-details-input"
-                        :style="showDesc ? {
-                            'padding-left': '42px',
-                            'padding-top': '18px'
-                        } : null"
-                        v-clickOutside="closeTextArea"
-                    >
-                        <div
-                            v-if="!showDesc && !card.description"
-                            @click="showDesc = true"
-                            class="open-input-btn"
-                        >Add a more detailed description...</div>
-                        <div
-                            class="card-description"
-                            v-if="!showDesc"
-                            @click="showDesc = true"
-                        >{{ card.description }}</div>
-                        <textarea
-                            v-focus
-                            placeholder="Add a more detailed description..."
-                            v-if="showDesc"
-                            v-model="description"
-                            name="description"
-                            id
-                            cols="60"
-                            rows="4"
-                        ></textarea>
-                        <div v-if="showDesc" class="card-details-text-add-btn">
-                            <button @click="updateCardDesc">Save</button>
-                            <span @click="closeTextArea" class="icon-xl icon-close"></span>
+                    <section v-clickOutside="closeTextArea">
+                        <div class="card-details-description">
+                            <span class="icon-xl icon-desc"></span>
+                            <h3>Description</h3>
+                            <button @click="openTextArea" v-if="card.description">Edit</button>
                         </div>
-                    </div>
+
+                        <div
+                            class="card-details-input"
+                            :style="showDesc ? {
+                                'padding-left': '42px',
+                                'padding-top': '18px'
+                            } : null"
+                        >
+                            <div
+                                v-if="!showDesc && !card.description"
+                                @click="openTextArea"
+                                class="open-input-btn"
+                            >Add a more detailed description...</div>
+                            <div
+                                class="card-description"
+                                @click="openTextArea"
+                                v-if="!showDesc"
+                            >{{ card.description }}</div>
+                            <textarea
+                                v-focus
+                                placeholder="Add a more detailed description..."
+                                v-if="showDesc"
+                                v-model="description"
+                                name="description"
+                                id
+                                cols="60"
+                                rows="4"
+                            ></textarea>
+                            <div v-if="showDesc" class="card-details-text-add-btn">
+                                <button @click="updateCardDesc">Save</button>
+                                <span @click="closeTextArea" class="icon-xl icon-close"></span>
+                            </div>
+                        </div>
+                    </section>
 
                     <div class="card-details-activity-show-details">
                         <div class="card-details-activity">
@@ -264,7 +266,7 @@ export default {
         }
     },
     computed: {
-        cardToEdit(){
+        cardToEdit() {
             return JSON.parse(JSON.stringify(this.card))
         }
     },
@@ -293,6 +295,9 @@ export default {
         },
         closeTextArea() {
             this.showDesc = false
+        },
+        openTextArea() {
+            this.showDesc = true
         },
         editBoard(editedAttribute) {
             this.$emit('boardModified', editedAttribute)
