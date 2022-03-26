@@ -30,9 +30,11 @@
                         <div :class="card.props.className">
                             <card-preview
                                 @openCard="openCardModal"
+                                @openAllLabels="onOpenAllLabels"
                                 :group="group"
                                 :card="card"
                                 :board="board"
+                                :isLabelOpen="isLabelOpen"
                             ></card-preview>
                         </div>
                     </Draggable>
@@ -89,14 +91,13 @@ export default {
     },
     data() {
         return {
-            groupToEdit: null,
-            titleIsOpen: false,
             show: false,
             groupToDisplay: {
                 title: ""
             },
-            show: false,
-
+            groupToEdit: null,
+            titleIsOpen: false,
+            isLabelOpen: false,
         };
     },
     created() {
@@ -123,6 +124,10 @@ export default {
         },
         openCardModal(info) {
             this.$emit('openCardDetails', info)
+        },
+        onOpenAllLabels(isLabelClicked) {
+            console.log('isLabelOpen', isLabelClicked)
+            this.isLabelOpen = isLabelClicked
         },
         deleteGroup(groupId) {
             this.$emit('removeGroup', groupId)

@@ -3,7 +3,8 @@
         <div v-if="card.labels.length && board.labels.length" class="labels">
             <div
                 class="label"
-                @click="isLabelOpen = !isLabelOpen"
+                :class="openLabels"
+                @click="openAllLabels"
                 v-for="label in card.labels"
                 :key="label"
                 :style="{ 'backgroundColor': board.labels[board.labels.findIndex(labelToFind => labelToFind.id === label)].color }"
@@ -68,7 +69,7 @@
 <script>
 import { boardService } from "../services/board-service.js";
 import { Container, Draggable } from "vue3-smooth-dnd";
-import { applyDrag, generateItems } from '../services/dnd-service.js'
+import { applyDrag, generateItems } from '../services/dnd-service.js';
 
 export default {
     name: 'card-preview',
@@ -83,6 +84,9 @@ export default {
             type: Object,
             required: true,
         },
+        isLabelOpen: {
+            type: Boolean,
+        },
     },
     components: {
         Container,
@@ -92,13 +96,13 @@ export default {
         return {
             pos: 0,
             modalOpen: false,
-            isLabelOpen: false,
             titleIsOpen: false,
             cardToEdit: {
                 title: "",
             },
             isActionsOpen: false,
             activeComponent: null,
+            isLabelClicked: false,
         }
     },
     created() {
@@ -123,15 +127,22 @@ export default {
         openDetails() {
             this.$emit('openCard', { card: this.card, group: this.group })
         },
+        openAllLabels() {
+            this.isLabelClicked = !this.isLabelClicked
+            this.$emit('openAllLabels', this.isLabelClicked)
+        },
         closeModal() {
             this.modalOpen = false
         },
         saveCard() {
         },
     },
-    emits: ['openCard', 'editCard'],
+    computed: {
+        openLabels() {
+            return { labelOpen: this.isLabelOpen };
+            // isLabelOpen = !isLabelOpen
+        }
+    },
+    emits: ['openCard', 'editCard', 'openAllLabels'],
 }
 </script>
-
-<style>
-</style>

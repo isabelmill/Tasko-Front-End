@@ -40,7 +40,7 @@
         }
     }
     span {
-        margin: 0 8px 0 auto;
+        margin: 1px 4px 0 auto;
         width: rem(33px);
         height: rem(33px);
         border-radius: 3px;
@@ -112,32 +112,28 @@
     overflow: auto;
     position: relative;
     .label {
+        transition: all 0.3s;
+        // transition: width 0.4s, height 0.3s, line-height 0.3s;
         border-radius: 4px;
         color: #fff;
         display: block;
-        // margin-right: 4px;
-        max-width: 100%;
         overflow: hidden;
-        padding: 4px 6px;
         position: relative;
         text-overflow: ellipsis;
         white-space: nowrap;
-        ////////
-        background-color: #61bd4f;
-        ////////
         float: left;
         font-size: 12px;
         font-weight: 700;
-        height: 8px;
-        line-height: 100px;
-        margin: 0 4px 4px 0;
-        max-width: 40px;
-        min-width: 40px;
         padding: 0;
         text-shadow: none;
+        margin: 0 4px 4px 0;
         width: auto;
+        height: 8px;
+        line-height: 100px;
+        max-width: 40px;
+        min-width: 40px;
     }
-    .label-open {
+    .labelOpen {
         ///on-click
         height: 16px;
         line-height: 16px;
@@ -279,6 +275,7 @@
 
     .modal-edit {
         width: rem(253px);
+
         .modal-card {
             background-color: #fff;
             border-radius: 3px;
