@@ -4,7 +4,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-
     nav {
         display: flex;
         align-items: center;
@@ -12,14 +11,12 @@
         margin-right: rem(8px);
         gap: 5px;
     }
-
     button {
         @include btn();
         p {
             margin-left: 5px;
         }
     }
-
     .board-btn {
         display: flex;
         align-items: center;
@@ -27,12 +24,15 @@
         gap: 4px;
         margin: 0;
     }
-
     .invite {
         @include inviteBtn();
-
+        background-color: #fff;
+        color: #000;
         p {
             margin-left: 5px;
+        }
+        &:hover {
+            background-color: #ffffffe6;
         }
     }
 }
@@ -54,7 +54,7 @@
 
 .icon-add-member {
     @include to-icon("\e902");
-    color: #fff;
+    color: #000;
 }
 
 .icon-overflow-menu-horizontal {
@@ -92,7 +92,6 @@
         box-shadow: inset 0 0 0 2px #0079bf;
         color: $memberBlue;
         background-color: #fff;
-
         &::placeholder {
             color: #fff;
         }
