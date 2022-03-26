@@ -35,7 +35,7 @@
                                     :key="member._id"
                                 >
                                     <div class="card-details-member-img">
-                                        <img :src="member.imgUrl" alt />
+                                        <div class="member">{{setMemberLetters(member.fullname)}}</div>
                                     </div>
                                 </section>
                             </div>
@@ -292,6 +292,14 @@ export default {
         }
     },
     methods: {
+        setMemberLetters(fullname) {
+            const firstLetters = fullname
+                .split(' ')
+                .map(word => word[0])
+                .join('');
+            console.log(firstLetters)
+            return firstLetters.toUpperCase()
+        },
         closeModal() {
             this.$emit('closeDialog')
         },

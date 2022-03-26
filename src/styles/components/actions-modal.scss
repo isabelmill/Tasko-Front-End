@@ -218,12 +218,22 @@
         }
     }
     .date-picker {
-        border: none;
-        outline: none;
         display: flex;
-        justify-content: center;
-        align-content: center;
-        margin-top: 8px;
+        width: 100%;
+        padding: 0;
+        flex-wrap: wrap;
+        .block {
+            padding: 30px 0;
+            text-align: center;
+            border-right: solid 1px var(--el-border-color);
+            flex: 1;
+        }
+        .demonstration {
+            display: block;
+            color: var(--el-text-color-secondary);
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
     }
     .members-container {
         margin-bottom: 2px;
@@ -235,15 +245,17 @@
         object-fit: cover;
     }
     .member-div {
+        font-family: roboto-regular;
         display: flex;
         // justify-content: center;
         align-items: center;
         width: 284px;
         margin-right: 0;
-        height: 32px;
+        height: 40px;
+        padding: 4px;
         border-radius: 3px;
         cursor: pointer;
-        font-weight: 400;
+        font-weight: 100;
         margin-top: 3px;
         min-height: 20px;
         // padding-bottom: 12px;

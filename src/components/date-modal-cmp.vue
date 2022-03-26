@@ -11,38 +11,31 @@
         </div>
         <section class="actions-modal-main">
             <section class="date-picker">
-           <datePicker v-model="date" inline autoApply></datePicker>
+
             </section>
-            <button type="button" @click="createNewLabel" class="create-btn">Create a new label</button>
+            <button type="button" @click="saveDate" class="create-btn">Save</button>
+             <button type="button" @click="remove" class="create-btn">Remove</button>
         </section>
     </section>
-    <label-editor-modal-cmp
-        v-if="isLabelEditOpen"
-        :board="board"
-        :label="currLabel"
-        :pos="pos"
-        :new="isCreate"
-        @saveLabel="saveLabelToBoard"
-        @deleteLabel="deleteLabelFromBoard"
-        @closeEditLabel="closeLabelEdit"
-        @closeBoth="closeModal"
-    ></label-editor-modal-cmp>
 </template>
 
 <script>
+
 import {ref} from 'vue'
 import search from './search.vue'
 export default {
     components: {
         search,
         
+
     },
     name: 'date-modal',
-    setup(){
-        const date = ref (new Date());
+    setup() {
+        const date = ref(new Date());
         return {
             date,
         }
+
     },
     props: {
         board: {
@@ -65,6 +58,7 @@ export default {
             currLabelIdx: null,
             labelsToEdit: null,
             isCreate: false,
+            inline: true,
         }
     },
     computed: {
@@ -75,55 +69,10 @@ export default {
     created() {
     },
     methods: {
-        closeLabelEdit() {
-            this.isLabelEditOpen = false
-            this.isCreate = false
-
-        },
-        closeModal() {
-            this.isLabelEditOpen = false;
-            this.close()
-        },
         close() {
-            this.isCreate = false
             this.$emit('actionsClose')
         },
-        addLabelToCard(labelId) {
-            // console.log('new labal', label)
-            if (!this.cardToEdit) this.cardToEdit = JSON.parse(JSON.stringify(this.card))
-            if (this.cardToEdit.labels.length) {
-                const boardLabelIdx = this.board.labels.findIndex(labelToFind => labelToFind.id === labelId)
-                const idx = this.cardToEdit.labels.findIndex(cardLabel => cardLabel === labelId)
-                if (idx === -1) this.cardToEdit.labels.splice(boardLabelIdx, 0, labelId)
-                else this.cardToEdit.labels.splice(idx, 1)
-            }
-            else {
-                this.cardToEdit.labels.push(labelId)
-            }
-            this.$emit('cardEdit', this.cardToEdit)
 
-        },
-        openEditLabel(label) {
-            this.isLabelEditOpen = true;
-            this.currLabelIdx = this.board.labels.findIndex(labelToFind => labelToFind.id === label.id)
-        },
-        saveLabelToBoard(label) {
-            this.currLabelIdx = this.board.labels.findIndex(labelToFind => labelToFind.id === label.id)
-            this.labelsToEdit = JSON.parse(JSON.stringify(this.board.labels))
-            if (this.currLabelIdx === -1) this.labelsToEdit.push(label)
-            else this.labelsToEdit[this.currLabelIdx] = label
-            this.$emit('boardEdit', { key: 'labels', val: this.labelsToEdit })
-        },
-        deleteLabelFromBoard(label) {
-            this.currLabelIdx = this.board.labels.findIndex(labelToFind => labelToFind.id === label.id)
-            this.labelsToEdit = JSON.parse(JSON.stringify(this.board.labels))
-            this.labelsToEdit.splice(this.currLabelIdx, 1)
-            this.$emit('boardEdit', { key: 'labels', val: this.labelsToEdit })
-        },
-        createNewLabel() {
-            this.isLabelEditOpen = true
-            this.isCreate = true
-        }
     },
     emits: ['actionsClose', 'cardEdit', 'boardEdit']
 

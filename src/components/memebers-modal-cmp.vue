@@ -19,7 +19,7 @@
                 
             >
                 <div class="member-div">
-                    <img :src="member.imgUrl" class="profile-image" />
+                    <div class="member">{{setMemberLetters(member.fullname)}}</div>
                     <span> {{member.fullname}} </span>
                     <div v-if="membersToEdit.includes(member._id)" class="icon-sm icon-check"></div>
                 </div>
@@ -81,6 +81,14 @@ export default {
             }
             this.$emit('cardEdit', this.cardToEdit)
 
+        },
+        setMemberLetters(fullname) {
+            const firstLetters = fullname
+                .split(' ')
+                .map(word => word[0])
+                .join('');
+            console.log(firstLetters)
+            return firstLetters.toUpperCase()
         },
     },
     emits: ['actionsClose', 'cardEdit', 'boardEdit']
