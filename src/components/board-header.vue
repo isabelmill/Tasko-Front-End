@@ -111,8 +111,9 @@ export default {
     methods: {
         boardStared() {
             this.isStared = !this.isStared
-            this.boardToEdit.isStarred = !this.boardToEdit.isStarred
-            this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
+            // this.boardToEdit.isStarred = !this.boardToEdit.isStarred
+             this.$emit('starredChange', this.isStared)
+            // this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
         },
         openTitleEdit() {
             this.titleIsOpen = true;
@@ -124,7 +125,6 @@ export default {
         },
         calculateTxtLen() {
             this.titleLength = this.title.length
-            console.log(this.updateWidth)
         }
     },
     computed: {
@@ -133,7 +133,6 @@ export default {
             else return `icon-sm icon-star`
         },
         updateWidth() {
-            console.log('this.titleLength:',this.titleLength);
             return `width: ${24 + (this.titleLength * 8) + 'px'};`
         }
 
