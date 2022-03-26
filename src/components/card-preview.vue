@@ -18,7 +18,13 @@
                 <p>(soon...)</p>
             </div>
             <div class="card-bar-members">
-                <p>(soon...)</p>
+                <div v-if="card.members.length && board.members.length" class="members">
+                    <div
+                        class="member"
+                        v-for="member in card.members"
+                        :key="member._id"
+                    >{{ setMemberLetters(member.fullname) }}</div>
+                </div>
             </div>
         </div>
         <button class="icon-sm icon-edit" @click="openMiniEdit($event)"></button>
@@ -136,12 +142,20 @@ export default {
         },
         saveCard() {
         },
+        setMemberLetters(fullname) {
+            const firstLetters = fullname
+                .split(' ')
+                .map(word => word[0])
+                .join('');
+            console.log(firstLetters)
+            return firstLetters.toUpperCase()
+        },
     },
     computed: {
         openLabels() {
             return { labelOpen: this.isLabelOpen };
             // isLabelOpen = !isLabelOpen
-        }
+        },
     },
     emits: ['openCard', 'editCard', 'openAllLabels'],
 }
