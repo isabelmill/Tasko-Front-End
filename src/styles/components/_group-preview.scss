@@ -104,30 +104,28 @@
         display: flex;
         justify-content: space-between;
         margin: 4px 2px 4px 2px;
+    }
+}
 
-        .card-bar-members {
-            .members {
-                display: flex;
-                gap: 4px;
-            }
-            .member {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                text-align: center;
-                background-color: $memberBlue;
-                width: 28px;
-                height: 28px;
-                border-radius: 50%;
-                letter-spacing: 1px;
-                color: #fff;
-                font-weight: 700;
-                font-size: 12px;
-                &:hover {
-                    background-color: #213c6d;
-                }
-            }
-        }
+.members {
+    display: flex;
+    gap: 4px;
+}
+.member {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: $memberBlue;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    letter-spacing: 1px;
+    color: #fff;
+    font-weight: 700;
+    font-size: 12px;
+    &:hover {
+        background-color: #213c6d;
     }
 }
 

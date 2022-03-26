@@ -59,152 +59,166 @@ function _createBoards() {
             },
             "background": '#0079BF',
             "labels": [{
-                    "id": "l101",
-                    "title": "Done",
-                    "color": "#61BD4F"
-                },
-                {
-                    "id": "l102",
-                    "title": "Progress",
-                    "color": "#F2D600"
-                },
-                {
-                    "id": "l103",
-                    "title": "",
-                    "color": "#FF9F1A"
-                },
-                {
-                    "id": "l104",
-                    "title": "",
-                    "color": "#EB5A46"
-                },
-                {
-                    "id": "l105",
-                    "title": "",
-                    "color": "#C377E0"
-                },
-                {
-                    "id": "l106",
-                    "title": "",
-                    "color": "#0079BF"
-                },
+                "id": "l101",
+                "title": "Done",
+                "color": "#61BD4F"
+            },
+            {
+                "id": "l102",
+                "title": "Progress",
+                "color": "#F2D600"
+            },
+            {
+                "id": "l103",
+                "title": "",
+                "color": "#FF9F1A"
+            },
+            {
+                "id": "l104",
+                "title": "",
+                "color": "#EB5A46"
+            },
+            {
+                "id": "l105",
+                "title": "",
+                "color": "#C377E0"
+            },
+            {
+                "id": "l106",
+                "title": "",
+                "color": "#0079BF"
+            },
             ],
             "members": [{
                 "_id": "u101",
-                "fullname": "Tal Tarablus",
+                "username": "Anna",
+                "fullname": "Anna Balinov",
                 "imgUrl": "https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-            }],
+            },
+            {
+                "_id": "u102",
+                "username": "Elias",
+                "fullname": "Elias Ghantous",
+                "imgUrl": "https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+            },
+            {
+                "_id": "u103",
+                "username": "Isabel",
+                "fullname": "Isabel Mill",
+                "imgUrl": "https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+            },
+            ],
             "groups": [{
-                    "id": "g101",
-                    "title": "Group 1",
+                "id": "g101",
+                "title": "Group 1",
+                "props": {
+                    "orientation": "vertical",
+                    "className": "card-container",
+                },
+                "cards": [{
+                    "id": "c101",
+                    "title": "Replace logo",
+                    "labels": [],
+                    "members": [],
                     "props": {
-                        "orientation": "vertical",
-                        "className": "card-container",
-                    },
-                    "cards": [{
-                            "id": "c101",
-                            "title": "Replace logo",
-                            "labels": [],
-                            "members": [],
-                            "props": {
-                                "className": "card",
-                                "style": {}
-                            }
-                        },
-                        {
-                            "id": "c102",
-                            "title": "Add Samples",
-                            "labels": [],
-                            "members": [],
-                            "props": {
-                                "className": "card",
-                                "style": {}
-                            }
-                        }
-                    ],
-                    "style": {}
+                        "className": "card",
+                        "style": {}
+                    }
                 },
                 {
-                    "id": "g102",
-                    "title": "Group 2",
+                    "id": "c102",
+                    "title": "Add Samples",
+                    "labels": [],
+                    "members": [],
                     "props": {
-                        "orientation": "vertical",
-                        "className": "card-container",
-                    },
-                    "cards": [{
-                            "id": "c103",
-                            "title": "Do that",
-                            "labels": [],
-                            "members": [],
-                            "props": {
-                                "className": "card",
-                                "style": {}
-                            }
-                        },
-                        {
-                            "id": "c104",
-                            "title": "Help me",
-                            "status": "in-progress",
-                            "description": "description",
-                            "props": {
-                                "className": "card",
-                                "style": {}
-                            },
-
-                            "comments": [{
-                                "id": "ZdPnm",
-                                "txt": "also @yaronb please CR this",
-                                "createdAt": 1590999817436.0,
-                                "byMember": {
-                                    "_id": "u101",
-                                    "fullname": "Tal Tarablus",
-                                    "imgUrl": "https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-                                }
-                            }],
-                            "checklists": [{
-                                "id": "YEhmF",
-                                "title": "Checklist",
-                                "todos": [{
-                                    "id": "212jX",
-                                    "title": "To Do 1",
-                                    "isDone": false
-                                }]
-                            }],
-                            "members": [{
-                                "_id": "u101",
-                                "username": "Anna",
-                                "fullname": "Anna Balinov",
-                                "imgUrl": "https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-                            },
-                            {
-                                "_id": "u102",
-                                "username": "Elias",
-                                "fullname": "Elias Ghantous",
-                                "imgUrl": "https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-                            },
-                            {
-                                "_id": "u103",
-                                "username": "Isabel",
-                                "fullname": "Isabel Mill",
-                                "imgUrl": "https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-                            },
-                        ],
-                            "labels": [],
-                            "createdAt": 1590999730348,
-                            "dueDate": 16156215211,
-                            "byMember": {
-                                "_id": "u101",
-                                "username": "Tal",
-                                "fullname": "Tal Tarablus",
-                                "imgUrl": "hhttps://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-                            },
-                            "style": {
-                                "bgColor": "#26de81"
-                            }
-                        }
-                    ],
-                    "style": {}
+                        "className": "card",
+                        "style": {}
+                    }
                 }
+                ],
+                "style": {}
+            },
+            {
+                "id": "g102",
+                "title": "Group 2",
+                "props": {
+                    "orientation": "vertical",
+                    "className": "card-container",
+                },
+                "cards": [{
+                    "id": "c103",
+                    "title": "Do that",
+                    "labels": [],
+                    "members": [],
+                    "props": {
+                        "className": "card",
+                        "style": {}
+                    }
+                },
+                {
+                    "id": "c104",
+                    "title": "Help me",
+                    "status": "in-progress",
+                    "description": "description",
+                    "props": {
+                        "className": "card",
+                        "style": {}
+                    },
+
+                    "comments": [{
+                        "id": "ZdPnm",
+                        "txt": "also @yaronb please CR this",
+                        "createdAt": 1590999817436.0,
+                        "byMember": {
+                            "_id": "u101",
+                            "fullname": "Tal Tarablus",
+                            "imgUrl": "https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+                        }
+                    }],
+                    "checklists": [{
+                        "id": "YEhmF",
+                        "title": "Checklist",
+                        "todos": [{
+                            "id": "212jX",
+                            "title": "To Do 1",
+                            "isDone": false
+                        }]
+                    }],
+                    "members": [{
+                        "_id": "u101",
+                        "username": "Anna",
+                        "fullname": "Anna Balinov",
+                        "imgUrl": "https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+                    },
+                    {
+                        "_id": "u102",
+                        "username": "Elias",
+                        "fullname": "Elias Ghantous",
+                        "imgUrl": "https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+                    },
+                    {
+                        "_id": "u103",
+                        "username": "Isabel",
+                        "fullname": "Isabel Mill",
+                        "imgUrl": "https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+                    },
+                    ],
+                    "labels": [],
+                    "createdAt": 1590999730348,
+                    "dueDate": 16156215211,
+                    "byMember": {
+                        "_id": "u101",
+                        "username": "Tal",
+                        "fullname": "Tal Tarablus",
+                        "imgUrl": "hhttps://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+                    },
+                    "style": {
+                        "bgColor": "#26de81"
+                    }
+                }
+                ],
+                "style": {}
+            }
             ],
             "activities": [{
                 "id": "a101",
@@ -246,7 +260,7 @@ function getEmptyCard() {
     return {
         id: utilService.makeId(),
         title: '',
-        description:'',
+        description: '',
         labels: [],
         createdAt: Date.now(),
         checklist: {
@@ -289,35 +303,35 @@ function getEmptyBoard() {
         },
         background: '',
         labels: [{
-                id: "l101",
-                title: "",
-                color: "#61BD4F"
-            },
-            {
-                id: "l102",
-                title: "",
-                color: "#F2D600"
-            },
-            {
-                id: "l103",
-                title: "",
-                color: "#FF9F1A"
-            },
-            {
-                id: "l104",
-                title: "",
-                color: "#EB5A46"
-            },
-            {
-                id: "l105",
-                title: "",
-                color: "#C377E0"
-            },
-            {
-                id: "l106",
-                title: "",
-                color: "#0079BF"
-            },
+            id: "l101",
+            title: "",
+            color: "#61BD4F"
+        },
+        {
+            id: "l102",
+            title: "",
+            color: "#F2D600"
+        },
+        {
+            id: "l103",
+            title: "",
+            color: "#FF9F1A"
+        },
+        {
+            id: "l104",
+            title: "",
+            color: "#EB5A46"
+        },
+        {
+            id: "l105",
+            title: "",
+            color: "#C377E0"
+        },
+        {
+            id: "l106",
+            title: "",
+            color: "#0079BF"
+        },
         ],
         members: [],
         groups: [],
