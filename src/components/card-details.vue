@@ -37,6 +37,7 @@
                                     <div class="card-details-member-img">
                                         <div class="member">{{setMemberLetters(member.fullname)}}</div>
                                     </div>
+                                    
                                 </section>
                             </div>
                         </div>
@@ -118,7 +119,7 @@
 
                     <!-- comment adding area  -->
                     <div class="card-details-input-user-comment">
-                        <div class="card-details-user-avatar">
+                        <div class="card-details-user-avatar member">
                             <div>AB</div>
                         </div>
                         <div

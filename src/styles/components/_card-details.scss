@@ -80,20 +80,17 @@
         padding: 0 16px 8px 16px;
         .card-details-main {
             .card-details-members-labels-date {
-                // height: 220px;
                 display: flex;
                 gap: 16px;
+                margin-bottom: 40px;
                 .card-details-members-container {
+                    display: flex;
+                    gap: 5px;
                     .card-details-members {
                         padding-top: 8px;
                         .card-details-member-img {
                             border-radius: 50%;
-                            img {
-                                object-fit: cover;
-                                height: 32px;
-                                width: 32px;
-                                border-radius: 50%;
-                            }
+                           
                         }
                     }
                 }
@@ -188,16 +185,16 @@
                 height: 40px;
                 .card-details-user-avatar {
                     display: flex;
-                    position: static;
-                    align-items: center;
-                    justify-content: center;
-                    font-family: Roboto-regular, Helvetica, sans-serif;
-                    border-radius: 25em;
-                    height: 32px;
-                    color: white;
-                    width: 32px;
-                    background-color: #172b4d;
-                    color: white;
+                    // position: static;
+                    // align-items: center;
+                    // justify-content: center;
+                    // font-family: Roboto-regular, Helvetica, sans-serif;
+                    // border-radius: 25em;
+                    // height: 32px;
+                    // color: white;
+                    // width: 32px;
+                    // background-color: #172b4d;
+                    // color: white;
                 }
                 .card-details-input-comment {
                     cursor: pointer;
@@ -349,7 +346,7 @@
     padding: unset;
     background-color: rgb(244, 245, 247);
     // overflow-x: hidden;
-    overflow: hidden;
+    // overflow: hidden;
     width: 770px;
     height: 1000px;
     // max-height: unset;
