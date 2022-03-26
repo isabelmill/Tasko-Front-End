@@ -6,14 +6,16 @@
         </button>
 
         <div v-clickOutside="addCard" v-if="show" class="add-new-card-input">
-            <textarea
-                v-focus
-                @keydown.enter="addCard"
-                placeholder="Enter a title for this card..."
-                type="text"
-                v-model="txt"
-            />
-            <div>
+            <div class="txt-box">
+                <textarea
+                    v-focus
+                    @keydown.enter="addCard"
+                    placeholder="Enter a title for this card..."
+                    type="text"
+                    v-model="txt"
+                />
+            </div>
+            <div class="btn-add-card">
                 <button class="btn-add-card-in" @click="addCard">Add card</button>
                 <span class="icon-lg icon-close" @click="show = false"></span>
             </div>

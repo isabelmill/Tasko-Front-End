@@ -1,11 +1,10 @@
 // group-card
 .group-preview-main {
-    width: rem(276px);
-    // min-height: rem(80px);
     height: min-content !important;
     // max-height: rem(620px);
     border-radius: 3px;
     background-color: $groupGray;
+    width: rem(272px) !important;
 }
 
 // group-title
@@ -68,9 +67,11 @@
     position: relative;
     display: flex;
     flex-direction: column;
+    // width: rem(256px);
+
     .card-title {
         font-family: roboto-regular;
-        // margin: 0 0 4px;
+        margin: 0 0 4px;
         color: #172b4d;
         clear: both;
         overflow-wrap: break-word;
@@ -109,6 +110,7 @@
 .members {
     display: flex;
     gap: 4px;
+    // margin-top: 8px;
 }
 
 .member {
@@ -124,6 +126,7 @@
     color: #fff;
     font-weight: 700;
     font-size: 12px;
+    padding-left: 1px;
     &:hover {
         background-color: #213c6d;
     }
@@ -135,7 +138,6 @@
     position: relative;
     .label {
         transition: all 0.3s;
-        // transition: width 0.4s, height 0.3s, line-height 0.3s;
         border-radius: 4px;
         color: #fff;
         display: block;
@@ -166,7 +168,10 @@
 
 ///add card
 .add-card-cmp {
-    width: rem(276px);
+    width: rem(260px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
     .btn-add-card-out {
         cursor: pointer;
         background-color: #e3e4e6;
@@ -179,18 +184,47 @@
         padding: 4px 8px;
         width: rem(260px);
         font-family: Roboto-regular;
+        cursor: pointer;
         &:hover {
             background-color: #091e4214;
         }
     }
-    div {
-        width: rem(260px);
-    }
     .add-new-card-input {
-        div {
+        width: rem(256px);
+        .txt-box {
             display: flex;
-            float: left;
-            margin: 8px 0 8px 8px;
+            justify-content: center;
+            align-items: center;
+            padding: 6px 8px 2px;
+            // background-color: #fff;
+            margin: 0 0 0 4px;
+            background-color: #fff;
+            box-shadow: 0 1px 0 #091e4240;
+            border-radius: 3px;
+            // width: rem(255px);
+        }
+
+        textarea {
+            border-radius: 3px;
+            overflow: hidden;
+            overflow-wrap: break-word;
+            // padding: 20px;
+            display: flex;
+            align-items: flex-start;
+            height: rem(75px);
+            width: 100%;
+            border: none;
+            color: $memberBlue;
+            font-family: roboto-regular;
+            margin: 0 0 4px;
+            &:focus {
+                outline: none !important;
+            }
+        }
+        .btn-add-card {
+            display: flex;
+            gap: 4px;
+            margin: 8px;
             .btn-add-card-in {
                 @include btnAddCard();
             }
@@ -202,29 +236,6 @@
                 justify-content: center;
                 align-items: center;
             }
-        }
-    }
-    textarea {
-        overflow: hidden;
-        overflow-wrap: break-word;
-        padding: 20px;
-        display: flex;
-        justify-content: start;
-        align-items: flex-start;
-        height: rem(75px);
-        width: rem(243px);
-        border-radius: 3px;
-        border: none;
-        // margin: 0 4px 8px 8px;
-        box-shadow: 0 1px 0 #091e4240;
-        color: $memberBlue;
-        font-family: roboto-regular;
-        margin: 0 8px 0 8px;
-        &:hover {
-            background-color: #eeeef0;
-        }
-        &:focus {
-            outline: none !important;
         }
     }
 }
@@ -295,7 +306,7 @@
         display: flex;
     }
     .modal-edit {
-        width: rem(256px);
+        width: rem(260px);
         height: auto;
         .modal-card {
             background-color: #fff;
@@ -351,6 +362,7 @@
     overflow-y: auto;
     margin: 0 4px 0 4px;
     max-height: calc(75vh - 100px);
+    width: 260px;
 }
 
 .scroller-group::-webkit-scrollbar {
