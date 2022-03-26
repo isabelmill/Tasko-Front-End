@@ -1,6 +1,6 @@
 <template>
     <section>
-        <board-header v-if="board" :board="board" />
+        <board-header v-if="board" :board="board" @titleChange="updateBoardTitle" />
     </section>
     <section
         v-if="board"
@@ -106,8 +106,12 @@ export default {
             this.$refs.cardDetailsModal.close()
         },
         updateBoardDnd(newBoard){
-            // this.boardToEdit = newBoard
             this.$store.dispatch({ type: 'saveBoard', board: newBoard })
+        },
+        updateBoardTitle(title){
+            this.boardToEdit = JSON.parse(JSON.stringify(this.board))
+            this.boardToEdit.title = title
+            this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
         }
     },
     computed: {
