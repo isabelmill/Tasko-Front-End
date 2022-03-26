@@ -61,7 +61,7 @@
             <div class="create-board-title-add-btns">
                 <input v-focus type="text" v-model="newBoard.title" />
                 <button
-                    :style="newBoard.title === '' ? {
+                    :style="!newBoard.title ? {
                         'cursor': 'no-drop',
                         'background-color': '#F5F6F8',
                         'color': '#BFC4CE',
