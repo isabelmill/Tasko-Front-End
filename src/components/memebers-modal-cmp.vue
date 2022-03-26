@@ -8,7 +8,7 @@
         <div class="main-title-container">
             <span class="main-title">Members</span>
         </div>
-        <!-- <search></search> -->
+         <input class="main-input" type="text" />
         <section>
             <span class="mini-title">Board members</span>
             <section
@@ -16,10 +16,12 @@
                 v-for="member in board.members"
                 :key="member._id"
                 class="member-container"
+                
             >
                 <div class="member-div">
                     <img :src="member.imgUrl" class="profile-image" />
                     <span> {{member.fullname}} </span>
+                    <div v-if="membersToEdit.includes(member._id)" class="icon-sm icon-check"></div>
                 </div>
             </section>
         </section>
@@ -51,29 +53,24 @@ export default {
         return {
             cardToEdit: JSON.parse(JSON.stringify(this.card)),
             isLabelEditOpen: false,
-            currLabelIdx: null,
-            labelsToEdit: null,
         }
     },
     computed: {
+        membersToEdit(){
+            return this.card.members.map((member => member._id))
+        }
     },
     created() {
     },
+
     methods: {
-        closeLabelEdit() {
-            this.isLabelEditOpen = false
-        },
-        closeModal() {
-            this.isLabelEditOpen = false;
-            this.close()
-        },
+       
         close() {
             this.$emit('actionsClose')
         },
         addMemberToCard(member) {
             // console.log('new labal', label)
             if (!this.cardToEdit) this.cardToEdit = JSON.parse(JSON.stringify(this.card))
-            console.log(this.cardToEdit)
             if (this.cardToEdit.members.length) {
                 const idx = this.cardToEdit.members.findIndex(cardMember => cardMember._id === member._id)
                 if (idx === -1) this.cardToEdit.members.push(member)

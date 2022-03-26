@@ -255,6 +255,18 @@
         span {
             margin-left: 12px;
         }
+        .icon-check {
+            position: absolute;
+            // color: white;
+            width: 20px;
+            height: 20px;
+            font-weight: 400;
+            line-height: 20px;
+            right: 18px;
+            // align-self: center;
+            // top: 6px;
+            text-decoration: none;
+        }
     }
     .label-color {
         // display: flex;
@@ -277,6 +289,18 @@
         text-overflow: ellipsis;
         color: white;
         padding-right: 36px;
+        .icon-check {
+            position: absolute;
+            color: white;
+            width: 20px;
+            height: 20px;
+            font-weight: 400;
+            line-height: 20px;
+            right: 6px;
+            align-self: center;
+            top: 6px;
+            text-decoration: none;
+        }
     }
     .create-btn {
         text-align: center;
@@ -317,18 +341,6 @@
         margin-top: 16px;
         margin-bottom: 4px;
         // margin: 0 0 8px;
-    }
-    .icon-check {
-        position: absolute;
-        color: white;
-        width: 20px;
-        height: 20px;
-        font-weight: 400;
-        line-height: 20px;
-        right: 6px;
-        align-self: center;
-        top: 6px;
-        text-decoration: none;
     }
     .no-color-title {
         font-size: 14px;
