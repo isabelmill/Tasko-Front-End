@@ -173,7 +173,10 @@
                 }
 
                 button {
-                    @include cardDetailsBtn()
+                    @include cardDetailsBtn();
+                    background-color: #091e420a;
+                    font-size: 16px;
+                    font-family: roboto-regular;
                 }
             }
 
@@ -244,7 +247,7 @@
                                 margin-top: 10px;
                                 cursor: pointer;
 
-                                &:hover{
+                                &:hover {
                                     background-color: #026aa7;
                                     border: none;
                                     box-shadow: none;
@@ -260,7 +263,8 @@
                                 display: flex;
                                 justify-content: end;
                                 gap: 25px;
-                                span{
+
+                                span {
                                     cursor: pointer;
 
                                 }
@@ -279,13 +283,24 @@
                         border: none;
 
                         &:focus {
-                            outline: none !important;
+                            outline: none ;
                         }
                     }
                 }
             }
 
             .card-details-input {
+                // padding-left: 15px;
+                textarea {
+                    border-color: #091e4221;
+                    height: 108px;
+                    border-radius: 3px;
+                    font-size: 15px;
+                    padding: 12px;
+                    &:focus {
+                        outline-color: #0079BF;
+                    }
+                }
                 .open-input-btn {
                     background-color: #091e420a;
                     border: none;
@@ -300,6 +315,7 @@
                     border-radius: 3px;
                     font-size: 15px;
 
+                    
                     &:hover {
                         background-color: #091e4214;
                         border: none;

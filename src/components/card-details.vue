@@ -53,9 +53,14 @@
                         <h3>Description</h3>
                     </div>
 
-                    <div class="card-details-input">
-                        <div class="open-input-btn">Add a more detailed description...</div>
-                        <!-- add text area here  -->
+                    <div class="card-details-input" :style="showDesc ? {
+                                'padding-left': '42px',
+                                'padding-top': '18px'
+                            } : null">
+                        <div v-if="!showDesc" @click="showDesc = true" class="open-input-btn">Add a more detailed description...</div>
+                        <textarea 
+                        v-clickOutside="closeTextArea"
+                        placeholder="Add a more detailed description..." v-if="showDesc"  name="description" id="" cols="60" rows="4"></textarea>
                     </div>
 
                     <div class="card-details-activity-show-details">
@@ -229,6 +234,7 @@ export default {
             shown: false,
             pos: 0,
             showInput: false,
+            showDesc: false
         }
     },
     methods: {
@@ -253,6 +259,9 @@ export default {
         },
         closeInput() {
             this.showInput = false
+        },
+        closeTextArea() {
+            this.showDesc = false
         },
         editBoard(editedAttribute) {
             this.$emit('boardModified', editedAttribute)
