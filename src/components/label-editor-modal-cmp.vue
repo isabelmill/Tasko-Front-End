@@ -28,6 +28,7 @@
 </template>
 
 <script>
+import { utilService } from '../services/util-service.js'
 export default {
     name: 'label-editor',
     props: {
@@ -39,6 +40,9 @@ export default {
         },
         board: {
             type: Object
+        },
+        new: {
+            type: Boolean
         }
     },
     data() {
@@ -49,20 +53,33 @@ export default {
         }
     },
     created() {
-        this.name = this.label.title
-        this.color = this.label.color
+        if (!this.new) {
+            this.name = this.label.title
+            this.color = this.label.color
+        }
     },
     methods: {
         setLabelColor(color) {
             this.color = color
         },
         save() {
-            this.labelToEdit = JSON.parse(JSON.stringify(this.label))
-            this.labelToEdit.title = this.name
-            this.labelToEdit.color = this.color
+            if (this.new) {
+                if (!this.color) this.color = '#61BD4F'
+                this.labelToEdit = {
+                    id: utilService.makeId(),
+                    title: this.name,
+                    color: this.color
+                }
+            }
+            else {
+                this.labelToEdit = JSON.parse(JSON.stringify(this.label))
+                this.labelToEdit.title = this.name
+                this.labelToEdit.color = this.color
+            }
             this.$emit('saveLabel', this.labelToEdit)
             this.closeEditLabel()
         },
+
         close() {
             this.$emit('closeBoth')
         },
@@ -75,6 +92,4 @@ export default {
 </script>
 
 <style>
-
-
 </style>
