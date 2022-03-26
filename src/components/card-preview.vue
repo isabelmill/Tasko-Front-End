@@ -1,5 +1,5 @@
 <template>
-    <section class="card-preview cursor-pointer flex">
+    <section ref="card-modal" class="card-preview cursor-pointer flex">
         <div v-if="card.labels.length && board.labels.length" class="labels">
             <div
                 class="label"
@@ -22,10 +22,15 @@
         <button class="icon-sm icon-edit" @click="openMiniEdit($event)"></button>
     </section>
 
-    <section class="mini-edit-modal-main flex" @click="closeModal" v-if="modalOpen">
-        <section style="position:fixed;" :style="{ top: distanceY + 'px', left: distanceX + 'px' }">
-            <section class="modal-card">
-                <div>
+    <section class="mini-edit-modal-main flex" v-if="modalOpen">
+        <span class="icon-xl icon-close-in-pencil-modal" @click="closeModal"></span>
+        <section
+            class="mini-edit-modal-second"
+            style="position:fixed;"
+            :style="{ top: pos.top + 'px', left: pos.left + 'px' }"
+        >
+            <section class="modal-edit">
+                <div class="modal-card">
                     <textarea name="mini-edit-ta" style="resize:none" v-model="card.title"></textarea>
                 </div>
                 <div>
@@ -74,8 +79,7 @@ export default {
     },
     data() {
         return {
-            distanceY: 0,
-            distanceX: 0,
+            pos: 0,
             modalOpen: false,
             titleIsOpen: false,
             cardToEdit: {
@@ -97,15 +101,11 @@ export default {
             this.$emit('editCard', { card: this.cardToEdit, group: this.group })
             this.titleIsOpen = false;
         },
-        openMiniEdit(ev) {
-            //To edit quick modal edit position//
-            // this.distanceX = ev.clientX - 65;
-            // this.distanceY = ev.clientY + 50;
-            this.distanceX = ev.clientX - 200;
-            this.distanceY = ev.clientY - 16;
-            console.log('this.distanceX', this.distanceX)
-            console.log('this.distanceY', this.distanceY)
-
+        calcPosOfModal() {
+            this.pos = this.$refs['card-modal'].getBoundingClientRect()
+        },
+        openMiniEdit() {
+            this.calcPosOfModal()
             this.modalOpen = true;
         },
         openDetails() {
