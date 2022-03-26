@@ -5,12 +5,12 @@
         :style="{ top: pos.bottom + 8 + 'px', left: pos.left + 'px' }"
         class="label-modal"
     >
-        <div class="icon-sm icon-close"></div>
         <div class="main-title-container">
+            <div class="icon-sm icon-close" @click="close"></div>
             <span class="main-title">Labels</span>
         </div>
         <section class="actions-modal-main">
-            <input type="text" />
+            <input class="main-input" type="text" />
             <span class="mini-title">Labels</span>
             <section v-for="label in board.labels" :key="label.id" class="label-container flex">
                 <div
@@ -33,6 +33,7 @@
         :pos="pos"
         :new="isCreate"
         @saveLabel="saveLabelToBoard"
+        @deleteLabel="deleteLabelFromBoard"
         @closeEditLabel="closeLabelEdit"
         @closeBoth="closeModal"
     ></label-editor-modal-cmp>
@@ -67,7 +68,7 @@ export default {
             isLabelEditOpen: false,
             currLabelIdx: null,
             labelsToEdit: null,
-            isCreate:false,
+            isCreate: false,
         }
     },
     computed: {
@@ -81,7 +82,7 @@ export default {
         closeLabelEdit() {
             this.isLabelEditOpen = false
             this.isCreate = false
-           
+
         },
         closeModal() {
             this.isLabelEditOpen = false;
@@ -117,9 +118,15 @@ export default {
             else this.labelsToEdit[this.currLabelIdx] = label
             this.$emit('boardEdit', { key: 'labels', val: this.labelsToEdit })
         },
-        createNewLabel(){
-            this.isLabelEditOpen =true 
-            this.isCreate = true 
+        deleteLabelFromBoard(label) {
+            this.currLabelIdx = this.board.labels.findIndex(labelToFind => labelToFind.id === label.id)
+            this.labelsToEdit = JSON.parse(JSON.stringify(this.board.labels))
+            this.labelsToEdit.splice(this.currLabelIdx, 1)
+            this.$emit('boardEdit', { key: 'labels', val: this.labelsToEdit })
+        },
+        createNewLabel() {
+            this.isLabelEditOpen = true
+            this.isCreate = true
         }
     },
     emits: ['actionsClose', 'cardEdit', 'boardEdit']

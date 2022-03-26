@@ -11,23 +11,26 @@
         <!-- <search></search> -->
         <section>
             <span class="mini-title">Board members</span>
-            <section  @click="addMemberToCard(member)" v-for="member in board.members" :key="member._id" class="label-container flex">
-                <img :src="member.imgUrl" class="profile-image">
-                <div
-                    class="label-color"
-                    style="width:100px"
-                >{{ member.fullname }}</div>
+            <section
+                @click="addMemberToCard(member)"
+                v-for="member in board.members"
+                :key="member._id"
+                class="member-container"
+            >
+                <div class="member-div">
+                    <img :src="member.imgUrl" class="profile-image" />
+                    <span> {{member.fullname}} </span>
+                </div>
             </section>
         </section>
     </section>
-   
 </template>
 
 <script>
 // import search from './search.vue'
 export default {
     components: {
-        
+
     },
     name: 'members-modal',
     props: {
@@ -83,11 +86,10 @@ export default {
 
         },
     },
-    emits: ['actionsClose', 'cardEdit','boardEdit']
+    emits: ['actionsClose', 'cardEdit', 'boardEdit']
 
 }
 </script>
 
 <style>
-
 </style>

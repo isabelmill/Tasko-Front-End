@@ -4,25 +4,78 @@
         :style="{ top: pos.bottom + 8 + 'px', left: pos.left + 'px' }"
         class="label-modal"
     >
-        <div class="main-title-container flex">
-            <button type="button" @click="closeEditLabel">back</button>
-            <span class="main-title">Change label</span>
+        <div class="main-title-container">
+            <div class="icon-sm icon-back" type="button" @click="closeEditLabel"></div>
+             <div class="icon-sm icon-close" @click="close"></div>
+            <span class="main-title">{{txt}}</span>
         </div>
-        <section class="edit-container flex">
-            <span class="mini-title">name</span>
-            <input @submit.prevent type="text" v-model="name" />
-            <span class="mini-title">Color</span>
+        <section class="actions-modal-main">
+            <span class="mini-edit-title">Name</span>
+            <input class="edit-input" @submit.prevent type="text" v-model="name" />
+            <span class="mini-edit-title">Color</span>
             <section class="create-board-background-color">
-                <div @click="setLabelColor('#61BD4F')" class="green color-pref"></div>
-                <div @click="setLabelColor('#F2D600')" class="yellow color-pref"></div>
-                <div @click="setLabelColor('#FF9F1A')" class="orange color-pref"></div>
-                <div @click="setLabelColor('#EB5A46')" class="red color-pref"></div>
-                <div @click="setLabelColor('#C377E0')" class="purple color-pref"></div>
-                <div @click="setLabelColor('#0079BF')" class="blue color-pref"></div>
-                <div class="more color-pref">...</div>
+                <div
+                    :class="{ checked: color === '#61BD4F' }"
+                    @click="setLabelColor('#61BD4F')"
+                    class="green color-pref"
+                ></div>
+                <div
+                    :class="{ checked: color === '#F2D600' }"
+                    @click="setLabelColor('#F2D600')"
+                    class="yellow color-pref"
+                ></div>
+                <div
+                    :class="{ checked: color === '#FF9F1A' }"
+                    @click="setLabelColor('#FF9F1A')"
+                    class="orange color-pref"
+                ></div>
+                <div
+                    :class="{ checked: color === '#EB5A46' }"
+                    @click="setLabelColor('#EB5A46')"
+                    class="red color-pref"
+                ></div>
+                <div
+                    :class="{ checked: color === '#C377E0' }"
+                    @click="setLabelColor('#C377E0')"
+                    class="purple color-pref"
+                ></div>
+                <div
+                    :class="{ checked: color === '#0079BF' }"
+                    @click="setLabelColor('#0079BF')"
+                    class="blue color-pref"
+                ></div>
+                <div
+                    :class="{ checked: color === '#00C2E0' }"
+                    @click="setLabelColor('#00C2E0')"
+                    class="light-blue color-pref"
+                ></div>
+                <div
+                    :class="{ checked: color === '#51E898' }"
+                    @click="setLabelColor('#51E898')"
+                    class="light-green color-pref"
+                ></div>
+                <div
+                    :class="{ checked: color === '#FF78CB' }"
+                    @click="setLabelColor('#FF78CB')"
+                    class="pink color-pref"
+                ></div>
+                <div
+                    :class="{ checked: color === '#344563' }"
+                    @click="setLabelColor('#344563')"
+                    class="dark-blue color-pref"
+                ></div>
+                <div
+                    :class="{ checked: color === '#B3BAC5' }"
+                    @click="setLabelColor('#B3BAC5')"
+                    class="no-color color-pref"
+                ></div>
+                <div class="no-color-container">
+                    <span class="no-color-title">No color.</span>
+                    <span class="no-color-text">This won't show up on the front of cards</span>
+                </div>
             </section>
-            <button @click="save">save</button>
-            <button @click="closeEditLabel">exit</button>
+            <button class="save-btn" @click="save">{{btnTxt}}</button>
+            <button v-if="!isCreate" class="delete-btn" @click="deleteLabel">Delete</button>
         </section>
     </section>
 </template>
@@ -50,12 +103,17 @@ export default {
             name: '',
             color: '',
             labelToEdit: '',
+            txt:'Create label',
+            btnTxt: 'Create',
+            isCreate : this.new
         }
     },
     created() {
         if (!this.new) {
             this.name = this.label.title
             this.color = this.label.color
+            this.txt = 'Change label'
+            this.btnTxt = 'Save'
         }
     },
     methods: {
@@ -79,6 +137,11 @@ export default {
             this.$emit('saveLabel', this.labelToEdit)
             this.closeEditLabel()
         },
+        deleteLabel(){
+            this.$emit('deleteLabel',this.label)
+            //TO ADD AGREE AFTER DELETE PROMPT
+            this.closeEditLabel()
+        },
 
         close() {
             this.$emit('closeBoth')
@@ -87,7 +150,7 @@ export default {
             this.$emit('closeEditLabel')
         }
     },
-    emits: ['closeBoth', 'closeEditLabel', 'saveLabel']
+    emits: ['closeBoth', 'closeEditLabel', 'saveLabel','deleteLabel']
 }
 </script>
 
