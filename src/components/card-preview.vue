@@ -3,6 +3,7 @@
         <div v-if="card.labels.length && board.labels.length" class="labels">
             <div
                 class="label"
+                @click="isLabelOpen = !isLabelOpen"
                 v-for="label in card.labels"
                 :key="label"
                 :style="{ 'backgroundColor': board.labels[board.labels.findIndex(labelToFind => labelToFind.id === label)].color }"
@@ -31,7 +32,17 @@
         >
             <section class="modal-edit">
                 <div class="modal-card">
-                    <textarea name="mini-edit-ta" style="resize:none" v-model="card.title"></textarea>
+                    <div v-if="card.labels.length && board.labels.length" class="labels">
+                        <div
+                            class="label"
+                            v-for="label in card.labels"
+                            :key="label"
+                            :style="{ 'backgroundColor': board.labels[board.labels.findIndex(labelToFind => labelToFind.id === label)].color }"
+                        >{{ board.labels[board.labels.findIndex(labelToFind => labelToFind.id === label)].title }}</div>
+                    </div>
+                    <div>
+                        <textarea name="mini-edit-ta" style="resize:none" v-model="card.title"></textarea>
+                    </div>
                 </div>
                 <div>
                     <button class="mini-edit-save" @click="saveCard">Save</button>
@@ -81,6 +92,7 @@ export default {
         return {
             pos: 0,
             modalOpen: false,
+            isLabelOpen: false,
             titleIsOpen: false,
             cardToEdit: {
                 title: "",
