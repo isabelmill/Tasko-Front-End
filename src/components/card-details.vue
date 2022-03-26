@@ -253,7 +253,7 @@
 <script>
 import labelModal from "./label-modal-cmp.vue";
 import memebersModal from "./memebers-modal-cmp.vue";
-import dateModal from "./date-modal-cmp.vue";
+import datesModal from "./date-modal-cmp.vue";
 export default {
 
     name: 'card-details',
@@ -271,7 +271,7 @@ export default {
     components: {
         labelModal,
         memebersModal,
-        dateModal
+        datesModal
     },
     created() {
         this.description = this.card.description
@@ -318,7 +318,7 @@ export default {
         },
         editDates() {
             this.pos = this.$refs['datesBtn'].getBoundingClientRect()
-            this.currModal = "dateModal"
+            this.currModal = "datesModal"
             this.shown = true
         },
         editCard(card) {

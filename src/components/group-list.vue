@@ -29,6 +29,7 @@
                     <Draggable v-for="card in group.cards" :key="card.id">
                         <div :class="card.props.className">
                             <card-preview
+                            @deleteCard="cardDelete"
                                 @openCard="openCardModal"
                                 @openAllLabels="onOpenAllLabels"
                                 :group="group"
@@ -121,6 +122,9 @@ export default {
             this.groupToEdit.cards.push(newCard)
             this.$emit('groupUpdated', this.groupToEdit)
             this.groupToEdit = null
+        },
+        cardDelete(updatedGroup){
+          this.$emit('groupUpdated', updatedGroup)  
         },
         openCardModal(info) {
             this.$emit('openCardDetails', info)

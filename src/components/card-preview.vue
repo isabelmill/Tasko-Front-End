@@ -57,25 +57,32 @@
             </section>
             <section class="modal-actions-btns">
                 <button @click="openDetails">Open card</button>
-                <button @click="editLabels">Edit labels</button>
-                <button @click="changeMembers">Change members</button>
+                <button ref="labelBtn" @click="editLabels">Edit labels</button>
+                <button ref="membersBtn" @click="changeMembers">Change members</button>
                 <button @click="changeCover">Channge cover</button>
                 <button @click="moveCard">Move</button>
                 <button @click="copyCard">Copy</button>
-                <button @click="editDates">Edit dates</button>
+                <button ref="datesBtn" @click="editDates">Edit dates</button>
                 <button @click="deleteCard">Delete</button>
             </section>
-            <section class="actions-modal">
-                <component v-if="isActionsOpen" :card="card" :is="activeComponent"></component>
-            </section>
         </section>
+        <section v-if="shown">
+        <!-- @boardEdit="editBoard"
+            @cardEdit="editCard"
+        @actionsClose="closeMenu"-->
+        <component style="z-index: 50" :board="board" :card="card" :group="group" :pos="posOfEditor" :is="currModal"></component>
     </section>
+    </section>
+    
 </template>
 
 <script>
 import { boardService } from "../services/board-service.js";
 import { Container, Draggable } from "vue3-smooth-dnd";
 import { applyDrag, generateItems } from '../services/dnd-service.js';
+import labelModal from "./label-modal-cmp.vue";
+import memebersModal from "./memebers-modal-cmp.vue";
+import datesModal from "./date-modal-cmp.vue";
 
 export default {
     name: 'card-preview',
@@ -97,12 +104,19 @@ export default {
     components: {
         Container,
         Draggable,
+        labelModal,
+        memebersModal,
+        datesModal
     },
     data() {
         return {
+            currModal: null,
+            shown: false,
             pos: 0,
+            posOfEditor: 0,
             modalOpen: false,
             titleIsOpen: false,
+            groupToEdit: {},
             cardToEdit: {
                 title: "",
             },
@@ -116,6 +130,24 @@ export default {
     methods: {
         openTitleEdit() {
             // this.titleIsOpen = true;
+        },
+        changeMembers() {
+            // this.modalOpen = false;
+            this.posOfEditor = this.$refs['membersBtn'].getBoundingClientRect()
+            this.shown = !this.shown
+            this.currModal = "memebersModal"
+        },
+        editLabels() {
+            // this.modalOpen = false;
+            this.posOfEditor = this.$refs['labelBtn'].getBoundingClientRect()
+            this.shown = !this.shown
+            this.currModal = "labelModal"
+        },
+        editDates() {
+            // this.modalOpen = false;
+            this.posOfEditor = this.$refs['datesBtn'].getBoundingClientRect()
+            this.currModal = "datesModal"
+            this.shown = !this.shown
         },
         changeTitle(title) {
             this.cardToEdit = JSON.parse(JSON.stringify(this.card))
@@ -131,6 +163,8 @@ export default {
             this.modalOpen = true;
         },
         openDetails() {
+            this.modalOpen = false;
+            this.shown = false
             this.$emit('openCard', { card: this.card, group: this.group })
         },
         openAllLabels() {
@@ -139,6 +173,12 @@ export default {
         },
         closeModal() {
             this.modalOpen = false
+        },
+        deleteCard() {
+            this.groupToEdit = JSON.parse(JSON.stringify(this.group))
+            const cardIdx = this.groupToEdit.cards.findIndex(cardToFind => cardToFind.id === this.card.id)
+            this.groupToEdit.cards.splice(cardIdx, 1)
+            this.$emit('deleteCard', this.groupToEdit)
         },
         saveCard() {
         },
@@ -157,6 +197,6 @@ export default {
             // isLabelOpen = !isLabelOpen
         },
     },
-    emits: ['openCard', 'editCard', 'openAllLabels'],
+    emits: ['openCard', 'editCard', 'openAllLabels', 'deleteCard'],
 }
 </script>
