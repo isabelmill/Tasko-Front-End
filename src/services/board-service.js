@@ -172,10 +172,23 @@ function _createBoards() {
                             }],
                             "members": [{
                                 "_id": "u101",
-                                "username": "Tal",
-                                "fullname": "Tal Tarablus",
+                                "username": "Anna",
+                                "fullname": "Anna Balinov",
                                 "imgUrl": "https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-                            }],
+                            },
+                            {
+                                "_id": "u102",
+                                "username": "Elias",
+                                "fullname": "Elias Ghantous",
+                                "imgUrl": "https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+                            },
+                            {
+                                "_id": "u103",
+                                "username": "Isabel",
+                                "fullname": "Isabel Mill",
+                                "imgUrl": "https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+                            },
+                        ],
                             "labels": [],
                             "createdAt": 1590999730348,
                             "dueDate": 16156215211,
