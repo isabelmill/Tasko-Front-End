@@ -96,11 +96,30 @@
                 display: flex;
                 gap: 16px;
 
+                .card-details-members-container {
+                    .card-details-members {
+                        padding-top: 8px;
+                        .card-details-member-img {
+                            border-radius: 50%;
+                            img {
+                                object-fit: cover;
+                                height: 32px;
+                                width: 32px;
+                                border-radius: 50%;
+                            }
+
+                        }
+                    }
+                }
+
                 .card-details-labels-container {
                     display: flex;
                     flex-direction: row;
 
+
+
                     .card-details-labels {
+                        padding-top: 8px;
                         .card-details-label {
                             border-radius: 3px;
                             box-sizing: border-box;
@@ -128,8 +147,8 @@
                     font-size: 14px;
                     font-weight: 600;
                     line-height: 20px;
-                    margin-bottom: -4px;
-                    margin-bottom: 8px;
+                    // margin-bottom: -4px;
+                    // padding-bottom: 12px;
                 }
             }
 
