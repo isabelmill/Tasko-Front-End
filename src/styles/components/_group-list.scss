@@ -10,13 +10,16 @@
     overflow: hidden;
     cursor: default;
     z-index: 20;
+
     .group-modal-header {
         display: flex;
         justify-content: space-between;
     }
+
     button {
         cursor: pointer;
     }
+    
     a {
         cursor: pointer;
     }

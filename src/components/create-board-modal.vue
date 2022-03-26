@@ -99,10 +99,8 @@ export default {
         },
         setBoardColor(color) {
             this.setColor = color
-            // this.newBoard.background = color
         },
         saveNewBoard() {
-            console.log('this.n:', this.newBoard);
             if (!this.newBoard.title) return
             this.$emit("add", this.newBoard)
         },
