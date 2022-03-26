@@ -147,6 +147,14 @@
                     min-width: 40px;
                     width: auto;
                 }
+
+                button {
+                    @include cardDetailsBtn();
+                    background-color: #091e420a;
+                    font-weight: 400;
+                    font-size: 16px;
+                    font-family: roboto-regular;
+                }
             }
 
             .card-details-activity-show-details {
@@ -331,6 +339,12 @@
                         outline-color: #0079BF;
                     }
 
+                }
+
+                .card-description {
+                    margin-top: 15px;
+                    margin-bottom: 35px;
+                    padding-left: 42px;
                 }
 
                 .open-input-btn {

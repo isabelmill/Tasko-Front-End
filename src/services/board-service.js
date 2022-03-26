@@ -233,6 +233,7 @@ function getEmptyCard() {
     return {
         id: utilService.makeId(),
         title: '',
+        description:'',
         labels: [],
         createdAt: Date.now(),
         checklist: {

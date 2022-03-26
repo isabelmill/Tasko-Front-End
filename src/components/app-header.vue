@@ -1,7 +1,7 @@
 <template>
   <section class="app-header-main">
     <router-link to="/board" class="logo">Mello</router-link>
-    <router-link class="link" to="/">
+    <a class="link" to="/">
       Workspaces
       <svg
         width="16"
@@ -16,8 +16,8 @@
           fill="currentColor"
         />
       </svg>
-    </router-link>
-    <router-link class="link" to="/">
+    </a>
+    <a class="link" to="/">
       Recent
       <svg
         width="16"
@@ -32,7 +32,7 @@
           fill="currentColor"
         />
       </svg>
-    </router-link>
+    </a>
     <a @click="openStarredBoardsModal(), calcPosOfBox()" ref="starred">
       Starred
       <svg
@@ -56,7 +56,7 @@
       v-clickOutside="closeEditMode"
       @close="closeEditMode"
     ></starred-boards-modal>
-    <router-link class="link" to="/">
+    <a class="link" to="/">
       Templates
       <svg
         width="16"
@@ -71,8 +71,8 @@
           fill="currentColor"
         />
       </svg>
-    </router-link>
-    <router-link class="link" to="/">
+    </a>
+    <a class="link" to="/">
       Create
       <svg
         width="16"
@@ -87,7 +87,7 @@
           fill="currentColor"
         />
       </svg>
-    </router-link>
+    </a>
     <!-- <button class="icon-btn"><font-awesome-icon icon="fa-regular fa-plus-large" /></button> -->
     <button class="icon-btn">
       <span class="icon-md icon-add-light"></span>
