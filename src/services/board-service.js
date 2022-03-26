@@ -61,27 +61,32 @@ function _createBoards() {
             "labels": [{
                     "id": "l101",
                     "title": "Done",
-                    "color": "#0079BF"
+                    "color": "#61BD4F"
                 },
                 {
                     "id": "l102",
                     "title": "Progress",
-                    "color": "#D29034"
+                    "color": "#F2D600"
                 },
                 {
                     "id": "l103",
                     "title": "",
-                    "color": "#519839"
+                    "color": "#FF9F1A"
                 },
                 {
                     "id": "l104",
                     "title": "",
-                    "color": "#B04632"
+                    "color": "#EB5A46"
                 },
                 {
                     "id": "l105",
                     "title": "",
-                    "color": "#89609E"
+                    "color": "#C377E0"
+                },
+                {
+                    "id": "l106",
+                    "title": "",
+                    "color": "#0079BF"
                 },
             ],
             "members": [{
@@ -272,27 +277,32 @@ function getEmptyBoard() {
         labels: [{
                 id: "l101",
                 title: "",
-                color: "#0079BF"
+                color: "#61BD4F"
             },
             {
                 id: "l102",
                 title: "",
-                color: "#D29034"
+                color: "#F2D600"
             },
             {
                 id: "l103",
                 title: "",
-                color: "#519839"
+                color: "#FF9F1A"
             },
             {
                 id: "l104",
                 title: "",
-                color: "#B04632"
+                color: "#EB5A46"
             },
             {
                 id: "l105",
                 title: "",
-                color: "#89609E"
+                color: "#C377E0"
+            },
+            {
+                id: "l106",
+                title: "",
+                color: "#0079BF"
             },
         ],
         members: [],
