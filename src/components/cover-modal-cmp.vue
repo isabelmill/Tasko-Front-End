@@ -16,10 +16,11 @@
                     @click="isSmall = true"
                     :class="{ selected: isColorPicked && isSmall === true }"
                     class="cover-size-small"
+                    v-bind:style="[isColorPicked? {cursor:'pointer'}:{}]"
                 >
                     <div
                         class="cover-header"
-                        v-bind:style="[isColorPicked ? { backgroundColor: color } : { backgroundColor: '#CFD3DA' }]"
+                        v-bind:style="[isColorPicked ? { backgroundColor: color} : { backgroundColor: '#CFD3DA'}]"
                     ></div>
                     <div class="cover-main">
                         <div
@@ -51,7 +52,7 @@
                     class="cover-size-all"
                     @click="isSmall = false"
                     :class="{ selected: isColorPicked && isSmall === false }"
-                    v-bind:style="[isColorPicked ? { backgroundColor: color } : { backgroundColor: '#CFD3DA' }]"
+                    v-bind:style="[isColorPicked ? { backgroundColor: color , cursor:'pointer' } : { backgroundColor: '#CFD3DA' }]"
                 >
                     <div class="cover-main">
                         <div
@@ -65,7 +66,8 @@
                     </div>
                 </section>
             </section>
-            <span class="mini-edit-title">Colors</span>
+            <button v-if="isColorPicked" type="button" @click="removeCover" class="create-btn">Remove cover</button>
+            <span class="mini-title">Colors</span>
             <section class="cover-colors">
                 <div
                     @click="setCoverColor('#61BD4F')"
@@ -118,7 +120,7 @@
                     class="dark-blue color-pref-cover"
                 ></div>
             </section>
-            <span class="mini-edit-title">Attachments</span>
+            <span class="mini-title">Attachments</span>
             <button type="button" @click="createNewLabel" class="create-btn">Upload a cover image</button>
         </section>
     </section>
