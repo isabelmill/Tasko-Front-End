@@ -203,8 +203,7 @@ function _createBoards() {
                         "orientation": "vertical",
                         "className": "card-container",
                     },
-                    "cards": [
-                        {
+                    "cards": [{
                             "id": "c111",
                             "title": "Layout",
                             "labels": [],
@@ -313,14 +312,14 @@ function _createBoards() {
                     "style": {}
                 },
                 {
-                    "id": "g101",
+                    "id": "g103",
                     "title": "Done",
                     "props": {
                         "orientation": "vertical",
                         "className": "card-container",
                     },
                     "cards": [{
-                            "id": "c101",
+                            "id": "c121",
                             "title": "Store",
                             "labels": [],
                             "members": [],
@@ -331,7 +330,7 @@ function _createBoards() {
                             }
                         },
                         {
-                            "id": "c102",
+                            "id": "c122",
                             "title": "Init-Vue",
                             "labels": [],
                             "members": [],
@@ -345,14 +344,14 @@ function _createBoards() {
                     "style": {}
                 },
                 {
-                    "id": "g101",
+                    "id": "g104",
                     "title": "Backend",
                     "props": {
                         "orientation": "vertical",
                         "className": "card-container",
                     },
                     "cards": [{
-                            "id": "c101",
+                            "id": "c131",
                             "title": "UserData",
                             "labels": [],
                             "members": [],
@@ -363,7 +362,7 @@ function _createBoards() {
                             }
                         },
                         {
-                            "id": "c102",
+                            "id": "c132",
                             "title": "Socketting",
                             "labels": [],
                             "members": [],
@@ -374,7 +373,7 @@ function _createBoards() {
                             }
                         },
                         {
-                            "id": "c102",
+                            "id": "c133",
                             "title": "Connect with MongoDB",
                             "labels": [],
                             "members": [],
@@ -387,7 +386,7 @@ function _createBoards() {
                     ],
                     "style": {}
                 },
-                
+
             ],
             "activities": [{
                 "id": "a101",
