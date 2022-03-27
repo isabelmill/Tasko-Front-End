@@ -187,6 +187,7 @@ export default {
         openMiniEdit() {
             this.calcPosOfModal()
             this.modalOpen = true;
+            this.$emit('toggleQuickEdit')
         },
         openDetails() {
             this.modalOpen = false;
@@ -200,6 +201,8 @@ export default {
         },
         closeModal() {
             this.modalOpen = false
+            this.$emit('toggleQuickEdit')
+
         },
         deleteCard() {
             this.groupToEdit = JSON.parse(JSON.stringify(this.group))

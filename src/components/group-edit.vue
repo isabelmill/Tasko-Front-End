@@ -5,10 +5,11 @@
                 <h1>List actions</h1>
             </div>
             <div class="header-close-edit-group-modal" @click="closeModal">
+            
                 <svg
-                    width="14"
-                    height="14"
-                    viewBox="0 0 14 14"
+                    width="10"
+                    height="10"
+                    viewBox="0 0 18 18"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
                 >

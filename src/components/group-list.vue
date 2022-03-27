@@ -11,6 +11,7 @@
             :key="group.id"
             class="group-preview-main"
             drag-class="tilt"
+            :class="{ 'no-pointer-events': pointerEvents }"
         >
             <div :class="group.props.className">
                 <!-- <span class="column-drag-handle">&#x2630;</span> -->
@@ -31,20 +32,19 @@
                     @drag-end="(e) => log('drag end', e)"
                     @drop="(e) => onCardDrop(group.id, e)"
                 >
-                    <Draggable v-for="card in group.cards" :key="card.id">
-                        <div>
-                            <card-preview
+                    <Draggable v-for="card in group.cards" :key="card.id" :class="{ 'no-pointer-events': pointerEvents }">
+                        <card-preview
+                            @toggleQuickEdit="toggleQuickEdit"
                             @boardUpdated="modifyBoard"
-                                @deleteCard="cardDelete"
-                                @openCard="openCardModal"
-                                @openAllLabels="onOpenAllLabels"
-                                @editCard="saveCardToBoard"
-                                :group="group"
-                                :card="card"
-                                :board="board"
-                                :isLabelOpen="isLabelOpen"
-                            ></card-preview>
-                        </div>
+                            @deleteCard="cardDelete"
+                            @openCard="openCardModal"
+                            @openAllLabels="onOpenAllLabels"
+                            @editCard="saveCardToBoard"
+                            :group="group"
+                            :card="card"
+                            :board="board"
+                            :isLabelOpen="isLabelOpen"
+                        ></card-preview>
                     </Draggable>
                 </Container>
                 <add-card-cmp @cardAdd="addNewCard" :group="group"></add-card-cmp>
@@ -106,6 +106,7 @@ export default {
             groupToEdit: null,
             titleIsOpen: false,
             isLabelOpen: false,
+            isQuickEditOpen: false
         };
     },
     created() {
@@ -113,9 +114,15 @@ export default {
     computed: {
         boardToEdit() {
             return JSON.parse(JSON.stringify(this.board))
+        },
+        pointerEvents() {
+            return this.isQuickEditOpen
         }
     },
     methods: {
+        toggleQuickEdit() {
+            this.isQuickEditOpen = !this.isQuickEditOpen
+        },
         changeTitle({ txt, id }) {
             this.groupToEdit = JSON.parse(JSON.stringify(this.groups.find(group => group.id === id)))
             this.groupToEdit.title = txt
@@ -123,7 +130,7 @@ export default {
             this.groupToEdit = null
             this.titleIsOpen = false;
         },
-        modifyBoard(adjustmentOfBoard){
+        modifyBoard(adjustmentOfBoard) {
             this.$emit('boardModified', adjustmentOfBoard)
         },
         addNewCard({ newCard, group }) {
@@ -149,7 +156,7 @@ export default {
             this.groupToEdit.cards.splice(cardIdx, 1, card)
             this.$emit('groupUpdated', this.groupToEdit)
         },
-        
+
         deleteGroup(groupId) {
             this.$emit('removeGroup', groupId)
         },
@@ -184,9 +191,7 @@ export default {
             // console.log(...params)
         }
     },
-    mounted() {
-    },
-    emits: ['openCardDetails', 'removeGroup', 'groupUpdated', 'addGroup', 'groupDnd','boardModified']
+    emits: ['openCardDetails', 'removeGroup', 'groupUpdated', 'addGroup', 'groupDnd', 'boardModified']
 
 }
 </script>
