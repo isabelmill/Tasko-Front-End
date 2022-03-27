@@ -231,12 +231,18 @@
             white-space: nowrap;
             grid-column: 1 / span 3;
             grid-row: 1;
+
+            h1{
+                font-weight: unset;
+            }
         }
 
         .header-close-starred-boards-modal {
+            display: flex;
+            align-items: center;
+            justify-content: center;
             grid-column: 3;
             grid-row: 1;
-            // background: transparent;
             border: none;
             color: #6b778c;
             cursor: pointer;
@@ -247,6 +253,9 @@
             margin: auto;
 
             svg {
+                display: flex;
+                align-items: center;
+                justify-content: center;
                 height: auto;
                 width: 12px;
                 color: currentcolor;

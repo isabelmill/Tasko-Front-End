@@ -35,9 +35,8 @@
                                     :key="member._id"
                                 >
                                     <div class="card-details-member-img">
-                                        <div class="member">{{setMemberLetters(member.fullname)}}</div>
+                                        <div class="member">{{ setMemberLetters(member.fullname) }}</div>
                                     </div>
-                                    
                                 </section>
                             </div>
                         </div>
@@ -64,7 +63,22 @@
                             </div>
                         </div>
 
-                        <label for>Due date</label>
+                        <div class="card-detail-date-container-main">
+                            <label v-if="card.date" for>Due date</label>
+                            <div class="card-details-dates-container" v-if="card.date" for>
+                                <section class="card-details-dates">
+                                    <input class="check-box-date" type="checkbox" />
+                                    <div class="card-details-date">
+                                        <p>{{ setDateFormat(card.date) }} at {{ setHourFormat(card.date) }}</p>
+
+                                        <span v-if="card.date < Date.now" class="overdue" >overdue</span>
+                                        <span  v-if="isComplete" class="complete" >complete</span>
+
+                                        <svg width="20" height="20" role="presentation" focusable="false" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M11.2929 16.7071L4.22185 9.63606C3.83132 9.24554 3.83132 8.61237 4.22185 8.22185C4.61237 7.83133 5.24554 7.83133 5.63606 8.22185L12 14.5858L18.364 8.22185C18.7545 7.83132 19.3877 7.83132 19.7782 8.22185C20.1687 8.61237 20.1687 9.24554 19.7782 9.63606L12.7071 16.7071C12.3166 17.0977 11.6834 17.0977 11.2929 16.7071Z" fill="currentColor"></path></svg>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- Description adding area  -->
@@ -342,6 +356,17 @@ export default {
             this.$emit('cardModified', { card: this.cardToEdit, group: this.group })
             this.showDesc = false
         },
+        setDateFormat(timestamp) {
+            let dt = new Date(timestamp)
+            const date = Intl.DateTimeFormat('en-Us', { month: 'short', day: 'numeric' }).format(dt)
+            return date
+        },
+        setHourFormat(timestamp) {
+            let hr = new Date(timestamp)
+            const hour = hr.toLocaleTimeString().replace(/(.*)\D\d+/, '$1');
+            return hour
+        }
+
 
     },
     emits: ['closeDialog', 'cardModified', 'boardModified']
@@ -363,31 +388,4 @@ export default {
     flex-direction: column;
     justify-content: space-around;
 }
-
-/* .exit-btn {
-    position: reltaive;
-    right: 5px;
-    top: 5px;
-    height: 48px;
-    width: 48px;
-    border: 0;
-    border-radius: 2px;
-} */
-
-/* .exit-btn:hover {
-    background-color: grey;
-} */
-/* .card-details-btn {
-    margin-bottom: 8px;
-    padding: 12px, 6px;
-    border: 0;
-    border-radius: 2px;
-} */
-
-/* .card-details-btn:hover {
-    background-color: grey;
-} */
-/* .card-details-actions {
-    flex-direction: column;
-} */
 </style>

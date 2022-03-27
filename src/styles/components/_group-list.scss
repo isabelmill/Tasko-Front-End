@@ -14,8 +14,8 @@
         display: block;
         font-weight: 400;
         padding: 6px 12px;
-        
-        .group-modal-action{
+
+        .group-modal-action {
             cursor: pointer;
             margin-bottom: 12px;
 
@@ -33,12 +33,20 @@
         text-align: center;
         display: grid;
         grid-template-columns: 12px 1fr 12px;
+        
+        h1{
+            font-family: roboto-regular;
+            font-size: 16px;
+            font-weight: unset;
+            // font-size: 15px;
+            
+        }
 
         .header-close-edit-group-modal {
             grid-column: 3;
             grid-row: 1;
             border: none;
-            color: #6b778c;
+            color: #5e6c84;
             cursor: pointer;
             margin: 0;
             padding: 0;
@@ -84,4 +92,8 @@
     a {
         cursor: pointer;
     }
+}
+
+.no-pointer-events {
+    pointer-events: none;
 }

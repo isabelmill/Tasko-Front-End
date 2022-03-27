@@ -182,6 +182,7 @@ export default {
         openMiniEdit() {
             this.calcPosOfModal()
             this.modalOpen = true;
+            this.$emit('toggleQuickEdit')
         },
         openDetails() {
             this.modalOpen = false;
@@ -195,6 +196,8 @@ export default {
         },
         closeModal() {
             this.modalOpen = false
+            this.$emit('toggleQuickEdit')
+
         },
         deleteCard() {
             this.groupToEdit = JSON.parse(JSON.stringify(this.group))
@@ -226,6 +229,6 @@ export default {
             // isLabelOpen = !isLabelOpen
         },
     },
-    emits: ['openCard', 'editCard', 'openAllLabels', 'deleteCard','boardUpdated'],
+    emits: ['openCard', 'editCard', 'openAllLabels', 'deleteCard', 'boardUpdated'],
 }
 </script>
