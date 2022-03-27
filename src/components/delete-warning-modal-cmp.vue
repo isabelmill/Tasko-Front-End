@@ -5,7 +5,7 @@
         class="label-modal"
     >
         <div class="main-title-container">
-            <div class="icon-sm icon-back" type="button" @click="close"></div>
+            <!-- <div class="icon-sm icon-back" type="button" @click="close"></div> -->
             <div class="icon-sm icon-close" @click="close"></div>
             <span class="main-title">Delete {{title}}?</span>
         </div>
@@ -19,7 +19,7 @@
 
 <script>
 export default {
-    name: 'dates-modal',
+    name: 'delete-modal',
     props: {
         title:{
 

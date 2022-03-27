@@ -123,6 +123,7 @@ function _createBoards() {
                             "members": [],
                             "date": '',
                             "cover": {},
+                            "attachments": [],
                             "props": {
                                 "className": "card",
                                 "style": {}
@@ -135,6 +136,7 @@ function _createBoards() {
                             "members": [],
                             "date": '',
                             "cover": {},
+                            "attachments": [],
                             "props": {
                                 "className": "card",
                                 "style": {}
@@ -147,6 +149,7 @@ function _createBoards() {
                             "members": [],
                             "date": '',
                             "cover": {},
+                            "attachments": [],
                             "props": {
                                 "className": "card",
                                 "style": {}
@@ -159,6 +162,7 @@ function _createBoards() {
                             "members": [],
                             "date": '',
                             "cover": {},
+                            "attachments": [],
                             "props": {
                                 "className": "card",
                                 "style": {}
@@ -171,6 +175,7 @@ function _createBoards() {
                             "members": [],
                             "date": '',
                             "cover": {},
+                            "attachments": [],
                             "props": {
                                 "className": "card",
                                 "style": {}
@@ -183,6 +188,7 @@ function _createBoards() {
                             "members": [],
                             "date": '',
                             "cover": {},
+                            "attachments": [],
                             "props": {
                                 "className": "card",
                                 "style": {}
@@ -195,6 +201,7 @@ function _createBoards() {
                             "members": [],
                             "date": '',
                             "cover": {},
+                            "attachments": [],
                             "props": {
                                 "className": "card",
                                 "style": {}
@@ -217,6 +224,7 @@ function _createBoards() {
                             "members": [],
                             "date": '',
                             "cover": {},
+                            "attachments": [],
                             "props": {
                                 "className": "card",
                                 "style": {}
@@ -229,6 +237,7 @@ function _createBoards() {
                             "members": [],
                             "date": '',
                             "cover": {},
+                            "attachments": [],
                             "props": {
                                 "className": "card",
                                 "style": {}
@@ -241,6 +250,7 @@ function _createBoards() {
                             "members": [],
                             "date": '',
                             "cover": {},
+                            "attachments": [],
                             "props": {
                                 "className": "card",
                                 "style": {}
@@ -253,6 +263,7 @@ function _createBoards() {
                             "members": [],
                             "date": '',
                             "cover": {},
+                            "attachments": [],
                             "props": {
                                 "className": "card",
                                 "style": {}
@@ -310,6 +321,7 @@ function _createBoards() {
                             "createdAt": 1590999730348,
                             "date": '',
                             "cover": {},
+                            "attachments": [],
                             "byMember": {
                                 "_id": "u101",
                                 "username": "Tal",
@@ -390,6 +402,7 @@ function _createBoards() {
                             "labels": [],
                             "members": [],
                             "date": '',
+                            "attachments": [],
                             "props": {
                                 "className": "card",
                                 "style": {}
@@ -448,7 +461,7 @@ function getEmptyCard() {
             title: 'Checklist',
             todos: [],
         },
-        attachment: {},
+        attachments: [],
         cover: {},
         members: [],
         dueDate: '',
