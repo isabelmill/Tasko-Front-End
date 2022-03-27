@@ -6,6 +6,7 @@
             @titleChange="updateBoardTitle"
             @starredChange="isStarredBoard"
             @changeBgcColor="changeBoardBgcColor"
+            @changeBoardBgc="changeBoardPhoto"
         />
     </section>
     <section
@@ -134,6 +135,13 @@ export default {
         changeBoardBgcColor(color) {
             this.boardToEdit = JSON.parse(JSON.stringify(this.board))
             this.boardToEdit.background = color
+            this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
+        },
+        changeBoardPhoto(photo) {
+            console.log('photo######:', photo);
+            this.boardToEdit = JSON.parse(JSON.stringify(this.board))
+            this.boardToEdit.background = ''
+            this.boardToEdit.backgroundPhoto = photo
             this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
         }
     },

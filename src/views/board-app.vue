@@ -1,7 +1,6 @@
 <template>
     <section class="board-app-main">
         <div class="main-container">
-            <!-- <unsplash></unsplash> -->
             <div class="contact">
                 <div>
                     <ul class="folders">
