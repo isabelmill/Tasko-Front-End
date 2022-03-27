@@ -16,6 +16,16 @@
     transition: all .2s;
     // padding: 12px 6px 12px 12px;
 
+    hr{
+        background-color: #091e4221;
+        border: 0;
+        height: 1px;
+        // margin: 16px 0;
+        margin: 0;
+        padding: 0;
+        width: 322px;
+    }
+
     .side-bar-menu-container {
         border-radius: 3px;
         display: block;
@@ -36,18 +46,45 @@
     }
 
     .side-bar-menu-header {
-        position: relative;
-        width: 100%;
-        display: flex;
         align-items: center;
-        justify-content: center;
+        display: flex;
+        flex-direction: row;
+
+
+
+        .side-bar-menu-header-text {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            line-height: 20px;
+            // margin: 14px 32px;
+            overflow: hidden;
+            text-align: center;
+            text-overflow: ellipsis;
+            transition: margin .12s ease-in;
+            white-space: nowrap;
+            // margin-top: 12px;
+        }
 
 
         h3 {
             font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Noto Sans, Ubuntu, Droid Sans, Helvetica Neue, sans-serif;
             font-size: 16px;
+            color: #172B4D;
             font-weight: 500;
-            margin: 14px 32px;
+            margin: 12px;
+            padding: 3px;
+        }
+
+        .header-close-side-bar-menu {
+            font-size: 20px;
+            position: absolute;
+            right: 6px;
+            top: 8px;
+            margin-top: 2px;
+            cursor: pointer;
+            margin-right: 5px;
         }
     }
 
@@ -81,14 +118,37 @@
             display: flex;
             gap: 10px;
 
+            .bgc-photos {
+                display: flex;
+                align-items: center;
+                flex-direction: column;
+                justify-content: center;
+            }
+
+            .regular-bgc-color {
+                display: flex;
+                align-items: center;
+                flex-direction: column;
+                justify-content: center;
+            }
+
+            p {
+                font-size: 14px;
+                color: #172B4D;
+            }
+
             img {
                 background-color: #dfe1e6;
                 background-size: cover;
                 border-radius: 8px;
-                height: 96px;
+                height: 90px;
                 margin-bottom: 8px;
-                width: 100%;
+                width: 150px;
                 cursor: pointer;
+
+                &:hover {
+                    opacity: .7;
+                }
             }
         }
     }

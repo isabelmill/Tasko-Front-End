@@ -7,7 +7,7 @@
     display: flex;
     align-items: center;
     padding: 0 8px 0 8px;
-    
+
     .logo {
         font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
         font-size: rem(22px);
@@ -103,6 +103,7 @@
             right: 223px;
             top: 0px;
         }
+
         &:focus-within {
             color: #172b4d;
         }
@@ -174,6 +175,7 @@
             display: flex;
             flex-direction: column;
             max-height: 464px;
+
             .boards-render-modal-starred {
                 margin-bottom: 5px;
                 display: flex;
@@ -199,9 +201,12 @@
                     position: relative;
                     opacity: 1;
                 }
+
                 .modal-starred-board {
                     font-weight: 600;
-                    font-size: 15px;
+                    font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
+
+                    font-size: 14px;
                     cursor: pointer;
                 }
             }
@@ -239,6 +244,9 @@
 
             h1 {
                 font-weight: unset;
+                font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
+                font-size: 14px;
+
             }
         }
 

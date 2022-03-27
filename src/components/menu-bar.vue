@@ -6,10 +6,11 @@
                 <div class="side-bar-menu-header-text">
                     <h3>Menu</h3>
                 </div>
-                <div class="header-close-starred-boards-modal" @click="closeModal">
-                    <span class="icon-sm icon-close"></span>
+                <div class="header-close-side-bar-menu" @click="closeModal">
+                    <span class="icon-md icon-close"></span>
                 </div>
             </div>
+            <hr>
             <div class="side-bar-menu-container flex">
                 <!-- here comes the backround of current board -->
                 <p @click="openBgcBar">Change background</p>
@@ -34,15 +35,21 @@
                     </div>
                 </div>
                 <div class="side-bar-menu-background-container flex">
+                    <div class="bgc-photos">
                     <img
                         src="https://a.trellocdn.com/prgb/dist/images/photos-thumbnail@3x.8f9c1323c9c16601a9a4.jpg"
                         alt
                     />
+                    <p>Photos</p>
+                    </div>
+                    <div class="regular-bgc-color">
                     <img
                         @click="openBgcBarRegular"
                         src="https://a.trellocdn.com/prgb/dist/images/colors@2x.ec32a2ed8dd8198b8ef0.jpg"
                         alt
                     />
+                    <p>Colors</p>
+                    </div>
                 </div>
             </section>
         </transition>
@@ -80,6 +87,7 @@
 
 export default {
     props: {
+        board: Object,
     },
     data() {
         return {

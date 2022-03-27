@@ -82,7 +82,7 @@
             </button>
         </nav>
         <transition name="slide">
-            <menu-bar v-if="showMenu" @close="closeMenuBar" @changeBgcColor="changeBoardBgcColor">></menu-bar>
+            <menu-bar :board="board" v-if="showMenu" @close="closeMenuBar" @changeBgcColor="changeBoardBgcColor">></menu-bar>
         </transition>
     </section>
 </template>
