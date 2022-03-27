@@ -184,7 +184,8 @@ export default {
 
     },
     lightenDarkenColor(colorCode, amount) {
-      if (colorCode === '#0079BF') return
+      if (colorCode === '#0079BF') return '#0066A0'
+      if (colorCode === '#00AECC') return '#0092AB'
       var usePound = false;
       if (colorCode[0] == "#") {
         colorCode = colorCode.slice(1);
