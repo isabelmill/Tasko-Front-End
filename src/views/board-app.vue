@@ -1,73 +1,44 @@
 <template>
-    <section class="board-app-main" >
+    <section class="board-app-main">
         <div class="main-container">
             <!-- <unsplash></unsplash> -->
-            <h1>Starred boards</h1>
-            <h1>Recently viewed</h1>
             <div class="contact">
-                <div class="folders">
-                    <p>
-                        <span class="icon-sm icon-board"></span>
-                        Boards
-                    </p>
-                    <p>
-                        <span class="icon-sm icon-template"></span>
-                        templates
-                    </p>
-                    <p>
-                        <span class="icon-sm icon-home"></span>
-                        Home
-                    </p>
+                <div>
+                    <ul class="folders">
+                        <li @click="setFolder('boards')" :class="setColors('boards')">
+                            <span class="icon-sm icon-board"></span>
+                            <p>Boards</p>
+                        </li>
+                        <li @click="setFolder('templates')" :class="setColors('templates')">
+                            <span class="icon-sm icon-template"></span>
+                            <p>Templates</p>
+                        </li>
+                        <li @click="setFolder('home')" :class="setColors('home')">
+                            <span class="icon-sm icon-home"></span>
+                            <p>Home</p>
+                        </li>
+                    </ul>
                 </div>
 
-                <ul>
-                    <li
-                        @click="setFilter('inbox')"
-                        class="inbox-folder"
-                        :class="changeColor('inbox')"
-                    >
-                        <div>
-                            <img :src="inboxRed" />
-                        </div>Inbox
-                        <small>{{ unreadMails.length }}</small>
-                    </li>
-                    <li @click="setFilter('starred')" :class="changeColor('starred')">
-                        <div>
-                            <img :src="starredRed" />
-                        </div>Starred
-                    </li>
-                    <li @click="setFilter('important')" :class="changeColor('important')">
-                        <div>
-                            <img :src="importantRed" />
-                        </div>Important
-                    </li>
-                    <li @click="setFilter('sent')" :class="changeColor('sent')">
-                        <div>
-                            <img :src="sentRed" />
-                        </div>Sent
-                    </li>
-                    <li @click="setFilter('trash')" :class="changeColor('trash')">
-                        <div>
-                            <img :src="trashRed" />
-                        </div>Trash
-                    </li>
-                </ul>
-
                 <div class="folder-info">
-                    <board-list v-if="boards" :boards="boards" />
-                    <button
-                        @click="openBoardEdit(), calcPosOfBox()"
-                        ref="button"
-                        type="button"
-                    >Create new board</button>
-                    <create-board-modal
-                        v-if="isEdit"
-                        v-clickOutside="closeBoardEdit"
-                        @close="closeBoardEdit"
-                        @add="saveNewBoard"
-                        :style="{ top: pos.top + 'px', left: '830' + 'px' }"
-                        :newBoard="newBoard"
-                    ></create-board-modal>
+                    <div v-if="isFolder.boards" class="boards-info">
+                        <div class="header">
+                            <span class="icon-lg icon-star-boards"></span>
+                            <p>Starred boards</p>
+                        </div>
+                        <board-list v-if="boards" :boards="boards" />
+                        <button class="create-btn" @click="openBoardEdit(), calcPosOfBox()" ref="button" type="button">
+                            <p>Create new board</p>
+                        </button>
+                        <create-board-modal
+                            v-if="isEdit"
+                            v-clickOutside="closeBoardEdit"
+                            @close="closeBoardEdit"
+                            @add="saveNewBoard"
+                            :style="{ top: pos.top + 'px', left: '830' + 'px' }"
+                            :newBoard="newBoard"
+                        ></create-board-modal>
+                    </div>
                 </div>
             </div>
         </div>
@@ -84,6 +55,13 @@ export default {
     name: 'board-app',
     data() {
         return {
+            preFolder: '',
+            currFolder: '',
+            isFolder: {
+                boards: false,
+                templates: false,
+                home: false,
+            },
             filterBy: null,
             isEdit: false,
             newBoard: boardService.getEmptyBoard(),
@@ -91,10 +69,8 @@ export default {
             pos: 0,
         }
     },
-    computed: {
-        boards() {
-            return this.$store.getters.boards
-        },
+    created() {
+        this.setFolder('boards')
     },
     methods: {
         loadBoards() {
@@ -122,8 +98,21 @@ export default {
         },
         calcPosOfBox() {
             this.pos = this.$refs['button'].getBoundingClientRect()
-
-        }
+        },
+        setFolder(folder) {
+            this.currFolder = folder
+            this.isFolder[this.preFolder] = !this.isFolder[this.preFolder]
+            this.preFolder = folder
+            this.isFolder[folder] = !this.isFolder[folder]
+        },
+        setColors(folder) {
+            return this.isFolder[folder] ? 'selected-folder' : 'folder'
+        },
+    },
+    computed: {
+        boards() {
+            return this.$store.getters.boards
+        },
     },
     components: {
         boardList,
