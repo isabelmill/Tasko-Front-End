@@ -73,13 +73,17 @@
                 <button @click="moveCard">Move</button>
                 <button @click="copyCard">Copy</button>
                 <button ref="datesBtn" @click="editDates">Edit dates</button>
-                <button @click="deleteCard">Delete</button>
+                <button ref="deleteBtn" @click="deleteWarn">Delete</button>
             </section>
         </section>
+        <delete-warning
+            @closeDeleteWarning="closeWarning"
+            @deleteConfirmed="deleteCard"
+            v-if="warningOpen"
+            :title="warningTitle"
+            :pos="posOfEditor"
+        ></delete-warning>
         <section v-if="shown">
-            <!-- @boardEdit="editBoard"
-           
-            -->
             <component
                 @boardEdit="editBoard"
                 @cardEdit="showEditedCard"
@@ -101,6 +105,7 @@ import { applyDrag, generateItems } from '../services/dnd-service.js';
 import labelModal from "./label-modal-cmp.vue";
 import memebersModal from "./memebers-modal-cmp.vue";
 import datesModal from "./date-modal-cmp.vue";
+import deleteWarning from "./delete-warning-modal-cmp.vue";
 import moment from 'moment'
 // import { throws } from "assert";
 
@@ -127,6 +132,7 @@ export default {
         labelModal,
         memebersModal,
         datesModal,
+        deleteWarning
         // throws
     },
     data() {
@@ -137,6 +143,8 @@ export default {
             posOfEditor: 0,
             modalOpen: false,
             titleIsOpen: false,
+            warningOpen: false,
+            warningTitle: '',
             groupToEdit: {},
             cardToDisplay: JSON.parse(JSON.stringify(this.card)),
             cardToEdit: {
@@ -204,11 +212,20 @@ export default {
             this.$emit('toggleQuickEdit')
 
         },
+        deleteWarn() {
+            this.posOfEditor = this.$refs['deleteBtn'].getBoundingClientRect()
+            this.warningTitle = 'Delete card?'
+            this.warningOpen = true
+        },
+        closeWarning() {
+            this.warningOpen = false
+        },
         deleteCard() {
             this.groupToEdit = JSON.parse(JSON.stringify(this.group))
             const cardIdx = this.groupToEdit.cards.findIndex(cardToFind => cardToFind.id === this.card.id)
             this.groupToEdit.cards.splice(cardIdx, 1)
             this.$emit('deleteCard', this.groupToEdit)
+            this.modalOpen = false;
         },
         showEditedCard(card) {
             this.cardToDisplay = card
@@ -245,6 +262,6 @@ export default {
             return { dateRed: !this.isDateClicked, dateGreen: this.isDateClicked };
         },
     },
-    emits: ['openCard', 'editCard', 'openAllLabels', 'deleteCard', 'boardUpdated'],
+    emits: ['openCard', 'editCard', 'openAllLabels', 'deleteCard', 'boardUpdated', 'toggleQuickEdit'],
 }
 </script>

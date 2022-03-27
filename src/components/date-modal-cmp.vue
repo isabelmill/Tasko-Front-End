@@ -69,7 +69,7 @@ export default {
         }
 
     },
-    emits: ['actionsClose', 'cardEdit', 'boardEdit']
+    emits: ['actionsClose', 'cardEdit']
 }
 </script>
 

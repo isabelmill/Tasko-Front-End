@@ -11,8 +11,10 @@
             :key="group.id"
             class="group-preview-main"
             drag-class="tilt"
-            :class="{ 'no-pointer-events': pointerEvents }"
+            
         >
+
+        <!-- :class="{ 'no-pointer-events': pointerEvents }" -->
             <div :class="group.props.className">
                 <!-- <span class="column-drag-handle">&#x2630;</span> -->
                 <toggle-input-cmp
@@ -32,7 +34,7 @@
                     @drag-end="(e) => log('drag end', e)"
                     @drop="(e) => onCardDrop(group.id, e)"
                 >
-                    <Draggable v-for="card in group.cards" :key="card.id" :class="{ 'no-pointer-events': pointerEvents }">
+                    <Draggable v-for="card in group.cards" :key="card.id">
                         <card-preview
                             @toggleQuickEdit="toggleQuickEdit"
                             @boardUpdated="modifyBoard"

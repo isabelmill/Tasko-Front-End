@@ -28,6 +28,7 @@
     <dialog ref="cardDetailsModal" class="modal">
         <card-details
             v-if="isCardOpen"
+            @deleteCardFromGroup="UpdateGroup"
             @boardModified="updateBoard"
             @cardModified="updateCard"
             @closeDialog="closeDiag"

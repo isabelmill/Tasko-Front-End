@@ -71,10 +71,22 @@
                                     <div class="card-details-date">
                                         <p>{{ setDateFormat(card.date) }} at {{ setHourFormat(card.date) }}</p>
 
-                                        <span v-if="card.date < Date.now" class="overdue" >overdue</span>
-                                        <span  v-if="isComplete" class="complete" >complete</span>
+                                        <span v-if="card.date < Date.now" class="overdue">overdue</span>
+                                        <span v-if="isComplete" class="complete">complete</span>
 
-                                        <svg width="20" height="20" role="presentation" focusable="false" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M11.2929 16.7071L4.22185 9.63606C3.83132 9.24554 3.83132 8.61237 4.22185 8.22185C4.61237 7.83133 5.24554 7.83133 5.63606 8.22185L12 14.5858L18.364 8.22185C18.7545 7.83132 19.3877 7.83132 19.7782 8.22185C20.1687 8.61237 20.1687 9.24554 19.7782 9.63606L12.7071 16.7071C12.3166 17.0977 11.6834 17.0977 11.2929 16.7071Z" fill="currentColor"></path></svg>
+                                        <svg
+                                            width="20"
+                                            height="20"
+                                            role="presentation"
+                                            focusable="false"
+                                            viewBox="0 0 24 24"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                        >
+                                            <path
+                                                d="M11.2929 16.7071L4.22185 9.63606C3.83132 9.24554 3.83132 8.61237 4.22185 8.22185C4.61237 7.83133 5.24554 7.83133 5.63606 8.22185L12 14.5858L18.364 8.22185C18.7545 7.83132 19.3877 7.83132 19.7782 8.22185C20.1687 8.61237 20.1687 9.24554 19.7782 9.63606L12.7071 16.7071C12.3166 17.0977 11.6834 17.0977 11.2929 16.7071Z"
+                                                fill="currentColor"
+                                            />
+                                        </svg>
                                     </div>
                                 </section>
                             </div>
@@ -217,7 +229,7 @@
                     Dates
                 </button>
 
-                <button ref="attachmentBtn" class="card-details-btn" @click="editDates">
+                <button ref="attachmentBtn" class="card-details-btn" @click="editImage">
                     <span class="icon-smd icon-attachment"></span>
                     Attachment
                 </button>
@@ -239,14 +251,14 @@
                     Copy
                 </button>
 
-                <button ref="deleteBtn" class="card-details-btn" @click="deleteCard">
-                    <span class="icon-smd icon-archive"></span>
-                    Delete
-                </button>
-
-                <button ref="shareBtn" class="card-details-btn last" @click="deleteCard">
+                <button ref="shareBtn" class="card-details-btn last" @click="shareCard">
                     <span class="icon-smd icon-share"></span>
                     Share
+                </button>
+
+                <button ref="deleteBtn" class="card-details-btn" @click="deleteWarn">
+                    <span class="icon-smd icon-archive"></span>
+                    Delete
                 </button>
             </section>
         </section>
@@ -263,12 +275,14 @@
             :is="currModal"
         ></component>
     </section>
+    <delete-warning @closeDeleteWarning="closeWarning" @deleteConfirmed="deleteCard" v-if="warningOpen" :title="warningTitle" :pos="pos"></delete-warning>
 </template>
 
 <script>
 import labelModal from "./label-modal-cmp.vue";
 import memebersModal from "./memebers-modal-cmp.vue";
 import datesModal from "./date-modal-cmp.vue";
+import deleteWarning from "./delete-warning-modal-cmp.vue";
 export default {
 
     name: 'card-details',
@@ -286,7 +300,8 @@ export default {
     components: {
         labelModal,
         memebersModal,
-        datesModal
+        datesModal,
+        deleteWarning
     },
     created() {
         this.description = this.card.description
@@ -295,6 +310,8 @@ export default {
         return {
             currModal: null,
             shown: false,
+            warningOpen: false,
+            warningTitle: '',
             pos: 0,
             showInput: false,
             showDesc: false,
@@ -339,6 +356,21 @@ export default {
         editCard(card) {
             this.$emit('cardModified', { card, group: this.group })
         },
+        deleteWarn() {
+            this.pos = this.$refs['deleteBtn'].getBoundingClientRect()
+            this.warningTitle = 'Delete card?'
+            this.warningOpen = true
+        },
+        closeWarning(){
+            this.warningOpen = false
+        },
+        deleteCard(){
+            this.cardToEdit = JSON.parse(JSON.stringify(this.card))
+            const groupToEdit = JSON.parse(JSON.stringify(this.group))
+            const cardIdx = groupToEdit.cards.findIndex(cardToFind => cardToFind.id === this.cardToEdit.id)
+            groupToEdit.cards.splice(cardIdx,1)
+            this.$emit('deleteCardFromGroup', groupToEdit)
+        },
         closeInput() {
             this.showInput = false
         },
@@ -369,7 +401,7 @@ export default {
 
 
     },
-    emits: ['closeDialog', 'cardModified', 'boardModified']
+    emits: ['closeDialog', 'cardModified', 'boardModified','deleteCardFromGroup']
 
 }
 
