@@ -3,14 +3,14 @@
     width: 100%;
 }
 
-.main-container {
-    width: 100%;
-    margin: 40px 0 0 210px;
-}
+// .main-container {
+//     // width: 100%;
+// }
 
 .contact {
     // margin-top: rem(20px);
     display: flex;
+    margin: 40px 0 0 210px;
 }
 
 .folders {
@@ -59,7 +59,6 @@
     font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
     .boards-info {
         margin-left: rem(32px);
-        gap: rem(50px);
         .header {
             display: flex;
             align-items: center;

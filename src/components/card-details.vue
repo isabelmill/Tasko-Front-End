@@ -247,7 +247,7 @@
                     Dates
                 </button>
 
-                <button ref="attachmentBtn" class="card-details-btn" @click="editImage">
+                <button ref="attachmentBtn" class="card-details-btn" @click="addAttachment">
                     <span class="icon-sm icon-attachment"></span>
                     Attachment
                 </button>
@@ -307,6 +307,7 @@ import labelModal from "./label-modal-cmp.vue";
 import memebersModal from "./memebers-modal-cmp.vue";
 import datesModal from "./date-modal-cmp.vue";
 import coverModal from "./cover-modal-cmp.vue";
+import attachmentModal from "./attachment-modal-cmp.vue";
 import deleteWarning from "./delete-warning-modal-cmp.vue";
 export default {
 
@@ -327,7 +328,8 @@ export default {
         memebersModal,
         datesModal,
         deleteWarning,
-        coverModal
+        coverModal,
+        attachmentModal
     },
     created() {
         this.description = this.card.description
@@ -378,6 +380,11 @@ export default {
             this.pos = this.$refs['coverBtn'].getBoundingClientRect()
             this.shown = true
             this.currModal = "coverModal"
+        },
+        addAttachment(){
+            this.pos = this.$refs['attachmentBtn'].getBoundingClientRect()
+            this.shown = true
+            this.currModal = "attachmentModal"
         },
         editDates() {
             this.pos = this.$refs['datesBtn'].getBoundingClientRect()

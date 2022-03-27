@@ -2,14 +2,17 @@
 // @import "./fontawesome/scss/fontawesome.scss";
 // @import "./fontawesome/scss/solid.scss";
 // @import "./fontawesome/scss/brands.scss";
+
 @import 'setup/typography';
 @import 'setup/variables';
 @import 'setup/functions';
 @import 'setup/mixins';
+
 // // BASICS
 @import 'basics/helpers';
 @import 'basics/base';
 @import 'basics/layout';
+
 // // COMPONENTS
 @import './components/app-header';
 @import './components/board-header';
@@ -19,5 +22,7 @@
 @import './components/card-details';
 @import './components/actions-modal.scss';
 @import './components/menu-side-bar';
+
 // // views
 @import './views/board-app';
+@import './views/home';
