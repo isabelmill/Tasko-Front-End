@@ -106,6 +106,7 @@
                 display: flex;
                 flex-wrap: wrap;
                 gap: 16px;
+                max-width: 500px;
                 margin-bottom: 17px;
                 margin-left: 42px;
 
@@ -292,7 +293,7 @@
                     @include cardDetailsBtn();
                     background-color: #091e420a;
                     font-weight: 400;
-                    font-size: 16px;
+                    font-size: 14px;
                     font-family: roboto-regular;
                     margin-bottom: unset;
                     cursor: pointer;
@@ -477,6 +478,10 @@
                     margin-top: 15px;
                     margin-bottom: 35px;
                     padding-left: 42px;
+                    font-size: 13px;
+                    color: #42526e;
+                    font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
+
                 }
 
                 .open-input-btn {
@@ -597,3 +602,4 @@
 .icon-close {
     @include to-icon("\e91c")
 }
+
