@@ -28,7 +28,7 @@
     <dialog ref="cardDetailsModal" class="modal">
         <card-details
             v-if="isCardOpen"
-            @deleteCardFromGroup="UpdateGroup"
+            @deleteCardFromGroup="deleteCardFromGroup"
             @boardModified="updateBoard"
             @cardModified="updateCard"
             @closeDialog="closeDiag"
@@ -88,6 +88,12 @@ export default {
             this.groupToEdit = JSON.parse(JSON.stringify(group))
             const cardToEditIdx = this.groupToEdit.cards.findIndex(cardToFind => cardToFind.id === card.id)
             this.groupToEdit.cards[cardToEditIdx] = card
+            this.updateGroup(this.groupToEdit)
+        },
+        deleteCardFromGroup({card,group}){
+            this.groupToEdit = JSON.parse(JSON.stringify(group))
+            const cardToEditIdx = this.groupToEdit.cards.findIndex(cardToFind => cardToFind.id === card.id)
+            this.groupToEdit.cards.splice(cardToEditIdx,1)
             this.updateGroup(this.groupToEdit)
         },
         updateGroup(editedGroup) {

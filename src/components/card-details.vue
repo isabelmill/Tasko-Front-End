@@ -383,11 +383,8 @@ export default {
             this.warningOpen = false
         },
         deleteCard(){
-            this.cardToEdit = JSON.parse(JSON.stringify(this.card))
-            const groupToEdit = JSON.parse(JSON.stringify(this.group))
-            const cardIdx = groupToEdit.cards.findIndex(cardToFind => cardToFind.id === this.cardToEdit.id)
-            groupToEdit.cards.splice(cardIdx,1)
-            this.$emit('deleteCardFromGroup', groupToEdit)
+            this.$emit('deleteCardFromGroup', {card:this.cardToEdit, group:this.group})
+            this.closeModal()
         },
         closeInput() {
             this.showInput = false
