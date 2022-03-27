@@ -67,14 +67,44 @@
                             <label v-if="card.date" for>Due date</label>
                             <div class="card-details-dates-container" v-if="card.date" for>
                                 <section class="card-details-dates">
-                                    <input class="check-box-date" type="checkbox" />
+
+                                    <div  v-if="!card.isComplete"
+                                    @click="toggleCardComplete"
+                                    class="checkbox"
+                                    >
+                                    </div>
+
+                                    <img
+                                        v-if="card.isComplete"
+                                        @click="toggleCardComplete"
+                                        class="done-img"
+                                        src="data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23fff' viewBox='-3 -4 16 16'%3E%3Cpath d='M1.49 3.215a.667.667 0 0 0-.98.903l2.408 2.613c.358.351.892.351 1.223.02l.243-.239a1689.645 1689.645 0 0 0 2.625-2.589l.027-.026a328.23 328.23 0 0 0 2.439-2.429.667.667 0 1 0-.95-.936c-.469.476-1.314 1.316-2.426 2.417l-.027.026a1368.126 1368.126 0 0 1-2.517 2.482L1.49 3.215z'/%3E%3C/svg%3E"
+                                        alt
+                                    />
+                                    <!-- <input @click="toggleCardComplete"  type="checkbox" /> -->
+
                                     <div class="card-details-date">
                                         <p>{{ setDateFormat(card.date) }} at {{ setHourFormat(card.date) }}</p>
 
-                                        <span v-if="card.date < Date.now" class="overdue" >overdue</span>
-                                        <span  v-if="isComplete" class="complete" >complete</span>
+                                        <span
+                                            v-if="card.date < Date.now() && !card.isComplete"
+                                            class="overdue"
+                                        >overdue</span>
+                                        <span v-if="card.isComplete" class="complete">complete</span>
 
-                                        <svg width="20" height="20" role="presentation" focusable="false" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M11.2929 16.7071L4.22185 9.63606C3.83132 9.24554 3.83132 8.61237 4.22185 8.22185C4.61237 7.83133 5.24554 7.83133 5.63606 8.22185L12 14.5858L18.364 8.22185C18.7545 7.83132 19.3877 7.83132 19.7782 8.22185C20.1687 8.61237 20.1687 9.24554 19.7782 9.63606L12.7071 16.7071C12.3166 17.0977 11.6834 17.0977 11.2929 16.7071Z" fill="currentColor"></path></svg>
+                                        <svg class="down"
+                                            width="20"
+                                            height="20"
+                                            role="presentation"
+                                            focusable="false"
+                                            viewBox="0 0 24 24"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                        >
+                                            <path
+                                                d="M11.2929 16.7071L4.22185 9.63606C3.83132 9.24554 3.83132 8.61237 4.22185 8.22185C4.61237 7.83133 5.24554 7.83133 5.63606 8.22185L12 14.5858L18.364 8.22185C18.7545 7.83132 19.3877 7.83132 19.7782 8.22185C20.1687 8.61237 20.1687 9.24554 19.7782 9.63606L12.7071 16.7071C12.3166 17.0977 11.6834 17.0977 11.2929 16.7071Z"
+                                                fill="currentColor"
+                                            />
+                                        </svg>
                                     </div>
                                 </section>
                             </div>
@@ -365,6 +395,10 @@ export default {
             let hr = new Date(timestamp)
             const hour = hr.toLocaleTimeString().replace(/(.*)\D\d+/, '$1');
             return hour
+        },
+        toggleCardComplete() {
+            this.cardToEdit.isComplete = !this.cardToEdit.isComplete
+            this.$emit('cardModified', { card: this.cardToEdit, group: this.group })
         }
 
 
