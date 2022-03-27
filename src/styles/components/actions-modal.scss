@@ -344,6 +344,50 @@
             opacity: 80%;
         }
     }
+    .cover-colors {
+        padding: 4px;
+        display: grid;
+        gap: 8px;
+        margin: 0px;
+        overflow-x: hidden;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        .color-pref-cover {
+            width: rem(48px);
+            height: rem(32px);
+            border-radius: 3px;
+            z-index: 300;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            box-shadow: none;
+            cursor: pointer;
+            border: none;
+            padding: 6px 12px;
+            position: relative;
+            box-sizing: border-box;
+            display: inline-block;
+            line-height: 20px;
+            margin: 0;
+            // height: 32px;
+            // margin: 0 8px 8px 0;
+            padding: 0;
+            // width: 48px;
+            cursor: pointer;
+            &:hover {
+                filter: saturate(85%) brightness(85%);
+            }
+        }
+        .selected {
+            box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #0079bf;
+            z-index: 100;
+            filter: none;
+            &:hover {
+                box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #5ba4cf;
+                z-index: 100;
+                filter: none;
+            }
+        }
+    }
     .date-picker {
         display: flex;
         justify-content: center;
