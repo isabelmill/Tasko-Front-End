@@ -3,7 +3,7 @@
         <!-- Header  -->
         <div class="card-details-header">
             <div class="card-details-header-icon">
-                <span class="icon-xl icon-card"></span>
+                <span class="icon-lg icon-card"></span>
                 <div class="card-details-title flex">
                     <p>{{ card.title }}</p>
                 </div>
@@ -114,7 +114,7 @@
                     <!-- Description adding area  -->
                     <section v-clickOutside="closeTextArea">
                         <div class="card-details-description">
-                            <span class="icon-xl icon-desc"></span>
+                            <span class="icon-lg icon-desc"></span>
                             <h3>Description</h3>
                             <button @click="openTextArea" v-if="card.description">Edit</button>
                         </div>
@@ -155,7 +155,7 @@
 
                     <div class="card-details-activity-show-details">
                         <div class="card-details-activity">
-                            <span class="icon-xl icon-activity"></span>
+                            <span class="icon-lg icon-activity"></span>
                             <h3>Activity</h3>
                         </div>
                         <button>Show details</button>
@@ -209,25 +209,25 @@
                 <label for>Add to card</label>
 
                 <button ref="membersBtn" class="card-details-btn" @click="changeMembers">
-                    <span class="icon-smd icon-member"></span>
+                    <span class="icon-sm icon-member"></span>
                     Members
                 </button>
 
                 <button ref="labelBtn" class="card-details-btn" @click="editLabels">
-                    <span class="icon-smd icon-label"></span>
+                    <span class="icon-sm icon-label"></span>
                     Labels
                 </button>
 
                 <button ref="checklistBtn" class="card-details-btn">
-                    <span class="icon-smd icon-checklist"></span>
+                    <span class="icon-sm icon-checklist"></span>
                     Checklist
                 </button>
 
                 <button ref="datesBtn" class="card-details-btn" @click="editDates">
                     <svg
                         class="date-svg"
-                        width="18"
-                        height="18"
+                        width="16"
+                        height="16"
                         role="presentation"
                         focusable="false"
                         viewBox="0 0 24 24"
@@ -248,34 +248,34 @@
                 </button>
 
                 <button ref="attachmentBtn" class="card-details-btn" @click="editImage">
-                    <span class="icon-smd icon-attachment"></span>
+                    <span class="icon-sm icon-attachment"></span>
                     Attachment
                 </button>
 
                 <button ref="coverBtn" class="card-details-btn" @click="changeCover">
-                    <span class="icon-smd icon-cover"></span>
+                    <span class="icon-sm icon-cover"></span>
                     Cover
                 </button>
 
                 <label for>Actions</label>
 
                 <button ref="moveBtn" class="card-details-btn" @click="moveCard">
-                    <span class="icon-smd icon-move"></span>
+                    <span class="icon-sm icon-move"></span>
                     Move
                 </button>
 
                 <button ref="copyBtn" class="card-details-btn" @click="copyCard">
-                    <span class="icon-smd icon-copy"></span>
+                    <span class="icon-sm icon-copy"></span>
                     Copy
                 </button>
 
                 <button ref="shareBtn" class="card-details-btn last" @click="shareCard">
-                    <span class="icon-smd icon-share"></span>
+                    <span class="icon-sm icon-share"></span>
                     Share
                 </button>
 
                 <button ref="deleteBtn" class="card-details-btn" @click="deleteWarn">
-                    <span class="icon-smd icon-archive"></span>
+                    <span class="icon-sm icon-archive"></span>
                     Delete
                 </button>
             </section>

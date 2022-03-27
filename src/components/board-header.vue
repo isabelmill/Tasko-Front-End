@@ -54,7 +54,7 @@
                     class="board-name"
                     v-if="!titleIsOpen"
                     @click="openTitleEdit"
-                >{{title }}</p>
+                >{{ title }}</p>
                 <input
                     maxlength="512"
                     v-clickOutside="changeTitle"
@@ -81,10 +81,12 @@
                 <p>Show menu</p>
             </button>
         </nav>
+        <!-- <menu-bar></menu-bar> -->
     </section>
 </template>
 
 <script>
+import menuBar from "../components/menu-bar.vue"
 export default {
     props: {
         board: Object,
@@ -112,7 +114,7 @@ export default {
         boardStared() {
             this.isStared = !this.isStared
             // this.boardToEdit.isStarred = !this.boardToEdit.isStarred
-             this.$emit('starredChange', this.isStared)
+            this.$emit('starredChange', this.isStared)
             // this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
         },
         openTitleEdit() {
@@ -136,6 +138,9 @@ export default {
             return `width: ${24 + (this.titleLength * 8) + 'px'};`
         }
 
-    }
+    },
+    components: {
+        menuBar,
+    },
 }
 </script>
