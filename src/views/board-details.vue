@@ -5,6 +5,7 @@
             :board="board"
             @titleChange="updateBoardTitle"
             @starredChange="isStarredBoard"
+            @changeBgcColor="changeBoardBgcColor"
         />
     </section>
     <section
@@ -13,7 +14,7 @@
         :style="{ 'backgroundColor': board.background }"
     >
         <group-list
-        @boardModified="updateBoard"
+            @boardModified="updateBoard"
             @removeGroup="groupRemove"
             @openCardDetails="openCardDetailsModal"
             @groupUpdated="updateGroup"
@@ -90,10 +91,10 @@ export default {
             this.groupToEdit.cards[cardToEditIdx] = card
             this.updateGroup(this.groupToEdit)
         },
-        deleteCardFromGroup({card,group}){
+        deleteCardFromGroup({ card, group }) {
             this.groupToEdit = JSON.parse(JSON.stringify(group))
             const cardToEditIdx = this.groupToEdit.cards.findIndex(cardToFind => cardToFind.id === card.id)
-            this.groupToEdit.cards.splice(cardToEditIdx,1)
+            this.groupToEdit.cards.splice(cardToEditIdx, 1)
             this.updateGroup(this.groupToEdit)
         },
         updateGroup(editedGroup) {
@@ -128,6 +129,11 @@ export default {
         isStarredBoard(isStarred) {
             this.boardToEdit = JSON.parse(JSON.stringify(this.board))
             this.boardToEdit.isStarred = isStarred
+            this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
+        },
+        changeBoardBgcColor(color) {
+            this.boardToEdit = JSON.parse(JSON.stringify(this.board))
+            this.boardToEdit.background = color
             this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
         }
     },

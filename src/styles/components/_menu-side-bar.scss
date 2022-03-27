@@ -1,18 +1,39 @@
 .side-bar-menu-main {
-    z-index: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
+    overflow-y: auto;
+    margin-top: 3px;
+    background-color: #f4f5f7;
     position: fixed;
     right: 0;
-    top: 40px;
-    // height: calc(100vh - 65px);
-    height: 100%;
-    background-color: #f4f5f7;
     padding-inline: 12px;
-    width: 340px;
+    top: 40px;
     box-shadow: 0 12px 24px -6px rgb(9 30 66 / 25%), 0 0 0 1px rgb(9 30 66 / 8%);
-    transition: all .3s;
+    height: calc(100vh - 40px);
+    z-index: 1;
+    width: 340px;
+    transition: all .2s;
+    // padding: 12px 6px 12px 12px;
+
+    .side-bar-menu-container {
+        border-radius: 3px;
+        display: block;
+        font-weight: 600;
+        line-height: 20px;
+        cursor: pointer;
+        margin-bottom: 20px;
+
+        &:hover {
+            background-color: #091e4214;
+        }
+
+        p {
+            font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Noto Sans, Ubuntu, Droid Sans, Helvetica Neue, sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+        }
+    }
 
     .side-bar-menu-header {
         position: relative;
@@ -20,5 +41,154 @@
         display: flex;
         align-items: center;
         justify-content: center;
+
+
+        h3 {
+            font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Noto Sans, Ubuntu, Droid Sans, Helvetica Neue, sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            margin: 14px 32px;
+        }
     }
+
+    .side-bar-menu-background {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        .side-bar-menu-header-background {
+            position: relative;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            span {
+                cursor: pointer;
+            }
+
+
+            h3 {
+                font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Noto Sans, Ubuntu, Droid Sans, Helvetica Neue, sans-serif;
+                font-size: 16px;
+                font-weight: 500;
+                margin: 14px 32px;
+            }
+        }
+
+        .side-bar-menu-background-container {
+            display: flex;
+            gap: 10px;
+
+            img {
+                background-color: #dfe1e6;
+                background-size: cover;
+                border-radius: 8px;
+                height: 96px;
+                margin-bottom: 8px;
+                width: 100%;
+                cursor: pointer;
+            }
+        }
+    }
+
+    .side-bar-menu-background-regular {
+        .side-bar-menu-background-container-regular {
+            // background-color: aqua;
+            margin-top: 5px;
+            display: grid;
+            grid-template-columns: 157px 157px;
+            grid-auto-rows: 100px;
+            justify-content: center;
+            gap: 3px;
+            width: 100%;
+            height: 100%;
+            padding-left: 15px;
+            padding-right: 8px;
+
+            .color-menu {
+                border-radius: 8px;
+                height: 96px;
+                width: 150px;
+                cursor: pointer;
+            }
+        }
+
+        .side-bar-menu-header-background-regular {
+            position: relative;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            span {
+                cursor: pointer;
+            }
+
+
+            h3 {
+                font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Noto Sans, Ubuntu, Droid Sans, Helvetica Neue, sans-serif;
+                font-size: 16px;
+                font-weight: 500;
+                margin: 14px 32px;
+            }
+        }
+    }
+
+
+}
+
+.blue {
+    background-color: rgb(0, 121, 191);
+}
+
+.yellow {
+    background-color: rgb(210, 144, 52);
+}
+
+.green {
+    background-color: rgb(81, 152, 57);
+}
+
+.red {
+    background-color: rgb(176, 70, 50);
+}
+
+.purple {
+    background-color: rgb(137, 96, 158);
+}
+
+.pink {
+    background-color: rgb(205, 90, 145);
+}
+
+.light-green {
+    background-color: rgb(75, 191, 107);
+}
+
+.light-blue {
+    background-color: rgb(0, 174, 204);
+}
+
+.grey {
+    background-color: rgb(131, 140, 145);
+}
+
+.slide-enter-active,
+.slide-leave-active {
+    transition: transform 0.2s ease;
+    transform: translateX(100%);
+
+
+}
+
+.slide-enter,
+.slide-leave-to {
+    transition: transform 0.2s ease;
+    transform: translateX(100%);
+}
+
+.icon-back {
+    @include to-icon("\e90a")
 }

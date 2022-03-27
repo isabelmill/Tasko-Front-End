@@ -78,15 +78,18 @@
         <nav>
             <button>
                 <div class="icon-sm icon-overflow-menu-horizontal"></div>
-                <p>Show menu</p>
+                <p @click="openMenuBar">Show menu</p>
             </button>
         </nav>
-        <!-- <menu-bar></menu-bar> -->
+        <transition name="slide">
+            <menu-bar v-if="showMenu" @close="closeMenuBar" @changeBgcColor="changeBoardBgcColor">></menu-bar>
+        </transition>
     </section>
 </template>
 
 <script>
 import menuBar from "../components/menu-bar.vue"
+
 export default {
     props: {
         board: Object,
@@ -97,7 +100,8 @@ export default {
             titleIsOpen: false,
             boardToEdit: JSON.parse(JSON.stringify(this.board)),
             titleLength: 0,
-            title: ''
+            title: '',
+            showMenu: false,
 
         }
     },
@@ -127,6 +131,16 @@ export default {
         },
         calculateTxtLen() {
             this.titleLength = this.title.length
+        },
+        closeMenuBar() {
+            this.showMenu = false;
+        },
+        openMenuBar() {
+            this.showMenu = true;
+            // this.$emit("isMenuOpen",this.showMenu);
+        },
+        changeBoardBgcColor(color) {
+            this.$emit("changeBgcColor", color);
         }
     },
     computed: {
