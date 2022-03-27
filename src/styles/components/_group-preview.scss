@@ -104,6 +104,58 @@
         display: flex;
         justify-content: space-between;
         margin: 4px 2px 4px 2px;
+        .date {
+            border-radius: 3px;
+            display: inline-block;
+            margin: 0 4px 4px 0;
+            max-width: 100%;
+            min-height: 20px;
+            overflow: hidden;
+            padding: 4px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2px;
+
+            .date-txt {
+                color: #fff;
+                font-size: 12px;
+                padding: 0 4px 0 2px;
+                vertical-align: top;
+                white-space: nowrap;
+            }
+
+        }
+    }
+}
+.dateRed {
+    background-color: #eb5a46;
+    .icon-clock-in-date {
+        @include to-icon("\e91b");
+        color: #fff;
+    }
+
+    &:hover {
+        background-color: #b04632;
+
+        .icon-clock-in-date {
+            @include to-icon("\e919");
+        }
+    }
+}
+.dateGreen {
+    background-color: #61bd4f;
+    .icon-clock-in-date {
+        @include to-icon("\e91b");
+        color: #fff;
+    }
+
+    &:hover {
+        background-color: #519839;
+
+        .icon-clock-in-date {
+            @include to-icon("\e918");
+        }
     }
 }
 
