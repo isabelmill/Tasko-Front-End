@@ -1,7 +1,7 @@
 <template>
     <section
         v-clickOutside="close"
-        :style="{ top: pos.bottom + 8 + 'px', left: pos.left + 'px' }"
+        :style="{ top:0  + 'px', left: pos.left + 'px' }"
         class="label-modal"
     >
         <div class="main-title-container">
@@ -11,6 +11,8 @@
         <section class="actions-modal-main">
             <section class="date-picker">
                 <datepicker v-model="date" inline autoApply typeabble />
+                <datepicker v-show="isStartDate" v-model="startDate" inline autoApply typeabble />
+            <button type="button" @click="startDateInit" class="create-btn">init</button>
             <button type="button" @click="saveDate" class="create-btn">Save</button>
             <button type="button" @click="remove" class="create-btn delete-date">Remove</button>
             </section>
@@ -28,8 +30,11 @@ export default {
     name: 'dates-modal',
     setup() {
         const date = ref(new Date());
+        const startDate = ref(new Date());
+        
         return {
             date,
+            startDate
         }
     },
     props: {
@@ -48,7 +53,7 @@ export default {
     },
     data() {
         return {
-            
+            isStartDate: false,
         }
     },
     computed: {
@@ -67,6 +72,10 @@ export default {
             this.cardToEdit.date = this.date.getTime()
             this.$emit('cardEdit',this.cardToEdit)
             this.$emit('actionsClose')
+        },
+        startDateInit(){
+            console.log(this.startDate)
+            this.isStartDate = !this.isStartDate
         }
 
     },
