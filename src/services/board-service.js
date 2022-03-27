@@ -122,6 +122,7 @@ function _createBoards() {
                             "labels": [],
                             "members": [],
                             "date": '',
+                            "cover": {},
                             "props": {
                                 "className": "card",
                                 "style": {}
@@ -133,6 +134,7 @@ function _createBoards() {
                             "labels": [],
                             "members": [],
                             "date": '',
+                            "cover": {},
                             "props": {
                                 "className": "card",
                                 "style": {}
@@ -144,6 +146,7 @@ function _createBoards() {
                             "labels": [],
                             "members": [],
                             "date": '',
+                            "cover": {},
                             "props": {
                                 "className": "card",
                                 "style": {}
@@ -155,6 +158,7 @@ function _createBoards() {
                             "labels": [],
                             "members": [],
                             "date": '',
+                            "cover": {},
                             "props": {
                                 "className": "card",
                                 "style": {}
@@ -166,6 +170,7 @@ function _createBoards() {
                             "labels": [],
                             "members": [],
                             "date": '',
+                            "cover": {},
                             "props": {
                                 "className": "card",
                                 "style": {}
@@ -177,6 +182,7 @@ function _createBoards() {
                             "labels": [],
                             "members": [],
                             "date": '',
+                            "cover": {},
                             "props": {
                                 "className": "card",
                                 "style": {}
@@ -188,6 +194,7 @@ function _createBoards() {
                             "labels": [],
                             "members": [],
                             "date": '',
+                            "cover": {},
                             "props": {
                                 "className": "card",
                                 "style": {}
@@ -209,6 +216,7 @@ function _createBoards() {
                             "labels": [],
                             "members": [],
                             "date": '',
+                            "cover": {},
                             "props": {
                                 "className": "card",
                                 "style": {}
@@ -220,6 +228,7 @@ function _createBoards() {
                             "labels": [],
                             "members": [],
                             "date": '',
+                            "cover": {},
                             "props": {
                                 "className": "card",
                                 "style": {}
@@ -231,6 +240,7 @@ function _createBoards() {
                             "labels": [],
                             "members": [],
                             "date": '',
+                            "cover": {},
                             "props": {
                                 "className": "card",
                                 "style": {}
@@ -242,6 +252,7 @@ function _createBoards() {
                             "labels": [],
                             "members": [],
                             "date": '',
+                            "cover": {},
                             "props": {
                                 "className": "card",
                                 "style": {}
@@ -298,6 +309,7 @@ function _createBoards() {
                             "labels": [],
                             "createdAt": 1590999730348,
                             "date": '',
+                            "cover": {},
                             "byMember": {
                                 "_id": "u101",
                                 "username": "Tal",
