@@ -110,7 +110,7 @@ function _createBoards() {
             ],
             "groups": [{
                     "id": "g101",
-                    "title": "Group 1",
+                    "title": "FrontEnd",
                     "props": {
                         "orientation": "vertical",
                         "className": "card-container",
@@ -128,7 +128,62 @@ function _createBoards() {
                         },
                         {
                             "id": "c102",
-                            "title": "Add Samples",
+                            "title": "Component: Menu",
+                            "labels": [],
+                            "members": [],
+                            "date": '',
+                            "props": {
+                                "className": "card",
+                                "style": {}
+                            }
+                        },
+                        {
+                            "id": "c103",
+                            "title": "Activities",
+                            "labels": [],
+                            "members": [],
+                            "date": '',
+                            "props": {
+                                "className": "card",
+                                "style": {}
+                            }
+                        },
+                        {
+                            "id": "c104",
+                            "title": "Clouding",
+                            "labels": [],
+                            "members": [],
+                            "date": '',
+                            "props": {
+                                "className": "card",
+                                "style": {}
+                            }
+                        },
+                        {
+                            "id": "c105",
+                            "title": "DeadLines (Date+Time)",
+                            "labels": [],
+                            "members": [],
+                            "date": '',
+                            "props": {
+                                "className": "card",
+                                "style": {}
+                            }
+                        },
+                        {
+                            "id": "c106",
+                            "title": "PWA",
+                            "labels": [],
+                            "members": [],
+                            "date": '',
+                            "props": {
+                                "className": "card",
+                                "style": {}
+                            }
+                        },
+                        {
+                            "id": "c107",
+                            "title": "Pages",
                             "labels": [],
                             "members": [],
                             "date": '',
@@ -142,14 +197,15 @@ function _createBoards() {
                 },
                 {
                     "id": "g102",
-                    "title": "Group 2",
+                    "title": "Progress",
                     "props": {
                         "orientation": "vertical",
                         "className": "card-container",
                     },
-                    "cards": [{
-                            "id": "c103",
-                            "title": "Do that",
+                    "cards": [
+                        {
+                            "id": "c111",
+                            "title": "Layout",
                             "labels": [],
                             "members": [],
                             "date": '',
@@ -159,7 +215,40 @@ function _createBoards() {
                             }
                         },
                         {
-                            "id": "c104",
+                            "id": "c112",
+                            "title": "CRUDL:Front",
+                            "labels": [],
+                            "members": [],
+                            "date": '',
+                            "props": {
+                                "className": "card",
+                                "style": {}
+                            }
+                        },
+                        {
+                            "id": "c113",
+                            "title": "Component: Card",
+                            "labels": [],
+                            "members": [],
+                            "date": '',
+                            "props": {
+                                "className": "card",
+                                "style": {}
+                            }
+                        },
+                        {
+                            "id": "c114",
+                            "title": "DND",
+                            "labels": [],
+                            "members": [],
+                            "date": '',
+                            "props": {
+                                "className": "card",
+                                "style": {}
+                            }
+                        },
+                        {
+                            "id": "c115",
                             "title": "Help me",
                             "status": "in-progress",
                             "description": "description",
@@ -221,7 +310,83 @@ function _createBoards() {
                         }
                     ],
                     "style": {}
-                }
+                },
+                {
+                    "id": "g101",
+                    "title": "Done",
+                    "props": {
+                        "orientation": "vertical",
+                        "className": "card-container",
+                    },
+                    "cards": [{
+                            "id": "c101",
+                            "title": "Store",
+                            "labels": [],
+                            "members": [],
+                            "date": '',
+                            "props": {
+                                "className": "card",
+                                "style": {}
+                            }
+                        },
+                        {
+                            "id": "c102",
+                            "title": "Init-Vue",
+                            "labels": [],
+                            "members": [],
+                            "date": '',
+                            "props": {
+                                "className": "card",
+                                "style": {}
+                            }
+                        },
+                    ],
+                    "style": {}
+                },
+                {
+                    "id": "g101",
+                    "title": "Backend",
+                    "props": {
+                        "orientation": "vertical",
+                        "className": "card-container",
+                    },
+                    "cards": [{
+                            "id": "c101",
+                            "title": "UserData",
+                            "labels": [],
+                            "members": [],
+                            "date": '',
+                            "props": {
+                                "className": "card",
+                                "style": {}
+                            }
+                        },
+                        {
+                            "id": "c102",
+                            "title": "Socketting",
+                            "labels": [],
+                            "members": [],
+                            "date": '',
+                            "props": {
+                                "className": "card",
+                                "style": {}
+                            }
+                        },
+                        {
+                            "id": "c102",
+                            "title": "Connect with MongoDB",
+                            "labels": [],
+                            "members": [],
+                            "date": '',
+                            "props": {
+                                "className": "card",
+                                "style": {}
+                            }
+                        },
+                    ],
+                    "style": {}
+                },
+                
             ],
             "activities": [{
                 "id": "a101",
