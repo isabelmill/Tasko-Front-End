@@ -60,6 +60,8 @@
     outline: 0;
     overflow: hidden;
 
+
+
     .create-board-title-add-btns {
         display: flex;
         flex-direction: column;
@@ -139,6 +141,7 @@
             height: rem(120px);
             border-radius: 3px;
             box-shadow: 0 7px 15px rgb(0 0 0 / 15%);
+            background-color: #0079bf;
 
             img {
                 width: rem(180px);
@@ -154,6 +157,11 @@
         text-align: center;
         display: grid;
         grid-template-columns: 12px 1fr 12px;
+
+        h1{
+            font-weight: unset;
+            font-size: 15px;
+        }
 
         .header-text-create-boards-modal {
             color: #172b4d;
@@ -282,4 +290,16 @@
 ::-webkit-scrollbar {
     overflow-x: hidden;
     overflow-y: hidden;
+}
+
+.checked {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    color: white;
+    line-height: 32px;
+    text-decoration: none;
+    font-family: icomoon;
+    font-size: rem(16px);
+    @include to-icon("\e916");
 }

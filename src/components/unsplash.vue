@@ -19,8 +19,8 @@ export default {
     methods: {
         async onUploadImg() {
             const res = await uploadImg();
-            console.log(res.results[0].preview_photos[0].urls.full);
-            this.photo = res.results[2].preview_photos[0].urls.raw
+            console.log(res.results[3].preview_photos[0].urls.regular);
+            this.photo = res.results[1].preview_photos[0].urls.regular
         },
     },
 };

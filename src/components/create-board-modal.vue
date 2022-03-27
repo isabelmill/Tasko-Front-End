@@ -34,11 +34,21 @@
             </div>
             <label class="background-label">Background</label>
             <div class="create-board-background-color">
-                <div @click="setBoardColor('#0079BF')" class="blue color-pref"></div>
-                <div @click="setBoardColor('#D29034')" class="yellow color-pref"></div>
-                <div @click="setBoardColor('#519839')" class="green color-pref"></div>
-                <div @click="setBoardColor('#B04632')" class="red color-pref"></div>
-                <div @click="setBoardColor('#89609E')" class="purple color-pref"></div>
+                <div @click="setBoardColor('#0079BF')" class="blue color-pref">
+                  <span v-if="setColor === '#0079BF' " class="checked"></span>
+                 </div>
+                <div @click="setBoardColor('#D29034')" class="yellow color-pref">
+                  <span v-if="setColor === '#D29034' " class="checked"></span>
+                </div>
+                <div @click="setBoardColor('#519839')" class="green color-pref">
+                <span v-if="setColor === '#519839' " class="checked"></span>
+                </div>
+                <div @click="setBoardColor('#B04632')" class="red color-pref">
+                 <span v-if="setColor === '#B04632' " class="checked"></span>
+                </div>
+                <div @click="setBoardColor('#89609E')" class="purple color-pref">
+                <span v-if="setColor === '#89609E' " class="checked"></span>
+                </div>
                 <div class="more color-pref">
                     <svg
                         width="16"
