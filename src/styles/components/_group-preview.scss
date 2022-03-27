@@ -104,11 +104,11 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        // margin: 4px 2px 4px 2px;
+        margin: 4px 0 4px 0;
         .date {
             border-radius: 3px;
             display: inline-block;
-            // margin: 0 4px 4px 0;
+            // margin-bottom: 4px;
             max-width: 100%;
             min-height: 20px;
             overflow: hidden;

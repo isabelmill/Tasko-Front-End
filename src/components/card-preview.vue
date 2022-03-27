@@ -252,6 +252,7 @@ export default {
         },
         onDateClicked() {
             this.isDateClicked = !this.isDateClicked
+            
         },
     },
     computed: {

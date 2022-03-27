@@ -67,14 +67,32 @@
                             <label v-if="card.date" for>Due date</label>
                             <div class="card-details-dates-container" v-if="card.date" for>
                                 <section class="card-details-dates">
-                                    <input class="check-box-date" type="checkbox" />
+
+                                    <div  v-if="!card.isComplete"
+                                    @click="toggleCardComplete"
+                                    class="checkbox"
+                                    >
+                                    </div>
+
+                                    <img
+                                        v-if="card.isComplete"
+                                        @click="toggleCardComplete"
+                                        class="done-img"
+                                        src="data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23fff' viewBox='-3 -4 16 16'%3E%3Cpath d='M1.49 3.215a.667.667 0 0 0-.98.903l2.408 2.613c.358.351.892.351 1.223.02l.243-.239a1689.645 1689.645 0 0 0 2.625-2.589l.027-.026a328.23 328.23 0 0 0 2.439-2.429.667.667 0 1 0-.95-.936c-.469.476-1.314 1.316-2.426 2.417l-.027.026a1368.126 1368.126 0 0 1-2.517 2.482L1.49 3.215z'/%3E%3C/svg%3E"
+                                        alt
+                                    />
+                                    <!-- <input @click="toggleCardComplete"  type="checkbox" /> -->
+
                                     <div class="card-details-date">
                                         <p>{{ setDateFormat(card.date) }} at {{ setHourFormat(card.date) }}</p>
 
-                                        <span v-if="card.date < Date.now" class="overdue">overdue</span>
-                                        <span v-if="isComplete" class="complete">complete</span>
+                                        <span
+                                            v-if="card.date < Date.now() && !card.isComplete"
+                                            class="overdue"
+                                        >overdue</span>
+                                        <span v-if="card.isComplete" class="complete">complete</span>
 
-                                        <svg
+                                        <svg class="down"
                                             width="20"
                                             height="20"
                                             role="presentation"
@@ -397,6 +415,10 @@ export default {
             let hr = new Date(timestamp)
             const hour = hr.toLocaleTimeString().replace(/(.*)\D\d+/, '$1');
             return hour
+        },
+        toggleCardComplete() {
+            this.cardToEdit.isComplete = !this.cardToEdit.isComplete
+            this.$emit('cardModified', { card: this.cardToEdit, group: this.group })
         }
 
 
