@@ -6,10 +6,53 @@
             <h1>Recently viewed</h1>
             <div class="contact">
                 <div class="folders">
-                    <p>Boards</p>
-                    <p>templates</p>
-                    <p>Home</p>
+                    <p>
+                        <span class="icon-sm icon-board"></span>
+                        Boards
+                    </p>
+                    <p>
+                        <span class="icon-sm icon-template"></span>
+                        templates
+                    </p>
+                    <p>
+                        <span class="icon-sm icon-home"></span>
+                        Home
+                    </p>
                 </div>
+
+                <ul>
+                    <li
+                        @click="setFilter('inbox')"
+                        class="inbox-folder"
+                        :class="changeColor('inbox')"
+                    >
+                        <div>
+                            <img :src="inboxRed" />
+                        </div>Inbox
+                        <small>{{ unreadMails.length }}</small>
+                    </li>
+                    <li @click="setFilter('starred')" :class="changeColor('starred')">
+                        <div>
+                            <img :src="starredRed" />
+                        </div>Starred
+                    </li>
+                    <li @click="setFilter('important')" :class="changeColor('important')">
+                        <div>
+                            <img :src="importantRed" />
+                        </div>Important
+                    </li>
+                    <li @click="setFilter('sent')" :class="changeColor('sent')">
+                        <div>
+                            <img :src="sentRed" />
+                        </div>Sent
+                    </li>
+                    <li @click="setFilter('trash')" :class="changeColor('trash')">
+                        <div>
+                            <img :src="trashRed" />
+                        </div>Trash
+                    </li>
+                </ul>
+
                 <div class="folder-info">
                     <board-list v-if="boards" :boards="boards" />
                     <button
@@ -71,7 +114,7 @@ export default {
             this.$store.dispatch({ type: 'saveBoard', board: newboard })
             this.newBoard = boardService.getEmptyBoard()
             this.isEdit = false
-            console.log('newboard:',newboard);
+            console.log('newboard:', newboard);
             this.$router.push(`/board/${newboard._id}`)
         },
         calcPosOfBox() {

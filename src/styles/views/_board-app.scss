@@ -26,8 +26,8 @@
         font-weight: bold;
         padding-left: 33px;
         margin: 0 0 5px 40px;
-        height: rem(36px);
-        width: rem(240px);
+        height: rem(30px);
+        width: rem(243px);
         cursor: pointer;
 
         &:hover {
@@ -282,4 +282,19 @@
 ::-webkit-scrollbar {
     overflow-x: hidden;
     overflow-y: hidden;
+}
+
+
+// icons
+
+.icon-board {
+    @include to-icon("\e90b");
+}
+
+.icon-template {
+    @include to-icon("\e96d");
+}
+
+.icon-home {
+    @include to-icon("\e938");
 }
