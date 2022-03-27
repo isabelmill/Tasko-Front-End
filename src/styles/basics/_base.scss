@@ -1,18 +1,16 @@
 * {
     box-sizing: border-box;
-    font-family: roboto-regular, sans-serif;
-}
-
-input,
-textarea {
-    font-family: Roboto-regular, Helvetica, sans-serif;
-    color: #172b4d;
-    font-weight: 400;
-    resize: none;
 }
 
 body {
     margin: 0;
+}
+
+input,
+textarea {
+    font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 400;
+    resize: none;
 }
 
 img {
@@ -24,8 +22,10 @@ h2,
 h3,
 h4,
 h5,
-h6 {
+h6,
+ul {
     margin: 0;
+    padding: 0;
 }
 
 p {
@@ -39,18 +39,9 @@ li {
 
 button {
     cursor: pointer;
-    font-family: roboto-regular, Helvetica, sans-serif;
 }
 
 a {
     text-decoration: none;
     color: inherit;
 }
-
-// input,
-// textarea {
-//     transition-duration: 85ms;
-//     transition-property: background-color, border-color, box-shadow;
-//     transition-timing-function: ease;
-// }
-

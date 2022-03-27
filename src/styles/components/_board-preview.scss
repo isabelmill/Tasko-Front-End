@@ -1,13 +1,30 @@
 .board-preview-main {
+    font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
+    background-color: rgb(106, 38, 161);
+    border-radius: 3px;
+    height: rem(96px);
+    width: rem(192px);
+    cursor: pointer;
+    position: relative;
     h1 {
-        background-color: rgb(106, 38, 161);
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        padding: 4px 0 0 8px;
         color: #ffff;
-        border-radius: 3px;
-        height: rem(97px);
-        width: rem(195px);
-        cursor: pointer;
+    }
+    span {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        margin: 10px;
+    }
+    .icon-starred-boards {
+        @include to-icon("\e967");
+        color: $mainYellow;
+    }
+
+    &:hover {
+        .icon-starred-boards {
+            @include to-icon("\e966");
+            color: $mainYellow;
+        }
     }
 }

@@ -67,12 +67,11 @@
                             <label v-if="card.date" for>Due date</label>
                             <div class="card-details-dates-container" v-if="card.date" for>
                                 <section class="card-details-dates">
-
-                                    <div  v-if="!card.isComplete"
-                                    @click="toggleCardComplete"
-                                    class="checkbox"
-                                    >
-                                    </div>
+                                    <div
+                                        v-if="!card.isComplete"
+                                        @click="toggleCardComplete"
+                                        class="checkbox"
+                                    ></div>
 
                                     <img
                                         v-if="card.isComplete"
@@ -92,7 +91,8 @@
                                         >overdue</span>
                                         <span v-if="card.isComplete" class="complete">complete</span>
 
-                                        <svg class="down"
+                                        <svg
+                                            class="down"
                                             width="20"
                                             height="20"
                                             role="presentation"
@@ -293,13 +293,20 @@
             :is="currModal"
         ></component>
     </section>
-    <delete-warning @closeDeleteWarning="closeWarning" @deleteConfirmed="deleteCard" v-if="warningOpen" :title="warningTitle" :pos="pos"></delete-warning>
+    <delete-warning
+        @closeDeleteWarning="closeWarning"
+        @deleteConfirmed="deleteCard"
+        v-if="warningOpen"
+        :title="warningTitle"
+        :pos="pos"
+    ></delete-warning>
 </template>
 
 <script>
 import labelModal from "./label-modal-cmp.vue";
 import memebersModal from "./memebers-modal-cmp.vue";
 import datesModal from "./date-modal-cmp.vue";
+import coverModal from "./cover-modal-cmp.vue";
 import deleteWarning from "./delete-warning-modal-cmp.vue";
 export default {
 
@@ -319,7 +326,8 @@ export default {
         labelModal,
         memebersModal,
         datesModal,
-        deleteWarning
+        deleteWarning,
+        coverModal
     },
     created() {
         this.description = this.card.description
@@ -366,6 +374,11 @@ export default {
             this.shown = true
             this.currModal = "labelModal"
         },
+        changeCover() {
+            this.pos = this.$refs['coverBtn'].getBoundingClientRect()
+            this.shown = true
+            this.currModal = "coverModal"
+        },
         editDates() {
             this.pos = this.$refs['datesBtn'].getBoundingClientRect()
             this.currModal = "datesModal"
@@ -379,11 +392,11 @@ export default {
             this.warningTitle = 'card'
             this.warningOpen = true
         },
-        closeWarning(){
+        closeWarning() {
             this.warningOpen = false
         },
-        deleteCard(){
-            this.$emit('deleteCardFromGroup', {card:this.cardToEdit, group:this.group})
+        deleteCard() {
+            this.$emit('deleteCardFromGroup', { card: this.cardToEdit, group: this.group })
             this.closeModal()
         },
         closeInput() {
@@ -420,7 +433,7 @@ export default {
 
 
     },
-    emits: ['closeDialog', 'cardModified', 'boardModified','deleteCardFromGroup']
+    emits: ['closeDialog', 'cardModified', 'boardModified', 'deleteCardFromGroup']
 
 }
 
