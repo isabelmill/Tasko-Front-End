@@ -15,7 +15,10 @@
         </div>
         <div class="card-bar">
             <div class="card-bar-icon">
-                <p>(soon...)</p>
+                <div v-if="card.date" class="date" @click="onDateClicked" :class="updateDate">
+                    <span class="icon-sm icon-clock-in-date"></span>
+                    <span class="date-txt">{{ setDateFormat(card.date) }}</span>
+                </div>
             </div>
             <div class="card-bar-members">
                 <div v-if="card.members.length && board.members.length" class="members">
@@ -98,6 +101,7 @@ import { applyDrag, generateItems } from '../services/dnd-service.js';
 import labelModal from "./label-modal-cmp.vue";
 import memebersModal from "./memebers-modal-cmp.vue";
 import datesModal from "./date-modal-cmp.vue";
+import moment from 'moment'
 // import { throws } from "assert";
 
 export default {
@@ -141,6 +145,7 @@ export default {
             isActionsOpen: false,
             activeComponent: null,
             isLabelClicked: false,
+            isDateClicked: false,
         }
     },
     created() {
@@ -221,12 +226,23 @@ export default {
         },
         closeMenu() {
             this.shown = false
-        }
+        },
+        setDateFormat(timestamp) {
+            const dt = new Date(timestamp)
+            console.log(Intl.DateTimeFormat('en-Us', { month: 'short', day: 'numeric' }).format(dt))
+            const date = Intl.DateTimeFormat('en-Us', { month: 'short', day: 'numeric' }).format(dt)
+            return date
+        },
+        onDateClicked() {
+            this.isDateClicked = !this.isDateClicked
+        },
     },
     computed: {
         openLabels() {
             return { labelOpen: this.isLabelOpen };
-            // isLabelOpen = !isLabelOpen
+        },
+        updateDate() {
+            return { dateRed: !this.isDateClicked, dateGreen: this.isDateClicked };
         },
     },
     emits: ['openCard', 'editCard', 'openAllLabels', 'deleteCard', 'boardUpdated'],
