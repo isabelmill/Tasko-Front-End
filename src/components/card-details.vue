@@ -309,6 +309,8 @@ import datesModal from "./date-modal-cmp.vue";
 import coverModal from "./cover-modal-cmp.vue";
 import attachmentModal from "./attachment-modal-cmp.vue";
 import deleteWarning from "./delete-warning-modal-cmp.vue";
+import copyModal from "./copy-modal-cmp.vue";
+
 export default {
 
     name: 'card-details',
@@ -329,7 +331,8 @@ export default {
         datesModal,
         deleteWarning,
         coverModal,
-        attachmentModal
+        attachmentModal,
+        copyModal,
     },
     created() {
         this.description = this.card.description
@@ -381,7 +384,7 @@ export default {
             this.shown = true
             this.currModal = "coverModal"
         },
-        addAttachment(){
+        addAttachment() {
             this.pos = this.$refs['attachmentBtn'].getBoundingClientRect()
             this.shown = true
             this.currModal = "attachmentModal"
@@ -393,6 +396,11 @@ export default {
         },
         editCard(card) {
             this.$emit('cardModified', { card, group: this.group })
+        },
+        copyCard() {
+            this.pos = this.$refs['copyBtn'].getBoundingClientRect()
+            this.shown = true
+            this.currModal = "copyModal"
         },
         deleteWarn() {
             this.pos = this.$refs['deleteBtn'].getBoundingClientRect()

@@ -596,10 +596,11 @@
 }
 
 .icon-check {
-    @include to-icon("\e916")
+    @include to-icon("\e916");
 }
 
 .icon-close {
-    @include to-icon("\e91c")
+    @include to-icon("\e91c");
+    cursor: pointer;
 }
 
