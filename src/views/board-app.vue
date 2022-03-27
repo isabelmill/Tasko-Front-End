@@ -85,13 +85,11 @@ export default {
         closeBoardEdit() {
             this.isEdit = false;
         },
-        saveNewBoard(newboard) {
-            if (!newboard.title) return
-            this.$store.dispatch({ type: 'saveBoard', board: newboard })
-            this.newBoard = boardService.getEmptyBoard()
+        saveNewBoard(board) {
+            if (!board.title) return
+            this.$store.dispatch({ type: 'saveBoard', board: board })
             this.isEdit = false
-            console.log('newboard:', newboard);
-            this.$router.push(`/board/${newboard._id}`)
+            this.newBoard = boardService.getEmptyBoard()
         },
         calcPosOfBox() {
             this.pos = this.$refs['starred'].getBoundingClientRect()
