@@ -444,3 +444,6 @@
 .icon-search {
     @include to-icon("\e960")
 }
+.icon-closed {
+    @include to-icon("\e91c")
+}

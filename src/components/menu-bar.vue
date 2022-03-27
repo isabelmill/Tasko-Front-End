@@ -10,13 +10,13 @@
                     <h3>Menu</h3>
                 </div>
                 <div class="header-close-side-bar-menu" @click="closeModal">
-                    <span class="icon-md icon-close"></span>
+                    <span class="icon-md icon-closed"></span>
                 </div>
             </div>
             <hr />
             <div class="side-bar-menu-container flex">
                 <!-- here comes the backround of current board -->
-                <div :style="{ 'backgroundColor': board.background }" class="board-background"></div>
+                <div :style=" board.background ? { 'backgroundColor': board.background } : { 'background-image': `url(${board.backgroundPhoto})` }" class="board-background"></div>
                 <p @click="openBgcBar">Change background</p>
             </div>
             <hr />
@@ -39,7 +39,7 @@
                         <h3>Change background</h3>
                     </div>
                     <div class="header-close-background-boards-modal" @click="closeModal">
-                        <span class="icon-md icon-close"></span>
+                        <span class="icon-md icon-closed"></span>
                     </div>
                 </div>
                 <hr />
@@ -77,7 +77,7 @@
                         <h3>Colors</h3>
                     </div>
                     <div class="header-close-img-boards-modal" @click="closeModal">
-                        <span class="icon-md icon-close"></span>
+                        <span class="icon-md icon-closed"></span>
                     </div>
                 </div>
                 <hr />
@@ -109,7 +109,7 @@
                         </h3>
                     </div>
                     <div class="header-close-img-boards-modal" @click="closeModal">
-                        <span class="icon-md icon-close"></span>
+                        <span class="icon-md icon-closed"></span>
                     </div>
                 </div>
                 <hr />
