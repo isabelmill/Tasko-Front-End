@@ -11,9 +11,9 @@
         <section class="actions-modal-main">
             <section class="date-picker">
                 <datepicker v-model="date" inline autoApply typeabble />
-            </section>
             <button type="button" @click="saveDate" class="create-btn">Save</button>
-            <button type="button" @click="remove" class="create-btn">Remove</button>
+            <button type="button" @click="remove" class="create-btn delete-date">Remove</button>
+            </section>
         </section>
     </section>
 </template>
@@ -57,6 +57,7 @@ export default {
         }
     },
     created() {
+        console.log(this.pos)
     },
     methods: {
         close() {

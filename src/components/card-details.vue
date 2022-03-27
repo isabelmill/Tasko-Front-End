@@ -376,7 +376,7 @@ export default {
         },
         deleteWarn() {
             this.pos = this.$refs['deleteBtn'].getBoundingClientRect()
-            this.warningTitle = 'Delete card?'
+            this.warningTitle = 'card'
             this.warningOpen = true
         },
         closeWarning(){

@@ -133,6 +133,19 @@
         overflow-y: auto;
         // padding: 0 12px 12px;
     }
+    .delete-modal-main {
+        margin-top: 8px;
+        height: 92px;
+        // display: flex;
+        // justify-content: center;
+        // align-items: center;
+        .delete-btn {
+            margin-top: 40px;
+            display: unset;
+            width: 280px;
+            // align-self: center;
+        }
+    }
     .main-title-container {
         text-align: center;
     }
@@ -225,6 +238,13 @@
         width: 100%;
         padding: 8px;
         flex-wrap: wrap;
+        .create-btn {
+            background-color: #0079BF;
+            margin-bottom: 0;
+        }
+        .delete-date {
+            background-color: #EDEEF1;
+        }
     }
     .members-container {
         margin-bottom: 2px;

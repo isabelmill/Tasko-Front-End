@@ -32,7 +32,6 @@
         </div>
         <button class="icon-sm icon-edit" @click="openMiniEdit($event)"></button>
     </section>
-
     <section class="mini-edit-modal-main flex" v-if="modalOpen">
         <span class="icon-xl icon-close-in-pencil-modal" @click="closeModal"></span>
         <section
@@ -69,7 +68,7 @@
                 <button @click="openDetails">Open card</button>
                 <button ref="labelBtn" @click="editLabels">Edit labels</button>
                 <button ref="membersBtn" @click="changeMembers">Change members</button>
-                <button @click="changeCover">Channge cover</button>
+                <button @click="changeCover">Change cover</button>
                 <button @click="moveCard">Move</button>
                 <button @click="copyCard">Copy</button>
                 <button ref="datesBtn" @click="editDates">Edit dates</button>
@@ -107,6 +106,7 @@ import memebersModal from "./memebers-modal-cmp.vue";
 import datesModal from "./date-modal-cmp.vue";
 import deleteWarning from "./delete-warning-modal-cmp.vue";
 import moment from 'moment'
+// import { json } from "stream/consumers";
 // import { throws } from "assert";
 
 export default {
@@ -180,6 +180,8 @@ export default {
         editDates() {
             // this.modalOpen = false;
             this.posOfEditor = this.$refs['datesBtn'].getBoundingClientRect()
+            this.posOfEditor = JSON.parse(JSON.stringify(this.posOfEditor))
+            this.posOfEditor.bottom = 370
             this.currModal = "datesModal"
             this.shown = !this.shown
         },
@@ -209,12 +211,13 @@ export default {
         },
         closeModal() {
             this.modalOpen = false
+            this.shown= false
             this.$emit('toggleQuickEdit')
 
         },
         deleteWarn() {
             this.posOfEditor = this.$refs['deleteBtn'].getBoundingClientRect()
-            this.warningTitle = 'Delete card?'
+            this.warningTitle = 'card'
             this.warningOpen = true
         },
         closeWarning() {
@@ -232,6 +235,7 @@ export default {
         },
         saveCard() {
             this.$emit('editCard', { card: this.cardToDisplay, group: this.group })
+            this.shown = false
             this.closeModal()
         },
         setMemberLetters(fullname) {

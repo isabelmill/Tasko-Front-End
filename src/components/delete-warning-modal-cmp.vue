@@ -5,16 +5,16 @@
         class="label-modal"
     >
         <div class="main-title-container">
-            <div class="icon-sm icon-back" type="button" @click="closeEditLabel"></div>
+            <div class="icon-sm icon-back" type="button" @click="close"></div>
             <div class="icon-sm icon-close" @click="close"></div>
-            <span class="main-title">{{title}}</span>
+            <span class="main-title">Delete {{title}}?</span>
         </div>
-        <section class="actions-modal-main">
-            <section class="date-picker">
-            </section>
+        <section class="delete-modal-main">
+            <span class="delete-txt">There is no undo. This will remove this {{title}} and destroy its history.</span> 
             <button type="button" @click="confirmDelete" class="delete-btn">Delete</button>
+            </section>
         </section>
-    </section>
+    
 </template>
 
 <script>
