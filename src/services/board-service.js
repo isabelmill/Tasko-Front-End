@@ -117,6 +117,7 @@ function _createBoards() {
                     },
                     "cards": [{
                             "id": "c101",
+                            "isComplete": false,
                             "title": "Replace logo",
                             "labels": [],
                             "members": [],
@@ -427,6 +428,7 @@ function getEmptyActivity() {
 function getEmptyCard() {
     return {
         id: utilService.makeId(),
+        isComplete: false,
         title: '',
         description: '',
         labels: [],
