@@ -14,10 +14,12 @@
             display: flex;
             flex-direction: row;
             gap: 17px;
+            font-weight: 400;
             align-items: center;
             justify-content: center;
 
             p {
+                font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
                 font-size: 20px;
                 font-weight: 600;
                 color: #172b4d;
@@ -44,10 +46,12 @@
 
     .card-details-list-name {
         p {
+            font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
             padding-left: 59px;
-            padding-bottom: 30px;
+            padding-bottom: 20px;
             font-weight: unset;
             color: #42526e;
+            font-size: 13px;
         }
     }
 
@@ -58,10 +62,12 @@
         // padding-right: 20px;
         label {
             color: #5e6c84;
-            font-size: 14px;
+            font-size: 12px;
             font-weight: 600;
             line-height: 20px;
             margin-bottom: -4px;
+            font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
+
             margin-bottom: 8px;
         }
 
@@ -70,14 +76,16 @@
             align-items: center;
             justify-content: start;
             gap: 10px;
-            // @include cardDetailsBtn();
+            color: #4e5b70;
             background-color: #091e420a;
             border: none;
             border-radius: 3px;
             cursor: pointer;
             height: 32px;
-            font-size: 16px;
-            font-weight: 100;
+            font-size: 14px;
+            font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
+
+            font-weight: 400;
             margin-bottom: 8px;
             width: 165px;
 
@@ -96,8 +104,10 @@
         .card-details-main {
             .card-details-members-labels-date {
                 display: flex;
+                flex-wrap: wrap;
                 gap: 16px;
-                margin-bottom: 40px;
+                margin-bottom: 17px;
+                margin-left: 42px;
 
                 .card-details-members-container {
                     display: flex;
@@ -226,34 +236,36 @@
                         padding-top: 8px;
 
                         .card-details-label {
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
                             border-radius: 3px;
                             box-sizing: border-box;
-                            display: block;
-                            float: left;
                             font-weight: 600;
-                            height: 32px;
-                            line-height: 32px;
+                            height: 28px;
                             margin: 0 4px 4px 0;
                             min-width: 40px;
                             padding: 0 12px;
                             width: auto;
                             cursor: pointer;
                         }
-
+                        
                         p {
+                            text-align: center;
+                            margin: auto;
+                            font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
                             color: white;
-                            font-size: 15px;
+                            font-size: 14px;
                         }
                     }
                 }
 
                 label {
                     color: #5e6c84;
-                    font-size: 14px;
+                    font-size: 12px;
+                    font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
                     font-weight: 600;
                     line-height: 20px;
-                    // margin-bottom: -4px;
-                    // padding-bottom: 12px;
                 }
             }
 
@@ -269,9 +281,11 @@
                     font-size: 16px;
                     display: inline-block;
                     margin: 0;
+                    font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
                     min-height: 18px;
                     min-width: 40px;
                     width: auto;
+                    font-weight: 500;
                 }
 
                 button {
@@ -288,7 +302,7 @@
             .card-details-activity-show-details {
                 display: flex;
                 justify-content: space-between;
-                margin-bottom: 18px;
+                margin-bottom: 10px;
                 min-height: 32px;
 
                 .card-details-activity {
@@ -299,6 +313,7 @@
 
                     h3 {
                         color: #172b4d;
+                        font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
                         font-size: 16px;
                         line-height: 20px;
                         display: inline-block;
@@ -306,14 +321,16 @@
                         min-height: 18px;
                         min-width: 40px;
                         width: auto;
+                        font-weight: 500;
                     }
                 }
 
                 button {
                     @include cardDetailsBtn();
                     background-color: #091e420a;
-                    font-size: 16px;
-                    font-family: roboto-regular;
+                    font-size: 14px;
+                    font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
+
                 }
             }
 
@@ -338,7 +355,7 @@
                     background-color: rgb(255, 255, 255);
                     border: 2px solid rgb(239, 238, 236);
                     border-radius: 3px;
-                    width: rem(510px);
+                    width: rem(520px);
                     transition-duration: 85ms;
                     // transition-property: padding-bottom;
                     // transition-property: margin-top;
@@ -445,9 +462,11 @@
                 textarea {
                     border-color: #091e4221;
                     height: 108px;
+                    width: 514px;
                     border-radius: 3px;
-                    font-size: 15px;
+                    font-size: 13px;
                     padding: 12px;
+                    font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
 
                     &:focus {
                         outline-color: #0079BF;
@@ -467,12 +486,14 @@
                     padding: 8px 12px;
                     cursor: pointer;
                     margin-top: 17px;
+                    font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
+                    color: #42526e;
                     margin-bottom: 24px;
                     margin-left: 42px;
-                    width: rem(512px);
+                    width: rem(515px);
                     height: rem(55px);
                     border-radius: 3px;
-                    font-size: 15px;
+                    font-size: 13px;
 
                     &:hover {
                         background-color: #091e4214;

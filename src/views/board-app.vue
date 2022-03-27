@@ -1,5 +1,5 @@
 <template>
-    <section class="board-app-main">
+    <section class="board-app-main" >
         <div class="main-container">
             <!-- <unsplash></unsplash> -->
             <h1>Starred boards</h1>
