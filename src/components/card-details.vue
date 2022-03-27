@@ -9,7 +9,7 @@
                 </div>
             </div>
             <div class="card-details-icon">
-                <span class="icon-md icon-close" @click="closeModal"></span>
+                <span class="icon-md icon-closed" @click="closeModal"></span>
             </div>
         </div>
 

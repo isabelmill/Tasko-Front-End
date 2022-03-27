@@ -13,14 +13,14 @@
             <span class="mini-title">Size</span>
             <section class="cover-size-select">
                 <section
-                    @click="isSmall = true"
-                    :class="{ selected: isColorPicked && isSmall === true }"
+                    @click="isSmall = true, setSize()"
+                    :class="{ selected: (isColorPicked || isAttachmentPicked) && isSmall === true }"
                     class="cover-size-small"
-                    v-bind:style="[isColorPicked? {cursor:'pointer'}:{}]"
+                    v-bind:style="[(isColorPicked || isAttachmentPicked) ? { cursor: 'pointer' } : {}]"
                 >
                     <div
                         class="cover-header"
-                        v-bind:style="[isColorPicked ? { backgroundColor: color} : { backgroundColor: '#CFD3DA'}]"
+                        v-bind:style="[isColorPicked ? { backgroundColor: color } : (isAttachmentPicked) ? { backgroundImage: 'url(' + card.attachments[attachmentIdx].link + ')' } : { backgroundColor: '#CFD3DA' }]"
                     ></div>
                     <div class="cover-main">
                         <div
@@ -50,9 +50,9 @@
                 </section>
                 <section
                     class="cover-size-all"
-                    @click="isSmall = false"
-                    :class="{ selected: isColorPicked && isSmall === false }"
-                    v-bind:style="[isColorPicked ? { backgroundColor: color , cursor:'pointer' } : { backgroundColor: '#CFD3DA' }]"
+                    @click="isSmall = false, setSize()"
+                    :class="{ selected: (isColorPicked||isAttachmentPicked) && isSmall === false }"
+                    v-bind:style="[isColorPicked ? { backgroundColor: color, cursor: 'pointer' } : (isAttachmentPicked) ? { backgroundImage: 'url(' + card.attachments[attachmentIdx].link + ')' , cursor: 'pointer'} : { backgroundColor: '#CFD3DA' }]"
                 >
                     <div class="cover-main">
                         <div
@@ -66,7 +66,12 @@
                     </div>
                 </section>
             </section>
-            <button v-if="isColorPicked" type="button" @click="removeCover" class="create-btn">Remove cover</button>
+            <button
+                v-if="isColorPicked||isAttachmentPicked"
+                type="button"
+                @click="removeCover"
+                class="create-btn"
+            >Remove cover</button>
             <span class="mini-title">Colors</span>
             <section class="cover-colors">
                 <div
@@ -121,12 +126,34 @@
                 ></div>
             </section>
             <span class="mini-title">Attachments</span>
-            <button type="button" @click="createNewLabel" class="create-btn">Upload a cover image</button>
+            <section class="attachment-container" v-if="card.attachments.length">
+                <section v-for="(attachment, index) in card.attachments" :key="attachment.link">
+                    <img
+                        :class="{ selected: attachmentIdx === index }"
+                        @click="setAttachmentAsCover(index)"
+                        :src="attachment.link"
+                        class="attachment"
+                    />
+                </section>
+            </section>
+            <input
+                @change="attachFileFromSystem($event)"
+                type="file"
+                ref="file"
+                style="display: none"
+            />
+            <button
+                type="button"
+                @click="$refs.file.click()"
+                class="create-btn"
+            >Upload a cover image</button>
         </section>
     </section>
 </template>
 
 <script>
+import FastAverageColor from 'fast-average-color'
+import axios from "axios"
 export default {
     components: {
 
@@ -150,7 +177,9 @@ export default {
         return {
             cardToEdit: null,
             color: '',
-            isSmall: true
+            isSmall: true,
+            file: '',
+            attachmentIdx: '',
         }
     },
     computed: {
@@ -160,6 +189,9 @@ export default {
     computed: {
         isColorPicked() {
             return !(this.color === '')
+        },
+        isAttachmentPicked(){
+            return !(this.attachmentIdx === '')
         }
     },
     methods: {
@@ -167,18 +199,63 @@ export default {
             this.$emit('actionsClose')
         },
         setCoverColor(color) {
-            if (this.color === color)
-                this.color = ''
-            else this.color = color
             this.cardToEdit = JSON.parse(JSON.stringify(this.card))
-            this.cardToEdit.cover.type = 'color'
-            this.cardToEdit.cover.value = this.color
-            this.cardToEdit.cover.size = (this.isSmall)? 'small' : 'large';
-            this.$eimt('cardEdit',this.cardToEdit)
+            if (this.color === color) {
+                this.color = ''
+                this.cardToEdit.cover = {}
+            }
+            else {
+                this.color = color
+                this.cardToEdit.cover.type = 'color'
+                this.cardToEdit.cover.value = this.color
+                this.cardToEdit.cover.size = (this.isSmall) ? 'small' : 'large'
+            }
+            this.attachmentIdx = ''
+            this.$emit('cardEdit', this.cardToEdit)
         },
+        setSize() {
+            this.cardToEdit = JSON.parse(JSON.stringify(this.card))
+            this.cardToEdit.cover.size = (this.isSmall) ? 'small' : 'large'
+            console.log(this.cardToEdit)
+            this.$emit('cardEdit', this.cardToEdit)
+        },
+        async attachFileFromSystem(event) {
+            this.cardToEdit = JSON.parse(JSON.stringify(this.card))
+            this.file = event.target.files[0]
+            let formdata = new FormData()
+            formdata.append('file', this.file)
+            formdata.append('upload_preset', 'cajan_2022')
+            try {
+                const res = await axios.post(`https://api.cloudinary.com/v1_1/dw85wdwsw/image/upload`, formdata)
+                console.log(res.data)
+                this.cardToEdit.attachments.push({
+                    name: res.data.original_filename,
+                    link: res.data.secure_url
+                })
+                console.log(this.cardToEdit)
+                this.$emit('cardEdit', this.cardToEdit)
+            }
+            catch (err) {
+                console.log('ERROR', err)
+            }
+        },
+        setAttachmentAsCover(attachIdx) {
+            this.cardToEdit = JSON.parse(JSON.stringify(this.card))
+            if (this.attachmentIdx === attachIdx) {
+                this.attachmentIdx = ''
+                this.cardToEdit.cover = {}
+            }
+            else {
+                this.attachmentIdx = attachIdx
+                this.cardToEdit.cover.type = 'attachment'
+                this.cardToEdit.cover.value = this.cardToEdit.attachments[attachIdx].link
+                this.cardToEdit.cover.size = (this.isSmall) ? 'small' : 'large'
+            }
+            this.color = ''
+            this.$emit('cardEdit', this.cardToEdit)
+        }
     },
     emits: ['actionsClose', 'cardEdit']
-
 }
 </script>
 

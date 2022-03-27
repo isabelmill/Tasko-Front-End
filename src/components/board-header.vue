@@ -76,13 +76,19 @@
             </div>
         </nav>
         <nav>
-            <button>
+            <button @click="openMenuBar">
                 <div class="icon-sm icon-overflow-menu-horizontal"></div>
-                <p @click="openMenuBar">Show menu</p>
+                <p>Show menu</p>
             </button>
         </nav>
         <transition name="slide">
-            <menu-bar v-if="showMenu" @close="closeMenuBar" @changeBgcColor="changeBoardBgcColor">></menu-bar>
+            <menu-bar
+                :board="board"
+                v-if="showMenu"
+                @close="closeMenuBar"
+                @changeBgcColor="changeBoardBgcColor"
+                @changeBgcPhoto="updatePhoto"
+            ></menu-bar>
         </transition>
     </section>
 </template>
@@ -141,6 +147,9 @@ export default {
         },
         changeBoardBgcColor(color) {
             this.$emit("changeBgcColor", color);
+        },
+        updatePhoto(photo) {
+            this.$emit("changeBoardBgc", photo);
         }
     },
     computed: {
@@ -156,5 +165,6 @@ export default {
     components: {
         menuBar,
     },
+            emits: ['changeBoardBgc','changeBgcColor']
 }
 </script>
