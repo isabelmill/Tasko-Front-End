@@ -1,6 +1,7 @@
 <template>
     <div class="board-preview-main">
         <h1 @click="goToDetails()">{{ board.title }}</h1>
+        <span class="icon-sm icon-starred-boards"></span>
     </div>
 </template>
 
