@@ -14,9 +14,9 @@
             <section class="cover-size-select">
                 <section
                     @click="isSmall = true, setSize()"
-                    :class="{ selected: (isColorPicked || isAttachmentPicked) && isSmall === true , nonselected : (isColorPicked || isAttachmentPicked) && isSmall === false}"
+                    :class="{ selected: (isColorPicked || isAttachmentPicked) && isSmall === true, nonselected: (isColorPicked || isAttachmentPicked) && isSmall === false }"
                     class="cover-size-small"
-                    v-bind:style="[(isColorPicked || isAttachmentPicked) ? { cursor: 'pointer'} : {}]"
+                    v-bind:style="[(isColorPicked || isAttachmentPicked) ? { cursor: 'pointer' } : {}]"
                 >
                     <div
                         class="cover-header"
@@ -51,7 +51,7 @@
                 <section
                     class="cover-size-all"
                     @click="isSmall = false, setSize()"
-                    :class="{ selected: (isColorPicked || isAttachmentPicked) && isSmall === false , nonselected: (isColorPicked||isAttachmentPicked) && isSmall === true}"
+                    :class="{ selected: (isColorPicked || isAttachmentPicked) && isSmall === false, nonselected: (isColorPicked || isAttachmentPicked) && isSmall === true }"
                     v-bind:style="[isColorPicked ? { backgroundColor: color, cursor: 'pointer' } : (isAttachmentPicked) ? { backgroundImage: 'url(' + card.attachments[attachmentIdx].link + ')', cursor: 'pointer' } : { backgroundColor: '#CFD3DA' }]"
                 >
                     <div class="cover-main">
@@ -261,7 +261,14 @@ export default {
             }
             this.color = ''
             this.$emit('cardEdit', this.cardToEdit)
-        }
+        },
+        removeCover() {
+            this.cardToEdit = JSON.parse(JSON.stringify(this.card))
+            this.cardToEdit.cover = {}
+            this.color = ''
+            this.attachmentIdx = ''
+            this.$emit('cardEdit', this.cardToEdit)
+        },
     },
     emits: ['actionsClose', 'cardEdit']
 }
