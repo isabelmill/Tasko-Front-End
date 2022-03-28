@@ -53,7 +53,7 @@
                     :style="updateWidth"
                     class="board-name"
                     v-if="!titleIsOpen"
-                    @click="openTitleEdit"
+                    @click.stop.prevent="openTitleEdit"
                 >{{ title }}</p>
                 <input
                     maxlength="512"
@@ -67,7 +67,7 @@
                 />
             </div>
 
-            <button @click="boardStared">
+            <button @click.stop.prevent="boardStared">
                 <div :class="updateStar"></div>
             </button>
             <div class="invite">
@@ -76,7 +76,7 @@
             </div>
         </nav>
         <nav>
-            <button @click="openMenuBar">
+            <button @click.stop.prevent="openMenuBar">
                 <div class="icon-sm icon-overflow-menu-horizontal"></div>
                 <p>Show menu</p>
             </button>

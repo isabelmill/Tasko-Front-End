@@ -15,7 +15,7 @@
                 </div>
             </div>
             <div class="card-details-icon">
-                <span class="icon-md icon-closed" @click="closeModal"></span>
+                <span class="icon-md icon-closed" @click.stop.prevent="closeModal"></span>
             </div>
         </div>
 
@@ -75,13 +75,13 @@
                                 <section class="card-details-dates">
                                     <div
                                         v-if="!card.isComplete"
-                                        @click="toggleCardComplete"
+                                        @click.stop.prevent="toggleCardComplete"
                                         class="checkbox"
                                     ></div>
 
                                     <img
                                         v-if="card.isComplete"
-                                        @click="toggleCardComplete"
+                                        @click.stop.prevent="toggleCardComplete"
                                         class="done-img"
                                         src="data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23fff' viewBox='-3 -4 16 16'%3E%3Cpath d='M1.49 3.215a.667.667 0 0 0-.98.903l2.408 2.613c.358.351.892.351 1.223.02l.243-.239a1689.645 1689.645 0 0 0 2.625-2.589l.027-.026a328.23 328.23 0 0 0 2.439-2.429.667.667 0 1 0-.95-.936c-.469.476-1.314 1.316-2.426 2.417l-.027.026a1368.126 1368.126 0 0 1-2.517 2.482L1.49 3.215z'/%3E%3C/svg%3E"
                                         alt
@@ -122,7 +122,7 @@
                         <div class="card-details-description">
                             <span class="icon-lg icon-desc"></span>
                             <h3>Description</h3>
-                            <button @click="openTextArea" v-if="card.description">Edit</button>
+                            <button @click.stop.prevent="openTextArea" v-if="card.description">Edit</button>
                         </div>
 
                         <div
@@ -134,12 +134,12 @@
                         >
                             <div
                                 v-if="!showDesc && !card.description"
-                                @click="openTextArea"
+                                @click.stop.prevent="openTextArea"
                                 class="open-input-btn"
                             >Add a more detailed description...</div>
                             <div
                                 class="card-description"
-                                @click="openTextArea"
+                                @click.stop.prevent="openTextArea"
                                 v-if="!showDesc"
                             >{{ card.description }}</div>
                             <textarea
@@ -153,8 +153,8 @@
                                 rows="4"
                             ></textarea>
                             <div v-if="showDesc" class="card-details-text-add-btn">
-                                <button @click="updateCardDesc">Save</button>
-                                <span @click="closeTextArea" class="icon-xl icon-closed"></span>
+                                <button @click.stop.prevent="updateCardDesc">Save</button>
+                                <span @click.stop.prevent="closeTextArea" class="icon-xl icon-closed"></span>
                             </div>
                         </div>
                     </section>
@@ -207,7 +207,7 @@
                             <div>AB</div>
                         </div>
                         <div
-                            @click="showInput = true"
+                            @click.stop.prevent="showInput = true"
                             v-clickOutside="closeInput"
                             class="card-details-input-comment"
                             :style="showInput ? {
@@ -248,12 +248,12 @@
             <section class="card-details-edit">
                 <label for>Add to card</label>
 
-                <button ref="membersBtn" class="card-details-btn" @click="changeMembers">
+                <button ref="membersBtn" class="card-details-btn" @click.stop.prevent="changeMembers">
                     <span class="icon-sm icon-member"></span>
                     Members
                 </button>
 
-                <button ref="labelBtn" class="card-details-btn" @click="editLabels">
+                <button ref="labelBtn" class="card-details-btn" @click.stop.prevent="editLabels">
                     <span class="icon-sm icon-label"></span>
                     Labels
                 </button>
@@ -263,7 +263,7 @@
                     Checklist
                 </button>
 
-                <button ref="datesBtn" class="card-details-btn" @click="editDates">
+                <button ref="datesBtn" class="card-details-btn" @click.stop.prevent="editDates">
                     <svg
                         class="date-svg"
                         width="16"
@@ -287,34 +287,34 @@
                     Dates
                 </button>
 
-                <button ref="attachmentBtn" class="card-details-btn" @click="addAttachment">
+                <button ref="attachmentBtn" class="card-details-btn" @click.stop.prevent="addAttachment">
                     <span class="icon-sm icon-attachment"></span>
                     Attachment
                 </button>
 
-                <button ref="coverBtn" class="card-details-btn" @click="changeCover">
+                <button ref="coverBtn" class="card-details-btn" @click.stop.prevent="changeCover">
                     <span class="icon-sm icon-cover"></span>
                     Cover
                 </button>
 
                 <label for>Actions</label>
 
-                <button ref="moveBtn" class="card-details-btn" @click="moveCard">
+                <button ref="moveBtn" class="card-details-btn" @click.stop.prevent="moveCard">
                     <span class="icon-sm icon-move"></span>
                     Move
                 </button>
 
-                <button ref="copyBtn" class="card-details-btn" @click="copyCard">
+                <button ref="copyBtn" class="card-details-btn" @click.stop.prevent="copyCard">
                     <span class="icon-sm icon-copy"></span>
                     Copy
                 </button>
 
-                <button ref="shareBtn" class="card-details-btn last" @click="shareCard">
+                <button ref="shareBtn" class="card-details-btn last" @click.stop.prevent="shareCard">
                     <span class="icon-sm icon-share"></span>
                     Share
                 </button>
 
-                <button ref="deleteBtn" class="card-details-btn" @click="deleteWarn">
+                <button ref="deleteBtn" class="card-details-btn" @click.stop.prevent="deleteWarn">
                     <span class="icon-sm icon-archive"></span>
                     Delete
                 </button>
@@ -398,27 +398,27 @@ export default {
         cardToEdit() {
             return JSON.parse(JSON.stringify(this.card))
         },
-        // async backgroundCoverColor() {
-        //     if (this.card.cover.type === 'attachment') {
-        //         const fac = new FastAverageColor()
-        //         try {
-        //             const color = await fac.getColorAsync(this.card.cover.value)
-        //             // this.$refs['headerCover'].style.backgroundColor = color.hex
-        //             return color.hex
-        //         }
-        //         catch (err) {
-        //             console.log(err)
-        //         }
-        //     }
-        // }
+        async backgroundCoverColor() {
+            if (this.card.cover.type === 'attachment') {
+                const fac = new FastAverageColor()
+                try {
+                    const color = await fac.getColorAsync(this.card.cover.value)
+                    this.$refs['headerCover'].style.backgroundColor = color.hex
+                    return color.hex
+                }
+                catch (err) {
+                    console.log(err)
+                }
+            }
+        }
     },
-    // watch: {
-    //     backgroundCoverColor: {
-    //         async handler(newColor) {
-    //             this.$refs['headerCover'].style.backgroundColor = newColor
-    //         }
-    //     }
-    // },
+    watch: {
+        backgroundCoverColor: {
+            async handler(newColor) {
+                this.$refs['headerCover'].style.backgroundColor = newColor
+            }
+        }
+    },
     methods: {
         setMemberLetters(fullname) {
             const firstLetters = fullname

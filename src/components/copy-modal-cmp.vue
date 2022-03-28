@@ -3,7 +3,7 @@
         <div class="header-modal">
             <div>
                 <p>Copy card</p>
-                <span class="icon-sm icon-close" @click="close"></span>
+                <span class="icon-sm icon-close" @click.stop.prevent="close"></span>
             </div>
         </div>
         <div>
@@ -14,10 +14,10 @@
             <p class="header-second">Keep</p>
             <div class="keep-list">
                 <div v-if="card.labels.length" class="keep-checkbox">
-                    <div v-if="!keepList.labels" @click="toggleCardKeep('labels')" class="checkbox"></div>
+                    <div v-if="!keepList.labels" @click.stop.prevent="toggleCardKeep('labels')" class="checkbox"></div>
                     <img
                         v-if="keepList.labels"
-                        @click="toggleCardKeep('labels')"
+                        @click.stop.prevent="toggleCardKeep('labels')"
                         class="done-img"
                         src="data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23fff' viewBox='-3 -4 16 16'%3E%3Cpath d='M1.49 3.215a.667.667 0 0 0-.98.903l2.408 2.613c.358.351.892.351 1.223.02l.243-.239a1689.645 1689.645 0 0 0 2.625-2.589l.027-.026a328.23 328.23 0 0 0 2.439-2.429.667.667 0 1 0-.95-.936c-.469.476-1.314 1.316-2.426 2.417l-.027.026a1368.126 1368.126 0 0 1-2.517 2.482L1.49 3.215z'/%3E%3C/svg%3E"
                     />
@@ -29,12 +29,12 @@
                 <div v-if="card.members.length" class="keep-checkbox">
                     <div
                         v-if="!keepList.members"
-                        @click="toggleCardKeep('members')"
+                        @click.stop.prevent="toggleCardKeep('members')"
                         class="checkbox"
                     ></div>
                     <img
                         v-if="keepList.members"
-                        @click="toggleCardKeep('members')"
+                        @click.stop.prevent="toggleCardKeep('members')"
                         class="done-img"
                         src="data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23fff' viewBox='-3 -4 16 16'%3E%3Cpath d='M1.49 3.215a.667.667 0 0 0-.98.903l2.408 2.613c.358.351.892.351 1.223.02l.243-.239a1689.645 1689.645 0 0 0 2.625-2.589l.027-.026a328.23 328.23 0 0 0 2.439-2.429.667.667 0 1 0-.95-.936c-.469.476-1.314 1.316-2.426 2.417l-.027.026a1368.126 1368.126 0 0 1-2.517 2.482L1.49 3.215z'/%3E%3C/svg%3E"
                     />
@@ -70,7 +70,7 @@
                 </select>
             </div>
         </div>
-        <button @click="setCardKeeps">Create card</button>
+        <button @click.stop.prevent="setCardKeeps">Create card</button>
     </section>
 </template>
 

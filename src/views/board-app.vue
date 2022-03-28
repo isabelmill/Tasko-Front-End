@@ -21,15 +21,28 @@
 
                 <div class="folder-info">
                     <div v-if="isFolder.boards" class="boards-info">
-                        <div class="header">
-                            <span class="icon-lg icon-star-boards"></span>
-                            <p>Starred boards</p>
+                        <div class="border-list">
+                            <div class="header">
+                                <span class="icon-lg icon-star-boards"></span>
+                                <p>Starred boards</p>
+                            </div>
+                            <board-list
+                                v-if="boards"
+                                :boards="boards"
+                                @updateBoardLastWatched="upateBoard"
+                            />
                         </div>
-                        <board-list
-                            v-if="boards"
-                            :boards="boards"
-                            @updateBoardLastWatched="upateBoard"
-                        />
+                        <div class="border-list">
+                            <div class="header">
+                                <span class="icon-lg icon-clock-boards"></span>
+                                <p>Recently viewed</p>
+                            </div>
+                            <board-list
+                                v-if="boards"
+                                :boards="boards"
+                                @updateBoardLastWatched="upateBoard"
+                            />
+                        </div>
                         <button
                             class="create-btn"
                             @click="openBoardEdit(), calcPosOfBox()"
@@ -115,7 +128,7 @@ export default {
             return this.isFolder[folder] ? 'selected-folder' : 'folder'
         },
         upateBoard(board) {
-             this.$store.dispatch({ type: 'saveBoard', board: board })
+            this.$store.dispatch({ type: 'saveBoard', board: board })
         }
     },
     computed: {

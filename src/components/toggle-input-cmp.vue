@@ -1,6 +1,6 @@
 <template>
     <section class="toggle-input">
-        <p v-if="!titleIsOpen" class="group-title cursor-pointer" @click="openTitleEdit">{{ txt }}</p>
+        <p v-if="!titleIsOpen" class="group-title cursor-pointer" @click.stop.prevent="openTitleEdit">{{ txt }}</p>
         <input
             v-focus
             v-clickOutside="change"
@@ -10,7 +10,7 @@
             @submit.prevent="change"
         />
         <span
-            @click="calcPosOfBox(), openEditGroupModal()"
+            @click.stop.prevent="calcPosOfBox(), openEditGroupModal()"
             ref="box"
             class="icon-sm icon-overflow-menu-horizontal"
         ></span>

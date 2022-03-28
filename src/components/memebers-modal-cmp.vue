@@ -6,14 +6,14 @@
         class="label-modal"
     >
         <div class="main-title-container">
-            <div class="icon-sm icon-close" @click="close"></div>
+            <div class="icon-sm icon-close" @click.stop.prevent="close"></div>
             <span class="main-title">Members</span>
         </div>
          <input class="main-input" type="text" />
         <section>
             <span class="mini-title">Board members</span>
             <section
-                @click="addMemberToCard(member)"
+                @click.stop.prevent="addMemberToCard(member)"
                 v-for="member in board.members"
                 :key="member._id"
                 class="member-container"

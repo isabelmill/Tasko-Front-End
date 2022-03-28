@@ -5,16 +5,16 @@
         class="label-modal"
     >
         <div class="main-title-container">
-            <div class="icon-sm icon-close" @click="close"></div>
+            <div class="icon-sm icon-close" @click.stop.prevent="close"></div>
             <span class="main-title">Dates</span>
         </div>
         <section class="actions-modal-main">
             <section class="date-picker">
                 <datepicker v-model="date" inline autoApply typeabble />
                 <datepicker v-show="isStartDate" v-model="startDate" inline autoApply typeabble />
-                <button type="button" @click="startDateInit" class="create-btn">init</button>
-                <button type="button" @click="saveDate" class="create-btn">Save</button>
-                <button type="button" @click="remove" class="create-btn delete-date">Remove</button>
+                <button type="button" @click.stop.prevent="startDateInit" class="create-btn">init</button>
+                <button type="button" @click.stop.prevent="saveDate" class="create-btn">Save</button>
+                <button type="button" @click.stop.prevent="remove" class="create-btn delete-date">Remove</button>
             </section>
         </section>
     </section>
@@ -84,4 +84,4 @@ export default {
 </script>
 
 <style>
-</style>
+</style>.stop.prevent

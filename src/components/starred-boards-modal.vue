@@ -4,7 +4,7 @@
             <div class="header-text-starred-boards-modal">
                 <h1>Starred boards</h1>
             </div>
-            <div class="header-close-starred-boards-modal" @click="closeModal">
+            <div class="header-close-starred-boards-modal" @click.stop.prevent="closeModal">
                 <span class="icon-sm icon-close"></span>
             </div>
         </div>
@@ -12,7 +12,7 @@
             <div class="modal-starred-board-list">
                 <div
                     class="boards-render-modal-starred"
-                    @click="goToDetails(board)"
+                    @click.stop.prevent="goToDetails(board)"
                     v-for="board in boards"
                     :board="board"
                     :key="board"
