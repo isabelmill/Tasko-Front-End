@@ -1,15 +1,12 @@
 <template>
     <div class="board-list-main">
         <board-preview
-<<<<<<< HEAD
-=======
-            @updateBoard="updateBoardTime"
             @starredChange="onStarredChange"
->>>>>>> 5db0134cb9c148690abd180265c6302786eb4f02
             v-for="board in boards"
             :board="board"
-            :key="board._id"
-        />
+            :key="board._id">
+            </board-preview>
+
     </div>
 </template>
 

@@ -94,7 +94,6 @@ export default {
     },
     created() {
         this.setFolder('boards')
-        console.log('boards:',this.$store.getters.boards);
     },
     methods: {
         calcPosOfBox(ref) {
