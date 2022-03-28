@@ -169,7 +169,7 @@
                             <h3>Attachments</h3>
                         </div>
                         <!-- name + link  -->
-                        <div v-for="attachment in card.attachments" class="card-attachments-area" :key="attachment">
+                        <div v-for="attachment in card.attachments" class="card-attachments-area" :key="attachment.link">
                             <img :src="attachment.link" alt />
                             <div class="card-attachment-area-main">
                                 <div class="card-attachment-area-header">
@@ -326,7 +326,7 @@
             @boardEdit="editBoard"
             @cardEdit="editCard"
             @actionsClose="closeMenu"
-            @cardCopySave="sendCardCopy"
+            @cardCopySave="sendCardCopyTo"
             :board="board"
             :card="card"
             :group="group"
@@ -398,27 +398,27 @@ export default {
         cardToEdit() {
             return JSON.parse(JSON.stringify(this.card))
         },
-        async backgroundCoverColor() {
-            if (this.card.cover.type === 'attachment') {
-                const fac = new FastAverageColor()
-                try {
-                    const color = await fac.getColorAsync(this.card.cover.value)
-                    this.$refs['headerCover'].style.backgroundColor = color.hex
-                    return color.hex
-                }
-                catch (err) {
-                    console.log(err)
-                }
-            }
-        }
+        // async backgroundCoverColor() {
+        //     if (this.card.cover.type === 'attachment') {
+        //         const fac = new FastAverageColor()
+        //         try {
+        //             const color = await fac.getColorAsync(this.card.cover.value)
+        //             // this.$refs['headerCover'].style.backgroundColor = color.hex
+        //             return color.hex
+        //         }
+        //         catch (err) {
+        //             console.log(err)
+        //         }
+        //     }
+        // }
     },
-    watch: {
-        backgroundCoverColor: {
-            async handler(newColor) {
-                this.$refs['headerCover'].style.backgroundColor = newColor
-            }
-        }
-    },
+    // watch: {
+    //     backgroundCoverColor: {
+    //         async handler(newColor) {
+    //             this.$refs['headerCover'].style.backgroundColor = newColor
+    //         }
+    //     }
+    // },
     methods: {
         setMemberLetters(fullname) {
             const firstLetters = fullname
@@ -466,7 +466,7 @@ export default {
             this.shown = true
             this.currModal = "copyModal"
         },
-        sendCardCopy(copy) {
+        sendCardCopyTo(copy) {
             this.$emit('saveCopy', copy)
         },
         deleteWarn() {
@@ -513,7 +513,7 @@ export default {
             this.$emit('cardModified', { card: this.cardToEdit, group: this.group })
         }
     },
-    emits: ['closeDialog', 'cardModified', 'boardModified', 'deleteCardFromGroup', 'saveCopy']
+    emits: ['cardCopySave','closeDialog', 'cardModified', 'boardModified', 'deleteCardFromGroup', 'saveCopy']
 }
 </script>
 

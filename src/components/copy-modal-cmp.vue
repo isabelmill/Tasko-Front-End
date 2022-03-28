@@ -142,9 +142,9 @@ export default {
         },
         setCardKeeps() {
             !this.keepList.labels ?
-                this.cardToCopy.labels = [] : this.cardToCopy.labels = this.card.labels;
+                this.cardToCopy.labels = [] : this.cardToCopy.labels = JSON.parse(JSON.stringify(this.card.labels));
             !this.keepList.members ?
-                this.cardToCopy.members = [] : this.cardToCopy.members = this.card.members;
+                this.cardToCopy.members = [] : this.cardToCopy.members = JSON.parse(JSON.stringify(this.card.members));
             this.copyCard()
             this.close()
         },
@@ -152,7 +152,7 @@ export default {
             this.$emit('cardCopySave', { cardCopy: this.cardToCopy, posCopy: this.copyToPos })
         }
     },
-    emits: ['actionsClose', 'cardCopySave']
+    emits: ['actionsClose','cardCopySave']
 
 }
 </script>
