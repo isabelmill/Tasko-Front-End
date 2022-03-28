@@ -365,7 +365,6 @@ export default {
         },
         backgroundCoverColor() {
             if (this.card.cover.type === 'attachment') {
-
                 const fac = new FastAverageColor()
                 const color = fac.getColorAsync(this.card.cover.value).then(
                     color => {
