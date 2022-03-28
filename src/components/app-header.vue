@@ -99,9 +99,9 @@
       </svg>
     </a>
     <!-- <button class="icon-btn"><font-awesome-icon icon="fa-regular fa-plus-large" /></button> -->
-    <button class="icon-btn">
+    <!-- <button class="icon-btn">
       <span class="icon-md icon-add-light"></span>
-    </button>
+    </button> -->
 
     <span class="search-nav">
       <search />

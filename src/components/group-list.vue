@@ -174,7 +174,6 @@ export default {
             this.$emit('groupDnd', this.boardToEdit)
         },
         onCardDrop(groupId, dropResult) {
-            console.log('groupId:', groupId);
             if (dropResult.removedIndex !== null || dropResult.addedIndex !== null) {
                 const newGroup = this.boardToEdit.groups.filter(p => p.id === groupId)[0]
                 const groupIndex = this.boardToEdit.groups.indexOf(newGroup)

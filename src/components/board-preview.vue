@@ -22,7 +22,7 @@ export default {
             this.boardToEdit = JSON.parse(JSON.stringify(this.board))
             this.boardToEdit.lastTimeWatched = Date.now()
             // console.log('example:',this.boardToEdit);
-            this.$emit('updateBoard',this.boardToEdit)
+            this.$emit('updateBoard', this.boardToEdit)
             this.$router.push(`/board/${this.board._id}`)
         },
     },
