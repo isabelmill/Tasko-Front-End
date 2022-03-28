@@ -154,7 +154,7 @@
                             ></textarea>
                             <div v-if="showDesc" class="card-details-text-add-btn">
                                 <button @click="updateCardDesc">Save</button>
-                                <span @click="closeTextArea" class="icon-xl icon-close"></span>
+                                <span @click="closeTextArea" class="icon-xl icon-closed"></span>
                             </div>
                         </div>
                     </section>

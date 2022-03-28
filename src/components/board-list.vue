@@ -1,6 +1,11 @@
 <template>
     <div class="board-list-main">
-        <board-preview v-for="board in boards" :board="board" :key="board._id" />
+        <board-preview
+            @updateBoard="updateBoardTime"
+            v-for="board in boards"
+            :board="board"
+            :key="board._id"
+        />
     </div>
 </template>
 
@@ -8,13 +13,18 @@
 import boardPreview from '../components/board-preview.vue'
 
 export default {
-        props: {
+    props: {
         boards: {
             type: Array,
             required: true,
         },
     },
-        components: {
+    methods: {
+        updateBoardTime(board) {
+            this.$emit('updateBoardLastWatched', board)
+        }
+    },
+    components: {
         boardPreview,
     },
 }

@@ -20,7 +20,7 @@
         />
       </svg>
     </a>
-    <a class="link" to="/">
+    <a @click="openRecentBoardsModal(), calcPosOfBox()" class="link" to="/" ref="recent">
       Recent
       <svg
         width="16"
@@ -36,6 +36,13 @@
         />
       </svg>
     </a>
+    <recent-boards-modal
+      v-if="openRecentModal && boards"
+      :boards="boards"
+      :style="{ top: '48' + 'px', left: posRecent.left + 'px' }"
+      v-clickOutside="closeRecentModal"
+      @close="closeRecentModal"
+    ></recent-boards-modal>
     <a @click="openStarredBoardsModal(), calcPosOfBox()" ref="starred">
       Starred
       <svg
@@ -150,12 +157,15 @@
 <script>
 import search from "./search.vue"
 import starredBoardsModal from "./starred-boards-modal.vue"
+import recentBoardsModal from "./recent-boards-modal.vue"
 export default {
   name: 'app-header',
   data() {
     return {
       openStarredModal: false,
+      openRecentModal: false,
       pos: 0,
+      posRecent: 0,
     }
   },
   computed: {
@@ -179,8 +189,15 @@ export default {
     closeEditMode() {
       this.openStarredModal = false;
     },
+    openRecentBoardsModal() {
+      this.openRecentModal = true
+    },
+    closeRecentModal() {
+      this.openRecentModal = false;
+    },
     calcPosOfBox() {
       this.pos = this.$refs['starred'].getBoundingClientRect()
+      this.posRecent = this.$refs['recent'].getBoundingClientRect()
 
     },
     lightenDarkenColor(colorCode, amount) {
@@ -226,6 +243,7 @@ export default {
   },
   components: {
     search,
+    recentBoardsModal,
     starredBoardsModal
   },
 }

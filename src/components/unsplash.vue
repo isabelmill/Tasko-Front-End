@@ -23,10 +23,8 @@ export default {
         async onUploadImg() {
             const res = await uploadImg(this.searchInput);
             this.photos = res.results
-            // this.photo = res.results[1].preview_photos[0].urls.regular
         },
         setBgc(photo) {
-            console.log('photo:', photo);
             this.$emit('changeBgc',photo)
         }
     },
