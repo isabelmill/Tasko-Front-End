@@ -326,6 +326,7 @@
             @boardEdit="editBoard"
             @cardEdit="editCard"
             @actionsClose="closeMenu"
+            @cardCopySave="sendCardCopy"
             :board="board"
             :card="card"
             :group="group"
@@ -378,7 +379,7 @@ export default {
     created() {
         this.description = this.card.description
     },
-    async mounted() {
+    mounted() {
 
     },
     data() {
@@ -397,8 +398,9 @@ export default {
         cardToEdit() {
             return JSON.parse(JSON.stringify(this.card))
         },
-        "this.$refs['coverHeader'].style.backgroundColor"() {
+        async backgroundCoverColor() {
             if (this.card.cover.type === 'attachment') {
+<<<<<<< HEAD
                 return () => {
                     const fac = new FastAverageColor()
                     const color = fac.getColorAsync(this.card.cover.value).then(
@@ -407,9 +409,26 @@ export default {
                             return color.hex
                         }
                     )
+=======
+                const fac = new FastAverageColor()
+                try {
+                    const color = await fac.getColorAsync(this.card.cover.value)
+                    this.$refs['headerCover'].style.backgroundColor = color.hex
+                    return color.hex
+                }
+                catch (err) {
+                    console.log(err)
+>>>>>>> f888bc4fd635b2f8cce1948f5dafb977d74fc687
                 }
             }
-        },
+        }
+    },
+    watch: {
+        backgroundCoverColor: {
+            async handler(newColor) {
+                this.$refs['headerCover'].style.backgroundColor = newColor
+            }
+        }
     },
     methods: {
         setMemberLetters(fullname) {
@@ -417,7 +436,6 @@ export default {
                 .split(' ')
                 .map(word => word[0])
                 .join('');
-            console.log(firstLetters)
             return firstLetters.toUpperCase()
         },
         closeModal() {
@@ -458,6 +476,9 @@ export default {
             this.pos = this.$refs['copyBtn'].getBoundingClientRect()
             this.shown = true
             this.currModal = "copyModal"
+        },
+        sendCardCopy(copy) {
+            this.$emit('saveCopy', copy)
         },
         deleteWarn() {
             this.pos = this.$refs['deleteBtn'].getBoundingClientRect()
@@ -502,13 +523,9 @@ export default {
             this.cardToEdit.isComplete = !this.cardToEdit.isComplete
             this.$emit('cardModified', { card: this.cardToEdit, group: this.group })
         }
-
-
     },
-    emits: ['closeDialog', 'cardModified', 'boardModified', 'deleteCardFromGroup']
-
+    emits: ['closeDialog', 'cardModified', 'boardModified', 'deleteCardFromGroup', 'saveCopy']
 }
-
 </script>
 
 <style>

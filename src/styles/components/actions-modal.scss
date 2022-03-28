@@ -464,6 +464,36 @@
             filter: saturate(85%) brightness(85%);
         }
     }
+    .green {
+        background-color: #7BC86C;
+    }
+    .yellow {
+        background-color: #F5DD29;
+    }
+    .orange {
+        background-color: #FFAF3F;
+    }
+    .red {
+        background-color: #EF7564;
+    }
+    .purple {
+        background-color: #CD8DE5;
+    }
+    .blue {
+        background-color: #5BA4CF;
+    }
+    .light-blue {
+        background-color: #29CCE5;
+    }
+    .light-green {
+        background-color: #6DECA9;
+    }
+    .pink {
+        background-color: #FF8ED4;
+    }
+    .dark-blue {
+        background-color: #172B4D;
+    }
     .selected {
         box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #0079bf;
         z-index: 100;
