@@ -15,7 +15,7 @@
                 </div>
             </div>
             <div class="card-details-icon">
-                <span class="icon-md icon-close" v-if="!card.cover.value" @click="closeModal"></span>
+                <span class="icon-md icon-closed" @click="closeModal"></span>
             </div>
         </div>
 
@@ -316,6 +316,8 @@ import coverModal from "./cover-modal-cmp.vue";
 import attachmentModal from "./attachment-modal-cmp.vue";
 import deleteWarning from "./delete-warning-modal-cmp.vue";
 import FastAverageColor from 'fast-average-color';
+import copyModal from "./copy-modal-cmp.vue";
+
 export default {
 
     name: 'card-details',
@@ -336,7 +338,8 @@ export default {
         datesModal,
         deleteWarning,
         coverModal,
-        attachmentModal
+        attachmentModal,
+        copyModal,
     },
     created() {
         this.description = this.card.description
@@ -416,6 +419,11 @@ export default {
         },
         editCard(card) {
             this.$emit('cardModified', { card, group: this.group })
+        },
+        copyCard() {
+            this.pos = this.$refs['copyBtn'].getBoundingClientRect()
+            this.shown = true
+            this.currModal = "copyModal"
         },
         deleteWarn() {
             this.pos = this.$refs['deleteBtn'].getBoundingClientRect()

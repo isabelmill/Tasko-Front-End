@@ -559,4 +559,5 @@
 
 .icon-close {
     @include to-icon("\e91c");
+    cursor: pointer;
 }

@@ -1,16 +1,19 @@
 <template>
-    <h1>HEY UNSPLASH</h1>
-    <img :src="photo" alt="">
+    <div class="unspash-imgs" v-for="photo in photos" :key="photo">
+        <img @click="setBgc(photo.urls.full)" class="unspash-img" :src="photo.urls.full" alt />
+    </div>
 </template>
 
 <script>
 import { uploadImg } from '../services/unsplash-service.js';
 export default {
+    props: {
+        searchInput: String,
+    },
     data() {
         return {
             isLoading: false,
-            isDragOver: false,
-            photo: null
+            photos: null,
         };
     },
     created() {
@@ -18,10 +21,15 @@ export default {
     },
     methods: {
         async onUploadImg() {
-            const res = await uploadImg();
-            console.log(res.results[3].preview_photos[0].urls.regular);
-            this.photo = res.results[1].preview_photos[0].urls.regular
+            const res = await uploadImg(this.searchInput);
+            this.photos = res.results
+            // this.photo = res.results[1].preview_photos[0].urls.regular
         },
+        setBgc(photo) {
+            console.log('photo:', photo);
+            this.$emit('changeBgc',photo)
+        }
     },
+            emits: ['changeBgc']
 };
 </script>

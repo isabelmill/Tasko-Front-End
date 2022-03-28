@@ -1,20 +1,25 @@
 <template>
     <section class="side-bar-menu-main">
         <!-- main modal open  -->
-        <section v-if="!showMenuBgc && !showMenuBgcRegular" class="side-bar-menu-start">
+        <section
+            v-if="!showMenuBgc && !showMenuBgcRegular && !showMenuBgcImg"
+            class="side-bar-menu-start"
+        >
             <div class="side-bar-menu-header">
                 <div class="side-bar-menu-header-text">
                     <h3>Menu</h3>
                 </div>
                 <div class="header-close-side-bar-menu" @click="closeModal">
-                    <span class="icon-md icon-close"></span>
+                    <span class="icon-md icon-closed"></span>
                 </div>
             </div>
-            <hr>
+            <hr />
             <div class="side-bar-menu-container flex">
                 <!-- here comes the backround of current board -->
+                <div :style=" board.background ? { 'backgroundColor': board.background } : { 'background-image': `url(${board.backgroundPhoto})` }" class="board-background"></div>
                 <p @click="openBgcBar">Change background</p>
             </div>
+            <hr />
             <div class="side-bar-menu-activity-container flex">
                 <span class="icon-sm icon-activity"></span>
                 <h1>Activity</h1>
@@ -24,31 +29,36 @@
         <!-- open bgc modal open choose -->
 
         <transition name="slide">
-            <section v-if="showMenuBgc && !showMenuBgcRegular" class="side-bar-menu-background">
+            <section
+                v-if="showMenuBgc && !showMenuBgcRegular && !showMenuBgcImg"
+                class="side-bar-menu-background"
+            >
                 <div class="side-bar-menu-header-background">
-                    <span @click="closeBgcBar" class="icon-sm icon-back"></span>
+                    <span @click="closeBgcBar" class="icon-md icon-back"></span>
                     <div class="side-bar-menu-header-text-background">
                         <h3>Change background</h3>
                     </div>
-                    <div class="header-close-starred-boards-modal" @click="closeModal">
-                        <span class="icon-sm icon-close"></span>
+                    <div class="header-close-background-boards-modal" @click="closeModal">
+                        <span class="icon-md icon-closed"></span>
                     </div>
                 </div>
+                <hr />
                 <div class="side-bar-menu-background-container flex">
                     <div class="bgc-photos">
-                    <img
-                        src="https://a.trellocdn.com/prgb/dist/images/photos-thumbnail@3x.8f9c1323c9c16601a9a4.jpg"
-                        alt
-                    />
-                    <p>Photos</p>
+                        <img
+                            @click="openBgcBarImg"
+                            src="https://a.trellocdn.com/prgb/dist/images/photos-thumbnail@3x.8f9c1323c9c16601a9a4.jpg"
+                            alt
+                        />
+                        <p>Photos</p>
                     </div>
                     <div class="regular-bgc-color">
-                    <img
-                        @click="openBgcBarRegular"
-                        src="https://a.trellocdn.com/prgb/dist/images/colors@2x.ec32a2ed8dd8198b8ef0.jpg"
-                        alt
-                    />
-                    <p>Colors</p>
+                        <img
+                            @click="openBgcBarRegular"
+                            src="https://a.trellocdn.com/prgb/dist/images/colors@2x.ec32a2ed8dd8198b8ef0.jpg"
+                            alt
+                        />
+                        <p>Colors</p>
                     </div>
                 </div>
             </section>
@@ -57,16 +67,20 @@
         <!-- choose regular color modal  -->
 
         <transition name="slide">
-            <section v-if="showMenuBgcRegular" class="side-bar-menu-background-regular">
+            <section
+                v-if="showMenuBgcRegular && !showMenuBgcImg"
+                class="side-bar-menu-background-regular"
+            >
                 <div class="side-bar-menu-header-background-regular">
-                    <span @click="closeBgcBarRegular" class="icon-sm icon-back"></span>
+                    <span @click="closeBgcBarRegular" class="icon-md icon-back"></span>
                     <div class="side-bar-menu-header-text-background-regular">
                         <h3>Colors</h3>
                     </div>
-                    <div class="header-close-starred-boards-modal" @click="closeModal">
-                        <span class="icon-sm icon-close"></span>
+                    <div class="header-close-img-boards-modal" @click="closeModal">
+                        <span class="icon-md icon-closed"></span>
                     </div>
                 </div>
+                <hr />
                 <div class="side-bar-menu-background-container-regular flex">
                     <div @click="setColor('#0079BF')" class="color-menu blue"></div>
                     <div @click="setColor('#D29034')" class="color-menu yellow"></div>
@@ -80,11 +94,48 @@
                 </div>
             </section>
         </transition>
+
+        <transition name="slide">
+            <section v-if="showMenuBgcImg" class="side-bar-menu-background-img">
+                <div class="side-bar-menu-header-background-img flex">
+                    <span @click="closeBgcBarImg" class="icon-md icon-back"></span>
+                    <div class="side-bar-menu-header-text-background-img">
+                        <h3>
+                            Photos by
+                            <a
+                                target="_blank"
+                                href="https://unsplash.com/?utm_source=trello&utm_medium=referral&utm_campaign=api-credit"
+                            >Unsplash</a>
+                        </h3>
+                    </div>
+                    <div class="header-close-img-boards-modal" @click="closeModal">
+                        <span class="icon-md icon-closed"></span>
+                    </div>
+                </div>
+                <hr />
+                <div tabindex="0" class="search-unsplash">
+                    <span class="icon-sm icon-search"></span>
+                    <input
+                        v-model="searchInput"
+                        @keyup.enter="updateSearchinput"
+                        placeholder="Photos"
+                        type="text"
+                    />
+                </div>
+                <div class="side-bar-menu-background-container-img flex">
+                    <unsplash
+                        v-if="unsplashOpen"
+                        :searchInput="unsplashSearch"
+                        @changeBgc="updateBgc"
+                    ></unsplash>
+                </div>
+            </section>
+        </transition>
     </section>
 </template>
 
 <script>
-
+import unsplash from '../components/unsplash.vue'
 export default {
     props: {
         board: Object,
@@ -94,12 +145,14 @@ export default {
             menuBackground: false,
             showMenuBgc: false,
             showMenuBgcRegular: false,
+            showMenuBgcImg: false,
+            searchInput: '',
+            unsplashSearch: 'background',
+            unsplashOpen: true,
 
         }
     },
     created() {
-    },
-    computed: {
     },
     methods: {
         closeModal() {
@@ -117,8 +170,22 @@ export default {
         openBgcBarRegular() {
             this.showMenuBgcRegular = true;
         },
+        closeBgcBarImg() {
+            this.showMenuBgcImg = false;
+        },
+        openBgcBarImg() {
+            this.showMenuBgcImg = true;
+        },
         setColor(color) {
-            this.$emit('changeBgcColor',color)
+            this.$emit('changeBgcColor', color)
+        },
+        async updateSearchinput() {
+            this.unsplashOpen = !this.unsplashOpen
+            this.unsplashOpen = await !this.unsplashOpen
+            this.unsplashSearch = this.searchInput
+        },
+        updateBgc(photo) {
+            this.$emit('changeBgcPhoto', photo)
         }
     },
     computed: {
@@ -126,6 +193,8 @@ export default {
 
     },
     components: {
+        unsplash
     },
+        emits: ['changeBgcPhoto','changeBgcColor']
 }
 </script>
