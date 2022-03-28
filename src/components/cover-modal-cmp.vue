@@ -154,6 +154,7 @@
 <script>
 import FastAverageColor from 'fast-average-color'
 import axios from "axios"
+import { uploadService } from "../services/upload-service.js"
 export default {
     components: {
 
@@ -229,24 +230,17 @@ export default {
         },
         async attachFileFromSystem(event) {
             this.cardToEdit = JSON.parse(JSON.stringify(this.card))
-            this.file = event.target.files[0]
-            let formdata = new FormData()
-            formdata.append('file', this.file)
-            formdata.append('upload_preset', 'cajan_2022')
-            try {
-                const res = await axios.post(`https://api.cloudinary.com/v1_1/dw85wdwsw/image/upload`, formdata)
-                console.log(res.data)
-                this.cardToEdit.attachments.push({
-                    name: res.data.original_filename,
-                    link: res.data.secure_url
-                })
-                console.log(this.cardToEdit)
-                this.$emit('cardEdit', this.cardToEdit)
-            }
-            catch (err) {
-                console.log('ERROR', err)
-            }
+            const result = await uploadService.uploadFromSystem(event)
+            console.log(result)
+            this.cardToEdit.attachments.push({
+                name: result.original_filename,
+                link: result.secure_url
+            })
+            console.log(this.cardToEdit)
+            this.$emit('cardEdit', this.cardToEdit)
         },
+
+
         setAttachmentAsCover(attachIdx) {
             this.cardToEdit = JSON.parse(JSON.stringify(this.card))
             if (this.attachmentIdx === attachIdx) {
