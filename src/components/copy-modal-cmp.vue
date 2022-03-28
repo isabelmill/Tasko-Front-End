@@ -152,7 +152,7 @@ export default {
             this.$emit('cardCopySave', { cardCopy: this.cardToCopy, posCopy: this.copyToPos })
         }
     },
-    emits: ['actionsClose', 'cardCopySave']
+    emits: ['actionsClose','cardCopySave']
 
 }
 </script>

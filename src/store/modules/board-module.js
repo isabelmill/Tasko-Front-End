@@ -61,12 +61,13 @@ export default {
         },
         async saveBoard({ commit }, { board }) {
             try {
+                commit({ type: 'setBoard', board });
                 const newBoard = JSON.parse(JSON.stringify(board))
                 await boardService.save(newBoard)
                 commit({ type: 'saveBoard', board: newBoard });
-                commit({ type: 'setBoard', board: newBoard });
+                // commit({ type: 'setBoard', board: newBoard });
             } catch (err) {
-                console.log('err!!!');
+                console.log('sorry user connot do that!!!');
             }
         },
         filter({ commit, dispatch }, { filterBy }) {
