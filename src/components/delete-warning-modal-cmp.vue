@@ -14,7 +14,6 @@
             <button type="button" @click="confirmDelete" class="delete-btn">Delete</button>
             </section>
         </section>
-    
 </template>
 
 <script>

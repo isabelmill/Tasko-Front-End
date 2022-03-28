@@ -72,7 +72,7 @@
                 @click.stop.prevent="removeCover"
                 class="create-btn"
             >Remove cover</button>
-            <section v-if="isAttachmentPicked">
+            <section v-if="isAttachmentPicked&&!isSmall">
                 <span class="mini-title">Text color</span>
                 <div class="cover-mode-container">
                     <div
@@ -176,6 +176,7 @@
 import FastAverageColor from 'fast-average-color'
 import axios from "axios"
 import { uploadService } from "../services/upload-service.js"
+import { isDate } from 'moment'
 export default {
     components: {
 
@@ -201,6 +202,7 @@ export default {
             color: '',
             isSmall: true,
             file: '',
+            isDark: true,
             attachmentIdx: '',
         }
     },
@@ -210,10 +212,12 @@ export default {
         if (this.card.cover.type === 'color') {
             this.color = this.card.cover.value
             this.isSmall = (this.card.cover.size === 'small') ? true : false
+            this.isDark = (this.card.cover.theme === 'dark') ? true : false
         }
         if (this.card.cover.type === 'attachment') {
             this.attachmentIdx = this.card.attachments.findIndex(attach => attach.link === this.card.cover.value)
             this.isSmall = (this.card.cover.size === 'small') ? true : false
+            this.isDark = (this.card.cover.theme === 'dark') ? true : false
         }
     },
     computed: {
@@ -266,8 +270,6 @@ export default {
             console.log(this.cardToEdit)
             this.$emit('cardEdit', this.cardToEdit)
         },
-
-
         setAttachmentAsCover(attachIdx) {
             this.cardToEdit = JSON.parse(JSON.stringify(this.card))
             if (this.attachmentIdx === attachIdx) {
@@ -279,6 +281,7 @@ export default {
                 this.cardToEdit.cover.type = 'attachment'
                 this.cardToEdit.cover.value = this.cardToEdit.attachments[attachIdx].link
                 this.cardToEdit.cover.size = (this.isSmall) ? 'small' : 'large'
+                this.cardToEdit.cover.theme = (this.isDark) ? 'dark' : 'light'
             }
             this.color = ''
             this.$emit('cardEdit', this.cardToEdit)

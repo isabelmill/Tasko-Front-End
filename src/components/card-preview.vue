@@ -29,7 +29,7 @@
                 </div>
             </section>
             <section v-if="card.cover.type === 'color' && card.cover.size === 'small'">
-                <div class="card-cover-color"
+                <div class="card-cover-color-small"
                 v-bind:style="{ backgroundColor: card.cover.value }"
                 >
 
@@ -255,6 +255,7 @@ export default {
         },
         openMiniEdit() {
             this.calcPosOfModal()
+            this.cardToDisplay = JSON.parse(JSON.stringify(this.card))
             this.modalOpen = true;
             this.$emit('toggleQuickEdit')
         },

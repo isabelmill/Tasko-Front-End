@@ -68,6 +68,11 @@
     // width: 100%;
 }
 
+.card-cover-color-small {
+    height: 32px;
+    border-radius: 3px 3px 0 0;
+}
+
 .card-cover-color-large {
     display: flex;
     flex-direction: row;
@@ -405,7 +410,6 @@
             display: flex;
             gap: 4px;
             margin: 8px;
-
             .btn-add-card-in {
                 @include btnAddCard();
             }
