@@ -401,16 +401,15 @@
                 outline: none !important;
             }
         }
-        .btn-add-card {
-            font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
+        .btn-card-add {
             display: flex;
             gap: 4px;
             margin: 8px;
+
             .btn-add-card-in {
                 @include btnAddCard();
             }
             span {
-                font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
                 cursor: pointer;
                 height: 32px;
                 width: 32px;
@@ -607,7 +606,7 @@
     // background-color: transparent;
 }
 
-.icon-close {
+.icon-close-close {
     @include to-icon("\e91c");
     color: #6b778c;
     &:hover {
