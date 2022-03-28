@@ -48,13 +48,16 @@ export default {
             this.$router.push(`/board/${board._id}`)
         },
     },
-        computed: {
+    computed: {
         recentBoardsForDisplay() {
-            console.log('boards:',this.boards[1].lastTimeWatched);
-            return this.boards.sort(board =>
-                board.lastTimeWatched >= 0 && board.lastTimeWatched <= Infinity);
+            let newBoards = []
+            newBoards = JSON.parse(JSON.stringify(this.boards))
+            newBoards.sort(function (a, b) {
+                return b.lastTimeWatched - a.lastTimeWatched;
+            });
+            return newBoards
         },
     },
-    
+
 }
 </script>

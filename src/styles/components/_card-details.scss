@@ -26,6 +26,7 @@
 .card-details-container {
     display: flex;
     flex-direction: column;
+
     .card-details-header {
         display: flex;
         justify-content: space-between;
@@ -33,6 +34,7 @@
         padding-right: 16px;
         padding-top: 25px;
         padding-top: 12px;
+
         .card-details-header-icon {
             display: flex;
             flex-direction: row;
@@ -40,6 +42,7 @@
             font-weight: 400;
             align-items: center;
             justify-content: center;
+
             p {
                 font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
                 font-size: 20px;
@@ -47,6 +50,7 @@
                 color: #172b4d;
             }
         }
+
         .card-details-icon {
             display: flex;
             align-items: center;
@@ -57,12 +61,14 @@
             width: 32px;
             cursor: pointer;
             transition: background-color 85ms, color 85ms;
+
             &:hover {
                 background-color: #091e4214;
                 color: #42526e;
             }
         }
     }
+
     .card-details-list-name {
         p {
             font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
@@ -73,9 +79,11 @@
             font-size: 13px;
         }
     }
+
     .card-details-edit {
         display: flex;
         flex-direction: column;
+
         // padding-right: 20px;
         label {
             color: #5e6c84;
@@ -86,6 +94,7 @@
             font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
             margin-bottom: 8px;
         }
+
         .card-details-btn {
             display: flex;
             align-items: center;
@@ -102,16 +111,19 @@
             font-weight: 400;
             margin-bottom: 8px;
             width: 165px;
+
             &:hover {
                 background-color: #091e4214;
             }
         }
     }
+
     .card-details-actions-container {
         display: flex;
         align-items: start;
         justify-content: center;
         padding: 0 16px 8px 16px;
+
         .card-details-main {
             .card-details-members-labels-date {
                 display: flex;
@@ -120,20 +132,25 @@
                 max-width: 500px;
                 margin-bottom: 17px;
                 margin-left: 42px;
+
                 .card-details-members-container {
                     display: flex;
                     gap: 5px;
+
                     .card-details-members {
                         padding-top: 8px;
+
                         .card-details-member-img {
                             border-radius: 50%;
                         }
                     }
                 }
+
                 .card-details-dates-container {
                     .card-details-dates {
                         padding-top: 8px;
                         display: flex;
+
                         .checkbox {
                             width: 20px;
                             height: 20px;
@@ -142,10 +159,12 @@
                             cursor: pointer;
                             margin: auto;
                             margin-right: 5px;
+
                             &:hover {
                                 background-color: #f0f1f1;
                             }
                         }
+
                         .done-img {
                             width: 20px;
                             border: 3px solid #0079bf;
@@ -159,12 +178,14 @@
                             margin-right: 5px;
                             transition: 1s;
                         }
+
                         input {
                             margin: 0;
                             margin-right: 5px;
                             height: 16px;
                             width: 16px;
                         }
+
                         .card-details-date {
                             color: #172b4d;
                             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Noto Sans", "Ubuntu", "Droid Sans", "Helvetica Neue", sans-serif;
@@ -186,11 +207,13 @@
                             transition-property: background-color, border-color, box-shadow;
                             transition-duration: 85ms;
                             transition-timing-function: ease;
+
                             &:hover {
                                 background-color: rgba(9, 30, 66, 0.08);
                                 box-shadow: none;
                                 border: none;
                             }
+
                             .overdue {
                                 color: #ffffff;
                                 background-color: #ec9488;
@@ -200,6 +223,7 @@
                                 border-radius: 2px;
                                 margin: auto 0 auto 8px;
                             }
+
                             .complete {
                                 color: #ffffff;
                                 background-color: #61bd4f;
@@ -209,6 +233,7 @@
                                 border-radius: 2px;
                                 margin: auto 0 auto 8px;
                             }
+
                             p {
                                 color: #172b4d;
                                 font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Noto Sans", "Ubuntu", "Droid Sans", "Helvetica Neue", sans-serif;
@@ -216,17 +241,21 @@
                                 line-height: 20px;
                                 font-weight: 400;
                             }
+
                             .down {
                                 padding-left: 5px;
                             }
                         }
                     }
                 }
+
                 .card-details-labels-container {
                     display: flex;
                     flex-direction: row;
+
                     .card-details-labels {
                         padding-top: 8px;
+
                         .card-details-label {
                             display: flex;
                             align-items: center;
@@ -241,6 +270,7 @@
                             width: auto;
                             cursor: pointer;
                         }
+
                         p {
                             text-align: center;
                             margin: auto;
@@ -250,6 +280,7 @@
                         }
                     }
                 }
+
                 label {
                     color: #5e6c84;
                     font-size: 12px;
@@ -258,11 +289,13 @@
                     line-height: 20px;
                 }
             }
+
             .card-details-description {
                 display: flex;
                 gap: 17px;
                 align-items: center;
                 min-height: 32px;
+
                 h3 {
                     color: #172b4d;
                     font-size: 16px;
@@ -274,6 +307,7 @@
                     width: auto;
                     font-weight: 500;
                 }
+
                 button {
                     @include cardDetailsBtn();
                     background-color: #091e420a;
@@ -284,16 +318,131 @@
                     cursor: pointer;
                 }
             }
-            .card-details-activity-show-details {
+
+
+            .card-details-activity-show-attachments {
                 display: flex;
-                justify-content: space-between;
-                margin-bottom: 10px;
+                flex-direction: column;
+                // justify-content: space-between;
+                // margin-bottom: 10px;
                 min-height: 32px;
-                .card-details-activity {
+                // height: 100%;
+
+                .card-attachments-area {
+                    display: flex;
+                    margin-left: 40px;
+                    gap: 10px;
+                    width: 514px;
+                    margin-bottom: 24px;
+                    margin-top: 9px;
+                    cursor: pointer;
+
+                    &:hover {
+                        background-color: #EAECF0;
+                    }
+
+                    .attachment-area-body{
+                        margin-bottom: 5px;
+                        color: #5e6c84;
+                        gap: 5px;
+
+                        p{
+                            color: #7A8697;
+                            font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
+                            font-size: 14px;
+                            line-height: 20px;
+                            display: inline-block;
+                            margin: 0;
+                            min-height: 18px;
+                            min-width: 40px;
+                            width: auto;
+                            font-weight: 400;
+                        }
+                        a{
+                            color: #7A8697;
+                            font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
+                            font-size: 14px;
+                            line-height: 20px;
+                            display: inline-block;
+                            margin: 0;
+                            min-height: 18px;
+                            min-width: 40px;
+                            width: auto;
+                            font-weight: 400;
+                            text-decoration: underline;
+
+                            &:hover{
+                                color: #172B4D;
+                            }
+                        }
+                    }
+                    
+                    .attachment-area-footer{
+                        display: flex;
+                        align-items: center;
+                        gap: 5px;
+                        p{
+                            text-decoration: underline;
+                            color: #7A8697;
+                            font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
+                            font-size: 14px;
+                            line-height: 20px;
+                            display: inline-block;
+                            margin: 0;
+                            min-height: 18px;
+                            min-width: 40px;
+                            width: auto;
+                            font-weight: 400;
+                            
+                            &:hover{
+                                color: #172B4D;
+                            }
+                        }
+                    }
+
+                    .card-attachment-area-header {
+                        display: flex;
+                        padding-top: 8px;
+
+                        p {
+                            color: #172B4D;
+                            font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
+                            font-size: 14px;
+                            line-height: 20px;
+                            display: inline-block;
+                            margin: 0;
+                            min-height: 18px;
+                            min-width: 40px;
+                            width: auto;
+                            font-weight: 700;
+                        }
+                    }
+
+
+                    span {
+                        padding-top: 1.5px;
+                    }
+
+                    img {
+                        // background-position: 50%;
+                        object-fit: contain;
+                        background-repeat: no-repeat;
+                        border-radius: 3px;
+                        height: 80px;
+                        text-decoration: none;
+                        // margin-bottom: 10px;
+                        width: 112px;
+                        background-color: #295162;
+                    }
+                }
+
+                .card-details-attachments {
                     display: flex;
                     gap: 17px;
                     align-items: center;
                     min-height: 32px;
+                    padding-bottom: 10px;
+
                     h3 {
                         color: #172b4d;
                         font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
@@ -307,6 +456,38 @@
                         font-weight: 500;
                     }
                 }
+            }
+
+
+
+
+
+            .card-details-activity-show-details {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 10px;
+                min-height: 32px;
+
+                .card-details-activity {
+                    display: flex;
+                    gap: 17px;
+                    align-items: center;
+                    min-height: 32px;
+
+                    h3 {
+                        color: #172b4d;
+                        font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
+                        font-size: 16px;
+                        line-height: 20px;
+                        display: inline-block;
+                        margin: 0;
+                        min-height: 18px;
+                        min-width: 40px;
+                        width: auto;
+                        font-weight: 500;
+                    }
+                }
+
                 button {
                     @include cardDetailsBtn();
                     background-color: #091e420a;
@@ -314,15 +495,18 @@
                     font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
                 }
             }
+
             .card-details-input-user-comment {
                 display: flex;
                 align-items: center;
                 justify-items: center;
                 gap: 9px;
                 height: 40px;
+
                 .card-details-user-avatar {
                     display: flex;
                 }
+
                 .card-details-input-comment {
                     cursor: pointer;
                     display: flex;
@@ -338,16 +522,19 @@
                     // transition-property: padding-bottom;
                     // transition-property: margin-top;
                     transition-timing-function: ease;
+
                     .input-icon-btns {
                         display: flex;
                         flex-direction: column;
                         width: 650px;
+
                         .card-details-all-btns {
                             display: flex;
                             flex-direction: row;
                             justify-content: space-between;
                             align-items: center;
                             padding-bottom: 10px;
+
                             .card-details-save-btn {
                                 background-color: #0079bf;
                                 border: none;
@@ -359,40 +546,48 @@
                                 height: rem(25px);
                                 margin-top: 10px;
                                 cursor: pointer;
+
                                 &:hover {
                                     background-color: #026aa7;
                                     border: none;
                                     box-shadow: none;
                                     color: #fff;
                                 }
+
                                 button {
                                     cursor: pointer;
                                 }
                             }
+
                             .icon-btns-inside-input {
                                 display: flex;
                                 justify-content: end;
                                 gap: 25px;
+
                                 span {
                                     cursor: pointer;
                                 }
                             }
                         }
                     }
+
                     &:hover {
                         box-shadow: 1px 1px 5px -2px rgb(0 0 0 / 18%);
                     }
+
                     input {
                         cursor: pointer;
                         background-color: rgb(255, 255, 255);
                         border: 2px solid rgb(239, 238, 236);
                         border: none;
+
                         &:focus {
                             outline: none;
                         }
                     }
                 }
             }
+
             .card-details-input {
                 .card-details-text-add-btn {
                     display: flex;
@@ -400,6 +595,7 @@
                     margin-top: 7px;
                     margin-bottom: 17px;
                     gap: 10px;
+
                     button {
                         background-color: #0079bf;
                         height: rem(31px);
@@ -411,6 +607,7 @@
                         font-size: 14px;
                         font-weight: 400;
                         cursor: pointer;
+
                         &:hover {
                             background-color: #026aa7;
                             border: none;
@@ -418,10 +615,12 @@
                             color: #fff;
                         }
                     }
+
                     span {
                         cursor: pointer;
                     }
                 }
+
                 textarea {
                     border-color: #091e4221;
                     height: 108px;
@@ -430,10 +629,12 @@
                     font-size: 13px;
                     padding: 12px;
                     font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
+
                     &:focus {
                         outline-color: #0079bf;
                     }
                 }
+
                 .card-description {
                     margin-top: 15px;
                     margin-bottom: 35px;
@@ -442,6 +643,7 @@
                     color: #42526e;
                     font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
                 }
+
                 .open-input-btn {
                     background-color: #091e420a;
                     border: none;
@@ -457,6 +659,7 @@
                     height: rem(55px);
                     border-radius: 3px;
                     font-size: 13px;
+
                     &:hover {
                         background-color: #091e4214;
                         border: none;
@@ -559,5 +762,10 @@
 
 .icon-close {
     @include to-icon("\e91c");
+    cursor: pointer;
+}
+
+.icon-link-arrow {
+    @include to-icon("\e92c");
     cursor: pointer;
 }
