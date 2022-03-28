@@ -286,6 +286,7 @@
             @boardEdit="editBoard"
             @cardEdit="editCard"
             @actionsClose="closeMenu"
+            @cardCopySave="sendCardCopy"
             :board="board"
             :card="card"
             :group="group"
@@ -360,7 +361,6 @@ export default {
                 .split(' ')
                 .map(word => word[0])
                 .join('');
-            console.log(firstLetters)
             return firstLetters.toUpperCase()
         },
         closeModal() {
@@ -401,6 +401,9 @@ export default {
             this.pos = this.$refs['copyBtn'].getBoundingClientRect()
             this.shown = true
             this.currModal = "copyModal"
+        },
+        sendCardCopy(copy) {
+            this.$emit('saveCopy', copy)
         },
         deleteWarn() {
             this.pos = this.$refs['deleteBtn'].getBoundingClientRect()
@@ -445,10 +448,8 @@ export default {
             this.cardToEdit.isComplete = !this.cardToEdit.isComplete
             this.$emit('cardModified', { card: this.cardToEdit, group: this.group })
         }
-
-
     },
-    emits: ['closeDialog', 'cardModified', 'boardModified', 'deleteCardFromGroup']
+    emits: ['closeDialog', 'cardModified', 'boardModified', 'deleteCardFromGroup', 'saveCopy']
 
 }
 
