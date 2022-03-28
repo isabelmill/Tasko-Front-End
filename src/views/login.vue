@@ -21,11 +21,29 @@
                 <span>Continue with Google</span>
             </div>
             <hr />
-            <p>Sign up for an account</p>
+            <p @click="goToSignup">Sign up for an account</p>
         </div>
     </section>
 </template>
 
 
 <script>
+export default {
+
+    data() {
+        return {
+
+        }
+    },
+    computed: {
+
+    },
+    methods: {
+        goToSignup() {
+            this.$router.push(`/signup`)
+        }
+    },
+    components: {
+    },
+}
 </script>

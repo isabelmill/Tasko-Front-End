@@ -65,6 +65,12 @@ export default {
         }
     },
     created() {
+        // this.boardToEdit = await JSON.parse(JSON.stringify(this.board))
+        // console.log('this.boardToEdit:', this.board);
+    },
+
+    mounted() {
+
 
     },
     methods: {
@@ -146,7 +152,6 @@ export default {
             this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
         },
         changeBoardPhoto(photo) {
-            console.log('photo######:', photo);
             this.boardToEdit = JSON.parse(JSON.stringify(this.board))
             this.boardToEdit.background = ''
             this.boardToEdit.backgroundPhoto = photo
@@ -155,6 +160,7 @@ export default {
     },
     computed: {
         board() {
+            console.log('this.$store.getters.board:',this.$store.getters.board);
             return this.$store.getters.board
         },
         cardToShow() {
