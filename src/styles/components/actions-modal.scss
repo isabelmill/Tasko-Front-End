@@ -334,6 +334,15 @@
         box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #0079bf;
         z-index: 100;
         filter: none;
+        &:hover {
+            box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #5ba4cf;
+            filter: none;
+        }
+    }
+    .nonselected {
+        &:hover {
+            filter: saturate(85%) brightness(85%);
+        }
     }
 }
 

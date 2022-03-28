@@ -14,9 +14,9 @@
             <section class="cover-size-select">
                 <section
                     @click="isSmall = true, setSize()"
-                    :class="{ selected: (isColorPicked || isAttachmentPicked) && isSmall === true }"
+                    :class="{ selected: (isColorPicked || isAttachmentPicked) && isSmall === true , nonselected : (isColorPicked || isAttachmentPicked) && isSmall === false}"
                     class="cover-size-small"
-                    v-bind:style="[(isColorPicked || isAttachmentPicked) ? { cursor: 'pointer' } : {}]"
+                    v-bind:style="[(isColorPicked || isAttachmentPicked) ? { cursor: 'pointer'} : {}]"
                 >
                     <div
                         class="cover-header"
@@ -51,8 +51,8 @@
                 <section
                     class="cover-size-all"
                     @click="isSmall = false, setSize()"
-                    :class="{ selected: (isColorPicked||isAttachmentPicked) && isSmall === false }"
-                    v-bind:style="[isColorPicked ? { backgroundColor: color, cursor: 'pointer' } : (isAttachmentPicked) ? { backgroundImage: 'url(' + card.attachments[attachmentIdx].link + ')' , cursor: 'pointer'} : { backgroundColor: '#CFD3DA' }]"
+                    :class="{ selected: (isColorPicked || isAttachmentPicked) && isSmall === false , nonselected: (isColorPicked||isAttachmentPicked) && isSmall === true}"
+                    v-bind:style="[isColorPicked ? { backgroundColor: color, cursor: 'pointer' } : (isAttachmentPicked) ? { backgroundImage: 'url(' + card.attachments[attachmentIdx].link + ')', cursor: 'pointer' } : { backgroundColor: '#CFD3DA' }]"
                 >
                     <div class="cover-main">
                         <div
@@ -67,7 +67,7 @@
                 </section>
             </section>
             <button
-                v-if="isColorPicked||isAttachmentPicked"
+                v-if="isColorPicked || isAttachmentPicked"
                 type="button"
                 @click="removeCover"
                 class="create-btn"
@@ -185,12 +185,20 @@ export default {
     computed: {
     },
     created() {
+        if (this.card.cover.type === 'color') {
+            this.color = this.card.cover.value
+            this.isSmall = (this.card.cover.size === 'small') ? true : false
+        }
+        if (this.card.cover.type === 'attachment') {
+            this.attachmentIdx = this.card.attachments.findIndex(attach => attach.link === this.card.cover.value)
+            this.isSmall = (this.card.cover.size === 'small') ? true : false
+        }
     },
     computed: {
         isColorPicked() {
             return !(this.color === '')
         },
-        isAttachmentPicked(){
+        isAttachmentPicked() {
             return !(this.attachmentIdx === '')
         }
     },

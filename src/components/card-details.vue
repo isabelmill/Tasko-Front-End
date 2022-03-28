@@ -1,6 +1,12 @@
 <template>
+    <section
+        v-if="card.cover.value"
+        class="coverOfCardDetails"
+        ref="headerCover"
+        :class="{ color: card.cover.type === 'color', attachmentofdetails: card.cover.type === 'attachment' }"
+        v-bind:style="[(card.cover.type === 'color') ? { backgroundColor: card.cover.value } : { backgroundImage: 'url(' + card.cover.value + ')' }]"
+    ></section>
     <section class="card-details-container flex">
-        <!-- Header  -->
         <div class="card-details-header">
             <div class="card-details-header-icon">
                 <span class="icon-lg icon-card"></span>
@@ -9,7 +15,7 @@
                 </div>
             </div>
             <div class="card-details-icon">
-                <span class="icon-md icon-close" @click="closeModal"></span>
+                <span class="icon-md icon-close" v-if="!card.cover.value" @click="closeModal"></span>
             </div>
         </div>
 
@@ -309,6 +315,7 @@ import datesModal from "./date-modal-cmp.vue";
 import coverModal from "./cover-modal-cmp.vue";
 import attachmentModal from "./attachment-modal-cmp.vue";
 import deleteWarning from "./delete-warning-modal-cmp.vue";
+import FastAverageColor from 'fast-average-color';
 export default {
 
     name: 'card-details',
@@ -334,6 +341,9 @@ export default {
     created() {
         this.description = this.card.description
     },
+    async mounted() {
+
+    },
     data() {
         return {
             currModal: null,
@@ -343,13 +353,26 @@ export default {
             pos: 0,
             showInput: false,
             showDesc: false,
-            description: ''
+            description: '',
         }
     },
     computed: {
         cardToEdit() {
             return JSON.parse(JSON.stringify(this.card))
-        }
+        },
+        "this.$refs['coverHeader'].style.backgroundColor"() {
+            if (this.card.cover.type === 'attachment') {
+                return () => {
+                    const fac = new FastAverageColor()
+                    const color = fac.getColorAsync(this.card.cover.value).then(
+                        color => {
+                            console.log(color)
+                            return color.hex
+                        }
+                    )
+                }
+            }
+        },
     },
     methods: {
         setMemberLetters(fullname) {
@@ -381,7 +404,7 @@ export default {
             this.shown = true
             this.currModal = "coverModal"
         },
-        addAttachment(){
+        addAttachment() {
             this.pos = this.$refs['attachmentBtn'].getBoundingClientRect()
             this.shown = true
             this.currModal = "attachmentModal"
