@@ -1,6 +1,11 @@
 <template>
     <div class="board-list-main">
         <board-preview
+<<<<<<< HEAD
+=======
+            @updateBoard="updateBoardTime"
+            @starredChange="onStarredChange"
+>>>>>>> 5db0134cb9c148690abd180265c6302786eb4f02
             v-for="board in boards"
             :board="board"
             :key="board._id"
@@ -21,10 +26,14 @@ export default {
     methods: {
         // updateBoardTime(board) {
         //     this.$emit('updateBoardLastWatched', board)
-        // }
+        // },
+        onStarredChange(boardStarred) {
+            this.$emit('updateStarred', boardStarred)
+        },
     },
     components: {
         boardPreview,
     },
+    emits: ['updateStarred']
 }
 </script>

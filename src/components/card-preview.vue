@@ -1,6 +1,16 @@
 <template>
     <section @click.stop.prevent="openDetails">
         <section ref="card-modal" class="card-preview cursor-pointer flex">
+            <section v-if="card.cover.type === 'color' && card.cover.size === 'large'">
+                <div
+                    class="card-cover-color-large cursor-pointer"
+                    v-bind:style="{ backgroundColor: card.cover.value }"
+                >
+                    <div class="card-title">
+                        <span :style="(card.cover.value==='#172B4D')? {color: '#FFFFFF'}: {color:'#172B4D'}">{{ card.title }}</span>
+                    </div>
+                </div>
+            </section>
             <section v-if="card.cover.type === 'attachment' && card.cover.size === 'large'">
                 <div
                     class="card-cover-attachment-large cursor-pointer"
@@ -10,15 +20,20 @@
                     <div
                         :class="{ coverlight: card.cover.theme === 'light', coverdark: card.cover.theme === 'dark' }"
                     ></div>
-                    <div class="card-title"
-                    :class="{ covertitlelight: card.cover.theme === 'light', covertitledark: card.cover.theme === 'dark' }"
+                    <div
+                        class="card-title"
+                        :class="{ covertitlelight: card.cover.theme === 'light', covertitledark: card.cover.theme === 'dark' }"
                     >
                         <span>{{ card.title }}</span>
                     </div>
                 </div>
             </section>
-            <section v-if="card.cover.type === 'color'">
-                <div class="card-cover-color"></div>
+            <section v-if="card.cover.type === 'color' && card.cover.size === 'small'">
+                <div class="card-cover-color-small"
+                v-bind:style="{ backgroundColor: card.cover.value }"
+                >
+
+                </div>
             </section>
             <section v-if="card.cover.type === 'attachment' && card.cover.size === 'small'">
                 <div
@@ -67,10 +82,14 @@
                 </div>
             </section>
         </section>
-        <section @click.stop.prevent="closeModal" class="mini-edit-modal-main flex" v-if="modalOpen">
+        <section
+            @click.stop.prevent="closeModal"
+            class="mini-edit-modal-main flex"
+            v-if="modalOpen"
+        >
             <span class="icon-xl icon-close-in-pencil-modal" @click.stop.prevent="closeModal"></span>
             <section
-            @click.prevent.stop
+                @click.prevent.stop
                 class="mini-edit-modal-second"
                 style="position:fixed;"
                 :style="{ top: pos.top + 'px', left: pos.left + 'px' }"
@@ -90,7 +109,7 @@
                         </div>
                         <div>
                             <textarea
-                            @click.stop.prevent="focus()"
+                                @click.stop.prevent="focus()"
                                 name="mini-edit-ta"
                                 style="resize:none"
                                 v-model="cardToDisplay.title"
@@ -112,7 +131,8 @@
                     <button ref="deleteBtn" @click.stop.prevent="deleteWarn">Delete</button>
                 </section>
             </section>
-            <delete-warning @click.prevent.stop
+            <delete-warning
+                @click.prevent.stop
                 @closeDeleteWarning="closeWarning"
                 @deleteConfirmed="deleteCard"
                 v-if="warningOpen"
@@ -120,7 +140,8 @@
                 :pos="posOfEditor"
             ></delete-warning>
             <section v-if="shown">
-                <component @click.prevent.stop
+                <component
+                    @click.prevent.stop
                     @boardEdit="editBoard"
                     @cardEdit="showEditedCard"
                     @actionsClose="closeMenu"
@@ -234,6 +255,7 @@ export default {
         },
         openMiniEdit() {
             this.calcPosOfModal()
+            this.cardToDisplay = JSON.parse(JSON.stringify(this.card))
             this.modalOpen = true;
             this.$emit('toggleQuickEdit')
         },
@@ -272,6 +294,7 @@ export default {
             this.cardToDisplay = card
         },
         saveCard() {
+
             this.$emit('editCard', { card: this.cardToDisplay, group: this.group })
             this.shown = false
             this.closeModal()
@@ -303,6 +326,7 @@ export default {
         updateDate() {
             return { dateRed: !this.isDateClicked, dateGreen: this.isDateClicked };
         },
+        
     },
     emits: ['openCard', 'editCard', 'openAllLabels', 'deleteCard', 'boardUpdated', 'toggleQuickEdit'],
 }

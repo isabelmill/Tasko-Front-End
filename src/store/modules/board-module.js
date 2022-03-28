@@ -12,6 +12,11 @@ export default {
         },
         board(state) {
             return state.selectedBoard
+        },
+        starredBoards(state) {
+            return state.boards.filter(board => {
+                return board.isStarred
+            })
         }
     },
     mutations: {
