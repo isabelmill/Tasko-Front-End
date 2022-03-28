@@ -1,6 +1,6 @@
 <template>
     <section class="add-card-cmp">
-        <button class="btn-add-card-out" v-if="!show" @click="show = true">
+        <button class="btn-add-card-out" v-if="!show" @click.stop.prevent="show = true">
             <span class="icon-sm icon-add-gray"></span>
             <p>Add a card</p>
         </button>
@@ -16,8 +16,8 @@
                 />
             </div>
             <div class="btn-add-card">
-                <button class="btn-add-card-in" @click="addCard">Add card</button>
-                <span class="icon-lg icon-close" @click="show = false"></span>
+                <button class="btn-add-card-in" @click.stop.prevent="addCard">Add card</button>
+                <span class="icon-lg icon-close" @click.stop.prevent="show = false"></span>
             </div>
         </div>
     </section>
@@ -47,7 +47,7 @@ export default {
             if (!this.txt) return
             this.newCard.title = this.txt;
             this.$emit('cardAdd', { newCard: this.newCard, group: this.group })
-
+            this.newCard = boardService.getEmptyCard();
             this.txt = "";
         },
     }, unmounted() { },

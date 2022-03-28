@@ -20,7 +20,7 @@
         />
       </svg>
     </a>
-    <a @click="openRecentBoardsModal(), calcPosOfBox()" class="link" to="/" ref="recent">
+    <a @click.stop.prevent="openRecentBoardsModal(), calcPosOfBox()" class="link" to="/" ref="recent">
       Recent
       <svg
         width="16"
@@ -43,7 +43,7 @@
       v-clickOutside="closeRecentModal"
       @close="closeRecentModal"
     ></recent-boards-modal>
-    <a @click="openStarredBoardsModal(), calcPosOfBox()" ref="starred">
+    <a @click.stop.prevent="openStarredBoardsModal(), calcPosOfBox()" ref="starred">
       Starred
       <svg
         width="16"

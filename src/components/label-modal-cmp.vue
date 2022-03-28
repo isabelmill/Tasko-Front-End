@@ -6,7 +6,7 @@
         class="label-modal"
     >
         <div class="main-title-container">
-            <div class="icon-sm icon-close" @click="close"></div>
+            <div class="icon-sm icon-close" @click.stop.prevent="close"></div>
             <span class="main-title">Labels</span>
         </div>
         <section class="actions-modal-main">
@@ -16,15 +16,15 @@
                 <div
                     class="label-color"
                     :style="{ backgroundColor: label.color }"
-                    @click="addLabelToCard(label.id)"
+                    @click.stop.prevent="addLabelToCard(label.id)"
                     
                 >
                     {{ label.title }}
                     <div v-if="card.labels.includes(label.id)" class="icon-sm icon-check"></div>
                 </div>
-                <button class="icon-sm icon-edit" @click="openEditLabel(label)"></button>
+                <button class="icon-sm icon-edit" @click.stop.prevent="openEditLabel(label)"></button>
             </section>
-            <button type="button" @click="createNewLabel" class="create-btn">Create a new label</button>
+            <button type="button" @click.stop.prevent="createNewLabel" class="create-btn">Create a new label</button>
         </section>
     </section>
     <label-editor-modal-cmp
