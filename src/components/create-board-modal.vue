@@ -101,7 +101,7 @@ export default {
             if (!this.newBoard.title) return
             this.$emit("add", this.newBoard)
         },
-        setBoardColor(color) {
+        setBoardColor(color = '#0079BF') {
             this.setColor = color
             this.newBoard.background = color
         },
