@@ -94,9 +94,6 @@ export default {
         this.setFolder('boards')
     },
     methods: {
-        loadBoards() {
-            boardService.query().then((Boards) => (this.Boards = Boards))
-        },
         setFilter(filterBy) {
             this.$store.dispatch({ type: 'filter', filterBy });
         },

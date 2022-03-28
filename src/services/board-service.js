@@ -62,8 +62,8 @@ async function save(board) {
     // } else {
     //     return asyncStorageService.post(BOARDS_KEY, board);
     // }
-    console.log('board saving new board in b service front:',board);
-    console.log('board._id:',board._id);
+    console.log('board saving new board in b service front:', board);
+    console.log('board._id:', board._id);
     try {
         if (board._id) {
             return await httpService.put(`board/${board._id}`, board)
@@ -530,6 +530,7 @@ function getEmptyBoard() {
     return {
         // _id: '',
         title: '',
+        lastTimeWatched: 0,
         createdAt: Date.now(),
         createdBy: {
             _id: "u101",
