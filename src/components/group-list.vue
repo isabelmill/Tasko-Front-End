@@ -65,7 +65,7 @@
                 />
                 <div class="controls-add-list">
                     <button class="btn-add-card-in" @click="addNewGroup">Add List</button>
-                    <span class="icon-lg icon-close" @click="show = false"></span>
+                    <span class="icon-lg icon-close-close" @click="show = false"></span>
                 </div>
             </div>
         </div>

@@ -15,9 +15,9 @@
                     v-model="txt"
                 />
             </div>
-            <div class="btn-add-card">
+            <div class="btn-card-add">
                 <button class="btn-add-card-in" @click.stop.prevent="addCard">Add card</button>
-                <span class="icon-lg icon-close" @click.stop.prevent="show = false"></span>
+                <span class="icon-lg icon-close-close" @click.stop.prevent="show = false"></span>
             </div>
         </div>
     </section>
