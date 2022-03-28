@@ -41,11 +41,9 @@
 </template>
 
 <script>
-import search from './search.vue'
 import labelEditorModalCmp from "./label-editor-modal-cmp.vue"
 export default {
     components: {
-        search,
         labelEditorModalCmp
     },
     name: 'label-modal',
@@ -130,7 +128,7 @@ export default {
             this.isCreate = true
         }
     },
-    emits: ['actionsClose', 'cardEdit', 'boardEdit']
+    emits: ['actionsClose', 'cardEdit', 'boardEdit','cardCopySave']
 
 }
 </script>

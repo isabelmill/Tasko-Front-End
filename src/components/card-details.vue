@@ -513,7 +513,7 @@ export default {
             this.$emit('cardModified', { card: this.cardToEdit, group: this.group })
         }
     },
-    emits: ['closeDialog', 'cardModified', 'boardModified', 'deleteCardFromGroup', 'saveCopy']
+    emits: ['cardCopySave','closeDialog', 'cardModified', 'boardModified', 'deleteCardFromGroup', 'saveCopy']
 }
 </script>
 

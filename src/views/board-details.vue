@@ -34,7 +34,7 @@
             @boardModified="updateBoard"
             @cardModified="updateCard"
             @closeDialog="closeDiag"
-            @saveCopy="onSaveCopy"
+            @saveCopy="SaveCopyToBoard"
             :board="board"
             :card="cardToShow"
             :group="groupToShow"
@@ -120,7 +120,7 @@ export default {
             this.isCardOpen = false
             this.$refs.cardDetailsModal.close()
         },
-        onSaveCopy(copy) {
+        SaveCopyToBoard(copy) {
             console.log('copy', copy)
             this.groupToEdit = JSON.parse(JSON.stringify(copy.posCopy.group))
             console.log('groupToEdit', this.groupToEdit)
