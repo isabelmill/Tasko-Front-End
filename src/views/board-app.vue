@@ -27,9 +27,10 @@
                                 <p>Starred boards</p>
                             </div>
                             <board-list
-                                v-if="boards"
-                                :boards="boards"
+                                v-if="starredBoards"
+                                :boards="starredBoards"
                                 @updateBoardLastWatched="updateBoard"
+                                @updateStarred="onUpdateStarred"
                             />
                         </div>
                         <div class="border-list">
@@ -45,7 +46,7 @@
                         </div>
                         <button
                             class="create-btn"
-                            @click="openBoardEdit(), calcPosOfBox()"
+                            @click="openBoardEdit(), calcPosOfBox('button')"
                             ref="button"
                             type="button"
                         >
@@ -76,6 +77,7 @@ export default {
     name: 'board-app',
     data() {
         return {
+            boardsToShow: [],
             preFolder: '',
             currFolder: '',
             isFolder: {
@@ -94,8 +96,8 @@ export default {
         this.setFolder('boards')
     },
     methods: {
-        loadBoards() {
-            boardService.query().then((Boards) => (this.Boards = Boards))
+        calcPosOfBox(ref) {
+            this.pos = this.$refs[ref].getBoundingClientRect()
         },
         setFilter(filterBy) {
             this.$store.dispatch({ type: 'filter', filterBy });
@@ -112,12 +114,6 @@ export default {
             this.isEdit = false
             this.newBoard = boardService.getEmptyBoard()
         },
-        calcPosOfBox() {
-            this.pos = this.$refs['starred'].getBoundingClientRect()
-        },
-        calcPosOfBox() {
-            this.pos = this.$refs['button'].getBoundingClientRect()
-        },
         setFolder(folder) {
             this.currFolder = folder
             this.isFolder[this.preFolder] = !this.isFolder[this.preFolder]
@@ -129,11 +125,18 @@ export default {
         },
         updateBoard(board) {
             this.$store.dispatch({ type: 'saveBoard', board: board })
-        }
+        },
+        onUpdateStarred(boardStarred) {
+            console.log('boardStarred', boardStarred)
+            this.updateBoard(boardStarred)
+        },
     },
     computed: {
         boards() {
             return this.$store.getters.boards
+        },
+        starredBoards() {
+            return this.$store.getters.starredBoards
         },
     },
     components: {

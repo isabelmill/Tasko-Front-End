@@ -1,7 +1,11 @@
 <template>
     <div class="board-preview-main">
         <h1 @click.stop.prevent="goToDetails()">{{ board.title }}</h1>
-        <span class="icon-sm icon-starred-boards"></span>
+        <span
+            v-if="board.isStarred"
+            class="icon-sm icon-starred-boards"
+            @click.stop.prevent="boardStared"
+        ></span>
     </div>
 </template>
 
@@ -15,6 +19,7 @@ export default {
     data() {
         return {
             boardToEdit: null,
+            isStarred: false,
         }
     },
     methods: {
@@ -25,6 +30,13 @@ export default {
             this.$emit('updateBoard', this.boardToEdit)
             this.$router.push(`/board/${this.board._id}`)
         },
+        boardStared() {
+            this.isStarred = !this.isStarred
+            const starredBoard = JSON.parse(JSON.stringify(this.board))
+            starredBoard.isStarred = this.isStarred
+            this.$emit('starredChange', starredBoard)
+        },
     },
+    emits: ['starredChange']
 }
 </script>

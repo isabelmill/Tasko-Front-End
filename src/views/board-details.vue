@@ -56,7 +56,6 @@ export default {
     },
     data() {
         return {
-
             isCardOpen: false,
             selectedCardIdx: null,
             selectedCardGroupIdx: null,
