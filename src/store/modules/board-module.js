@@ -2,7 +2,7 @@ import { boardService } from '../../services/board-service.js'
 
 export default {
     state: {
-        boards: {},
+        boards: null,
         selectedBoard: null,
         filterBy: null,
     },
@@ -61,10 +61,10 @@ export default {
         },
         async saveBoard({ commit }, { board }) {
             try {
-                commit({ type: 'setBoard', board });
-                const newBoard = JSON.parse(JSON.stringify(board))
-                await boardService.save(newBoard)
-                commit({ type: 'saveBoard', board: newBoard });
+                if (board._id) commit({ type: 'setBoard', board });
+                const savedBoard = await boardService.save(board)
+                console.log(savedBoard);
+                commit({ type: 'saveBoard', board: savedBoard });
                 // commit({ type: 'setBoard', board: newBoard });
             } catch (err) {
                 console.log('sorry user connot do that!!!');

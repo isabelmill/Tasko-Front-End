@@ -1,101 +1,136 @@
 <template>
-    <section ref="card-modal" class="card-preview cursor-pointer flex">
-        <section v-if="card.cover.type==='attachment'&&card.cover.size==='small'">
-            <div class="card-cover" v-bind:style="{backgroundImage:'url('+card.cover.value+')'}"></div>
-        </section>
-        <div v-if="card.labels.length && board.labels.length" class="labels">
-            <div
-                class="label"
-                :class="openLabels"
-                @click="openAllLabels"
-                v-for="label in card.labels"
-                :key="label"
-                :style="{ 'backgroundColor': board.labels[board.labels.findIndex(labelToFind => labelToFind.id === label)].color }"
-            >{{ board.labels[board.labels.findIndex(labelToFind => labelToFind.id === label)].title }}</div>
-        </div>
-        <div>
-            <p class="card-title cursor-pointer" @click="openDetails">{{ card.title }}</p>
-        </div>
-        <div class="card-bar">
-            <div class="card-bar-icon">
-                <div v-if="card.date" class="date" @click="onDateClicked" :class="updateDate">
-                    <span class="icon-sm icon-clock-in-date"></span>
-                    <span class="date-txt">{{ setDateFormat(card.date) }}</span>
-                </div>
-            </div>
-            <div class="card-bar-members">
-                <div v-if="card.members.length && board.members.length" class="members">
+    <section @click.stop.prevent="openDetails">
+        <section ref="card-modal" class="card-preview cursor-pointer flex">
+            <section v-if="card.cover.type === 'attachment' && card.cover.size === 'large'">
+                <div
+                    class="card-cover-attachment-large cursor-pointer"
+                    v-bind:style="{ backgroundImage: 'url(' + card.cover.value + ')' }"
+                >
+                    <img :src="card.cover.value" style="visibility:hidden" />
                     <div
-                        class="member"
-                        v-for="member in card.members"
-                        :key="member._id"
-                    >{{ setMemberLetters(member.fullname) }}</div>
-                </div>
-            </div>
-        </div>
-        <button class="icon-sm icon-edit" @click="openMiniEdit($event)"></button>
-    </section>
-    <section class="mini-edit-modal-main flex" v-if="modalOpen">
-        <span class="icon-xl icon-close-in-pencil-modal" @click="closeModal"></span>
-        <section
-            class="mini-edit-modal-second"
-            style="position:fixed;"
-            :style="{ top: pos.top + 'px', left: pos.left + 'px' }"
-        >
-            <section class="modal-edit">
-                <div class="modal-card">
-                    <div
-                        v-if="cardToDisplay.labels.length && cardToDisplay.labels.length"
-                        class="labels"
+                        :class="{ coverlight: card.cover.theme === 'light', coverdark: card.cover.theme === 'dark' }"
+                    ></div>
+                    <div class="card-title"
+                    :class="{ covertitlelight: card.cover.theme === 'light', covertitledark: card.cover.theme === 'dark' }"
                     >
-                        <div
-                            class="label"
-                            v-for="label in cardToDisplay.labels"
-                            :key="label"
-                            :style="{ 'backgroundColor': board.labels[board.labels.findIndex(labelToFind => labelToFind.id === label)].color }"
-                        >{{ board.labels[board.labels.findIndex(labelToFind => labelToFind.id === label)].title }}</div>
+                        <span>{{ card.title }}</span>
                     </div>
-                    <div>
-                        <textarea
-                            name="mini-edit-ta"
-                            style="resize:none"
-                            v-model="cardToDisplay.title"
-                        ></textarea>
-                    </div>
+                </div>
+            </section>
+            <section v-if="card.cover.type === 'color'">
+                <div class="card-cover-color"></div>
+            </section>
+            <section v-if="card.cover.type === 'attachment' && card.cover.size === 'small'">
+                <div
+                    class="card-cover-attachment-small"
+                    v-bind:style="{ backgroundImage: 'url(' + card.cover.value + ')' }"
+                >
+                    <img :src="card.cover.value" style="visibility:hidden" />
+                </div>
+            </section>
+            <button class="icon-sm icon-edit" @click.stop.prevent="openMiniEdit($event)"></button>
+            <section v-if="card.cover.size !== 'large'" class="card-preview-main">
+                <div v-if="card.labels.length && board.labels.length" class="labels">
+                    <div
+                        class="label"
+                        :class="openLabels"
+                        @click.stop.prevent="openAllLabels"
+                        v-for="label in card.labels"
+                        :key="label"
+                        :style="{ 'backgroundColor': board.labels[board.labels.findIndex(labelToFind => labelToFind.id === label)].color }"
+                    >{{ board.labels[board.labels.findIndex(labelToFind => labelToFind.id === label)].title }}</div>
                 </div>
                 <div>
-                    <button class="mini-edit-save" @click="saveCard">Save</button>
+                    <p class="card-title cursor-pointer">{{ card.title }}</p>
+                </div>
+                <div class="card-bar">
+                    <div class="card-bar-icon">
+                        <div
+                            v-if="card.date"
+                            class="date"
+                            @click.stop.prevent="onDateClicked"
+                            :class="updateDate"
+                        >
+                            <span class="icon-sm icon-clock-in-date"></span>
+                            <span class="date-txt">{{ setDateFormat(card.date) }}</span>
+                        </div>
+                    </div>
+                    <div class="card-bar-members">
+                        <div v-if="card.members.length && board.members.length" class="members">
+                            <div
+                                class="member"
+                                v-for="member in card.members"
+                                :key="member._id"
+                            >{{ setMemberLetters(member.fullname) }}</div>
+                        </div>
+                    </div>
                 </div>
             </section>
-            <section class="modal-actions-btns">
-                <button @click="openDetails">Open card</button>
-                <button ref="labelBtn" @click="editLabels">Edit labels</button>
-                <button ref="membersBtn" @click="changeMembers">Change members</button>
-                <button @click="changeCover">Change cover</button>
-                <button @click="moveCard">Move</button>
-                <button @click="copyCard">Copy</button>
-                <button ref="datesBtn" @click="editDates">Edit dates</button>
-                <button ref="deleteBtn" @click="deleteWarn">Delete</button>
-            </section>
         </section>
-        <delete-warning
-            @closeDeleteWarning="closeWarning"
-            @deleteConfirmed="deleteCard"
-            v-if="warningOpen"
-            :title="warningTitle"
-            :pos="posOfEditor"
-        ></delete-warning>
-        <section v-if="shown">
-            <component
-                @boardEdit="editBoard"
-                @cardEdit="showEditedCard"
-                @actionsClose="closeMenu"
-                :board="board"
-                :card="cardToDisplay"
-                :group="group"
+        <section @click.stop.prevent="closeModal" class="mini-edit-modal-main flex" v-if="modalOpen">
+            <span class="icon-xl icon-close-in-pencil-modal" @click.stop.prevent="closeModal"></span>
+            <section
+            @click.prevent.stop
+                class="mini-edit-modal-second"
+                style="position:fixed;"
+                :style="{ top: pos.top + 'px', left: pos.left + 'px' }"
+            >
+                <section class="modal-edit" @click.prevent.stop>
+                    <div class="modal-card" @click.prevent.stop>
+                        <div
+                            v-if="cardToDisplay.labels.length && cardToDisplay.labels.length"
+                            class="labels"
+                        >
+                            <div
+                                class="label"
+                                v-for="label in cardToDisplay.labels"
+                                :key="label"
+                                :style="{ 'backgroundColor': board.labels[board.labels.findIndex(labelToFind => labelToFind.id === label)].color }"
+                            >{{ board.labels[board.labels.findIndex(labelToFind => labelToFind.id === label)].title }}</div>
+                        </div>
+                        <div>
+                            <textarea
+                            @click.stop.prevent="focus()"
+                                name="mini-edit-ta"
+                                style="resize:none"
+                                v-model="cardToDisplay.title"
+                            ></textarea>
+                        </div>
+                    </div>
+                    <div>
+                        <button class="mini-edit-save" @click.stop.prevent="saveCard">Save</button>
+                    </div>
+                </section>
+                <section class="modal-actions-btns" @click.prevent.stop>
+                    <button @click.stop.prevent="openDetails">Open card</button>
+                    <button ref="labelBtn" @click.stop.prevent="editLabels">Edit labels</button>
+                    <button ref="membersBtn" @click.stop.prevent="changeMembers">Change members</button>
+                    <button @click.stop.prevent="changeCover">Change cover</button>
+                    <button @click.stop.prevent="moveCard">Move</button>
+                    <button @click.stop.prevent="copyCard">Copy</button>
+                    <button ref="datesBtn" @click.stop.prevent="editDates">Edit dates</button>
+                    <button ref="deleteBtn" @click.stop.prevent="deleteWarn">Delete</button>
+                </section>
+            </section>
+            <delete-warning @click.prevent.stop
+                @closeDeleteWarning="closeWarning"
+                @deleteConfirmed="deleteCard"
+                v-if="warningOpen"
+                :title="warningTitle"
                 :pos="posOfEditor"
-                :is="currModal"
-            ></component>
+            ></delete-warning>
+            <section v-if="shown">
+                <component @click.prevent.stop
+                    @boardEdit="editBoard"
+                    @cardEdit="showEditedCard"
+                    @actionsClose="closeMenu"
+                    :board="board"
+                    :card="cardToDisplay"
+                    :group="group"
+                    :pos="posOfEditor"
+                    :is="currModal"
+                ></component>
+            </section>
         </section>
     </section>
 </template>
@@ -214,7 +249,7 @@ export default {
         },
         closeModal() {
             this.modalOpen = false
-            this.shown= false
+            this.shown = false
             this.$emit('toggleQuickEdit')
 
         },
@@ -258,7 +293,7 @@ export default {
         },
         onDateClicked() {
             this.isDateClicked = !this.isDateClicked
-            
+
         },
     },
     computed: {

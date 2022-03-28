@@ -20,7 +20,7 @@
         />
       </svg>
     </a>
-    <a @click="openRecentBoardsModal(), calcPosOfBox()" class="link" to="/" ref="recent">
+    <a @click.stop.prevent="openRecentBoardsModal(), calcPosOfBox()" class="link" to="/" ref="recent">
       Recent
       <svg
         width="16"
@@ -43,7 +43,7 @@
       v-clickOutside="closeRecentModal"
       @close="closeRecentModal"
     ></recent-boards-modal>
-    <a @click="openStarredBoardsModal(), calcPosOfBox()" ref="starred">
+    <a @click.stop.prevent="openStarredBoardsModal(), calcPosOfBox()" ref="starred">
       Starred
       <svg
         width="16"
@@ -232,15 +232,15 @@ export default {
       return (usePound ? "#" : "") + (g | (b << 8) | (r << 16)).toString(16);
     }
   },
-  watch: {
-    "$route.params.boardId": {
-      async handler(newId) {
-        this.$store.dispatch({ type: 'loadBoardById', newId })
-      },
-      immediate: true
+  // watch: {
+  //   "$route.params.boardId": {
+  //     async handler(newId) {
+  //       this.$store.dispatch({ type: 'loadBoardById', newId })
+  //     },
+  //     immediate: true
 
-    }
-  },
+  //   }
+  // },
   components: {
     search,
     recentBoardsModal,

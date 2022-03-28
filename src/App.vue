@@ -31,15 +31,6 @@ export default {
       return boardId
     }
   },
-    watch: {
-    "$route.params.boardId": {
-      async handler(newId) {
-        this.$store.dispatch({ type: 'loadBoardById', newId })
-      },
-      immediate: true
-
-    }
-  },
   components: {
     appHeader,
   },

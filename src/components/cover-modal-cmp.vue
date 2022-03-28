@@ -6,14 +6,14 @@
         class="label-modal"
     >
         <div class="main-title-container">
-            <div class="icon-sm icon-close" @click="close"></div>
+            <div class="icon-sm icon-close" @click.stop.prevent.stop.prevent="close"></div>
             <span class="main-title">Cover</span>
         </div>
         <section class="actions-modal-main">
             <span class="mini-title">Size</span>
             <section class="cover-size-select">
                 <section
-                    @click="isSmall = true, setSize()"
+                    @click.stop.prevent="isSmall = true, setSize()"
                     :class="{ selected: (isColorPicked || isAttachmentPicked) && isSmall === true, nonselected: (isColorPicked || isAttachmentPicked) && isSmall === false }"
                     class="cover-size-small"
                     v-bind:style="[(isColorPicked || isAttachmentPicked) ? { cursor: 'pointer' } : {}]"
@@ -50,7 +50,7 @@
                 </section>
                 <section
                     class="cover-size-all"
-                    @click="isSmall = false, setSize()"
+                    @click.stop.prevent="isSmall = false, setSize()"
                     :class="{ selected: (isColorPicked || isAttachmentPicked) && isSmall === false, nonselected: (isColorPicked || isAttachmentPicked) && isSmall === true }"
                     v-bind:style="[isColorPicked ? { backgroundColor: color, cursor: 'pointer' } : (isAttachmentPicked) ? { backgroundImage: 'url(' + card.attachments[attachmentIdx].link + ')', cursor: 'pointer' } : { backgroundColor: '#CFD3DA' }]"
                 >
@@ -69,58 +69,79 @@
             <button
                 v-if="isColorPicked || isAttachmentPicked"
                 type="button"
-                @click="removeCover"
+                @click.stop.prevent="removeCover"
                 class="create-btn"
             >Remove cover</button>
+            <section v-if="isAttachmentPicked">
+                <span class="mini-title">Text color</span>
+                <div class="cover-mode-container">
+                    <div
+                        class="dark"
+                        @click.stop.prevent="setTheme('dark')"
+                        :class="{selected: (isDark) }"
+                        :style="{ backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(' + card.cover.value + ')' }"
+                    >
+                        <span>{{ card.title }}</span>
+                    </div>
+                    <div
+                        class="light"
+                        @click.stop.prevent="setTheme('light')"
+                        :class="{selected: !(isDark) }"
+                        :style="{ backgroundImage: 'linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url(' + card.cover.value + ')' }"
+                    >
+                        <span>{{ card.title }}</span>
+                    </div>
+                </div>
+            </section>
             <span class="mini-title">Colors</span>
             <section class="cover-colors">
                 <div
-                    @click="setCoverColor('#7BC86C')"
+                    @click.stop.prevent="setCoverColor('#7BC86C')"
                     :class="{ selected: color === '#7BC86C' }"
                     class="green color-pref-cover"
                 ></div>
                 <div
-                    @click="setCoverColor('#F5DD29')"
+                    @click.stop.prevent="setCoverColor('#F5DD29')"
                     :class="{ selected: color === '#F5DD29' }"
                     class="yellow color-pref-cover"
                 ></div>
                 <div
-                    @click="setCoverColor('#FFAF3F')"
+                    @click.stop.prevent="setCoverColor('#FFAF3F')"
                     :class="{ selected: color === '#FFAF3F' }"
                     class="orange color-pref-cover"
                 ></div>
                 <div
-                    @click="setCoverColor('#EF7564')"
+                    @click.stop.prevent="setCoverColor('#EF7564')"
                     :class="{ selected: color === '#EF7564' }"
                     class="red color-pref-cover"
                 ></div>
                 <div
-                    @click="setCoverColor('#CD8DE5')"
+                    @click.stop.prevent="setCoverColor('#CD8DE5')"
                     :class="{ selected: color === '#CD8DE5' }"
                     class="purple color-pref-cover"
                 ></div>
                 <div
-                    @click="setCoverColor('#5BA4CF')"
+                    @click.stop.prevent="setCoverColor('#5BA4CF')"
                     :class="{ selected: color === '#5BA4CF' }"
                     class="blue color-pref-cover"
                 ></div>
                 <div
-                    @click="setCoverColor('#29CCE5')"
+                    @click.stop.prevent="setCoverColor('#29CCE5')"
                     :class="{ selected: color === '#29CCE5' }"
                     class="light-blue color-pref-cover"
                 ></div>
                 <div
-                    @click="setCoverColor('#6DECA9')"
+                    @click.stop.prevent="setCoverColor('#6DECA9')"
                     :class="{ selected: color === '#6DECA9' }"
                     class="light-green color-pref-cover"
                 ></div>
                 <div
-                    @click="setCoverColor('#FF8ED4')"
+                    @click.stop.prevent="setCoverColor('#FF8ED4')"
                     :class="{ selected: color === '#FF8ED4' }"
                     class="pink color-pref-cover"
                 ></div>
                 <div
-                    @click="setCoverColor('#172B4D')"
+                    @click.stop.prevent="setCoverColor('#172B4D')"
                     :class="{ selected: color === '#172B4D' }"
                     class="dark-blue color-pref-cover"
                 ></div>
@@ -130,7 +151,7 @@
                 <section v-for="(attachment, index) in card.attachments" :key="attachment.link">
                     <img
                         :class="{ selected: attachmentIdx === index }"
-                        @click="setAttachmentAsCover(index)"
+                        @click.stop.prevent="setAttachmentAsCover(index)"
                         :src="attachment.link"
                         class="attachment"
                     />
@@ -144,7 +165,7 @@
             />
             <button
                 type="button"
-                @click="$refs.file.click()"
+                @click.stop.prevent="$refs.file.click()"
                 class="create-btn"
             >Upload a cover image</button>
         </section>
@@ -226,6 +247,12 @@ export default {
             this.cardToEdit = JSON.parse(JSON.stringify(this.card))
             this.cardToEdit.cover.size = (this.isSmall) ? 'small' : 'large'
             console.log(this.cardToEdit)
+            this.$emit('cardEdit', this.cardToEdit)
+        },
+        setTheme(theme){
+            this.cardToEdit = JSON.parse(JSON.stringify(this.card))
+            this.isDark = (theme==='dark')? true : false;
+            this.cardToEdit.cover.theme = (this.isDark) ? 'dark' : 'light'
             this.$emit('cardEdit', this.cardToEdit)
         },
         async attachFileFromSystem(event) {

@@ -1,9 +1,7 @@
 <template>
     <div class="board-preview-main">
-        <h1 @click="goToDetails()">{{ board.title }}</h1>
-        <!-- <div v-if="border.isStarred"> -->
-            <span class="icon-sm icon-starred-boards"></span>
-        <!-- </div> -->
+        <h1 @click.stop.prevent="goToDetails()">{{ board.title }}</h1>
+        <span class="icon-sm icon-starred-boards"></span>
     </div>
 </template>
 

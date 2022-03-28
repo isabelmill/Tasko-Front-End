@@ -5,7 +5,7 @@
         class="label-modal"
     >
         <div class="main-title-container">
-            <div class="icon-sm icon-close" @click="close"></div>
+            <div class="icon-sm icon-close" @click.stop.prevent="close"></div>
             <span class="main-title">Attach from...</span>
         </div>
         <span class="mini-edit-title">Attach a link</span>
@@ -14,7 +14,7 @@
             <span class="mini-edit-title">Link name (optional)</span>
             <input placeholder v-model="name" type="text" class="main-input" />
         </section>
-        <button class="save-btn" @click="addAttachment">Attach</button>
+        <button class="save-btn" @click.stop.prevent="addAttachment">Attach</button>
     </section>
 </template>
 
