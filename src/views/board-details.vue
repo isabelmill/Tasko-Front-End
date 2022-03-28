@@ -34,6 +34,7 @@
             @boardModified="updateBoard"
             @cardModified="updateCard"
             @closeDialog="closeDiag"
+            @saveCopy="onSaveCopy"
             :board="board"
             :card="cardToShow"
             :group="groupToShow"
@@ -118,6 +119,14 @@ export default {
         closeDiag() {
             this.isCardOpen = false
             this.$refs.cardDetailsModal.close()
+        },
+        onSaveCopy(copy) {
+            console.log('copy', copy)
+            this.groupToEdit = JSON.parse(JSON.stringify(copy.posCopy.group))
+            console.log('groupToEdit', this.groupToEdit)
+            this.groupToEdit.cards.splice(copy.posCopy.position - 1, 0, copy.cardCopy)
+            /////////////////
+            this.updateGroup(this.groupToEdit)
         },
         updateBoardDnd(newBoard) {
             this.$store.dispatch({ type: 'saveBoard', board: newBoard })

@@ -159,6 +159,40 @@
                         </div>
                     </section>
 
+                    <!-- Attachments area  -->
+                    <div
+                        v-if="card.attachments.length > 0"
+                        class="card-details-activity-show-attachments"
+                    >
+                        <div class="card-details-attachments">
+                            <span class="icon-lg icon-attachment"></span>
+                            <h3>Attachments</h3>
+                        </div>
+                        <!-- name + link  -->
+                        <div v-for="attachment in card.attachments" class="card-attachments-area">
+                            <img :src="attachment.link" alt />
+                            <div class="card-attachment-area-main">
+                                <div class="card-attachment-area-header">
+                                    <p>{{ attachment.name }}</p>
+                                    <span class="icon-sm icon-link-arrow"></span>
+                                </div>
+                                <div class="attachment-area-body flex">
+                                    <p>When added... - </p>
+                                    <a>Comment</a>
+                                    <span>-</span>
+                                    <a>Delete</a>
+                                    <span>-</span>
+                                    <a>Edit</a>
+                                </div>
+                                <div class="attachment-area-footer">
+                                    <span class="icon-sm icon-cover"></span>
+                                    <p>Make cover</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Activity Area  -->
                     <div class="card-details-activity-show-details">
                         <div class="card-details-activity">
                             <span class="icon-lg icon-activity"></span>
@@ -292,6 +326,7 @@
             @boardEdit="editBoard"
             @cardEdit="editCard"
             @actionsClose="closeMenu"
+            @cardCopySave="sendCardCopy"
             :board="board"
             :card="card"
             :group="group"
@@ -371,117 +406,115 @@ export default {
                     this.$refs['headerCover'].style.backgroundColor = color.hex
                     return color.hex
                 }
-                catch(err){
+                catch (err) {
                     console.log(err)
                 }
             }
         }
     },
-watch: {
-    backgroundCoverColor: {
+    watch: {
+        backgroundCoverColor: {
             async handler(newColor) {
-            this.$refs['headerCover'].style.backgroundColor = newColor
+                this.$refs['headerCover'].style.backgroundColor = newColor
+            }
         }
-    }
-},
-methods: {
-    setMemberLetters(fullname) {
-        const firstLetters = fullname
-            .split(' ')
-            .map(word => word[0])
-            .join('');
-        console.log(firstLetters)
-        return firstLetters.toUpperCase()
     },
-    closeModal() {
-        this.$emit('closeDialog')
+    methods: {
+        setMemberLetters(fullname) {
+            const firstLetters = fullname
+                .split(' ')
+                .map(word => word[0])
+                .join('');
+            return firstLetters.toUpperCase()
+        },
+        closeModal() {
+            this.$emit('closeDialog')
+        },
+        closeMenu() {
+            this.shown = false;
+        },
+        changeMembers() {
+            this.pos = this.$refs['membersBtn'].getBoundingClientRect()
+            this.shown = true
+            this.currModal = "memebersModal"
+        },
+        editLabels() {
+            this.pos = this.$refs['labelBtn'].getBoundingClientRect()
+            this.shown = true
+            this.currModal = "labelModal"
+        },
+        changeCover() {
+            this.pos = this.$refs['coverBtn'].getBoundingClientRect()
+            this.shown = true
+            this.currModal = "coverModal"
+        },
+        addAttachment() {
+            this.pos = this.$refs['attachmentBtn'].getBoundingClientRect()
+            this.shown = true
+            this.currModal = "attachmentModal"
+        },
+        editDates() {
+            this.pos = this.$refs['datesBtn'].getBoundingClientRect()
+            this.currModal = "datesModal"
+            this.shown = true
+        },
+        editCard(card) {
+            this.$emit('cardModified', { card, group: this.group })
+        },
+        copyCard() {
+            this.pos = this.$refs['copyBtn'].getBoundingClientRect()
+            this.shown = true
+            this.currModal = "copyModal"
+        },
+        sendCardCopy(copy) {
+            this.$emit('saveCopy', copy)
+        },
+        deleteWarn() {
+            this.pos = this.$refs['deleteBtn'].getBoundingClientRect()
+            this.warningTitle = 'card'
+            this.warningOpen = true
+        },
+        closeWarning() {
+            this.warningOpen = false
+        },
+        deleteCard() {
+            this.$emit('deleteCardFromGroup', { card: this.cardToEdit, group: this.group })
+            this.closeModal()
+        },
+        closeInput() {
+            this.showInput = false
+        },
+        closeTextArea() {
+            this.showDesc = false
+        },
+        openTextArea() {
+            this.showDesc = true
+        },
+        editBoard(editedAttribute) {
+            this.$emit('boardModified', editedAttribute)
+        },
+        updateCardDesc() {
+            this.cardToEdit.description = this.description
+            this.$emit('cardModified', { card: this.cardToEdit, group: this.group })
+            this.showDesc = false
+        },
+        setDateFormat(timestamp) {
+            let dt = new Date(timestamp)
+            const date = Intl.DateTimeFormat('en-Us', { month: 'short', day: 'numeric' }).format(dt)
+            return date
+        },
+        setHourFormat(timestamp) {
+            let hr = new Date(timestamp)
+            const hour = hr.toLocaleTimeString().replace(/(.*)\D\d+/, '$1');
+            return hour
+        },
+        toggleCardComplete() {
+            this.cardToEdit.isComplete = !this.cardToEdit.isComplete
+            this.$emit('cardModified', { card: this.cardToEdit, group: this.group })
+        }
     },
-    closeMenu() {
-        this.shown = false;
-    },
-    changeMembers() {
-        this.pos = this.$refs['membersBtn'].getBoundingClientRect()
-        this.shown = true
-        this.currModal = "memebersModal"
-    },
-    editLabels() {
-        this.pos = this.$refs['labelBtn'].getBoundingClientRect()
-        this.shown = true
-        this.currModal = "labelModal"
-    },
-    changeCover() {
-        this.pos = this.$refs['coverBtn'].getBoundingClientRect()
-        this.shown = true
-        this.currModal = "coverModal"
-    },
-    addAttachment() {
-        this.pos = this.$refs['attachmentBtn'].getBoundingClientRect()
-        this.shown = true
-        this.currModal = "attachmentModal"
-    },
-    editDates() {
-        this.pos = this.$refs['datesBtn'].getBoundingClientRect()
-        this.currModal = "datesModal"
-        this.shown = true
-    },
-    editCard(card) {
-        this.$emit('cardModified', { card, group: this.group })
-    },
-    copyCard() {
-        this.pos = this.$refs['copyBtn'].getBoundingClientRect()
-        this.shown = true
-        this.currModal = "copyModal"
-    },
-    deleteWarn() {
-        this.pos = this.$refs['deleteBtn'].getBoundingClientRect()
-        this.warningTitle = 'card'
-        this.warningOpen = true
-    },
-    closeWarning() {
-        this.warningOpen = false
-    },
-    deleteCard() {
-        this.$emit('deleteCardFromGroup', { card: this.cardToEdit, group: this.group })
-        this.closeModal()
-    },
-    closeInput() {
-        this.showInput = false
-    },
-    closeTextArea() {
-        this.showDesc = false
-    },
-    openTextArea() {
-        this.showDesc = true
-    },
-    editBoard(editedAttribute) {
-        this.$emit('boardModified', editedAttribute)
-    },
-    updateCardDesc() {
-        this.cardToEdit.description = this.description
-        this.$emit('cardModified', { card: this.cardToEdit, group: this.group })
-        this.showDesc = false
-    },
-    setDateFormat(timestamp) {
-        let dt = new Date(timestamp)
-        const date = Intl.DateTimeFormat('en-Us', { month: 'short', day: 'numeric' }).format(dt)
-        return date
-    },
-    setHourFormat(timestamp) {
-        let hr = new Date(timestamp)
-        const hour = hr.toLocaleTimeString().replace(/(.*)\D\d+/, '$1');
-        return hour
-    },
-    toggleCardComplete() {
-        this.cardToEdit.isComplete = !this.cardToEdit.isComplete
-        this.$emit('cardModified', { card: this.cardToEdit, group: this.group })
-    }
-
-
-},
-emits: ['closeDialog', 'cardModified', 'boardModified', 'deleteCardFromGroup']
-
+    emits: ['closeDialog', 'cardModified', 'boardModified', 'deleteCardFromGroup', 'saveCopy']
 }
-
 </script>
 
 <style>

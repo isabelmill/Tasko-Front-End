@@ -253,7 +253,6 @@ export default {
         },
         setDateFormat(timestamp) {
             const dt = new Date(timestamp)
-            console.log(Intl.DateTimeFormat('en-Us', { month: 'short', day: 'numeric' }).format(dt))
             const date = Intl.DateTimeFormat('en-Us', { month: 'short', day: 'numeric' }).format(dt)
             return date
         },

@@ -25,9 +25,9 @@ export default {
             this.photos = res.results
         },
         setBgc(photo) {
-            this.$emit('changeBgc',photo)
+            this.$emit('changeBgc', photo)
         }
     },
-            emits: ['changeBgc']
+    emits: ['changeBgc']
 };
 </script>

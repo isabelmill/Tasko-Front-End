@@ -8,9 +8,9 @@
         </div>
         <div>
             <p class="header-second">Title</p>
-            <textarea v-model="card.title" name="copy-card" id="copy-card"></textarea>
+            <textarea v-model="cardToCopy.title" name="copy-card" id="copy-card"></textarea>
         </div>
-        <div>
+        <div v-if="card.labels.length || card.members.length">
             <p class="header-second">Keep</p>
             <div class="keep-list">
                 <div v-if="card.labels.length" class="keep-checkbox">
@@ -49,20 +49,28 @@
             <p class="header-second">Copy to...</p>
             <div class="selects-box">
                 <label for></label>
-                <select class="select-board" @change="setGroupPositions($event)">
+                <select placeholder="List" class="select-board" @change="setGroupPosition($event)">
                     <option
                         selected="selected"
-                        v-for="group in board.groups"
+                        v-for="(group) in board.groups"
                         :key="group.id"
-                        :value="group.cards.length"
+                        :value="group.id"
                     >{{ group.title }}</option>
                 </select>
-                <select class="select-pos-card">
-                    <option v-for="pos in positions" :key="pos" :value="pos">{{ pos }}</option>
+                <select
+                    placeholder="Position"
+                    class="select-pos-card"
+                    @change="setCardPosition($event)"
+                >
+                    <option
+                        v-for="position in positions"
+                        :key="position"
+                        :value="position"
+                    >{{ position }}</option>
                 </select>
             </div>
         </div>
-        <button>Create card</button>
+        <button @click="setCardKeeps">Create card</button>
     </section>
 </template>
 
@@ -85,37 +93,66 @@ export default {
     },
     data() {
         return {
-            cardToCopy: null,
             keepList: {
-                labels: false,
-                members: false,
+                labels: true,
+                members: true,
             },
-            positions: []
+            positions: [],
+            cardToCopy: null,
+            copyToPos: {
+                group: '',
+                position: 1,
+            },
         }
     },
-    computed: {
-    },
     created() {
+        this.setCardToCopy()
     },
     methods: {
-        toggleCardKeep(list) {
-            this.keepList[list] = !this.keepList[list]
-            console.log('keepList', list, this.keepList[list])
+        setCardToCopy() {
+            this.cardToCopy = JSON.parse(JSON.stringify(this.card))
+            // this.cardToCopy.title += ' - copy'
         },
         close() {
             this.$emit('actionsClose')
         },
-        setGroupPositions(event) {
+        toggleCardKeep(list) {
+            this.keepList[list] = !this.keepList[list]
+            console.log('keepList', list, this.keepList[list])
+        },
+        setGroupPosition(event) {
+            // set group
+            const groupId = event.target.value
+            const selectedGroup = this.board.groups.find(group => group.id === groupId)
+            console.log(selectedGroup)
+            this.copyToPos.group = selectedGroup
+            // set positions
             this.positions = []
             var counter = 0
-            var num = +event.target.value === 0 ? 1 : +event.target.value
+            var num = selectedGroup.cards.length === 0 ? 1 : selectedGroup.cards.length
             while (counter < num) {
                 counter++;
                 this.positions.push(counter)
             }
         },
+        setCardPosition(event) {
+            const cardPos = event.target.value
+            this.copyToPos.position = cardPos
+            console.log('copyToPos', this.copyToPos)
+        },
+        setCardKeeps() {
+            !this.keepList.labels ?
+                this.cardToCopy.labels = [] : this.cardToCopy.labels = this.card.labels;
+            !this.keepList.members ?
+                this.cardToCopy.members = [] : this.cardToCopy.members = this.card.members;
+            this.copyCard()
+            this.close()
+        },
+        copyCard() {
+            this.$emit('cardCopySave', { cardCopy: this.cardToCopy, posCopy: this.copyToPos })
+        }
     },
-    emits: ['actionsClose']
+    emits: ['actionsClose', 'cardCopySave']
 
 }
 </script>
