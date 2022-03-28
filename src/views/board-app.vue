@@ -29,7 +29,7 @@
                             <board-list
                                 v-if="boards"
                                 :boards="boards"
-                                @updateBoardLastWatched="upateBoard"
+                                @updateBoardLastWatched="updateBoard"
                             />
                         </div>
                         <div class="border-list">
@@ -40,7 +40,7 @@
                             <board-list
                                 v-if="boards"
                                 :boards="boards"
-                                @updateBoardLastWatched="upateBoard"
+                                @updateBoardLastWatched="updateBoard"
                             />
                         </div>
                         <button
@@ -127,7 +127,7 @@ export default {
         setColors(folder) {
             return this.isFolder[folder] ? 'selected-folder' : 'folder'
         },
-        upateBoard(board) {
+        updateBoard(board) {
             this.$store.dispatch({ type: 'saveBoard', board: board })
         }
     },

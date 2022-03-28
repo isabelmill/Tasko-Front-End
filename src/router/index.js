@@ -5,7 +5,6 @@ import boardDetails from '../views/board-details.vue'
 import login from '../views/login.vue'
 import signup from '../views/signup.vue'
 
-
 const router = createRouter({
     history: createWebHistory(
         import.meta.env.BASE_URL),
