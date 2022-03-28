@@ -25,8 +25,17 @@
                             <span class="icon-lg icon-star-boards"></span>
                             <p>Starred boards</p>
                         </div>
-                        <board-list v-if="boards" :boards="boards" />
-                        <button class="create-btn" @click="openBoardEdit(), calcPosOfBox()" ref="button" type="button">
+                        <board-list
+                            v-if="boards"
+                            :boards="boards"
+                            @updateBoardLastWatched="upateBoard"
+                        />
+                        <button
+                            class="create-btn"
+                            @click="openBoardEdit(), calcPosOfBox()"
+                            ref="button"
+                            type="button"
+                        >
                             <p>Create new board</p>
                         </button>
                         <create-board-modal
@@ -105,6 +114,9 @@ export default {
         setColors(folder) {
             return this.isFolder[folder] ? 'selected-folder' : 'folder'
         },
+        upateBoard(board) {
+             this.$store.dispatch({ type: 'saveBoard', board: board })
+        }
     },
     computed: {
         boards() {

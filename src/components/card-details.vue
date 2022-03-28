@@ -1,6 +1,12 @@
 <template>
+    <section
+        v-if="card.cover.value"
+        class="coverOfCardDetails"
+        ref="headerCover"
+        :class="{ color: card.cover.type === 'color', attachmentofdetails: card.cover.type === 'attachment' }"
+        v-bind:style="[(card.cover.type === 'color') ? { backgroundColor: card.cover.value } : { backgroundImage: 'url(' + card.cover.value + ')' }]"
+    ></section>
     <section class="card-details-container flex">
-        <!-- Header  -->
         <div class="card-details-header">
             <div class="card-details-header-icon">
                 <span class="icon-lg icon-card"></span>
@@ -148,7 +154,7 @@
                             ></textarea>
                             <div v-if="showDesc" class="card-details-text-add-btn">
                                 <button @click="updateCardDesc">Save</button>
-                                <span @click="closeTextArea" class="icon-xl icon-close"></span>
+                                <span @click="closeTextArea" class="icon-xl icon-closed"></span>
                             </div>
                         </div>
                     </section>
@@ -310,6 +316,7 @@ import datesModal from "./date-modal-cmp.vue";
 import coverModal from "./cover-modal-cmp.vue";
 import attachmentModal from "./attachment-modal-cmp.vue";
 import deleteWarning from "./delete-warning-modal-cmp.vue";
+import FastAverageColor from 'fast-average-color';
 import copyModal from "./copy-modal-cmp.vue";
 
 export default {
@@ -338,6 +345,9 @@ export default {
     created() {
         this.description = this.card.description
     },
+    mounted() {
+
+    },
     data() {
         return {
             currModal: null,
@@ -347,12 +357,32 @@ export default {
             pos: 0,
             showInput: false,
             showDesc: false,
-            description: ''
+            description: '',
         }
     },
     computed: {
         cardToEdit() {
             return JSON.parse(JSON.stringify(this.card))
+        },
+        async backgroundCoverColor() {
+            if (this.card.cover.type === 'attachment') {
+                const fac = new FastAverageColor()
+                try {
+                    const color = await fac.getColorAsync(this.card.cover.value)
+                    this.$refs['headerCover'].style.backgroundColor = color.hex
+                    return color.hex
+                }
+                catch (err) {
+                    console.log(err)
+                }
+            }
+        }
+    },
+    watch: {
+        backgroundCoverColor: {
+            async handler(newColor) {
+                this.$refs['headerCover'].style.backgroundColor = newColor
+            }
         }
     },
     methods: {
@@ -450,9 +480,7 @@ export default {
         }
     },
     emits: ['closeDialog', 'cardModified', 'boardModified', 'deleteCardFromGroup', 'saveCopy']
-
 }
-
 </script>
 
 <style>

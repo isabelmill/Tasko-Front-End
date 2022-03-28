@@ -14,7 +14,7 @@
             <section class="cover-size-select">
                 <section
                     @click="isSmall = true, setSize()"
-                    :class="{ selected: (isColorPicked || isAttachmentPicked) && isSmall === true }"
+                    :class="{ selected: (isColorPicked || isAttachmentPicked) && isSmall === true, nonselected: (isColorPicked || isAttachmentPicked) && isSmall === false }"
                     class="cover-size-small"
                     v-bind:style="[(isColorPicked || isAttachmentPicked) ? { cursor: 'pointer' } : {}]"
                 >
@@ -51,23 +51,23 @@
                 <section
                     class="cover-size-all"
                     @click="isSmall = false, setSize()"
-                    :class="{ selected: (isColorPicked||isAttachmentPicked) && isSmall === false }"
-                    v-bind:style="[isColorPicked ? { backgroundColor: color, cursor: 'pointer' } : (isAttachmentPicked) ? { backgroundImage: 'url(' + card.attachments[attachmentIdx].link + ')' , cursor: 'pointer'} : { backgroundColor: '#CFD3DA' }]"
+                    :class="{ selected: (isColorPicked || isAttachmentPicked) && isSmall === false, nonselected: (isColorPicked || isAttachmentPicked) && isSmall === true }"
+                    v-bind:style="[isColorPicked ? { backgroundColor: color, cursor: 'pointer' } : (isAttachmentPicked) ? { backgroundImage: 'url(' + card.attachments[attachmentIdx].link + ')', cursor: 'pointer' } : { backgroundColor: '#CFD3DA' }]"
                 >
                     <div class="cover-main">
                         <div
                             class="line-1"
-                            v-bind:style="[isColorPicked && color !== '#344563' ? { backgroundColor: 'rgba(9, 30, 66, 0.6)' } : { backgroundColor: '#FFFFFF' }]"
+                            v-bind:style="[isColorPicked && color !== '#172B4D' ? { backgroundColor: 'rgba(9, 30, 66, 0.6)' } : { backgroundColor: '#FFFFFF' }]"
                         ></div>
                         <div
                             class="line-2"
-                            v-bind:style="[isColorPicked && color !== '#344563' ? { backgroundColor: 'rgba(9, 30, 66, 0.6)' } : { backgroundColor: '#FFFFFF' }]"
+                            v-bind:style="[isColorPicked && color !== '#172B4D' ? { backgroundColor: 'rgba(9, 30, 66, 0.6)' } : { backgroundColor: '#FFFFFF' }]"
                         ></div>
                     </div>
                 </section>
             </section>
             <button
-                v-if="isColorPicked||isAttachmentPicked"
+                v-if="isColorPicked || isAttachmentPicked"
                 type="button"
                 @click="removeCover"
                 class="create-btn"
@@ -75,53 +75,53 @@
             <span class="mini-title">Colors</span>
             <section class="cover-colors">
                 <div
-                    @click="setCoverColor('#61BD4F')"
-                    :class="{ selected: color === '#61BD4F' }"
+                    @click="setCoverColor('#7BC86C')"
+                    :class="{ selected: color === '#7BC86C' }"
                     class="green color-pref-cover"
                 ></div>
                 <div
-                    @click="setCoverColor('#F2D600')"
-                    :class="{ selected: color === '#F2D600' }"
+                    @click="setCoverColor('#F5DD29')"
+                    :class="{ selected: color === '#F5DD29' }"
                     class="yellow color-pref-cover"
                 ></div>
                 <div
-                    @click="setCoverColor('#FF9F1A')"
-                    :class="{ selected: color === '#FF9F1A' }"
+                    @click="setCoverColor('#FFAF3F')"
+                    :class="{ selected: color === '#FFAF3F' }"
                     class="orange color-pref-cover"
                 ></div>
                 <div
-                    @click="setCoverColor('#EB5A46')"
-                    :class="{ selected: color === '#EB5A46' }"
+                    @click="setCoverColor('#EF7564')"
+                    :class="{ selected: color === '#EF7564' }"
                     class="red color-pref-cover"
                 ></div>
                 <div
-                    @click="setCoverColor('#C377E0')"
-                    :class="{ selected: color === '#C377E0' }"
+                    @click="setCoverColor('#CD8DE5')"
+                    :class="{ selected: color === '#CD8DE5' }"
                     class="purple color-pref-cover"
                 ></div>
                 <div
-                    @click="setCoverColor('#0079BF')"
-                    :class="{ selected: color === '#0079BF' }"
+                    @click="setCoverColor('#5BA4CF')"
+                    :class="{ selected: color === '#5BA4CF' }"
                     class="blue color-pref-cover"
                 ></div>
                 <div
-                    @click="setCoverColor('#00C2E0')"
-                    :class="{ selected: color === '#00C2E0' }"
+                    @click="setCoverColor('#29CCE5')"
+                    :class="{ selected: color === '#29CCE5' }"
                     class="light-blue color-pref-cover"
                 ></div>
                 <div
-                    @click="setCoverColor('#51E898')"
-                    :class="{ selected: color === '#51E898' }"
+                    @click="setCoverColor('#6DECA9')"
+                    :class="{ selected: color === '#6DECA9' }"
                     class="light-green color-pref-cover"
                 ></div>
                 <div
-                    @click="setCoverColor('#FF78CB')"
-                    :class="{ selected: color === '#FF78CB' }"
+                    @click="setCoverColor('#FF8ED4')"
+                    :class="{ selected: color === '#FF8ED4' }"
                     class="pink color-pref-cover"
                 ></div>
                 <div
-                    @click="setCoverColor('#344563')"
-                    :class="{ selected: color === '#344563' }"
+                    @click="setCoverColor('#172B4D')"
+                    :class="{ selected: color === '#172B4D' }"
                     class="dark-blue color-pref-cover"
                 ></div>
             </section>
@@ -154,6 +154,7 @@
 <script>
 import FastAverageColor from 'fast-average-color'
 import axios from "axios"
+import { uploadService } from "../services/upload-service.js"
 export default {
     components: {
 
@@ -185,12 +186,20 @@ export default {
     computed: {
     },
     created() {
+        if (this.card.cover.type === 'color') {
+            this.color = this.card.cover.value
+            this.isSmall = (this.card.cover.size === 'small') ? true : false
+        }
+        if (this.card.cover.type === 'attachment') {
+            this.attachmentIdx = this.card.attachments.findIndex(attach => attach.link === this.card.cover.value)
+            this.isSmall = (this.card.cover.size === 'small') ? true : false
+        }
     },
     computed: {
         isColorPicked() {
             return !(this.color === '')
         },
-        isAttachmentPicked(){
+        isAttachmentPicked() {
             return !(this.attachmentIdx === '')
         }
     },
@@ -221,24 +230,17 @@ export default {
         },
         async attachFileFromSystem(event) {
             this.cardToEdit = JSON.parse(JSON.stringify(this.card))
-            this.file = event.target.files[0]
-            let formdata = new FormData()
-            formdata.append('file', this.file)
-            formdata.append('upload_preset', 'cajan_2022')
-            try {
-                const res = await axios.post(`https://api.cloudinary.com/v1_1/dw85wdwsw/image/upload`, formdata)
-                console.log(res.data)
-                this.cardToEdit.attachments.push({
-                    name: res.data.original_filename,
-                    link: res.data.secure_url
-                })
-                console.log(this.cardToEdit)
-                this.$emit('cardEdit', this.cardToEdit)
-            }
-            catch (err) {
-                console.log('ERROR', err)
-            }
+            const result = await uploadService.uploadFromSystem(event)
+            console.log(result)
+            this.cardToEdit.attachments.push({
+                name: result.original_filename,
+                link: result.secure_url
+            })
+            console.log(this.cardToEdit)
+            this.$emit('cardEdit', this.cardToEdit)
         },
+
+
         setAttachmentAsCover(attachIdx) {
             this.cardToEdit = JSON.parse(JSON.stringify(this.card))
             if (this.attachmentIdx === attachIdx) {
@@ -253,7 +255,14 @@ export default {
             }
             this.color = ''
             this.$emit('cardEdit', this.cardToEdit)
-        }
+        },
+        removeCover() {
+            this.cardToEdit = JSON.parse(JSON.stringify(this.card))
+            this.cardToEdit.cover = {}
+            this.color = ''
+            this.attachmentIdx = ''
+            this.$emit('cardEdit', this.cardToEdit)
+        },
     },
     emits: ['actionsClose', 'cardEdit']
 }

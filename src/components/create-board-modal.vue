@@ -6,7 +6,7 @@
                     <h1>Create board</h1>
                 </div>
                 <div class="header-close-create-boards-modal" @click="closeModal">
-                    <span class="icon-sm icon-close"></span>
+                    <span class="icon-sm icon-closed"></span>
                 </div>
             </div>
 

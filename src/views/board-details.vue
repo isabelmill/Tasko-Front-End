@@ -180,7 +180,7 @@ export default {
 
 <style>
 .modal {
-    max-height: 600px;
+    max-height: 800px;
     margin-top: 80px;
     border-radius: 2px;
     max-width: 768px;

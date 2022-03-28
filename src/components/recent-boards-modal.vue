@@ -1,0 +1,60 @@
+
+<template>
+    <div class="starred-boards-modal">
+        <div class="starred-boards-header">
+            <div class="header-text-starred-boards-modal">
+                <h1>Recent boards</h1>
+            </div>
+            <div class="header-close-starred-boards-modal" @click="closeModal">
+                <span class="icon-sm icon-close"></span>
+            </div>
+        </div>
+        <div class="modal-starred-boards-list">
+            <div class="modal-starred-board-list">
+                <div
+                    class="boards-render-modal-starred"
+                    @click="goToDetails(board)"
+                    v-for="board in recentBoardsForDisplay"
+                    :board="board"
+                    :key="board"
+                >
+                    <div
+                        class="board-background-starred-modal"
+                        :style="board.background ? { 'backgroundColor': board.background } : { 'background-image': `url(${board.backgroundPhoto})` }"
+                    ></div>
+
+                    <div class="modal-starred-board">{{ board.title }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+
+export default {
+    props: {
+        boards: {
+            type: Array,
+            required: true,
+        },
+    },
+    methods: {
+        closeModal() {
+            this.$emit("close");
+        },
+        goToDetails(board) {
+            this.$emit("close");
+            this.$router.push(`/board/${board._id}`)
+        },
+    },
+        computed: {
+        recentBoardsForDisplay() {
+            console.log('boards:',this.boards[1].lastTimeWatched);
+            return this.boards.sort(board =>
+                board.lastTimeWatched >= 0 && board.lastTimeWatched <= Infinity);
+        },
+    },
+    
+}
+</script>

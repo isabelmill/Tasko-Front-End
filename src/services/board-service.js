@@ -347,6 +347,8 @@ function _createBoards() {
                             "title": "Store",
                             "labels": [],
                             "members": [],
+                            "cover": {},
+                            "attachments": [],
                             "date": '',
                             "props": {
                                 "className": "card",
@@ -358,6 +360,8 @@ function _createBoards() {
                             "title": "Init-Vue",
                             "labels": [],
                             "members": [],
+                            "cover": {},
+                            "attachments": [],
                             "date": '',
                             "props": {
                                 "className": "card",
@@ -380,6 +384,8 @@ function _createBoards() {
                             "labels": [],
                             "members": [],
                             "date": '',
+                            "cover": {},
+                            "attachments": [],
                             "props": {
                                 "className": "card",
                                 "style": {}
@@ -391,6 +397,8 @@ function _createBoards() {
                             "labels": [],
                             "members": [],
                             "date": '',
+                            "attachments": [],
+                            "cover": {},
                             "props": {
                                 "className": "card",
                                 "style": {}
@@ -403,6 +411,7 @@ function _createBoards() {
                             "members": [],
                             "date": '',
                             "attachments": [],
+                            "cover": {},
                             "props": {
                                 "className": "card",
                                 "style": {}
