@@ -4,15 +4,19 @@ import {
 import {
     asyncStorageService
 } from "../services/storage-service.js"
+import {
+    httpService
+} from './http.service.js'
 
 const BOARDS_KEY = 'boards'
-_createBoards();
+
+// _createBoards();
 
 export const boardService = {
     query,
     getById,
     remove,
-    updateBoard,
+    // updateBoard,
     save,
     getEmptyCard,
     getEmptyGroup,
@@ -20,27 +24,52 @@ export const boardService = {
     getEmptyActivity,
 }
 
-function query() {
-    return asyncStorageService.query(BOARDS_KEY);
+async function query() {
+    // return asyncStorageService.query(BOARDS_KEY);
+    console.log('got to query');
+    try {
+        return await httpService.get('board/')
+    } catch (err) {
+        console.log('query err:', err);
+    }
 }
 
-function getById(boardId) {
-    return asyncStorageService.get(BOARDS_KEY, boardId)
+async function getById(boardId) {
+    // return asyncStorageService.get(BOARDS_KEY, boardId)
+    try {
+        return await httpService.get(`board/${boardId}`)
+    } catch (err) {
+        console.log('getById err:', err);
+    }
 }
 
-function remove(boardId) {
-    return asyncStorageService.remove(BOARDS_KEY, boardId);
+async function remove(boardId) {
+    // return asyncStorageService.remove(BOARDS_KEY, boardId);
+    try {
+        return await httpService.delete(`board/${boardId}`)
+    } catch (err) {
+        console.log('remove err:', err);
+    }
 }
 
-function updateBoard(board) {
-    return asyncStorageService.put(BOARDS_KEY, board)
-}
+// function updateBoard(board) {
+//     return asyncStorageService.put(BOARDS_KEY, board)
+// }
 
-function save(board) {
-    if (board._id) {
-        return asyncStorageService.put(BOARDS_KEY, board);
-    } else {
-        return asyncStorageService.post(BOARDS_KEY, board);
+async function save(board) {
+    // if (board._id) {
+    //     return asyncStorageService.put(BOARDS_KEY, board);
+    // } else {
+    //     return asyncStorageService.post(BOARDS_KEY, board);
+    // }
+    try {
+        if (board._id) {
+            return await httpService.put(`board/${board._id}`, board)
+        } else {
+            return await httpService.post(`board/`, board)
+        }
+    } catch (err) {
+        console.log('remove err:', err);
     }
 }
 
@@ -497,7 +526,7 @@ function getEmptyGroup() {
 
 function getEmptyBoard() {
     return {
-        _id: '',
+        // _id: '',
         title: '',
         createdAt: Date.now(),
         createdBy: {

@@ -169,7 +169,7 @@
                             <h3>Attachments</h3>
                         </div>
                         <!-- name + link  -->
-                        <div v-for="attachment in card.attachments" class="card-attachments-area">
+                        <div v-for="attachment in card.attachments" class="card-attachments-area" :key="attachment">
                             <img :src="attachment.link" alt />
                             <div class="card-attachment-area-main">
                                 <div class="card-attachment-area-header">
