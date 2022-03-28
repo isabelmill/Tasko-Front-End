@@ -232,15 +232,15 @@ export default {
       return (usePound ? "#" : "") + (g | (b << 8) | (r << 16)).toString(16);
     }
   },
-  watch: {
-    "$route.params.boardId": {
-      async handler(newId) {
-        this.$store.dispatch({ type: 'loadBoardById', newId })
-      },
-      immediate: true
+  // watch: {
+  //   "$route.params.boardId": {
+  //     async handler(newId) {
+  //       this.$store.dispatch({ type: 'loadBoardById', newId })
+  //     },
+  //     immediate: true
 
-    }
-  },
+  //   }
+  // },
   components: {
     search,
     recentBoardsModal,

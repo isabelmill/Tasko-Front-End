@@ -43,12 +43,14 @@ export default {
     },
     methods: {
         addCard() {
+            console.log('addCard');
             this.show = false;
             if (!this.txt) return
             this.newCard.title = this.txt;
             this.$emit('cardAdd', { newCard: this.newCard, group: this.group })
-
+            console.log('emitted');
             this.txt = "";
+            this.newCard = boardService.getEmptyCard()
         },
     }, unmounted() { },
     emits: ['cardAdd']

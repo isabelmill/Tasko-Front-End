@@ -1,0 +1,31 @@
+<template>
+    <section class="login-main-container flex">
+        <div class="mello-logo-login">
+            <img
+                src="https://res.cloudinary.com/dw85wdwsw/image/upload/v1648495274/ujlrratduzckpypdosan.jpg"
+                alt
+            />
+            <h1>Mello</h1>
+        </div>
+        <div class="login-container">
+            <h1>Log in to Mello</h1>
+            <input placeholder="Enter email" type="email" />
+            <input placeholder="Enter password" type="text" />
+            <button>Log in</button>
+            <a>OR</a>
+            <div class="google-btn">
+                <img
+                    src="https://d2k1ftgv7pobq7.cloudfront.net/meta/c/p/res/images/8215f6659adc202403198fef903a447e/sign-in-with-google.svg"
+                    alt
+                />
+                <span>Continue with Google</span>
+            </div>
+            <hr />
+            <p>Sign up for an account</p>
+        </div>
+    </section>
+</template>
+
+
+<script>
+</script>

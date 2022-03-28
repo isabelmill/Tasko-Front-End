@@ -168,10 +168,9 @@ export default {
     watch: {
         "$route.params.boardId": {
             async handler(newId) {
-                this.$store.dispatch({ type: 'loadBoardById', newId })
+                if (newId) this.$store.dispatch({ type: 'loadBoardById', newId })
             },
             immediate: true
-
         }
     }
 }

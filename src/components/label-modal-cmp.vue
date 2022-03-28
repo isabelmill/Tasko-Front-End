@@ -93,7 +93,8 @@ export default {
         },
         addLabelToCard(labelId) {
             // console.log('new labal', label)
-            if (!this.cardToEdit) this.cardToEdit = JSON.parse(JSON.stringify(this.card))
+            // if (!this.cardToEdit) 
+            this.cardToEdit = JSON.parse(JSON.stringify(this.card))
             if (this.cardToEdit.labels.length) {
                 const boardLabelIdx = this.board.labels.findIndex(labelToFind => labelToFind.id === labelId)
                 const idx = this.cardToEdit.labels.findIndex(cardLabel => cardLabel === labelId)
