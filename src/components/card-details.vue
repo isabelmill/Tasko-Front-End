@@ -159,6 +159,40 @@
                         </div>
                     </section>
 
+                    <!-- Attachments area  -->
+                    <div
+                        v-if="card.attachments.length > 0"
+                        class="card-details-activity-show-attachments"
+                    >
+                        <div class="card-details-attachments">
+                            <span class="icon-lg icon-attachment"></span>
+                            <h3>Attachments</h3>
+                        </div>
+                        <!-- name + link  -->
+                        <div v-for="attachment in card.attachments" class="card-attachments-area">
+                            <img :src="attachment.link" alt />
+                            <div class="card-attachment-area-main">
+                                <div class="card-attachment-area-header">
+                                    <p>{{ attachment.name }}</p>
+                                    <span class="icon-sm icon-link-arrow"></span>
+                                </div>
+                                <div class="attachment-area-body flex">
+                                    <p>When added... - </p>
+                                    <a>Comment</a>
+                                    <span>-</span>
+                                    <a>Delete</a>
+                                    <span>-</span>
+                                    <a>Edit</a>
+                                </div>
+                                <div class="attachment-area-footer">
+                                    <span class="icon-sm icon-cover"></span>
+                                    <p>Make cover</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Activity Area  -->
                     <div class="card-details-activity-show-details">
                         <div class="card-details-activity">
                             <span class="icon-lg icon-activity"></span>
