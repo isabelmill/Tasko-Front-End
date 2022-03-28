@@ -400,16 +400,6 @@ export default {
         },
         async backgroundCoverColor() {
             if (this.card.cover.type === 'attachment') {
-<<<<<<< HEAD
-                return () => {
-                    const fac = new FastAverageColor()
-                    const color = fac.getColorAsync(this.card.cover.value).then(
-                        color => {
-                            console.log(color)
-                            return color.hex
-                        }
-                    )
-=======
                 const fac = new FastAverageColor()
                 try {
                     const color = await fac.getColorAsync(this.card.cover.value)
@@ -418,7 +408,6 @@ export default {
                 }
                 catch (err) {
                     console.log(err)
->>>>>>> f888bc4fd635b2f8cce1948f5dafb977d74fc687
                 }
             }
         }
