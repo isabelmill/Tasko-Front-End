@@ -142,9 +142,9 @@ export default {
         },
         setCardKeeps() {
             !this.keepList.labels ?
-                this.cardToCopy.labels = [] : this.cardToCopy.labels = this.card.labels;
+                this.cardToCopy.labels = [] : this.cardToCopy.labels = JSON.parse(JSON.stringify(this.card.labels));
             !this.keepList.members ?
-                this.cardToCopy.members = [] : this.cardToCopy.members = this.card.members;
+                this.cardToCopy.members = [] : this.cardToCopy.members = JSON.parse(JSON.stringify(this.card.members));
             this.copyCard()
             this.close()
         },
