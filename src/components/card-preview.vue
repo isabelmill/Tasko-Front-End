@@ -1,5 +1,8 @@
 <template>
     <section ref="card-modal" class="card-preview cursor-pointer flex">
+        <section v-if="card.cover.type==='attachment'&&card.cover.size==='small'">
+            <div class="card-cover" v-bind:style="{backgroundImage:'url('+card.cover.value+')'}"></div>
+        </section>
         <div v-if="card.labels.length && board.labels.length" class="labels">
             <div
                 class="label"
