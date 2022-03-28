@@ -530,7 +530,7 @@ function getEmptyBoard() {
     return {
         // _id: '',
         title: '',
-        lastTimeWatched: 0,
+        lastTimeWatched:  Date.now(),
         createdAt: Date.now(),
         createdBy: {
             _id: "u101",

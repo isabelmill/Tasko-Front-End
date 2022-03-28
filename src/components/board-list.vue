@@ -1,7 +1,6 @@
 <template>
     <div class="board-list-main">
         <board-preview
-            @updateBoard="updateBoardTime"
             v-for="board in boards"
             :board="board"
             :key="board._id"
@@ -20,9 +19,9 @@ export default {
         },
     },
     methods: {
-        updateBoardTime(board) {
-            this.$emit('updateBoardLastWatched', board)
-        }
+        // updateBoardTime(board) {
+        //     this.$emit('updateBoardLastWatched', board)
+        // }
     },
     components: {
         boardPreview,

@@ -65,12 +65,16 @@ export default {
         }
     },
     created() {
-        // this.boardToEdit = await JSON.parse(JSON.stringify(this.board))
-        // console.log('this.boardToEdit:', this.board);
+        // this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
+        // this.boardToEdit = JSON.parse(JSON.stringify(this.$store.getters.board))
+        // console.log('this.boardToEdit:', this.boardToEdit);
+        // if (this.boardToEdit) {
+        //     this.boardToEdit.lastTimeWatched = Date.now()
+        // this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
+        // }
     },
 
     mounted() {
-
 
     },
     methods: {
@@ -130,7 +134,6 @@ export default {
             this.groupToEdit = JSON.parse(JSON.stringify(copy.posCopy.group))
             console.log('groupToEdit', this.groupToEdit)
             this.groupToEdit.cards.splice(copy.posCopy.position - 1, 0, copy.cardCopy)
-            /////////////////
             this.updateGroup(this.groupToEdit)
         },
         updateBoardDnd(newBoard) {
@@ -160,7 +163,6 @@ export default {
     },
     computed: {
         board() {
-            console.log('this.$store.getters.board:',this.$store.getters.board);
             return this.$store.getters.board
         },
         cardToShow() {

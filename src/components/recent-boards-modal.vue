@@ -6,7 +6,7 @@
                 <h1>Recent boards</h1>
             </div>
             <div class="header-close-starred-boards-modal" @click="closeModal">
-                <span class="icon-sm icon-close"></span>
+                <span class="icon-sm icon-closed"></span>
             </div>
         </div>
         <div class="modal-starred-boards-list">
