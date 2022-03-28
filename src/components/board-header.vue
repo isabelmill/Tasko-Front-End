@@ -102,7 +102,7 @@ export default {
     },
     data() {
         return {
-            isStared: false,
+            isStarred: false,
             titleIsOpen: false,
             boardToEdit: JSON.parse(JSON.stringify(this.board)),
             titleLength: 0,
@@ -122,10 +122,8 @@ export default {
     },
     methods: {
         boardStared() {
-            this.isStared = !this.isStared
-            // this.boardToEdit.isStarred = !this.boardToEdit.isStarred
-            this.$emit('starredChange', this.isStared)
-            // this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
+            this.isStarred = !this.isStarred
+            this.$emit('starredChange', this.isStarred)
         },
         openTitleEdit() {
             this.titleIsOpen = true;
@@ -165,6 +163,6 @@ export default {
     components: {
         menuBar,
     },
-            emits: ['changeBoardBgc','changeBgcColor']
+    emits: ['changeBoardBgc', 'changeBgcColor', 'starredChange']
 }
 </script>
