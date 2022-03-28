@@ -69,7 +69,14 @@
     display: flex;
     flex-direction: column;
     // width: rem(256px);
-
+    .card-cover {
+        border-radius: 3px 3px 0 0;
+        background-position: 50%;
+        background-repeat: no-repeat;
+        user-select: none;
+        display: block;
+        height: min-content;
+    }
     .card-title {
         font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
         font-size: 14px;
@@ -120,7 +127,6 @@
             justify-content: center;
             align-items: center;
             gap: 2px;
-
             .date-txt {
                 font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
                 color: #fff;
@@ -132,31 +138,29 @@
         }
     }
 }
+
 .dateRed {
     background-color: #eb5a46;
     .icon-clock-in-date {
         @include to-icon("\e91b");
         color: #fff;
     }
-
     &:hover {
         background-color: #b04632;
-
         .icon-clock-in-date {
             @include to-icon("\e919");
         }
     }
 }
+
 .dateGreen {
     background-color: #61bd4f;
     .icon-clock-in-date {
         @include to-icon("\e91b");
         color: #fff;
     }
-
     &:hover {
         background-color: #519839;
-
         .icon-clock-in-date {
             @include to-icon("\e918");
         }
@@ -264,7 +268,6 @@
             border-radius: 3px;
             // width: rem(255px);
         }
-
         textarea {
             font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
             border-radius: 3px;
