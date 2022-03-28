@@ -65,12 +65,14 @@
     font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
     .boards-info {
         margin-left: rem(32px);
-
+        .border-list {
+            padding: 0 0 40px;
+        }
         .header {
             display: flex;
             align-items: center;
             gap: 8px;
-            padding: 0 0 4px;
+            padding: 0 0 10px;
             p {
                 font-size: 16px;
                 font-weight: 700;
@@ -371,5 +373,10 @@
 
 .icon-star-boards {
     @include to-icon("\e966");
+    color: #42526e;
+}
+
+.icon-clock-boards {
+    @include to-icon("\e91b");
     color: #42526e;
 }
