@@ -1,12 +1,12 @@
 <template>
     <div class="board-list-main">
         <board-preview
-            @updateBoard="updateBoardTime"
             @starredChange="onStarredChange"
             v-for="board in boards"
             :board="board"
-            :key="board._id"
-        />
+            :key="board._id">
+            </board-preview>
+
     </div>
 </template>
 
@@ -21,9 +21,9 @@ export default {
         },
     },
     methods: {
-        updateBoardTime(board) {
-            this.$emit('updateBoardLastWatched', board)
-        },
+        // updateBoardTime(board) {
+        //     this.$emit('updateBoardLastWatched', board)
+        // },
         onStarredChange(boardStarred) {
             this.$emit('updateStarred', boardStarred)
         },

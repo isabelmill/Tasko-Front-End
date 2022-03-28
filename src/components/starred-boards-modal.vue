@@ -4,15 +4,15 @@
             <div class="header-text-starred-boards-modal">
                 <h1>Starred boards</h1>
             </div>
-            <div class="header-close-starred-boards-modal" @click.stop.prevent="closeModal">
-                <span class="icon-sm icon-close"></span>
+            <div class="header-close-starred-boards-modal" @click="closeModal">
+                <span class="icon-sm icon-closed"></span>
             </div>
         </div>
         <div class="modal-starred-boards-list">
             <div class="modal-starred-board-list">
                 <div
                     class="boards-render-modal-starred"
-                    @click.stop.prevent="goToDetails(board)"
+                    @click="goToDetails(board)"
                     v-for="board in boards"
                     :board="board"
                     :key="board"
