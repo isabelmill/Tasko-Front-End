@@ -344,7 +344,7 @@ export default {
     created() {
         this.description = this.card.description
     },
-    async mounted() {
+    mounted() {
 
     },
     data() {
@@ -363,19 +363,26 @@ export default {
         cardToEdit() {
             return JSON.parse(JSON.stringify(this.card))
         },
-        "this.$refs['coverHeader'].style.backgroundColor"() {
+        backgroundCoverColor() {
             if (this.card.cover.type === 'attachment') {
-                return () =>{
-                    const fac = new FastAverageColor()
-                    const color = fac.getColorAsync(this.card.cover.value).then(
-                        color => {
-                            console.log(color)
-                            return color.hex
-                        }
-                    )
-                }
+
+                const fac = new FastAverageColor()
+                const color = fac.getColorAsync(this.card.cover.value).then(
+                    color => {
+                        this.$refs['headerCover'].style.backgroundColor =color.hex
+                        return color.hex
+                    }
+                )
+
             }
         },
+    },
+    watch: {
+        backgroundCoverColor: {
+            async handler(newColor) {
+                this.$refs['headerCover'].style.backgroundColor = newColor
+            }
+        }
     },
     methods: {
         setMemberLetters(fullname) {
