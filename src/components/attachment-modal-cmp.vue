@@ -74,7 +74,6 @@ export default {
             console.log(this.cardToEdit.attachments)
             this.$emit('cardEdit', this.cardToEdit)
         },
-
     },
     emits: ['actionsClose', 'cardEdit','uploadComplete','uploading']
 }

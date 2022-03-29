@@ -24,6 +24,7 @@ export default {
     },
     methods: {
         goToDetails() {
+            console.log('this.board._id:', this.board._id);
             this.$router.push(`/board/${this.board._id}`)
             this.$emit('viewedBoard', this.board)
         },
