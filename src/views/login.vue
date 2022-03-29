@@ -9,9 +9,9 @@
         </div>
         <div class="login-container">
             <h1>Log in to Mello</h1>
-            <input placeholder="Enter email" type="email" />
-            <input placeholder="Enter password" type="text" />
-            <button>Log in</button>
+            <input v-model="user.username" placeholder="Enter username" type="text" />
+            <input v-model="user.password" placeholder="Enter password" type="text" />
+            <button @click="login">Log in</button>
             <a>OR</a>
             <div class="google-btn">
                 <img
@@ -32,7 +32,10 @@ export default {
 
     data() {
         return {
-
+            user: {
+                username: '',
+                password: '',
+            },
         }
     },
     computed: {
@@ -41,7 +44,16 @@ export default {
     methods: {
         goToSignup() {
             this.$router.push(`/signup`)
-        }
+        },
+        login() {
+            console.log('this.user:', this.user);
+            this.$store.dispatch({ type: 'login', user: this.user })
+            this.user = {
+                username: '',
+                password: '',
+            }
+            this.$router.push(`/board`)
+        },
     },
     components: {
     },

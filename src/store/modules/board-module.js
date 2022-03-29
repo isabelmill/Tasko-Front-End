@@ -31,7 +31,9 @@ export default {
             state.boards.splice(idx, 1)
         },
         saveBoard(state, { board }) {
+            console.log('board:',board);
             const idx = state.boards.findIndex((currBoard) => currBoard._id === board._id)
+            console.log('idx:',idx);
             if (idx !== -1) state.boards.splice(idx, 1, board)
             else state.boards.push(board)
         },
@@ -68,7 +70,7 @@ export default {
             try {
                 if (board._id) commit({ type: 'setBoard', board });
                 const savedBoard = await boardService.save(board)
-                console.log(savedBoard);
+                console.log('savedBoard:',savedBoard);
                 commit({ type: 'saveBoard', board: savedBoard });
                 // commit({ type: 'setBoard', board: newBoard });
             } catch (err) {
