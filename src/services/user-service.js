@@ -1,6 +1,6 @@
-// import {
-//     httpService
-// } from './http.service.js'
+import {
+    httpService
+} from './http.service.js'
 // const STORAGE_KEY = 'user'
 const STORAGE_KEY_LOGGEDIN = 'loggedinUser'
 
@@ -13,7 +13,7 @@ export const userService = {
     getById,
     remove,
     update,
-    changeScore
+    // changeScore
 }
 
 window.userService = userService;
@@ -84,13 +84,13 @@ async function logout() {
     }
 }
 
-async function changeScore(by) {
-    const user = getLoggedinUser()
-    if (!user) throw new Error('Not loggedin')
-    user.score = user.score + by || by
-    await update(user)
-    return user.score
-}
+// async function changeScore(by) {
+//     const user = getLoggedinUser()
+//     if (!user) throw new Error('Not loggedin')
+//     user.score = user.score + by || by
+//     await update(user)
+//     return user.score
+// }
 
 function getLoggedinUser() {
     return JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN))
