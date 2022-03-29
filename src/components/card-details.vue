@@ -301,7 +301,9 @@
                         Labels
                     </button>
 
-                    <button ref="checklistBtn" class="card-details-btn">
+                    <button ref="checklistBtn" 
+                    @click.stop.prevent="addChecklist"
+                    class="card-details-btn">
                         <span class="icon-sm icon-checklist"></span>
                         Checklist
                     </button>
@@ -414,6 +416,7 @@ import attachmentModal from "./attachment-modal-cmp.vue";
 import deleteWarning from "./delete-warning-modal-cmp.vue";
 import FastAverageColor from 'fast-average-color';
 import copyModal from "./copy-modal-cmp.vue";
+import checklistModal from "./checklist-modal-cmp.vue";
 
 export default {
 
@@ -437,6 +440,7 @@ export default {
         coverModal,
         attachmentModal,
         copyModal,
+        checklistModal
     },
     created() {
         this.description = this.card.description
@@ -500,6 +504,11 @@ export default {
             this.pos = this.$refs['membersBtn'].getBoundingClientRect()
             this.shown = true
             this.currModal = "memebersModal"
+        },
+        addChecklist(){
+            this.pos = this.$refs['checklistBtn'].getBoundingClientRect()
+            this.shown = true
+            this.currModal = "checklistModal"
         },
         editLabels() {
             this.pos = this.$refs['labelBtn'].getBoundingClientRect()

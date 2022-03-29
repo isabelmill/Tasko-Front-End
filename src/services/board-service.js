@@ -493,10 +493,7 @@ function getEmptyCard() {
         description: '',
         labels: [],
         createdAt: Date.now(),
-        checklist: {
-            title: 'Checklist',
-            todos: [],
-        },
+        checklists: [],
         attachments: [],
         cover: {},
         members: [],
@@ -526,7 +523,7 @@ function getEmptyBoard() {
     return {
         // _id: '',
         title: '',
-        lastTimeWatched:  Date.now(),
+        lastTimeWatched: Date.now(),
         createdAt: Date.now(),
         createdBy: {
             _id: "u101",
