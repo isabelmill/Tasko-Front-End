@@ -1,5 +1,4 @@
 import { boardService } from '../../services/board-service.js'
-import { socketService, SOCKET_EMIT_USER_WATCH, SOCKET_EVENT_USER_UPDATED } from "../../services/socket.service.js"
 
 export default {
     state: {
@@ -14,11 +13,11 @@ export default {
         board(state) {
             return state.selectedBoard
         },
-        starredBoards(state) {
-            return state.boards.filter(board => {
-                return board.isStarred
-            })
-        }
+        // starredBoards(state) {
+        //     return state.boards.filter(board => {
+        //         board.isStarred
+        //     })
+        // }
     },
     mutations: {
         setBoards(state, { boards }) {
@@ -69,10 +68,7 @@ export default {
             try {
                 if (board._id) commit({ type: 'setBoard', board });
                 const savedBoard = await boardService.save(board)
-<<<<<<< HEAD
                 // console.log(savedBoard);
-=======
->>>>>>> dd64ab32e186e97e8b908fdbb5e6ebdbad110b8d
                 commit({ type: 'saveBoard', board: savedBoard });
                 // commit({ type: 'setBoard', board: newBoard });
             } catch (err) {

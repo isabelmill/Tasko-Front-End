@@ -53,7 +53,7 @@
                         class="label"
                         :class="openLabels"
                         @mouseover="darkenLabels"
-                        @mouseleave.native="lightenLabels"
+                        @mouseleave="lightenLabels"
                         @click.stop.prevent="openAllLabels"
                         :style="(isLabelDark) ? { backgroundColor: lightenDarkenColor(board.labels[board.labels.findIndex(labelToFind => labelToFind.id === label)].color) } : { backgroundColor: board.labels[board.labels.findIndex(labelToFind => labelToFind.id === label)].color }"
                     >{{ board.labels[board.labels.findIndex(labelToFind => labelToFind.id === label)].title }}</div>
@@ -72,6 +72,10 @@
                             <span class="icon-sm icon-clock-in-date"></span>
                             <span class="date-txt">{{ setDateFormat(card.date) }}</span>
                         </div>
+                    </div>
+                    <div v-if="card.attachments.length" class="attachments">
+                        <span class="icon-sm icon-attachment-pre"></span>
+                        <span class="attachments-length">{{ card.attachments.length }}</span>
                     </div>
                     <div class="card-bar-members">
                         <div v-if="card.members.length && board.members.length" class="members">
@@ -107,9 +111,9 @@
                         <div
                             v-if="cardToDisplay.cover.type === 'attachment'"
                             class="mini-edit-cover-attach"
-                            :style="{ backgroundImage: 'url('+cardToDisplay.cover.value+')' }"
+                            :style="{ backgroundImage: 'url(' + cardToDisplay.cover.value + ')' }"
                         >
-                        <img :src="cardToDisplay.cover.value" style="visibility:hidden">
+                            <img :src="cardToDisplay.cover.value" style="visibility:hidden" />
                         </div>
                         <div class="modal-card-main">
                             <div
@@ -234,7 +238,6 @@ export default {
             isActionsOpen: false,
             activeComponent: null,
             isLabelClicked: false,
-            isDateClicked: false,
         }
     },
     created() {
@@ -331,7 +334,6 @@ export default {
             this.cardToDisplay = card
         },
         saveCard() {
-
             this.$emit('editCard', { card: this.cardToDisplay, group: this.group })
             this.shown = false
             this.closeModal()
@@ -352,11 +354,12 @@ export default {
             return date
         },
         onDateClicked() {
-            this.isDateClicked = !this.isDateClicked
+            this.cardToEdit.isComplete = !this.cardToEdit.isComplete
+            this.$emit('cardModified', { card: this.cardToEdit, group: this.group })
         },
         updateDateStyle(timestamp) {
             const timeCalc = (new Date() - timestamp)
-            return { dateUncompleted: !this.isDateClicked, dateCompleted: this.isDateClicked, datePast: timeCalc > 0 };
+            return { dateUncompleted: !this.cardToEdit.isComplete, dateCompleted: this.cardToEdit.isComplete, datePast: timeCalc > 0 };
         },
         darkenLabels() {
             this.isLabelDark = true
