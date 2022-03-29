@@ -110,6 +110,7 @@ export default {
         },
         saveNewBoard(board) {
             if (!board.title) return
+            if(this.loggedinUser) board.createdBy = this.loggedinUser
             this.$store.dispatch({ type: 'saveBoard', board: board })
             this.isEdit = false
             this.newBoard = boardService.getEmptyBoard()
@@ -136,6 +137,9 @@ export default {
         },
         starredBoards() {
             return this.$store.getters.starredBoards
+        },
+        loggedinUser() {
+            return this.$store.getters.loggedinUser
         },
     },
     components: {

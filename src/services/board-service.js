@@ -530,8 +530,7 @@ function getEmptyBoard() {
         createdAt: Date.now(),
         createdBy: {
             _id: "u101",
-            fullname: "Abi Abambi",
-            imgUrl: "http://some-img"
+            fullname: "Guest User",
         },
         background: '',
         labels: [{

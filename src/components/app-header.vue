@@ -148,18 +148,24 @@
         </svg>
       </span>
 
-      <span @click="openLoggedInUserModal(), calcPosOfBox()" ref="user" class="user-icon">
+      <!-- <span @click="openLoggedInUserModal(), calcPosOfBox()" ref="user" class="user-icon">
         <img src="../assets/img/user.png" alt="user-icon" />
-      </span>
+      </span>-->
 
-<logged-in-user-modal
-      v-if="openUserModal"
-      :boards="boards"
-      :style="{ top: '48' + 'px', right: 0 }"
-      v-clickOutside="closeUserModal"
-      @close="closeUserModal"
-></logged-in-user-modal>
+      <div
+        @click="openLoggedInUserModal(), calcPosOfBox()"
+        ref="user"
+        class="user-avatar-in-app-header"
+      >{{ loggedinUser?  setMemberLetters(loggedinUser.fullname) : 'GU'}}</div>
+      
 
+      <logged-in-user-modal
+        v-if="openUserModal"
+        :boards="boards"
+        :style="{ top: '48' + 'px', right: 0 }"
+        v-clickOutside="closeUserModal"
+        @close="closeUserModal"
+      ></logged-in-user-modal>
     </span>
   </section>
 </template>
@@ -191,7 +197,10 @@ export default {
     isOnBoard() {
       const { boardId } = this.$route.params
       return boardId
-    }
+    },
+    loggedinUser() {
+      return this.$store.getters.loggedinUser
+    },
   },
   created() {
   },
@@ -216,9 +225,13 @@ export default {
     openLoggedInUserModal() {
       this.openUserModal = true
     },
-      closeUserModal() {
-        this.openUserModal = false;
-      },
+    closeUserModal() {
+      this.openUserModal = false;
+    },
+    setMemberLetters(fullname) {
+      const firstLetters = fullname.split(' ').map(word => word[0]).join('');
+      return firstLetters.toUpperCase()
+    },
     lightenDarkenColor(colorCode, amount) {
       if (colorCode === '#0079BF') return '#0066A0'
       if (colorCode === '#00AECC') return '#0092AB'

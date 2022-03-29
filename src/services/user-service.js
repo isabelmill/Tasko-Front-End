@@ -54,7 +54,8 @@ async function login(user) {
         // const res = await axios.post(USER_URL + '/login', user)
         const loggedUser = await httpService.post('auth/login', user)
         sessionStorage.setItem(STORAGE_KEY_LOGGEDIN, JSON.stringify(loggedUser));
-        // return res.data
+        // console.log('loggedUser:',loggedUser);
+        return loggedUser
     } catch (err) {
         console.log('login err:', err);
     }
