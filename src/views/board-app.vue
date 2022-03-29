@@ -31,7 +31,6 @@
                                 :boards="boards"
                                 @updateRecentlyViewed="onUpdateRecentlyViewed"
                             />
-                            <div v-for="board in boards" :key="board._id">{{ board.isStarred }}</div>
                         </div>
                         <div class="border-list">
                             <div class="header">
