@@ -1,4 +1,5 @@
 <template>
+<section>
     <section
         v-if="!isLabelEditOpen"
         v-clickOutside="close"
@@ -38,6 +39,7 @@
         @closeEditLabel="closeLabelEdit"
         @closeBoth="closeModal"
     ></label-editor-modal-cmp>
+    </section>
 </template>
 
 <script>
@@ -129,7 +131,7 @@ export default {
             this.isCreate = true
         }
     },
-    emits: ['actionsClose', 'cardEdit', 'boardEdit','cardCopySave']
+    emits: ['uploadComplete','uploading','actionsClose', 'cardEdit', 'boardEdit','cardCopySave']
 
 }
 </script>

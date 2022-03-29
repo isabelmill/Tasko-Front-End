@@ -1,45 +1,48 @@
 <template>
     <section>
-        <board-header
+        <section>
+            <board-header
+                v-if="board"
+                :board="board"
+                @titleChange="updateBoardTitle"
+                @starredChange="isStarredBoard"
+                @changeBgcColor="changeBoardBgcColor"
+                @changeBoardBgc="changeBoardPhoto"
+            />
+        </section>
+        <section
             v-if="board"
-            :board="board"
-            @titleChange="updateBoardTitle"
-            @starredChange="isStarredBoard"
-            @changeBgcColor="changeBoardBgcColor"
-            @changeBoardBgc="changeBoardPhoto"
-        />
-    </section>
-    <section
-        v-if="board"
-        class="board-details-main"
-        :style="{ 'backgroundColor': board.background }"
-    >
-        <group-list
-            @boardModified="updateBoard"
-            @removeGroup="groupRemove"
-            @openCardDetails="openCardDetailsModal"
-            @groupUpdated="updateGroup"
-            :board="board"
-            :groups="board.groups"
-            :newGroup="newGroup"
-            @addGroup="addNewGroup"
-            @groupDnd="updateBoardDnd"
-        ></group-list>
-    </section>
+            class="board-details-main"
+            :style="{ 'backgroundColor': board.background }"
+        >
+            <group-list
+                @saveCopy="SaveCopyToBoard"
+                @boardModified="updateBoard"
+                @removeGroup="groupRemove"
+                @openCardDetails="openCardDetailsModal"
+                @groupUpdated="updateGroup"
+                :board="board"
+                :groups="board.groups"
+                :newGroup="newGroup"
+                @addGroup="addNewGroup"
+                @groupDnd="updateBoardDnd"
+            ></group-list>
+        </section>
 
-    <dialog ref="cardDetailsModal" class="modal">
-        <card-details
-            v-if="isCardOpen"
-            @deleteCardFromGroup="deleteCardFromGroup"
-            @boardModified="updateBoard"
-            @cardModified="updateCard"
-            @closeDialog="closeDiag"
-            @saveCopy="SaveCopyToBoard"
-            :board="board"
-            :card="cardToShow"
-            :group="groupToShow"
-        ></card-details>
-    </dialog>
+        <dialog ref="cardDetailsModal" class="modal">
+            <card-details
+                v-if="isCardOpen"
+                @deleteCardFromGroup="deleteCardFromGroup"
+                @boardModified="updateBoard"
+                @cardModified="updateCard"
+                @closeDialog="closeDiag"
+                @saveCopy="SaveCopyToBoard"
+                :board="board"
+                :card="cardToShow"
+                :group="groupToShow"
+            ></card-details>
+        </dialog>
+    </section>
 </template>
 
 <script>
@@ -64,6 +67,7 @@ export default {
             boardToEdit: null,
             groupToEdit: null,
             newGroup: boardService.getEmptyGroup(),
+            newActivity: boardService.getEmptyActivity(),
         }
     },
     created() {
@@ -133,9 +137,7 @@ export default {
             this.$refs.cardDetailsModal.close()
         },
         SaveCopyToBoard(copy) {
-            console.log('copy', copy)
             this.groupToEdit = JSON.parse(JSON.stringify(copy.posCopy.group))
-            console.log('groupToEdit', this.groupToEdit)
             this.groupToEdit.cards.splice(copy.posCopy.position - 1, 0, copy.cardCopy)
             this.updateGroup(this.groupToEdit)
             socketService.emit('update board', copy)
@@ -155,6 +157,13 @@ export default {
         },
         changeBoardBgcColor(color) {
             this.boardToEdit = JSON.parse(JSON.stringify(this.board))
+            if (this.loggedinUser) {
+                this.boardToEdit.createdBy = this.loggedinUser
+                this.newActivity.byMember = this.loggedinUser
+            }
+            this.newActivity.txt = 'changed the background of this board'
+            this.boardToEdit.activities.unshift(this.newActivity)
+
             this.boardToEdit.background = color
             this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
         },
@@ -179,7 +188,10 @@ export default {
         },
         groupToShow() {
             return this.board.groups[this.selectedCardGroupIdx]
-        }
+        },
+        loggedinUser() {
+            return this.$store.getters.loggedinUser
+        },
     },
     watch: {
         "$route.params.boardId": {

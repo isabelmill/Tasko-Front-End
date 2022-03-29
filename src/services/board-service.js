@@ -26,7 +26,6 @@ export const boardService = {
 
 async function query() {
     // return asyncStorageService.query(BOARDS_KEY);
-    console.log('got to query');
     try {
         return await httpService.get('board/')
     } catch (err) {
@@ -62,8 +61,6 @@ async function save(board) {
     // } else {
     //     return asyncStorageService.post(BOARDS_KEY, board);
     // }
-    console.log('board saving new board in b service front:', board);
-    console.log('board._id:', board._id);
     try {
         if (board._id) {
             return await httpService.put(`board/${board._id}`, board)
@@ -470,7 +467,6 @@ function _createBoards() {
         }]
         utilService.saveToStorage(BOARDS_KEY, boards)
     }
-    console.log('boards:', boards);
     return boards
 }
 
@@ -479,11 +475,9 @@ function getEmptyActivity() {
         id: utilService.makeId(),
         txt: '',
         createdAt: Date.now(),
-        isStarred: false,
         byMember: {
             _id: "u101",
-            fullname: "Isabel Mill",
-            imgUrl: "http://some-img"
+            fullname: "Guest User",
         },
         task: {}
     }
@@ -497,10 +491,7 @@ function getEmptyCard() {
         description: '',
         labels: [],
         createdAt: Date.now(),
-        checklist: {
-            title: 'Checklist',
-            todos: [],
-        },
+        checklists: [],
         attachments: [],
         cover: {},
         members: [],
@@ -530,12 +521,11 @@ function getEmptyBoard() {
     return {
         // _id: '',
         title: '',
-        lastTimeWatched:  Date.now(),
+        lastTimeWatched: Date.now(),
         createdAt: Date.now(),
         createdBy: {
             _id: "u101",
-            fullname: "Abi Abambi",
-            imgUrl: "http://some-img"
+            fullname: "Guest User",
         },
         background: '',
         labels: [{

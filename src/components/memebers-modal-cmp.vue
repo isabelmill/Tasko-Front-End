@@ -70,7 +70,6 @@ export default {
             this.$emit('actionsClose')
         },
         addMemberToCard(member) {
-            // console.log('new labal', label)
             if (!this.cardToEdit) this.cardToEdit = JSON.parse(JSON.stringify(this.card))
             if (this.cardToEdit.members.length) {
                 const idx = this.cardToEdit.members.findIndex(cardMember => cardMember._id === member._id)

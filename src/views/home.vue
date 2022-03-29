@@ -11,8 +11,8 @@
                 <p>Mello</p>
             </div>
             <div>
-                <a href="#">Log in</a>
-                <button>Sign up</button>
+                <a @click="goTologin" href="#">Log in</a>
+                <button @click="goToSignup">Sign up</button>
             </div>
         </nav>
         <div class="home-main-box">
@@ -38,3 +38,26 @@
         </div>
     </section>
 </template>
+
+<script>
+export default {
+
+    data() {
+        return {
+        }
+    },
+    computed: {
+
+    },
+    methods: {
+        goToSignup() {
+            this.$router.push(`/signup`)
+        },
+        goTologin() {
+            this.$router.push(`/login`)
+        },
+    },
+    components: {
+    },
+}
+</script>

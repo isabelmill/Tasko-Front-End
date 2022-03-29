@@ -72,13 +72,13 @@
                 @click.stop.prevent="removeCover"
                 class="create-btn"
             >Remove cover</button>
-            <section v-if="isAttachmentPicked&&!isSmall">
+            <section v-if="isAttachmentPicked && !isSmall">
                 <span class="mini-title">Text color</span>
                 <div class="cover-mode-container">
                     <div
                         class="dark"
                         @click.stop.prevent="setTheme('dark')"
-                        :class="{selected: (isDark) }"
+                        :class="{ selected: (isDark) }"
                         :style="{ backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(' + card.cover.value + ')' }"
                     >
                         <span>{{ card.title }}</span>
@@ -86,7 +86,7 @@
                     <div
                         class="light"
                         @click.stop.prevent="setTheme('light')"
-                        :class="{selected: !(isDark) }"
+                        :class="{ selected: !(isDark) }"
                         :style="{ backgroundImage: 'linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url(' + card.cover.value + ')' }"
                     >
                         <span>{{ card.title }}</span>
@@ -157,6 +157,12 @@
                     />
                 </section>
             </section>
+            <section v-if="isLoading" class="cover-loading">
+                <img
+                    class="loading-svg"
+                    src="https://res.cloudinary.com/dw85wdwsw/image/upload/v1648563503/dlcjcnpz0afvbj2mgrqj.svg"
+                />
+            </section>
             <input
                 @change="attachFileFromSystem($event)"
                 type="file"
@@ -204,6 +210,7 @@ export default {
             file: '',
             isDark: true,
             attachmentIdx: '',
+            isLoading: false,
         }
     },
     computed: {
@@ -250,24 +257,23 @@ export default {
         setSize() {
             this.cardToEdit = JSON.parse(JSON.stringify(this.card))
             this.cardToEdit.cover.size = (this.isSmall) ? 'small' : 'large'
-            console.log(this.cardToEdit)
             this.$emit('cardEdit', this.cardToEdit)
         },
-        setTheme(theme){
+        setTheme(theme) {
             this.cardToEdit = JSON.parse(JSON.stringify(this.card))
-            this.isDark = (theme==='dark')? true : false;
+            this.isDark = (theme === 'dark') ? true : false;
             this.cardToEdit.cover.theme = (this.isDark) ? 'dark' : 'light'
             this.$emit('cardEdit', this.cardToEdit)
         },
         async attachFileFromSystem(event) {
             this.cardToEdit = JSON.parse(JSON.stringify(this.card))
+            this.isLoading = true
             const result = await uploadService.uploadFromSystem(event)
-            console.log(result)
+            this.isLoading = false
             this.cardToEdit.attachments.push({
                 name: result.original_filename,
                 link: result.secure_url
             })
-            console.log(this.cardToEdit)
             this.$emit('cardEdit', this.cardToEdit)
         },
         setAttachmentAsCover(attachIdx) {

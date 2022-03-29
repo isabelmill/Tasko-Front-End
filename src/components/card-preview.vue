@@ -48,12 +48,14 @@
             <section v-if="card.cover.size !== 'large'" class="card-preview-main">
                 <div v-if="card.labels.length && board.labels.length" class="labels">
                     <div
-                        class="label"
-                        :class="openLabels"
-                        @click.stop.prevent="openAllLabels"
                         v-for="label in card.labels"
                         :key="label"
-                        :style="{ 'backgroundColor': board.labels[board.labels.findIndex(labelToFind => labelToFind.id === label)].color }"
+                        class="label"
+                        :class="openLabels"
+                        @mouseover="darkenLabels"
+                        @mouseleave.native="lightenLabels"
+                        @click.stop.prevent="openAllLabels"
+                        :style="(isLabelDark) ? { backgroundColor: lightenDarkenColor(board.labels[board.labels.findIndex(labelToFind => labelToFind.id === label)].color) } : { backgroundColor: board.labels[board.labels.findIndex(labelToFind => labelToFind.id === label)].color }"
                     >{{ board.labels[board.labels.findIndex(labelToFind => labelToFind.id === label)].title }}</div>
                 </div>
                 <div>
@@ -98,23 +100,37 @@
                 <section class="modal-edit" @click.prevent.stop>
                     <div class="modal-card" @click.prevent.stop>
                         <div
-                            v-if="cardToDisplay.labels.length && cardToDisplay.labels.length"
-                            class="labels"
+                            v-if="cardToDisplay.cover.type === 'color'"
+                            class="mini-edit-cover-color"
+                            :style="{ backgroundColor: cardToDisplay.cover.value }"
+                        ></div>
+                        <div
+                            v-if="cardToDisplay.cover.type === 'attachment'"
+                            class="mini-edit-cover-attach"
+                            :style="{ backgroundImage: 'url('+cardToDisplay.cover.value+')' }"
                         >
-                            <div
-                                class="label"
-                                v-for="label in cardToDisplay.labels"
-                                :key="label"
-                                :style="{ 'backgroundColor': board.labels[board.labels.findIndex(labelToFind => labelToFind.id === label)].color }"
-                            >{{ board.labels[board.labels.findIndex(labelToFind => labelToFind.id === label)].title }}</div>
+                        <img :src="cardToDisplay.cover.value" style="visibility:hidden">
                         </div>
-                        <div>
-                            <textarea
-                                @click.stop.prevent="focus()"
-                                name="mini-edit-ta"
-                                style="resize:none"
-                                v-model="cardToDisplay.title"
-                            ></textarea>
+                        <div class="modal-card-main">
+                            <div
+                                v-if="cardToDisplay.labels.length && cardToDisplay.labels.length"
+                                class="labels"
+                            >
+                                <div
+                                    class="label"
+                                    v-for="label in cardToDisplay.labels"
+                                    :key="label"
+                                    :style="{ 'backgroundColor': board.labels[board.labels.findIndex(labelToFind => labelToFind.id === label)].color }"
+                                >{{ board.labels[board.labels.findIndex(labelToFind => labelToFind.id === label)].title }}</div>
+                            </div>
+                            <div>
+                                <textarea
+                                    @click.stop.prevent="focus()"
+                                    name="mini-edit-ta"
+                                    style="resize:none"
+                                    v-model="cardToDisplay.title"
+                                ></textarea>
+                            </div>
                         </div>
                     </div>
                     <div>
@@ -125,9 +141,8 @@
                     <button @click.stop.prevent="openDetails">Open card</button>
                     <button ref="labelBtn" @click.stop.prevent="editLabels">Edit labels</button>
                     <button ref="membersBtn" @click.stop.prevent="changeMembers">Change members</button>
-                    <button @click.stop.prevent="changeCover">Change cover</button>
-                    <button @click.stop.prevent="moveCard">Move</button>
-                    <button @click.stop.prevent="copyCard">Copy</button>
+                    <button ref="coverBtn" @click.stop.prevent="changeCover">Change cover</button>
+                    <button ref="copyBtn" @click.stop.prevent="copyCard">Copy</button>
                     <button ref="datesBtn" @click.stop.prevent="editDates">Edit dates</button>
                     <button ref="deleteBtn" @click.stop.prevent="deleteWarn">Delete</button>
                 </section>
@@ -143,6 +158,7 @@
             <section v-if="shown">
                 <component
                     @click.prevent.stop
+                    @cardCopySave="CopyNewCard"
                     @boardEdit="editBoard"
                     @cardEdit="showEditedCard"
                     @actionsClose="closeMenu"
@@ -165,6 +181,8 @@ import labelModal from "./label-modal-cmp.vue";
 import memebersModal from "./memebers-modal-cmp.vue";
 import datesModal from "./date-modal-cmp.vue";
 import deleteWarning from "./delete-warning-modal-cmp.vue";
+import coverModal from "./cover-modal-cmp.vue";
+import copyModal from "./copy-modal-cmp.vue";
 import moment from 'moment'
 // import { json } from "stream/consumers";
 // import { throws } from "assert";
@@ -192,8 +210,9 @@ export default {
         labelModal,
         memebersModal,
         datesModal,
+        moment,
+        coverModal,
         deleteWarning,
-        moment
         // throws
     },
     data() {
@@ -202,6 +221,7 @@ export default {
             shown: false,
             pos: 0,
             posOfEditor: 0,
+            isLabelDark: false,
             modalOpen: false,
             titleIsOpen: false,
             warningOpen: false,
@@ -246,6 +266,22 @@ export default {
             this.currModal = "datesModal"
             this.shown = !this.shown
         },
+        changeCover() {
+            this.posOfEditor = this.$refs['coverBtn'].getBoundingClientRect()
+            // this.posOfEditor = JSON.parse(JSON.stringify(this.posOfEditor))
+            // this.posOfEditor.bottom = 370
+            this.currModal = "coverModal"
+            this.shown = !this.shown
+        },
+        copyCard() {
+            this.posOfEditor = this.$refs['copyBtn'].getBoundingClientRect()
+            this.shown = !this.shown
+            this.currModal = "copyModal"
+        },
+        CopyNewCard(copy) {
+            this.$emit('copyCardToGroup', copy)
+            this.closeModal()
+        },
         changeTitle(title) {
             this.cardToEdit = JSON.parse(JSON.stringify(this.card))
             this.cardToEdit.title = title
@@ -266,7 +302,6 @@ export default {
             this.shown = false
             this.$emit('openCard', { card: this.card, group: this.group })
         },
-
         openAllLabels() {
             this.isLabelClicked = !this.isLabelClicked
             this.$emit('openAllLabels', this.isLabelClicked)
@@ -323,14 +358,38 @@ export default {
             const timeCalc = (new Date() - timestamp)
             return { dateUncompleted: !this.isDateClicked, dateCompleted: this.isDateClicked, datePast: timeCalc > 0 };
         },
+        darkenLabels() {
+            this.isLabelDark = true
+        },
+        lightenLabels() {
+            this.isLabelDark = false
+        },
+        lightenDarkenColor(colorCode) {
+            if (colorCode === '#61BD4F') return '#519839'
+            if (colorCode === '#F2D600') return '#d9b51c'
+            if (colorCode === '#FF9F1A') return '#cd8313'
+            if (colorCode === '#EB5A46') return '#b04632'
+            if (colorCode === '#C377E0') return '#89609e'
+            if (colorCode === '#0079BF') return '#055a8c'
+            if (colorCode === '#00C2E0') return '#0098b7'
+            if (colorCode === '#51E898') return '#4bbf6b'
+            if (colorCode === '#FF78CB') return '#c9558f'
+            if (colorCode === '#344563') return '#091e42'
+        }
     },
     computed: {
         openLabels() {
             return { labelOpen: this.isLabelOpen };
         },
+<<<<<<< HEAD
 
+=======
+        updateDate() {
+            return { dateRed: !this.isDateClicked, dateGreen: this.isDateClicked };
+        },
+>>>>>>> dd64ab32e186e97e8b908fdbb5e6ebdbad110b8d
 
     },
-    emits: ['openCard', 'editCard', 'openAllLabels', 'deleteCard', 'boardUpdated', 'toggleQuickEdit'],
+    emits: ['copyCardToGroup', 'openCard', 'editCard', 'openAllLabels', 'deleteCard', 'boardUpdated', 'toggleQuickEdit'],
 }
 </script>

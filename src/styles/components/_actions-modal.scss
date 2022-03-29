@@ -153,6 +153,7 @@
     height: 40px;
     width: 40px;
     padding: 10px 12px 10px 8px;
+    @include to-icon("\e91c")
 }
 
 .actions-modal-main {
@@ -160,6 +161,17 @@
     overflow-x: hidden;
     overflow-y: auto;
     // padding: 0 12px 12px;
+}
+
+.cover-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+    .loading-svg {
+        height: 30px;
+        width: 30px;
+    }
 }
 
 .delete-modal-main {

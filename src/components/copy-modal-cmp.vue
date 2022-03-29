@@ -14,7 +14,11 @@
             <p class="header-second">Keep</p>
             <div class="keep-list">
                 <div v-if="card.labels.length" class="keep-checkbox">
-                    <div v-if="!keepList.labels" @click.stop.prevent="toggleCardKeep('labels')" class="checkbox"></div>
+                    <div
+                        v-if="!keepList.labels"
+                        @click.stop.prevent="toggleCardKeep('labels')"
+                        class="checkbox"
+                    ></div>
                     <img
                         v-if="keepList.labels"
                         @click.stop.prevent="toggleCardKeep('labels')"
@@ -118,18 +122,16 @@ export default {
         },
         toggleCardKeep(list) {
             this.keepList[list] = !this.keepList[list]
-            console.log('keepList', list, this.keepList[list])
         },
         setGroupPosition(event) {
             // set group
             const groupId = event.target.value
             const selectedGroup = this.board.groups.find(group => group.id === groupId)
-            console.log(selectedGroup)
             this.copyToPos.group = selectedGroup
             // set positions
             this.positions = []
             var counter = 0
-            var num = selectedGroup.cards.length === 0 ? 1 : selectedGroup.cards.length
+            var num = !selectedGroup.cards.length ? 1 : selectedGroup.cards.length
             while (counter < num) {
                 counter++;
                 this.positions.push(counter)
@@ -138,7 +140,6 @@ export default {
         setCardPosition(event) {
             const cardPos = event.target.value
             this.copyToPos.position = cardPos
-            console.log('copyToPos', this.copyToPos)
         },
         setCardKeeps() {
             !this.keepList.labels ?
@@ -152,7 +153,7 @@ export default {
             this.$emit('cardCopySave', { cardCopy: this.cardToCopy, posCopy: this.copyToPos })
         }
     },
-    emits: ['actionsClose','cardCopySave']
+    emits: ['actionsClose', 'cardCopySave']
 
 }
 </script>

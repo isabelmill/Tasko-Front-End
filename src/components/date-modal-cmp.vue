@@ -66,7 +66,7 @@ export default {
         }
     },
     created() {
-        console.log(this.pos)
+        // console.log(this.pos)
     },
     methods: {
         close() {
@@ -78,7 +78,6 @@ export default {
             this.$emit('actionsClose')
         },
         startDateInit() {
-            console.log(this.startDate)
             this.isStartDate = !this.isStartDate
         }
 

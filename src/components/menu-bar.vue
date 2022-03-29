@@ -15,14 +15,37 @@
             </div>
             <hr />
             <div class="side-bar-menu-container flex">
-                <!-- here comes the backround of current board -->
-                <div :style=" board.background ? { 'backgroundColor': board.background } : { 'background-image': `url(${board.backgroundPhoto})` }" class="board-background"></div>
+                <div
+                    :style="board.background ? { 'backgroundColor': board.background } : { 'background-image': `url(${board.backgroundPhoto})` }"
+                    class="board-background"
+                ></div>
                 <p @click="openBgcBar">Change background</p>
             </div>
             <hr />
-            <div class="side-bar-menu-activity-container flex">
-                <span class="icon-sm icon-activity"></span>
-                <h1>Activity</h1>
+            <div class="side-bar-menu-activity-container">
+                <div class="activity-header flex">
+                    <span class="icon-sm icon-activity"></span>
+                    <h1>Activity</h1>
+                </div>
+                <div
+                    class="activities-render flex"
+                    v-for=" activity in board.activities"
+                    :key="activity"
+                >
+                    <div
+                        class="member-avatar-in-activity"
+                    >{{ setMemberLetters(activity.byMember.fullname) }}</div>
+                    <div class="activity-info">
+                        <div class="activities-info-txt flex">
+                            <h1>{{ activity.byMember.username }}</h1>
+                            <p>{{ activity.txt }}</p>
+                        </div>
+                        <div class="activity-timestamp">
+                            <!-- {{moment(activity.createdAt).startOf('hour').fromNow()}} -->
+                            {{ generateTime(activity.createdAt) }}
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -135,6 +158,7 @@
 </template>
 
 <script>
+import moment from 'moment';
 import unsplash from '../components/unsplash.vue'
 export default {
     props: {
@@ -153,8 +177,13 @@ export default {
         }
     },
     created() {
+
     },
     methods: {
+        generateTime(time){
+        const dateTimeAgo = moment(time).fromNow();
+        return dateTimeAgo
+        },
         closeModal() {
             this.$emit("close");
         },
@@ -186,15 +215,20 @@ export default {
         },
         updateBgc(photo) {
             this.$emit('changeBgcPhoto', photo)
-        }
+        },
+        setMemberLetters(fullname) {
+            const firstLetters = fullname.split(' ').map(word => word[0]).join('');
+            return firstLetters.toUpperCase()
+        },
     },
     computed: {
 
 
     },
     components: {
-        unsplash
+        unsplash,
+        moment
     },
-        emits: ['changeBgcPhoto','changeBgcColor']
+    emits: ['changeBgcPhoto', 'changeBgcColor']
 }
 </script>

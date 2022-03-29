@@ -43,7 +43,6 @@ export default {
     },
     methods: {
         addCard() {
-            console.log('addCard');
             this.show = false;
             if (!this.txt) return
             this.newCard.title = this.txt;
