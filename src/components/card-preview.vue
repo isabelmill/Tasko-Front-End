@@ -384,6 +384,9 @@ export default {
         openLabels() {
             return { labelOpen: this.isLabelOpen };
         },
+        updateDate() {
+            return { dateRed: !this.isDateClicked, dateGreen: this.isDateClicked };
+        },
 
     },
     emits: ['copyCardToGroup', 'openCard', 'editCard', 'openAllLabels', 'deleteCard', 'boardUpdated', 'toggleQuickEdit'],

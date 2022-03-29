@@ -51,6 +51,7 @@ import { boardService } from "../services/board-service.js"
 import boardHeader from "../components/board-header.vue"
 import cardDetails from "../components/card-details.vue"
 import { socketService } from "../services/socket.service.js"
+import { userService } from "../services/user-service"
 
 export default {
     components: {
@@ -202,16 +203,19 @@ export default {
     watch: {
         "$route.params.boardId": {
             async handler(newId) {
-                if (newId) {
+                if (newId) {                    
                     await this.$store.dispatch({ type: 'loadBoardById', newId })
                     // socketService.emit('board updated', board => {
                     //     this.socketTest(board)
                     // })
-                    socketService.emit(SOCKET_EVENT_BOARD_WATCH, newId)
-                    socketService.off(SOCKET_EVENT_BOARD_UPDATED)
-                    socketService.on(SOCKET_EVENT_BOARD_UPDATED, board => {
-                        this.$store.dispatch({ type: 'loadBoardById', id: board._id })
+                    socketService.emit('watch board', newId)
+                    socketService.emit('set-user-socket', userService.getLoggedinUser()._id)
+                    // socketService.off('board-changed')
+                    socketService.on('board-changed', board => {
+                        // this.$store.dispatch({ type: 'loadBoardById', id: board._id })
+                        console.log('got board', board);
                     })
+
                     // socketService.emit('watch board', this.board._id)
                     //     console.log('board updated', board._id)
                     // })

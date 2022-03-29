@@ -1,7 +1,7 @@
 <template>
     <section>
         <section
-            v-if="card.cover.value"
+            v-if="card.cover"
             class="coverOfCardDetails"
             ref="headerCover"
             :class="{ color: card.cover.type === 'color', attachmentofdetails: card.cover.type === 'attachment' }"
@@ -188,7 +188,8 @@
                             </div>
                             <div v-if="isLoading" class="loading-attachment">
                                 <div class="loading-container">
-                                    <img class="loading-svg"
+                                    <img
+                                        class="loading-svg"
                                         src="https://res.cloudinary.com/dw85wdwsw/image/upload/v1648563503/dlcjcnpz0afvbj2mgrqj.svg"
                                     />
                                     processing...
@@ -301,9 +302,11 @@
                         Labels
                     </button>
 
-                    <button ref="checklistBtn" 
-                    @click.stop.prevent="addChecklist"
-                    class="card-details-btn">
+                    <button
+                        ref="checklistBtn"
+                        @click.stop.prevent="addChecklist"
+                        class="card-details-btn"
+                    >
                         <span class="icon-sm icon-checklist"></span>
                         Checklist
                     </button>
@@ -466,15 +469,17 @@ export default {
             return JSON.parse(JSON.stringify(this.card))
         },
         async backgroundCoverColor() {
-            if (this.card.cover.type === 'attachment') {
-                const fac = new FastAverageColor()
-                try {
-                    const color = await fac.getColorAsync(this.card.cover.value)
-                    this.$refs['headerCover'].style.backgroundColor = color.hex
-                    return color.hex
-                }
-                catch (err) {
-                    console.log(err)
+            if (this.card.cover.type) {
+                if (this.card.cover.type === 'attachment') {
+                    const fac = new FastAverageColor()
+                    try {
+                        const color = await fac.getColorAsync(this.card.cover.value)
+                        this.$refs['headerCover'].style.backgroundColor = color.hex
+                        return color.hex
+                    }
+                    catch (err) {
+                        console.log(err)
+                    }
                 }
             }
         }
@@ -505,7 +510,7 @@ export default {
             this.shown = true
             this.currModal = "memebersModal"
         },
-        addChecklist(){
+        addChecklist() {
             this.pos = this.$refs['checklistBtn'].getBoundingClientRect()
             this.shown = true
             this.currModal = "checklistModal"
@@ -534,13 +539,13 @@ export default {
             this.$emit('cardModified', { card, group: this.group })
         },
         async attachmentBGC(el) {
-            console.log(el)
+            // console.log(el)
             const fac = new FastAverageColor()
             const img = el.props.src
             // var color= '';\
             try {
                 const color = await fac.getColorAsync(img)
-                console.log(color)
+                // console.log(color)
                 el.props['background-color'] = color.hex
             }
             catch (err) {
