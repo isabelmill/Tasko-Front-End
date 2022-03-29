@@ -228,6 +228,12 @@
                 background-color: #091e4214;
             }
         }
+        .icon-edit {
+            &:hover {
+                background-color: #f4f5f7;
+                opacity: 1;
+            }
+        }
     }
     .card-bar {
         display: flex;
@@ -338,6 +344,10 @@
         line-height: 100px;
         max-width: 40px;
         min-width: 40px;
+        // &:hover {
+        //     .label{
+        //     }
+        // }
     }
     .labelOpen {
         ///on-click
@@ -492,16 +502,34 @@
     top: 0;
     right: 0;
     pointer-events: auto;
+    // border-radius: 3px;
+    .modal-card {
+        border-radius: 3px 3px 0 0;
+        // background-color: #fff;
+        overflow: hidden;
+    }
+    .mini-edit-cover-color {
+        height: 32px;
+        width: 100%;
+        // border-radius: 3px 3px 0 0;
+        // background-color: black;
+    }
+    .mini-edit-cover-attach {
+        width: 100%;
+        background-position: 50%;
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
     .mini-edit-modal-second {
         display: flex;
     }
     .modal-edit {
-        width: rem(250px);
+        width: rem(252px);
         height: auto;
-        .modal-card {
+        .modal-card-main {
             font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
             background-color: #fff;
-            border-radius: 3px;
+            // border-radius: 0 0 3px 3px;
             margin-bottom: 12px;
             padding: 6px 8px 2px;
             textarea {
@@ -600,11 +628,8 @@
     height: rem(26px);
     width: rem(26px);
     border: none;
-    background-color: #f4f5f7;
-    &:hover {
-        background-color: red;
-        opacity: 1;
-    }
+    background-color: #ebecf0;
+    opacity: 0.8;
     // display: none;
     // z-index: 30;
     // background-color: transparent;
