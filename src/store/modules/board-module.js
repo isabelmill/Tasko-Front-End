@@ -13,11 +13,6 @@ export default {
         board(state) {
             return state.selectedBoard
         },
-        // starredBoards(state) {
-        //     return state.boards.filter(board => {
-        //         board.isStarred
-        //     })
-        // }
     },
     mutations: {
         setBoards(state, { boards }) {

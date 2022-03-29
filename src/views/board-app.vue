@@ -27,11 +27,11 @@
                                 <p>Starred boards</p>
                             </div>
                             <board-list
-                                v-if="starredBoards"
-                                :boards="starredBoards"
-                                @updateBoardLastWatched="updateBoard"
+                                v-if="boards"
+                                :boards="boards"
                                 @updateRecentlyViewed="onUpdateRecentlyViewed"
                             />
+                            <div v-for="board in boards" :key="board._id">{{ board.isStarred }}</div>
                         </div>
                         <div class="border-list">
                             <div class="header">
@@ -94,6 +94,7 @@ export default {
     },
     created() {
         this.setFolder('boards')
+
     },
     methods: {
         calcPosOfBox(ref) {
@@ -143,9 +144,6 @@ export default {
         boards() {
             return this.$store.getters.boards
         },
-        starredBoards() {
-            return this.$store.getters.starredBoards
-        },
         recentlyViewedBoards() {
             return this.$store.getters.RecentlyViewedBoards
         },
@@ -153,6 +151,8 @@ export default {
             return this.$store.getters.loggedinUser
         },
     },
+
+
     components: {
         boardList,
         unsplash,

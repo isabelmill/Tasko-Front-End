@@ -5,9 +5,8 @@
             @viewedBoard="onUpdateRecentlyViewed"
             v-for="board in boards"
             :board="board"
-            :key="board._id">
-            </board-preview>
-
+            :key="board._id"
+        ></board-preview>
     </div>
 </template>
 
