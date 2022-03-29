@@ -166,10 +166,6 @@ export default {
     },
     computed: {
         board() {
-<<<<<<< HEAD
-            console.log('this.$store.getters.board:', this.$store.getters.board);
-=======
->>>>>>> 05e89569897b87c5ffcb613ccb265580ae70a810
             return this.$store.getters.board
         },
         cardToShow() {
