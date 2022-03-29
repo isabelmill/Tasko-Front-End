@@ -8,6 +8,8 @@
             <div class="icon-sm icon-close" @click.stop.prevent="close"></div>
             <span class="main-title">Attach from...</span>
         </div>
+        <input @change="attachFileFromSystem($event)" type="file" ref="file" style="display: none" />
+        <button type="button" @click.stop.prevent="$refs.file.click()" class="create-btn">Computer</button>
         <span class="mini-edit-title">Attach a link</span>
         <input placeholder="Paste any link here..." v-model="link" type="text" class="main-input" />
         <section v-if="link !== ''">
@@ -19,6 +21,7 @@
 </template>
 
 <script>
+import { uploadService } from "../services/upload-service.js";
 export default {
     name: 'attachment-modal',
     props: {
@@ -53,15 +56,27 @@ export default {
         addAttachment() {
             this.cardToEdit = JSON.parse(JSON.stringify(this.card))
             const attachment = {}
-            if (this.name!=='') attachment.name = this.name
+            if (this.name !== '') attachment.name = this.name
             else attachment.name = this.link
             attachment.link = this.link
             this.cardToEdit.attachments.push(attachment)
-            this.$emit('cardEdit',this.cardToEdit)
-        }
+            this.$emit('cardEdit', this.cardToEdit)
+        },
+        async attachFileFromSystem(event) {
+            this.cardToEdit = JSON.parse(JSON.stringify(this.card))
+            this.$emit('uploading')
+            const result = await uploadService.uploadFromSystem(event)
+            this.$emit('uploadComplete')
+            this.cardToEdit.attachments.push({
+                name: result.original_filename,
+                link: result.secure_url
+            })
+            console.log(this.cardToEdit.attachments)
+            this.$emit('cardEdit', this.cardToEdit)
+        },
 
     },
-    emits: ['actionsClose', 'cardEdit']
+    emits: ['actionsClose', 'cardEdit','uploadComplete','uploading']
 }
 </script>
 
