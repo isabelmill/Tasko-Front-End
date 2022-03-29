@@ -7,7 +7,9 @@
                     v-bind:style="{ backgroundColor: card.cover.value }"
                 >
                     <div class="card-title">
-                        <span :style="(card.cover.value==='#172B4D')? {color: '#FFFFFF'}: {color:'#172B4D'}">{{ card.title }}</span>
+                        <span
+                            :style="(card.cover.value === '#172B4D') ? { color: '#FFFFFF' } : { color: '#172B4D' }"
+                        >{{ card.title }}</span>
                     </div>
                 </div>
             </section>
@@ -29,11 +31,10 @@
                 </div>
             </section>
             <section v-if="card.cover.type === 'color' && card.cover.size === 'small'">
-                <div class="card-cover-color-small"
-                v-bind:style="{ backgroundColor: card.cover.value }"
-                >
-
-                </div>
+                <div
+                    class="card-cover-color-small"
+                    v-bind:style="{ backgroundColor: card.cover.value }"
+                ></div>
             </section>
             <section v-if="card.cover.type === 'attachment' && card.cover.size === 'small'">
                 <div
@@ -64,7 +65,7 @@
                             v-if="card.date"
                             class="date"
                             @click.stop.prevent="onDateClicked"
-                            :class="updateDate"
+                            :class="updateDateStyle(card.date)"
                         >
                             <span class="icon-sm icon-clock-in-date"></span>
                             <span class="date-txt">{{ setDateFormat(card.date) }}</span>
@@ -191,7 +192,8 @@ export default {
         labelModal,
         memebersModal,
         datesModal,
-        deleteWarning
+        deleteWarning,
+        moment
         // throws
     },
     data() {
@@ -316,17 +318,18 @@ export default {
         },
         onDateClicked() {
             this.isDateClicked = !this.isDateClicked
-
+        },
+        updateDateStyle(timestamp) {
+            const timeCalc = (new Date() - timestamp)
+            return { dateUncompleted: !this.isDateClicked, dateCompleted: this.isDateClicked, datePast: timeCalc > 0 };
         },
     },
     computed: {
         openLabels() {
             return { labelOpen: this.isLabelOpen };
         },
-        updateDate() {
-            return { dateRed: !this.isDateClicked, dateGreen: this.isDateClicked };
-        },
-        
+
+
     },
     emits: ['openCard', 'editCard', 'openAllLabels', 'deleteCard', 'boardUpdated', 'toggleQuickEdit'],
 }

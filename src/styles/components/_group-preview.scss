@@ -249,7 +249,6 @@
             gap: 2px;
             .date-txt {
                 font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
-                color: #fff;
                 font-size: 12px;
                 padding: 0 4px 0 2px;
                 vertical-align: top;
@@ -259,22 +258,30 @@
     }
 }
 
-.dateRed {
-    background-color: #eb5a46;
+.dateUncompleted {
+    color: #5e6c84;
     .icon-clock-in-date {
         @include to-icon("\e91b");
-        color: #fff;
+        color: #5e6c84;
     }
     &:hover {
-        background-color: #b04632;
         .icon-clock-in-date {
             @include to-icon("\e919");
         }
     }
 }
 
-.dateGreen {
+.datePast {
+    color: #fff;
+    background-color: #eb5a46;
+    .icon-clock-in-date {
+        color: #fff;
+    }
+}
+
+.dateCompleted {
     background-color: #61bd4f;
+    color: #fff;
     .icon-clock-in-date {
         @include to-icon("\e91b");
         color: #fff;

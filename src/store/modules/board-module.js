@@ -1,4 +1,5 @@
 import { boardService } from '../../services/board-service.js'
+import { socketService, SOCKET_EMIT_USER_WATCH, SOCKET_EVENT_USER_UPDATED } from "../../services/socket.service.js"
 
 export default {
     state: {
@@ -68,7 +69,7 @@ export default {
             try {
                 if (board._id) commit({ type: 'setBoard', board });
                 const savedBoard = await boardService.save(board)
-                console.log(savedBoard);
+                // console.log(savedBoard);
                 commit({ type: 'saveBoard', board: savedBoard });
                 // commit({ type: 'setBoard', board: newBoard });
             } catch (err) {

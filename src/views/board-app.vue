@@ -30,7 +30,7 @@
                                 v-if="starredBoards"
                                 :boards="starredBoards"
                                 @updateBoardLastWatched="updateBoard"
-                                @updateStarred="onUpdateStarred"
+                                @updateRecentlyViewed="onUpdateRecentlyViewed"
                             />
                         </div>
                         <div class="border-list">
@@ -41,7 +41,7 @@
                             <board-list
                                 v-if="boards"
                                 :boards="boards"
-                                @updateBoardLastWatched="updateBoard"
+                                @updateRecentlyViewed="onUpdateRecentlyViewed"
                             />
                         </div>
                         <button
@@ -77,7 +77,6 @@ export default {
     name: 'board-app',
     data() {
         return {
-            boardsToShow: [],
             preFolder: '',
             currFolder: '',
             isFolder: {
@@ -94,7 +93,6 @@ export default {
     },
     created() {
         this.setFolder('boards')
-        console.log('boards:',this.$store.getters.boards);
     },
     methods: {
         calcPosOfBox(ref) {
@@ -124,12 +122,15 @@ export default {
         setColors(folder) {
             return this.isFolder[folder] ? 'selected-folder' : 'folder'
         },
-        updateBoard(board) {
-            this.$store.dispatch({ type: 'saveBoard', board: board })
-        },
         onUpdateStarred(boardStarred) {
             console.log('boardStarred', boardStarred)
             this.updateBoard(boardStarred)
+        },
+        onUpdateRecentlyViewed(board) {
+            console.log('Viewed', board)
+        },
+        updateBoard(board) {
+            this.$store.dispatch({ type: 'saveBoard', board: board })
         },
     },
     computed: {
@@ -138,6 +139,9 @@ export default {
         },
         starredBoards() {
             return this.$store.getters.starredBoards
+        },
+        RecentlyViewedBoards() {
+            return this.$store.getters.RecentlyViewedBoards
         },
     },
     components: {
