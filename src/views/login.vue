@@ -10,7 +10,13 @@
         <div class="login-container">
             <h1>Log in to Mello</h1>
             <input v-model="user.username" placeholder="Enter username" type="text" />
-            <input v-model="user.password" placeholder="Enter password" type="text" />
+            <input
+                v-model="user.password"
+                placeholder="Enter password"
+                type="password"
+                name="password"
+                autocomplete="on"
+            />
             <button @click="login">Log in</button>
             <a>OR</a>
             <div class="google-btn">
@@ -46,7 +52,7 @@ export default {
             this.$router.push(`/signup`)
         },
         login() {
-            console.log('this.user:', this.user);
+            if (!this.user.username || !this.user.password) return 
             this.$store.dispatch({ type: 'login', user: this.user })
             this.user = {
                 username: '',

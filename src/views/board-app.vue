@@ -88,6 +88,7 @@ export default {
             filterBy: null,
             isEdit: false,
             newBoard: boardService.getEmptyBoard(),
+            newActivity: boardService.getEmptyActivity(),
             setColor: '',
             pos: 0,
         }
@@ -110,7 +111,12 @@ export default {
         },
         saveNewBoard(board) {
             if (!board.title) return
-            if(this.loggedinUser) board.createdBy = this.loggedinUser
+            if (this.loggedinUser) {
+                board.createdBy = this.loggedinUser
+                this.newActivity.byMember = this.loggedinUser
+            }
+            this.newActivity.txt = 'created this board'
+            board.activities.push(this.newActivity)
             this.$store.dispatch({ type: 'saveBoard', board: board })
             this.isEdit = false
             this.newBoard = boardService.getEmptyBoard()

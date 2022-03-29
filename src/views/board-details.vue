@@ -65,6 +65,7 @@ export default {
             boardToEdit: null,
             groupToEdit: null,
             newGroup: boardService.getEmptyGroup(),
+            newActivity: boardService.getEmptyActivity(),
         }
     },
     created() {
@@ -152,6 +153,13 @@ export default {
         },
         changeBoardBgcColor(color) {
             this.boardToEdit = JSON.parse(JSON.stringify(this.board))
+            if (this.loggedinUser) {
+                this.boardToEdit.createdBy = this.loggedinUser
+                this.newActivity.byMember = this.loggedinUser
+            }
+            this.newActivity.txt = 'changed the background of this board'
+            this.boardToEdit.activities.unshift(this.newActivity)
+
             this.boardToEdit.background = color
             this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
         },
@@ -171,7 +179,10 @@ export default {
         },
         groupToShow() {
             return this.board.groups[this.selectedCardGroupIdx]
-        }
+        },
+        loggedinUser() {
+            return this.$store.getters.loggedinUser
+        },
     },
     watch: {
         "$route.params.boardId": {

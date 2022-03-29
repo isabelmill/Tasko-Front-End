@@ -475,11 +475,9 @@ function getEmptyActivity() {
         id: utilService.makeId(),
         txt: '',
         createdAt: Date.now(),
-        isStarred: false,
         byMember: {
             _id: "u101",
-            fullname: "Isabel Mill",
-            imgUrl: "http://some-img"
+            fullname: "Guest User",
         },
         task: {}
     }
