@@ -29,7 +29,7 @@ import { utilService } from '../services/util-service'
 import labelEditorModalCmp from "./label-editor-modal-cmp.vue"
 export default {
     components: {
-        search,
+        // search,
         labelEditorModalCmp
     },
     name: 'label-modal',

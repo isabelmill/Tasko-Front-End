@@ -169,6 +169,12 @@ export default {
         },
         changeBoardPhoto(photo) {
             this.boardToEdit = JSON.parse(JSON.stringify(this.board))
+            if (this.loggedinUser) {
+                this.boardToEdit.createdBy = this.loggedinUser
+                this.newActivity.byMember = this.loggedinUser
+            }
+            this.newActivity.txt = 'changed the background of this board'
+            this.boardToEdit.activities.unshift(this.newActivity)
             this.boardToEdit.background = ''
             this.boardToEdit.backgroundPhoto = photo
             this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
