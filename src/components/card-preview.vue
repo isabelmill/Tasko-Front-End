@@ -48,12 +48,14 @@
             <section v-if="card.cover.size !== 'large'" class="card-preview-main">
                 <div v-if="card.labels.length && board.labels.length" class="labels">
                     <div
-                        class="label"
-                        :class="openLabels"
-                        @click.stop.prevent="openAllLabels"
                         v-for="label in card.labels"
                         :key="label"
-                        :style="{ 'backgroundColor': board.labels[board.labels.findIndex(labelToFind => labelToFind.id === label)].color }"
+                        class="label"
+                        :class="openLabels"
+                        @mouseover="darkenLabels"
+                        @mouseleave.native="lightenLabels"
+                        @click.stop.prevent="openAllLabels"
+                        :style="(isLabelDark) ? { backgroundColor: lightenDarkenColor(board.labels[board.labels.findIndex(labelToFind => labelToFind.id === label)].color) } : { backgroundColor: board.labels[board.labels.findIndex(labelToFind => labelToFind.id === label)].color }"
                     >{{ board.labels[board.labels.findIndex(labelToFind => labelToFind.id === label)].title }}</div>
                 </div>
                 <div>
@@ -98,23 +100,37 @@
                 <section class="modal-edit" @click.prevent.stop>
                     <div class="modal-card" @click.prevent.stop>
                         <div
-                            v-if="cardToDisplay.labels.length && cardToDisplay.labels.length"
-                            class="labels"
+                            v-if="cardToDisplay.cover.type === 'color'"
+                            class="mini-edit-cover-color"
+                            :style="{ backgroundColor: cardToDisplay.cover.value }"
+                        ></div>
+                        <div
+                            v-if="cardToDisplay.cover.type === 'attachment'"
+                            class="mini-edit-cover-attach"
+                            :style="{ backgroundImage: 'url('+cardToDisplay.cover.value+')' }"
                         >
-                            <div
-                                class="label"
-                                v-for="label in cardToDisplay.labels"
-                                :key="label"
-                                :style="{ 'backgroundColor': board.labels[board.labels.findIndex(labelToFind => labelToFind.id === label)].color }"
-                            >{{ board.labels[board.labels.findIndex(labelToFind => labelToFind.id === label)].title }}</div>
+                        <img :src="cardToDisplay.cover.value" style="visibility:hidden">
                         </div>
-                        <div>
-                            <textarea
-                                @click.stop.prevent="focus()"
-                                name="mini-edit-ta"
-                                style="resize:none"
-                                v-model="cardToDisplay.title"
-                            ></textarea>
+                        <div class="modal-card-main">
+                            <div
+                                v-if="cardToDisplay.labels.length && cardToDisplay.labels.length"
+                                class="labels"
+                            >
+                                <div
+                                    class="label"
+                                    v-for="label in cardToDisplay.labels"
+                                    :key="label"
+                                    :style="{ 'backgroundColor': board.labels[board.labels.findIndex(labelToFind => labelToFind.id === label)].color }"
+                                >{{ board.labels[board.labels.findIndex(labelToFind => labelToFind.id === label)].title }}</div>
+                            </div>
+                            <div>
+                                <textarea
+                                    @click.stop.prevent="focus()"
+                                    name="mini-edit-ta"
+                                    style="resize:none"
+                                    v-model="cardToDisplay.title"
+                                ></textarea>
+                            </div>
                         </div>
                     </div>
                     <div>
@@ -205,6 +221,7 @@ export default {
             shown: false,
             pos: 0,
             posOfEditor: 0,
+            isLabelDark: false,
             modalOpen: false,
             titleIsOpen: false,
             warningOpen: false,
@@ -261,7 +278,7 @@ export default {
             this.shown = !this.shown
             this.currModal = "copyModal"
         },
-        CopyNewCard(copy){
+        CopyNewCard(copy) {
             this.$emit('copyCardToGroup', copy)
             this.closeModal()
         },
@@ -338,6 +355,24 @@ export default {
             this.isDateClicked = !this.isDateClicked
 
         },
+        darkenLabels() {
+            this.isLabelDark = true
+        },
+        lightenLabels() {
+            this.isLabelDark = false
+        },
+        lightenDarkenColor(colorCode) {
+            if (colorCode === '#61BD4F') return '#519839'
+            if (colorCode === '#F2D600') return '#d9b51c'
+            if (colorCode === '#FF9F1A') return '#cd8313'
+            if (colorCode === '#EB5A46') return '#b04632'
+            if (colorCode === '#C377E0') return '#89609e'
+            if (colorCode === '#0079BF') return '#055a8c'
+            if (colorCode === '#00C2E0') return '#0098b7'
+            if (colorCode === '#51E898') return '#4bbf6b'
+            if (colorCode === '#FF78CB') return '#c9558f'
+            if (colorCode === '#344563') return '#091e42'
+        }
     },
     computed: {
         openLabels() {
@@ -348,6 +383,6 @@ export default {
         },
 
     },
-    emits: ['copyCardToGroup','openCard', 'editCard', 'openAllLabels', 'deleteCard', 'boardUpdated', 'toggleQuickEdit'],
+    emits: ['copyCardToGroup', 'openCard', 'editCard', 'openAllLabels', 'deleteCard', 'boardUpdated', 'toggleQuickEdit'],
 }
 </script>
