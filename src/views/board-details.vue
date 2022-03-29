@@ -207,11 +207,13 @@ export default {
                     // socketService.emit('board updated', board => {
                     //     this.socketTest(board)
                     // })
-                    socketService.emit(SOCKET_EVENT_BOARD_WATCH, newId)
-                    socketService.off(SOCKET_EVENT_BOARD_UPDATED)
-                    socketService.on(SOCKET_EVENT_BOARD_UPDATED, board => {
-                        this.$store.dispatch({ type: 'loadBoardById', id: board._id })
+                    socketService.emit('user-watch', newId)
+                    socketService.off('board-changed')
+                    socketService.on('board-change', board => {
+                        // this.$store.dispatch({ type: 'loadBoardById', id: board._id })
+                        console.log('got board', board);
                     })
+
                     // socketService.emit('watch board', this.board._id)
                     //     console.log('board updated', board._id)
                     // })

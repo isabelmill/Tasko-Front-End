@@ -2,10 +2,7 @@
     <div class="board-list-main">
         <board-preview
             @starredChange="onStarredChange"
-<<<<<<< HEAD
             @viewedBoard="onUpdateRecentlyViewed"
-=======
->>>>>>> dd64ab32e186e97e8b908fdbb5e6ebdbad110b8d
             v-for="board in boards"
             :board="board"
             :key="board._id">
