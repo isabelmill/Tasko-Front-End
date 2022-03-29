@@ -127,7 +127,6 @@ export default {
             this.$store.dispatch({ type: 'saveBoard', board: board })
         },
         onUpdateStarred(boardStarred) {
-            console.log('boardStarred', boardStarred)
             this.updateBoard(boardStarred)
         },
     },

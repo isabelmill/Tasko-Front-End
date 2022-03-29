@@ -26,7 +26,6 @@ export const boardService = {
 
 async function query() {
     // return asyncStorageService.query(BOARDS_KEY);
-    console.log('got to query');
     try {
         return await httpService.get('board/')
     } catch (err) {
@@ -62,8 +61,6 @@ async function save(board) {
     // } else {
     //     return asyncStorageService.post(BOARDS_KEY, board);
     // }
-    console.log('board saving new board in b service front:', board);
-    console.log('board._id:', board._id);
     try {
         if (board._id) {
             return await httpService.put(`board/${board._id}`, board)
@@ -470,7 +467,6 @@ function _createBoards() {
         }]
         utilService.saveToStorage(BOARDS_KEY, boards)
     }
-    console.log('boards:', boards);
     return boards
 }
 

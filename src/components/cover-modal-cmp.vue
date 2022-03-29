@@ -250,7 +250,6 @@ export default {
         setSize() {
             this.cardToEdit = JSON.parse(JSON.stringify(this.card))
             this.cardToEdit.cover.size = (this.isSmall) ? 'small' : 'large'
-            console.log(this.cardToEdit)
             this.$emit('cardEdit', this.cardToEdit)
         },
         setTheme(theme){
@@ -262,12 +261,10 @@ export default {
         async attachFileFromSystem(event) {
             this.cardToEdit = JSON.parse(JSON.stringify(this.card))
             const result = await uploadService.uploadFromSystem(event)
-            console.log(result)
             this.cardToEdit.attachments.push({
                 name: result.original_filename,
                 link: result.secure_url
             })
-            console.log(this.cardToEdit)
             this.$emit('cardEdit', this.cardToEdit)
         },
         setAttachmentAsCover(attachIdx) {

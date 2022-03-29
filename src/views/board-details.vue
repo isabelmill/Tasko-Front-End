@@ -133,9 +133,7 @@ export default {
             this.$refs.cardDetailsModal.close()
         },
         SaveCopyToBoard(copy) {
-            console.log('copy', copy)
             this.groupToEdit = JSON.parse(JSON.stringify(copy.posCopy.group))
-            console.log('groupToEdit', this.groupToEdit)
             this.groupToEdit.cards.splice(copy.posCopy.position - 1, 0, copy.cardCopy)
             this.updateGroup(this.groupToEdit)
         },

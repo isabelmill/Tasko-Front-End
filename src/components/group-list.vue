@@ -137,7 +137,6 @@ export default {
             this.$emit('boardModified', adjustmentOfBoard)
         },
         addNewCard({ newCard, group }) {
-            console.log('addNewCard',newCard,group);
             this.groupToEdit = JSON.parse(JSON.stringify(this.groups.find(groupToCheck => groupToCheck.id === group.id)))
             this.groupToEdit.cards.push(newCard)
             this.$emit('groupUpdated', this.groupToEdit)
@@ -150,12 +149,10 @@ export default {
             this.$emit('openCardDetails', info)
         },
         onOpenAllLabels(isLabelClicked) {
-            console.log('isLabelOpen', isLabelClicked)
             this.isLabelOpen = isLabelClicked
         },
         saveCardToBoard({ card, group }) {
             this.groupToEdit = JSON.parse(JSON.stringify(group))
-            console.log(card)
             const cardIdx = this.groupToEdit.cards.findIndex(cardToFind => cardToFind.id === card.id)
             this.groupToEdit.cards.splice(cardIdx, 1, card)
             this.$emit('groupUpdated', this.groupToEdit)

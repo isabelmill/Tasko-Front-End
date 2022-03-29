@@ -11,7 +11,7 @@
                 <p>Mello</p>
             </div>
             <div>
-                <a href="#">Log in</a>
+                <a @click="goTologin" href="#">Log in</a>
                 <button @click="goToSignup">Sign up</button>
             </div>
         </nav>
@@ -53,14 +53,8 @@ export default {
         goToSignup() {
             this.$router.push(`/signup`)
         },
-        login() {
-            console.log('this.user:', this.user);
-            this.$store.dispatch({ type: 'login', user: this.user })
-            this.user = {
-                username: '',
-                password: '',
-            }
-            this.$router.push(`/board`)
+        goTologin() {
+            this.$router.push(`/login`)
         },
     },
     components: {

@@ -122,13 +122,11 @@ export default {
         },
         toggleCardKeep(list) {
             this.keepList[list] = !this.keepList[list]
-            console.log('keepList', list, this.keepList[list])
         },
         setGroupPosition(event) {
             // set group
             const groupId = event.target.value
             const selectedGroup = this.board.groups.find(group => group.id === groupId)
-            console.log(selectedGroup)
             this.copyToPos.group = selectedGroup
             // set positions
             this.positions = []
@@ -142,7 +140,6 @@ export default {
         setCardPosition(event) {
             const cardPos = event.target.value
             this.copyToPos.position = cardPos
-            console.log('copyToPos', this.copyToPos)
         },
         setCardKeeps() {
             !this.keepList.labels ?

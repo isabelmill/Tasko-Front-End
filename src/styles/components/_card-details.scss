@@ -255,6 +255,8 @@
                 .card-details-labels-container {
                     display: flex;
                     flex-direction: row;
+                    flex-wrap: wrap;
+                    // max-width: 400px;
 
                     .card-details-labels {
                         padding-top: 8px;
@@ -272,6 +274,10 @@
                             padding: 0 12px;
                             width: auto;
                             cursor: pointer;
+
+                            &:hover{
+                                opacity: .8;
+                            }
                         }
 
                         p {
