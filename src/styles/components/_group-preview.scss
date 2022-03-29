@@ -65,7 +65,10 @@
     display: block;
     // height: 160px;
     margin-bottom: 8px;
-    // width: 100%;
+    width: 100%;
+    img {
+        width: 100%;
+    }
 }
 
 .card-cover-color-small {
@@ -119,6 +122,10 @@
     // display: block;
     border-radius: 3px;
     // position: relative;
+    width: 100%;
+    img {
+        width: 100%;
+    }
     .card-title {
         border-radius: 0 0 3px 3px;
         align-self: flex-end;
@@ -519,6 +526,9 @@
         background-position: 50%;
         background-size: cover;
         background-repeat: no-repeat;
+        img {
+            width: 100%;
+        }
     }
     .mini-edit-modal-second {
         display: flex;

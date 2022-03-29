@@ -179,36 +179,49 @@
 
                         <!-- Attachments area  -->
                         <div
-                            v-if="card.attachments.length > 0"
+                            v-if="isLoading || card.attachments.length > 0"
                             class="card-details-activity-show-attachments"
                         >
                             <div class="card-details-attachments">
                                 <span class="icon-lg icon-attachment"></span>
                                 <h3>Attachments</h3>
                             </div>
-                            <!-- name + link  -->
-                            <div
-                                v-for="attachment in card.attachments"
-                                class="card-attachments-area"
-                                :key="attachment.link"
-                            >
-                                <img :src="attachment.link" alt />
-                                <div class="card-attachment-area-main">
-                                    <div class="card-attachment-area-header">
-                                        <p>{{ attachment.name }}</p>
-                                        <span class="icon-sm icon-link-arrow"></span>
-                                    </div>
-                                    <div class="attachment-area-body flex">
-                                        <p>When added... -</p>
-                                        <a>Comment</a>
-                                        <span>-</span>
-                                        <a>Delete</a>
-                                        <span>-</span>
-                                        <a>Edit</a>
-                                    </div>
-                                    <div class="attachment-area-footer">
-                                        <span class="icon-sm icon-cover"></span>
-                                        <p>Make cover</p>
+                            <div v-if="isLoading" class="loading-attachment">
+                                <div class="loading-container">
+                                    <img class="loading-svg"
+                                        src="https://res.cloudinary.com/dw85wdwsw/image/upload/v1648563503/dlcjcnpz0afvbj2mgrqj.svg"
+                                    />
+                                    processing...
+                                </div>
+                            </div>
+                            <div v-if="card.attachments.length">
+                                <div
+                                    v-for="attachment in card.attachments"
+                                    class="card-attachments-area"
+                                    :key="attachment.link"
+                                >
+                                    <img
+                                        @vnode-mounted="attachmentBGC($event)"
+                                        :src="attachment.link"
+                                        alt
+                                    />
+                                    <div class="card-attachment-area-main">
+                                        <div class="card-attachment-area-header">
+                                            <p>{{ attachment.name }}</p>
+                                            <span class="icon-sm icon-link-arrow"></span>
+                                        </div>
+                                        <div class="attachment-area-body flex">
+                                            <p>When added... -</p>
+                                            <a>Comment</a>
+                                            <span>-</span>
+                                            <a>Delete</a>
+                                            <span>-</span>
+                                            <a>Edit</a>
+                                        </div>
+                                        <div class="attachment-area-footer">
+                                            <span class="icon-sm icon-cover"></span>
+                                            <p>Make cover</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -369,6 +382,8 @@
         </section>
         <section v-if="shown">
             <component
+                @uploadComplete="notifyComplete"
+                @uploading="notifyUploading"
                 @boardEdit="editBoard"
                 @cardEdit="editCard"
                 @actionsClose="closeMenu"
@@ -439,6 +454,7 @@ export default {
             showInput: false,
             showDesc: false,
             description: '',
+            isLoading: false
         }
     },
     computed: {
@@ -508,6 +524,23 @@ export default {
         editCard(card) {
             this.$emit('cardModified', { card, group: this.group })
         },
+        async attachmentBGC(el) {
+            console.log(el)
+            const fac = new FastAverageColor()
+            const img = el.props.src
+            // var color= '';\
+            try {
+                const color = await fac.getColorAsync(img)
+                console.log(color)
+                el.props['background-color'] = color.hex
+            }
+            catch (err) {
+                console.log(err)
+            }
+            // // console.log(color.hex)
+            //     return color
+
+        },
         copyCard() {
             this.pos = this.$refs['copyBtn'].getBoundingClientRect()
             this.shown = true
@@ -558,7 +591,13 @@ export default {
         toggleCardComplete() {
             this.cardToEdit.isComplete = !this.cardToEdit.isComplete
             this.$emit('cardModified', { card: this.cardToEdit, group: this.group })
-        }
+        },
+        notifyUploading() {
+            this.isLoading = true
+        },
+        notifyComplete() {
+            this.isLoading = false
+        },
     },
     emits: ['cardCopySave', 'closeDialog', 'cardModified', 'boardModified', 'deleteCardFromGroup', 'saveCopy']
 }
