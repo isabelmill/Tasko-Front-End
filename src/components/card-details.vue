@@ -227,7 +227,36 @@
                                 </div>
                             </div>
                         </div>
+                        <!--checkLIST area -->
+                        <!-- <div v-if="card.checklists" class="card-details-checklist-show-details">
+                            <div
+                                v-for="checklist in card.checklists"
+                                :key="checklist.id"
+                                class="card-details-checklist"
+                            >
+                                <div class="icon-lg icon-checklist"></div>
+                                <h3>{{ checklist.title }}</h3>
+                                <button class="checklist-btn checklkist-delete">Delete</button>
+                                <div class="todo-bar"></div>
+                                <button @click.stop.prevent="openChecklistInput" class="checklist-btn checklist-add-item">Add an item</button>
+                                <div v-if="checklist.todos" class="checklist-item-container">
+                                    <div class="checklist-item"
+                                    v-for="item in checklist.todos"
+                                    :key="item.id"
+                                    ></div>
+                                </div>
+                                <div class="checklist-input-container">
+                                    <input
+                                        v-model="currChecklistItem"
+                                        placeholder="Add an item"
+                                        type="text"
+                                    />
+                                    <button class="item-add-btn">Add</button>
+                                    <button class="icon-lg icon-closed"></button>
 
+                                </div>
+                            </div>
+                        </div> -->
                         <!-- Activity Area  -->
                         <div class="card-details-activity-show-details">
                             <div class="card-details-activity">
@@ -461,7 +490,8 @@ export default {
             showInput: false,
             showDesc: false,
             description: '',
-            isLoading: false
+            isLoading: false,
+            currChecklistItem: '',
         }
     },
     computed: {
