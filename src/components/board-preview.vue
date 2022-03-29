@@ -24,7 +24,12 @@ export default {
     },
     methods: {
         goToDetails() {
+<<<<<<< HEAD
+            console.log('this.board._id:', this.board._id);
+=======
+>>>>>>> dd64ab32e186e97e8b908fdbb5e6ebdbad110b8d
             this.$router.push(`/board/${this.board._id}`)
+            this.$emit('viewedBoard', this.board)
         },
         boardStared() {
             this.isStarred = !this.isStarred
@@ -33,6 +38,6 @@ export default {
             this.$emit('starredChange', starredBoard)
         },
     },
-    emits: ['starredChange']
+    emits: ['starredChange', 'viewedBoard']
 }
 </script>

@@ -67,7 +67,7 @@
                             v-if="card.date"
                             class="date"
                             @click.stop.prevent="onDateClicked"
-                            :class="updateDate"
+                            :class="updateDateStyle(card.date)"
                         >
                             <span class="icon-sm icon-clock-in-date"></span>
                             <span class="date-txt">{{ setDateFormat(card.date) }}</span>
@@ -210,9 +210,9 @@ export default {
         labelModal,
         memebersModal,
         datesModal,
+        moment,
         coverModal,
         deleteWarning,
-        copyModal
         // throws
     },
     data() {
@@ -353,7 +353,10 @@ export default {
         },
         onDateClicked() {
             this.isDateClicked = !this.isDateClicked
-
+        },
+        updateDateStyle(timestamp) {
+            const timeCalc = (new Date() - timestamp)
+            return { dateUncompleted: !this.isDateClicked, dateCompleted: this.isDateClicked, datePast: timeCalc > 0 };
         },
         darkenLabels() {
             this.isLabelDark = true
@@ -378,9 +381,13 @@ export default {
         openLabels() {
             return { labelOpen: this.isLabelOpen };
         },
+<<<<<<< HEAD
+
+=======
         updateDate() {
             return { dateRed: !this.isDateClicked, dateGreen: this.isDateClicked };
         },
+>>>>>>> dd64ab32e186e97e8b908fdbb5e6ebdbad110b8d
 
     },
     emits: ['copyCardToGroup', 'openCard', 'editCard', 'openAllLabels', 'deleteCard', 'boardUpdated', 'toggleQuickEdit'],
