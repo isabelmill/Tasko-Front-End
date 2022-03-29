@@ -12,7 +12,7 @@
             </div>
             <div>
                 <a href="#">Log in</a>
-                <button>Sign up</button>
+                <button @click="goToSignup">Sign up</button>
             </div>
         </nav>
         <div class="home-main-box">
@@ -38,3 +38,32 @@
         </div>
     </section>
 </template>
+
+<script>
+export default {
+
+    data() {
+        return {
+        }
+    },
+    computed: {
+
+    },
+    methods: {
+        goToSignup() {
+            this.$router.push(`/signup`)
+        },
+        login() {
+            console.log('this.user:', this.user);
+            this.$store.dispatch({ type: 'login', user: this.user })
+            this.user = {
+                username: '',
+                password: '',
+            }
+            this.$router.push(`/board`)
+        },
+    },
+    components: {
+    },
+}
+</script>
