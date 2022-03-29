@@ -9,18 +9,26 @@ export default {
         watchedUser: null
     },
     getters: {
-        loggedinUser({loggedinUser}) {
+        loggedinUser({
+            loggedinUser
+        }) {
             return loggedinUser
         },
-        users({users}) {
+        users({
+            users
+        }) {
             return users
         },
-        watchedUser({watchedUser}) {
+        watchedUser({
+            watchedUser
+        }) {
             return watchedUser
         }
     },
     mutations: {
-        login(state, {user}) {
+        login(state, {
+            user
+        }) {
             state.loggedinUser = (user) ? {
                 ...user
             } : null;
@@ -29,13 +37,19 @@ export default {
         logout(state) {
             state.loggedinUser = null;
         },
-        setUsers(state, {users}) {
+        setUsers(state, {
+            users
+        }) {
             state.users = users;
         },
-        setWatchedUser(state, {user}) {
+        setWatchedUser(state, {
+            user
+        }) {
             state.watchedUser = user;
         },
-        removeUser(state, {userId}) {
+        removeUser(state, {
+            userId
+        }) {
             state.users = state.users.filter(user => user._id !== userId)
         },
         // setUserScore(state, {score}) {
@@ -43,19 +57,26 @@ export default {
         // },
     },
     actions: {
-        async login({commit}, {user}) {
+        async login({
+            commit
+        }, {
+            user
+        }) {
+            console.log('user:', user);
             try {
-                await userService.login(user)
+                const newUser = await userService.login(user)
                 commit({
                     type: 'login',
-                    user
+                    user: newUser
                 })
             } catch (err) {
                 console.log('err');
             }
 
         },
-        async logout({commit}) {
+        async logout({
+            commit
+        }) {
             try {
                 await userService.logout()
                 commit({
@@ -65,7 +86,11 @@ export default {
                 console.log('err');
             }
         },
-        async signup({commit}, {user}) {
+        async signup({
+            commit
+        }, {
+            user
+        }) {
             try {
                 await userService.signup(user)
                 commit({
@@ -76,7 +101,9 @@ export default {
                 console.log('err');
             }
         },
-        async loadUsers({commit}) {
+        async loadUsers({
+            commit
+        }) {
             // TODO: loading
             try {
                 const users = await userService.getUsers();
@@ -89,7 +116,11 @@ export default {
                 throw err
             }
         },
-        async loadAndWatchUser({commit}, {userId}) {
+        async loadAndWatchUser({
+            commit
+        }, {
+            userId
+        }) {
             try {
                 const user = await userService.getById(userId);
                 commit({
@@ -97,15 +128,24 @@ export default {
                     user
                 })
                 // socketService.emit(SOCKET_EMIT_USER_WATCH, userId) 
+                console.log('user:', user);
                 socketService.off(SOCKET_EVENT_USER_UPDATED)
                 socketService.on(SOCKET_EVENT_USER_UPDATED, user => {
-                    commit({type: 'setWatchedUser',user})})
+                    commit({
+                        type: 'setWatchedUser',
+                        user
+                    })
+                })
             } catch (err) {
                 console.log('userStore: Error in loadAndWatchUser', err)
                 throw err
             }
         },
-        async removeUser({commit}, {userId}) {
+        async removeUser({
+            commit
+        }, {
+            userId
+        }) {
             try {
                 await userService.remove(userId);
                 commit({
@@ -117,7 +157,11 @@ export default {
                 throw err
             }
         },
-        async updateUser({commit}, {user}) {
+        async updateUser({
+            commit
+        }, {
+            user
+        }) {
             try {
                 user = await userService.update(user);
                 commit({

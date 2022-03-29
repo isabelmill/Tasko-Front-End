@@ -281,3 +281,18 @@
         cursor: pointer;
     }
 }
+
+.user-avatar-in-app-header{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    background-color: #172b4d;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 14px;
+    border-radius: 50%;
+    padding-bottom: 1px;
+}
