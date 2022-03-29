@@ -1,45 +1,48 @@
 <template>
     <section>
-        <board-header
+        <section>
+            <board-header
+                v-if="board"
+                :board="board"
+                @titleChange="updateBoardTitle"
+                @starredChange="isStarredBoard"
+                @changeBgcColor="changeBoardBgcColor"
+                @changeBoardBgc="changeBoardPhoto"
+            />
+        </section>
+        <section
             v-if="board"
-            :board="board"
-            @titleChange="updateBoardTitle"
-            @starredChange="isStarredBoard"
-            @changeBgcColor="changeBoardBgcColor"
-            @changeBoardBgc="changeBoardPhoto"
-        />
-    </section>
-    <section
-        v-if="board"
-        class="board-details-main"
-        :style="{ 'backgroundColor': board.background }"
-    >
-        <group-list
-            @boardModified="updateBoard"
-            @removeGroup="groupRemove"
-            @openCardDetails="openCardDetailsModal"
-            @groupUpdated="updateGroup"
-            :board="board"
-            :groups="board.groups"
-            :newGroup="newGroup"
-            @addGroup="addNewGroup"
-            @groupDnd="updateBoardDnd"
-        ></group-list>
-    </section>
+            class="board-details-main"
+            :style="{ 'backgroundColor': board.background }"
+        >
+            <group-list
+                @saveCopy="SaveCopyToBoard"
+                @boardModified="updateBoard"
+                @removeGroup="groupRemove"
+                @openCardDetails="openCardDetailsModal"
+                @groupUpdated="updateGroup"
+                :board="board"
+                :groups="board.groups"
+                :newGroup="newGroup"
+                @addGroup="addNewGroup"
+                @groupDnd="updateBoardDnd"
+            ></group-list>
+        </section>
 
-    <dialog ref="cardDetailsModal" class="modal">
-        <card-details
-            v-if="isCardOpen"
-            @deleteCardFromGroup="deleteCardFromGroup"
-            @boardModified="updateBoard"
-            @cardModified="updateCard"
-            @closeDialog="closeDiag"
-            @saveCopy="SaveCopyToBoard"
-            :board="board"
-            :card="cardToShow"
-            :group="groupToShow"
-        ></card-details>
-    </dialog>
+        <dialog ref="cardDetailsModal" class="modal">
+            <card-details
+                v-if="isCardOpen"
+                @deleteCardFromGroup="deleteCardFromGroup"
+                @boardModified="updateBoard"
+                @cardModified="updateCard"
+                @closeDialog="closeDiag"
+                @saveCopy="SaveCopyToBoard"
+                :board="board"
+                :card="cardToShow"
+                :group="groupToShow"
+            ></card-details>
+        </dialog>
+    </section>
 </template>
 
 <script>

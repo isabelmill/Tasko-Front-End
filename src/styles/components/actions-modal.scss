@@ -153,6 +153,7 @@
     height: 40px;
     width: 40px;
     padding: 10px 12px 10px 8px;
+    @include to-icon("\e91c")
 }
 
 .actions-modal-main {

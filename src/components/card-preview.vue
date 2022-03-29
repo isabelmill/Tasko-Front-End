@@ -7,7 +7,9 @@
                     v-bind:style="{ backgroundColor: card.cover.value }"
                 >
                     <div class="card-title">
-                        <span :style="(card.cover.value==='#172B4D')? {color: '#FFFFFF'}: {color:'#172B4D'}">{{ card.title }}</span>
+                        <span
+                            :style="(card.cover.value === '#172B4D') ? { color: '#FFFFFF' } : { color: '#172B4D' }"
+                        >{{ card.title }}</span>
                     </div>
                 </div>
             </section>
@@ -29,11 +31,10 @@
                 </div>
             </section>
             <section v-if="card.cover.type === 'color' && card.cover.size === 'small'">
-                <div class="card-cover-color-small"
-                v-bind:style="{ backgroundColor: card.cover.value }"
-                >
-
-                </div>
+                <div
+                    class="card-cover-color-small"
+                    v-bind:style="{ backgroundColor: card.cover.value }"
+                ></div>
             </section>
             <section v-if="card.cover.type === 'attachment' && card.cover.size === 'small'">
                 <div
@@ -124,9 +125,8 @@
                     <button @click.stop.prevent="openDetails">Open card</button>
                     <button ref="labelBtn" @click.stop.prevent="editLabels">Edit labels</button>
                     <button ref="membersBtn" @click.stop.prevent="changeMembers">Change members</button>
-                    <button @click.stop.prevent="changeCover">Change cover</button>
-                    <button @click.stop.prevent="moveCard">Move</button>
-                    <button @click.stop.prevent="copyCard">Copy</button>
+                    <button ref="coverBtn" @click.stop.prevent="changeCover">Change cover</button>
+                    <button ref="copyBtn" @click.stop.prevent="copyCard">Copy</button>
                     <button ref="datesBtn" @click.stop.prevent="editDates">Edit dates</button>
                     <button ref="deleteBtn" @click.stop.prevent="deleteWarn">Delete</button>
                 </section>
@@ -142,6 +142,7 @@
             <section v-if="shown">
                 <component
                     @click.prevent.stop
+                    @cardCopySave="CopyNewCard"
                     @boardEdit="editBoard"
                     @cardEdit="showEditedCard"
                     @actionsClose="closeMenu"
@@ -164,6 +165,8 @@ import labelModal from "./label-modal-cmp.vue";
 import memebersModal from "./memebers-modal-cmp.vue";
 import datesModal from "./date-modal-cmp.vue";
 import deleteWarning from "./delete-warning-modal-cmp.vue";
+import coverModal from "./cover-modal-cmp.vue";
+import copyModal from "./copy-modal-cmp.vue";
 import moment from 'moment'
 // import { json } from "stream/consumers";
 // import { throws } from "assert";
@@ -191,7 +194,9 @@ export default {
         labelModal,
         memebersModal,
         datesModal,
-        deleteWarning
+        coverModal,
+        deleteWarning,
+        copyModal
         // throws
     },
     data() {
@@ -244,6 +249,22 @@ export default {
             this.currModal = "datesModal"
             this.shown = !this.shown
         },
+        changeCover() {
+            this.posOfEditor = this.$refs['coverBtn'].getBoundingClientRect()
+            // this.posOfEditor = JSON.parse(JSON.stringify(this.posOfEditor))
+            // this.posOfEditor.bottom = 370
+            this.currModal = "coverModal"
+            this.shown = !this.shown
+        },
+        copyCard() {
+            this.posOfEditor = this.$refs['copyBtn'].getBoundingClientRect()
+            this.shown = !this.shown
+            this.currModal = "copyModal"
+        },
+        CopyNewCard(copy){
+            this.$emit('copyCardToGroup', copy)
+            this.closeModal()
+        },
         changeTitle(title) {
             this.cardToEdit = JSON.parse(JSON.stringify(this.card))
             this.cardToEdit.title = title
@@ -264,7 +285,6 @@ export default {
             this.shown = false
             this.$emit('openCard', { card: this.card, group: this.group })
         },
-
         openAllLabels() {
             this.isLabelClicked = !this.isLabelClicked
             this.$emit('openAllLabels', this.isLabelClicked)
@@ -326,8 +346,8 @@ export default {
         updateDate() {
             return { dateRed: !this.isDateClicked, dateGreen: this.isDateClicked };
         },
-        
+
     },
-    emits: ['openCard', 'editCard', 'openAllLabels', 'deleteCard', 'boardUpdated', 'toggleQuickEdit'],
+    emits: ['copyCardToGroup','openCard', 'editCard', 'openAllLabels', 'deleteCard', 'boardUpdated', 'toggleQuickEdit'],
 }
 </script>

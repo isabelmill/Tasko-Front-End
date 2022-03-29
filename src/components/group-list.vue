@@ -36,6 +36,7 @@
                 >
                     <Draggable v-for="card in group.cards" :key="card.id">
                         <card-preview
+                        @copyCardToGroup="saveCopyToGroup"
                             @toggleQuickEdit="toggleQuickEdit"
                             @boardUpdated="modifyBoard"
                             @deleteCard="cardDelete"
@@ -159,7 +160,9 @@ export default {
             this.groupToEdit.cards.splice(cardIdx, 1, card)
             this.$emit('groupUpdated', this.groupToEdit)
         },
-
+        saveCopyToGroup(copy){
+            this.$emit('saveCopy',copy)
+        },
         deleteGroup(groupId) {
             this.$emit('removeGroup', groupId)
         },
@@ -193,7 +196,7 @@ export default {
             // console.log(...params)
         }
     },
-    emits: ['openCardDetails', 'removeGroup', 'groupUpdated', 'addGroup', 'groupDnd', 'boardModified']
+    emits: ['saveCopy','openCardDetails', 'removeGroup', 'groupUpdated', 'addGroup', 'groupDnd', 'boardModified']
 
 }
 </script>

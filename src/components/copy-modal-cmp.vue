@@ -14,7 +14,11 @@
             <p class="header-second">Keep</p>
             <div class="keep-list">
                 <div v-if="card.labels.length" class="keep-checkbox">
-                    <div v-if="!keepList.labels" @click.stop.prevent="toggleCardKeep('labels')" class="checkbox"></div>
+                    <div
+                        v-if="!keepList.labels"
+                        @click.stop.prevent="toggleCardKeep('labels')"
+                        class="checkbox"
+                    ></div>
                     <img
                         v-if="keepList.labels"
                         @click.stop.prevent="toggleCardKeep('labels')"
@@ -129,7 +133,7 @@ export default {
             // set positions
             this.positions = []
             var counter = 0
-            var num = selectedGroup.cards.length === 0 ? 1 : selectedGroup.cards.length
+            var num = !selectedGroup.cards.length ? 1 : selectedGroup.cards.length
             while (counter < num) {
                 counter++;
                 this.positions.push(counter)
@@ -152,7 +156,7 @@ export default {
             this.$emit('cardCopySave', { cardCopy: this.cardToCopy, posCopy: this.copyToPos })
         }
     },
-    emits: ['actionsClose','cardCopySave']
+    emits: ['actionsClose', 'cardCopySave']
 
 }
 </script>
