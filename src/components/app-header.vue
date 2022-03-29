@@ -101,7 +101,7 @@
     <!-- <button class="icon-btn"><font-awesome-icon icon="fa-regular fa-plus-large" /></button> -->
     <!-- <button class="icon-btn">
       <span class="icon-md icon-add-light"></span>
-    </button> -->
+    </button>-->
 
     <span class="search-nav">
       <search />
@@ -147,9 +147,19 @@
           />
         </svg>
       </span>
-      <span class="user-icon">
+
+      <span @click="openLoggedInUserModal(), calcPosOfBox()" ref="user" class="user-icon">
         <img src="../assets/img/user.png" alt="user-icon" />
       </span>
+
+<logged-in-user-modal
+      v-if="openUserModal"
+      :boards="boards"
+      :style="{ top: '48' + 'px', right: 0 }"
+      v-clickOutside="closeUserModal"
+      @close="closeUserModal"
+></logged-in-user-modal>
+
     </span>
   </section>
 </template>
@@ -158,14 +168,17 @@
 import search from "./search.vue"
 import starredBoardsModal from "./starred-boards-modal.vue"
 import recentBoardsModal from "./recent-boards-modal.vue"
+import loggedInUserModal from "./logged-in-user-modal.vue"
 export default {
   name: 'app-header',
   data() {
     return {
       openStarredModal: false,
       openRecentModal: false,
+      openUserModal: false,
       pos: 0,
       posRecent: 0,
+      posUser: 0,
     }
   },
   computed: {
@@ -198,8 +211,14 @@ export default {
     calcPosOfBox() {
       this.pos = this.$refs['starred'].getBoundingClientRect()
       this.posRecent = this.$refs['recent'].getBoundingClientRect()
-
+      this.posUser = this.$refs['user'].getBoundingClientRect()
     },
+    openLoggedInUserModal() {
+      this.openUserModal = true
+    },
+      closeUserModal() {
+        this.openUserModal = false;
+      },
     lightenDarkenColor(colorCode, amount) {
       if (colorCode === '#0079BF') return '#0066A0'
       if (colorCode === '#00AECC') return '#0092AB'
@@ -232,19 +251,11 @@ export default {
       return (usePound ? "#" : "") + (g | (b << 8) | (r << 16)).toString(16);
     }
   },
-  // watch: {
-  //   "$route.params.boardId": {
-  //     async handler(newId) {
-  //       this.$store.dispatch({ type: 'loadBoardById', newId })
-  //     },
-  //     immediate: true
-
-  //   }
-  // },
   components: {
     search,
     recentBoardsModal,
-    starredBoardsModal
+    starredBoardsModal,
+    loggedInUserModal
   },
 }
 </script>
