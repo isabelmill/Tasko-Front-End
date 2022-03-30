@@ -191,17 +191,11 @@ export default {
             this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
         },
         saveActivity(txt) {
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
             if (this.loggedinUser) this.newActivity.byMember = this.loggedinUser
             this.newActivity.txt = txt
             this.boardToEdit.activities.unshift(this.newActivity)
             this.newActivity = boardService.getEmptyActivity()
-=======
-
             console.log('txt:', txt);
->>>>>>> 793447d1daaf8d541e57dc2a9ee51a9285a3b686
             this.boardToEdit = JSON.parse(JSON.stringify(this.board))
             if (this.loggedinUser) this.newActivity.byMember = this.loggedinUser
             // if (this.boardToEdit.activities[0].txt !== txt) {
@@ -210,7 +204,6 @@ export default {
             this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
             this.newActivity = boardService.getEmptyActivity()
             // }
->>>>>>> 6c4573c13a74068ac42a285410bbd1bbc8cf1611
         }
     },
     computed: {
@@ -232,14 +225,11 @@ export default {
             async handler(newId) {
                 if (newId) {
                     await this.$store.dispatch({ type: 'loadBoardById', newId })
-<<<<<<< HEAD
                     console.log('board lastTimeWatched')
-=======
                     console.log('newId:', newId);
                     // socketService.emit('board updated', board => {
                     //     this.socketTest(board)
                     // })
->>>>>>> 793447d1daaf8d541e57dc2a9ee51a9285a3b686
                     socketService.emit('watch board', newId)
                     socketService.emit('set-user-socket', userService.getLoggedinUser()._id)
                 }
