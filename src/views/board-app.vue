@@ -56,7 +56,7 @@
                             v-clickOutside="closeBoardEdit"
                             @close="closeBoardEdit"
                             @add="saveNewBoard"
-                            :style="{ top: pos.top + 'px', left: '830' + 'px' }"
+                            :style="{ 'top': pos.top + 'px', 'left': '830' + 'px' , 'bottom' : '0' }"
                             :newBoard="newBoard"
                         ></create-board-modal>
                     </div>
