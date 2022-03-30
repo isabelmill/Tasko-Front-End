@@ -49,9 +49,10 @@
                             v-clickOutside="closeBoardEdit"
                             @close="closeBoardEdit"
                             @add="saveNewBoard"
-                            :style="{ 'top': pos.top + 'px', 'left': '830' + 'px', 'bottom': '0' }"
+                            :style="{  'left': '730' + 'px' , 'bottom' : '0' }"
                             :newBoard="newBoard"
                         ></create-board-modal>
+                         <!-- :style="{ 'top': pos.top + 'px', 'left': '830' + 'px', 'bottom': '0' }" -->
                     </div>
                     <div v-if="isFolder.templates" class="boards-info">
                         <div class="border-list">

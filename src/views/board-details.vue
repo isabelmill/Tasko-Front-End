@@ -19,7 +19,6 @@
                 @saveCopy="saveCopyToBoard"
                 @boardModified="updateBoard"
                 @removeGroup="groupRemoveFromBoard"
-                @activitySave="saveActivity"
                 @openCardDetails="openCardDetailsModal"
                 @groupUpdated="updateGroup"
                 :groups="board.groups"
@@ -29,20 +28,22 @@
                 @groupDnd="updateBoardDnd"
             ></group-list>
         </section>
-
-        <dialog ref="cardDetailsModal" class="modal">
-            <card-details
-                v-if="isCardOpen"
-                @deleteCardFromGroup="deleteCardFromGroup"
-                @boardModified="updateBoard"
-                @cardModified="updateCard"
-                @closeDialog="closeDiag"
-                @saveCopy="saveCopyToBoard"
-                :board="board"
-                :card="cardToShow"
-                :group="groupToShow"
-            ></card-details>
-        </dialog>
+        <section v-if="isCardOpen" class="dialog-container card-details-scroll">
+           
+                <card-details
+                ref="cardDetailsModal"
+                class="modal"
+                    @deleteCardFromGroup="deleteCardFromGroup"
+                    @boardModified="updateBoard"
+                    @cardModified="updateCard"
+                    @closeDialog="closeDiag"
+                    @saveCopy="saveCopyToBoard"
+                    :board="board"
+                    :card="cardToShow"
+                    :group="groupToShow"
+                ></card-details>
+            
+        </section>
         <!-- <section>
             <dialog ref="cardDetailsModal" class="modal">
                 <card-details
@@ -91,12 +92,13 @@ export default {
     },
     mounted() {
         console.log(this.board)
-        socketService.on('board-changed',this.socketBoardUpdate)
+        socketService.on('board-changed', this.socketBoardUpdate)
         socketService.on('connected', this.socketTest)
     },
     methods: {
-        socketBoardUpdate(board){
-            this.$store.commit('setBoard', board)
+        socketBoardUpdate(board) {
+            console.log(board);
+            this.$store.commit({ type: 'setBoard', board })
         }
         ,
         groupRemoveFromBoard(groupId) {
@@ -128,7 +130,6 @@ export default {
             this.updateGroup(this.groupToEdit)
         },
         deleteCardFromGroup({ card, group }) {
-            this.saveActivity('removed ' + card.title)
             this.groupToEdit = JSON.parse(JSON.stringify(group))
             const cardToEditIdx = this.groupToEdit.cards.findIndex(cardToFind => cardToFind.id === card.id)
             this.groupToEdit.cards.splice(cardToEditIdx, 1)
@@ -146,10 +147,9 @@ export default {
             this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
         },
         openCardDetailsModal(info) {
-            this.isCardOpen = true
             this.selectedCardIdx = this.board.groups.find(group => group.id === info.group.id).cards.findIndex(card => card.id === info.card.id)
             this.selectedCardGroupIdx = this.board.groups.findIndex(group => group.id === info.group.id)
-            this.$refs.cardDetailsModal.showModal()
+            this.isCardOpen = true
         },
         closeDiag() {
             this.isCardOpen = false
@@ -195,15 +195,6 @@ export default {
             this.newActivity.txt = txt
             this.boardToEdit.activities.unshift(this.newActivity)
             this.newActivity = boardService.getEmptyActivity()
-            console.log('txt:', txt);
-            this.boardToEdit = JSON.parse(JSON.stringify(this.board))
-            if (this.loggedinUser) this.newActivity.byMember = this.loggedinUser
-            // if (this.boardToEdit.activities[0].txt !== txt) {
-            this.newActivity.txt = txt
-            this.boardToEdit.activities.unshift(this.newActivity)
-            this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
-            this.newActivity = boardService.getEmptyActivity()
-            // }
         }
     },
     computed: {
@@ -243,11 +234,11 @@ export default {
 
 <style>
 .modal {
-    max-height: 800px;
-    margin-top: 80px;
+    /* max-height: 800px; */
+    /* margin-top: 80px; */
     border-radius: 2px;
-    max-width: 768px;
-    border: 0;
+    /* max-width: 768px; */
+    /* border: 0; */
     box-shadow: 0 0 1em rgb(0, 0, 0/0.3);
 }
 
