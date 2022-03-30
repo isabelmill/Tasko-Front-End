@@ -135,6 +135,35 @@
                                     v-model="cardToDisplay.title"
                                 ></textarea>
                             </div>
+                            <div class="card-bar">
+                                <div class="card-bar-icon">
+                                    <div
+                                        v-if="card.date"
+                                        class="date"
+                                        @click.stop.prevent="onDateClicked"
+                                        :class="updateDateStyle(card.date)"
+                                    >
+                                        <span class="icon-sm icon-clock-in-date"></span>
+                                        <span class="date-txt">{{ setDateFormat(card.date) }}</span>
+                                    </div>
+                                </div>
+                                <div v-if="card.attachments.length" class="attachments">
+                                    <span class="icon-sm icon-attachment-pre"></span>
+                                    <span class="attachments-length">{{ card.attachments.length }}</span>
+                                </div>
+                                <div class="card-bar-members">
+                                    <div
+                                        v-if="card.members.length && board.members.length"
+                                        class="members"
+                                    >
+                                        <div
+                                            class="member"
+                                            v-for="member in card.members"
+                                            :key="member._id"
+                                        >{{ setMemberLetters(member.fullname) }}</div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div>
@@ -142,13 +171,34 @@
                     </div>
                 </section>
                 <section class="modal-actions-btns" @click.prevent.stop>
-                    <button @click.stop.prevent="openDetails">Open card</button>
-                    <button ref="labelBtn" @click.stop.prevent="editLabels">Edit labels</button>
-                    <button ref="membersBtn" @click.stop.prevent="changeMembers">Change members</button>
-                    <button ref="coverBtn" @click.stop.prevent="changeCover">Change cover</button>
-                    <button ref="copyBtn" @click.stop.prevent="copyCard">Copy</button>
-                    <button ref="datesBtn" @click.stop.prevent="editDates">Edit dates</button>
-                    <button ref="deleteBtn" @click.stop.prevent="deleteWarn">Delete</button>
+                    <button @click.stop.prevent="openDetails">
+                        <span class="icon-sm icon-card-pen"></span>
+                        <p>Open card</p>
+                    </button>
+                    <button ref="labelBtn" @click.stop.prevent="editLabels">
+                        <span class="icon-sm icon-label-pen"></span>
+                        <p>Edit labels</p>
+                    </button>
+                    <button ref="membersBtn" @click.stop.prevent="changeMembers">
+                        <span class="icon-sm icon-member-pen"></span>
+                        <p>Change members</p>
+                    </button>
+                    <button ref="coverBtn" @click.stop.prevent="changeCover">
+                        <span class="icon-sm icon-card-cover-pen"></span>
+                        <p>Change cover</p>
+                    </button>
+                    <button ref="copyBtn" @click.stop.prevent="copyCard">
+                        <span class="icon-sm icon-card-copy-pen"></span>
+                        <p>Copy</p>
+                    </button>
+                    <button ref="datesBtn" @click.stop.prevent="editDates">
+                        <span class="icon-sm icon-clock-pen"></span>
+                        <p>Edit dates</p>
+                    </button>
+                    <button ref="deleteBtn" @click.stop.prevent="deleteWarn">
+                        <span class="icon-sm icon-delete-pen"></span>
+                        <p>Delete</p>
+                    </button>
                 </section>
             </section>
             <delete-warning
