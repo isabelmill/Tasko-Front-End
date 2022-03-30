@@ -218,6 +218,7 @@ export default {
                 if (newId) {
                     await this.$store.dispatch({ type: 'loadBoardById', newId })
                     console.log('board lastTimeWatched')
+                    console.log('newId:', newId);
                     // socketService.emit('board updated', board => {
                     //     this.socketTest(board)
                     // })
