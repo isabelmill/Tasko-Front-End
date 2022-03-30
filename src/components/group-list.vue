@@ -11,45 +11,45 @@
             :key="group.id"
             class="group-preview-main"
             drag-class="tilt"
-            
         >
-
-        <!-- :class="{ 'no-pointer-events': pointerEvents }" -->
+            <!-- :class="{ 'no-pointer-events': pointerEvents }" -->
             <div :class="group.props.className">
                 <!-- <span class="column-drag-handle">&#x2630;</span> -->
-                <toggle-input-cmp
-                    class="title"
-                    @groupDelete="deleteGroup"
-                    @titleChange="changeTitle"
-                    :title="group.title"
-                    :id="group.id"
-                ></toggle-input-cmp>
-                <Container
-                    class="scroller-group"
-                    drag-class="tilt"
-                    group-name="col"
-                    orientation="vertical"
-                    :get-child-payload="getCardPayload(group.id)"
-                    @drag-start="(e) => log('drag start', e)"
-                    @drag-end="(e) => log('drag end', e)"
-                    @drop="(e) => onCardDrop(group.id, e)"
-                >
-                    <Draggable v-for="card in group.cards" :key="card.id">
-                        <card-preview
-                        @copyCardToGroup="saveCopyToGroup"
-                            @toggleQuickEdit="toggleQuickEdit"
-                            @boardUpdated="modifyBoard"
-                            @deleteCard="cardDelete"
-                            @openCard="openCardModal"
-                            @openAllLabels="onOpenAllLabels"
-                            @editCard="saveCardToBoard"
-                            :group="group"
-                            :card="card"
-                            :board="board"
-                            :isLabelOpen="isLabelOpen"
-                        ></card-preview>
-                    </Draggable>
-                </Container>
+                <div>
+                    <toggle-input-cmp
+                        class="title"
+                        @groupDelete="deleteGroup"
+                        @titleChange="changeTitle"
+                        :title="group.title"
+                        :id="group.id"
+                    ></toggle-input-cmp>
+                    <Container
+                        class="scroller-group"
+                        drag-class="tilt"
+                        group-name="col"
+                        orientation="vertical"
+                        :get-child-payload="getCardPayload(group.id)"
+                        @drag-start="(e) => log('drag start', e)"
+                        @drag-end="(e) => log('drag end', e)"
+                        @drop="(e) => onCardDrop(group.id, e)"
+                    >
+                        <Draggable v-for="card in group.cards" :key="card.id">
+                            <card-preview
+                                @copyCardToGroup="saveCopyToGroup"
+                                @toggleQuickEdit="toggleQuickEdit"
+                                @boardUpdated="modifyBoard"
+                                @deleteCard="cardDelete"
+                                @openCard="openCardModal"
+                                @openAllLabels="onOpenAllLabels"
+                                @editCard="saveCardToBoard"
+                                :group="group"
+                                :card="card"
+                                :board="board"
+                                :isLabelOpen="isLabelOpen"
+                            ></card-preview>
+                        </Draggable>
+                    </Container>
+                </div>
                 <add-card-cmp @cardAdd="addNewCard" :group="group"></add-card-cmp>
             </div>
         </Draggable>
@@ -158,8 +158,8 @@ export default {
             this.groupToEdit.cards.splice(cardIdx, 1, card)
             this.$emit('groupUpdated', this.groupToEdit)
         },
-        saveCopyToGroup(copy){
-            this.$emit('saveCopy',copy)
+        saveCopyToGroup(copy) {
+            this.$emit('saveCopy', copy)
         },
         deleteGroup(groupId) {
             this.$emit('removeGroup', groupId)
@@ -194,7 +194,7 @@ export default {
             // console.log(...params)
         }
     },
-    emits: ['saveCopy','openCardDetails', 'removeGroup', 'groupUpdated', 'addGroup', 'groupDnd', 'boardModified']
+    emits: ['saveCopy', 'openCardDetails', 'removeGroup', 'groupUpdated', 'addGroup', 'groupDnd', 'boardModified']
 
 }
 </script>
