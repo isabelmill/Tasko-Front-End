@@ -162,6 +162,7 @@ export default {
             this.$emit('saveCopy', copy)
         },
         deleteGroup(groupId) {
+            console.log('got here',groupId);
             this.$emit('removeGroup', groupId)
         },
         close() {

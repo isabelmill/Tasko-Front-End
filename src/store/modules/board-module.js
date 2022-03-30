@@ -61,8 +61,10 @@ export default {
         },
         async saveBoard({ commit }, { board }) {
             try {
+                console.log('board._id:',board._id);
                 if (board._id) commit({ type: 'setBoard', board });
                 const savedBoard = await boardService.save(board)
+                console.log('savedBoard:',savedBoard);
                 // console.log(savedBoard);
                 commit({ type: 'saveBoard', board: savedBoard });
                 // commit({ type: 'setBoard', board: newBoard });
