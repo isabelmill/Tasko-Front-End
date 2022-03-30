@@ -296,6 +296,7 @@ export default {
             this.cardToEdit = JSON.parse(JSON.stringify(this.card))
             this.cardToEdit.cover = {}
             this.color = ''
+            
             this.attachmentIdx = ''
             this.$emit('cardEdit', this.cardToEdit)
         },
