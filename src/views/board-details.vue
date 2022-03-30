@@ -192,18 +192,9 @@ export default {
         },
         saveActivity(txt) {
             if (this.loggedinUser) this.newActivity.byMember = this.loggedinUser
-<<<<<<< HEAD
             this.newActivity.txt = txt
             this.boardToEdit.activities.unshift(this.newActivity)
             this.newActivity = boardService.getEmptyActivity()
-=======
-            // if (this.boardToEdit.activities[0].txt !== txt) {
-            this.newActivity.txt = txt
-            this.boardToEdit.activities.unshift(this.newActivity)
-            // this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
-            this.newActivity = boardService.getEmptyActivity()
-            // }
->>>>>>> 319691f66777726fc04ed5e3221423654417d4ae
         }
     },
     computed: {
