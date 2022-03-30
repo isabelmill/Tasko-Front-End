@@ -29,6 +29,7 @@
             ></group-list>
         </section>
 
+         
         <dialog ref="cardDetailsModal" class="modal">
             <card-details
                 v-if="isCardOpen"
@@ -42,6 +43,21 @@
                 :group="groupToShow"
             ></card-details>
         </dialog>
+        <!-- <section>
+            <dialog ref="cardDetailsModal" class="modal">
+                <card-details
+                    v-if="isCardOpen"
+                    @deleteCardFromGroup="deleteCardFromGroup"
+                    @boardModified="updateBoard"
+                    @cardModified="updateCard"
+                    @closeDialog="closeDiag"
+                    @saveCopy="SaveCopyToBoard"
+                    :board="board"
+                    :card="cardToShow"
+                    :group="groupToShow"
+                ></card-details>
+            </dialog>
+        </section> -->
     </section>
 </template>
 
@@ -203,7 +219,7 @@ export default {
     watch: {
         "$route.params.boardId": {
             async handler(newId) {
-                if (newId) {                    
+                if (newId) {
                     await this.$store.dispatch({ type: 'loadBoardById', newId })
                     // socketService.emit('board updated', board => {
                     //     this.socketTest(board)

@@ -270,7 +270,6 @@
             justify-content: center;
             flex-direction: row;
             gap: 4px;
-
             .attachments-length {
                 color: #5e6c84;
                 display: inline-block;
@@ -355,9 +354,7 @@
     overflow: auto;
     position: relative;
     .label {
-        transition: all 0.3s;
         border-radius: 4px;
-        color: #fff;
         display: block;
         overflow: hidden;
         position: relative;
@@ -372,18 +369,21 @@
         margin: 0 4px 4px 0;
         width: auto;
         height: 8px;
-        line-height: 100px;
+        line-height: 16px;
         max-width: 40px;
         min-width: 40px;
+        color: transparent;
+        transition: max-width .3s .3s, padding .3s .3s, height .3s, color .3s;
         // &:hover {
         //     .label{
         //     }
         // }
     }
     .labelOpen {
+        transition: max-width .3s, padding .3s, height .3s .3s, color .3s .3s;
         ///on-click
+        color: #fff;
         height: 16px;
-        line-height: 16px;
         max-width: 198px;
         padding: 0 8px;
     }
