@@ -278,6 +278,7 @@
     }
 }
 
+
 .dateUncompleted {
     cursor: pointer;
     color: #5e6c84;
@@ -773,4 +774,7 @@
 .icon-delete-pen {
     @include to-icon("\e907");
     color: #fff;
+}
+.icon-description {
+    @include to-icon("\e922");
 }

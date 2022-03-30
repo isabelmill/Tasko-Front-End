@@ -101,9 +101,10 @@
 .create-board-modal {
     position: fixed;
     width: rem(304px);
-    top: rem(184px);
+    // top: rem(584px);
     left: rem(650px);
     color: #172b4d;
+    z-index: 1;
     font-size: rem(14px);
     background-color: #ffffff;
     border-radius: rem(3px);

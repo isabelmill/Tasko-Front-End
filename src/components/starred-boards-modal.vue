@@ -13,17 +13,16 @@
                 <div
                     class="boards-render-modal-starred"
                     @click="goToDetails(board)"
-                    v-for="board in boards"
+                    v-for="board in starredBoards"
                     :board="board"
                     :key="board"
                 >
                     <div
-                        v-if="board.isStarred"
                         class="board-background-starred-modal"
                         :style="board.background ? { 'backgroundColor': board.background } : { 'background-image': `url(${board.backgroundPhoto})` }"
                     ></div>
 
-                    <div class="modal-starred-board" v-if="board.isStarred">{{ board.title }}</div>
+                    <div class="modal-starred-board" >{{ board.title }}</div>
                 </div>
             </div>
         </div>
@@ -46,6 +45,11 @@ export default {
         goToDetails(board) {
             this.$emit("close");
             this.$router.push(`/board/${board._id}`)
+        },
+    },
+        computed: {
+        starredBoards(){
+            return this.$store.getters.starredBoards
         },
     },
 }

@@ -78,6 +78,9 @@
                         <span class="icon-sm icon-attachment-pre"></span>
                         <span class="attachments-length">{{ card.attachments.length }}</span>
                     </div>
+                    <div v-if="card.description" class="description">
+                        <span class="icon-sm icon-description"></span>
+                    </div>
                     <div class="card-bar-members">
                         <div v-if="card.members.length && board.members.length" class="members">
                             <div
@@ -151,6 +154,9 @@
                                 <div v-if="card.attachments.length" class="attachments">
                                     <span class="icon-sm icon-attachment-pre"></span>
                                     <span class="attachments-length">{{ card.attachments.length }}</span>
+                                </div>
+                                <div v-if="card.description" class="description">
+                                    <span class="icon-sm icon-description"></span>
                                 </div>
                                 <div class="card-bar-members">
                                     <div
