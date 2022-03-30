@@ -7,13 +7,12 @@
         drag-handle-selector=".group-preview-main"
     >
         <Draggable
-            v-for="group in groups"
-            :key="group.id"
+            v-for="group in board.groups" :key="group"
             class="group-preview-main"
             drag-class="tilt"
         >
             <!-- :class="{ 'no-pointer-events': pointerEvents }" -->
-            <div :class="group.props.className">
+            <div>
                 <!-- <span class="column-drag-handle">&#x2630;</span> -->
                 <div>
                 <toggle-input-cmp
@@ -96,7 +95,8 @@ export default {
             type: Object
         },
         board: {
-            type: Object
+            type: Object,
+            required : true
         },
     },
     data() {

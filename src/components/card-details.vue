@@ -305,29 +305,30 @@
                         </div>
 
                         <!-- comments render  -->
-                        <div
-                            class="comments-rendering flex"
-                            v-if="card.comments"
-                            v-for="comment in card.comments"
-                            :key="comment"
-                        >
-                            <div class="card-details-user-avatar member">
-                                <div>{{ setMemberLetters(comment.byMember.fullname) }}</div>
-                            </div>
-                            <div class="comment-info">
-                                <div class="comment-info-name-date">
-                                    <p>
-                                        <span>{{ comment.byMember.username }}</span>
-                                        {{ generateTime(comment.createdAt) }}
-                                    </p>
+                        <div v-if="card.comments">
+                            <div
+                                class="comments-rendering flex"
+                                v-for="comment in card.comments"
+                                :key="comment"
+                            >
+                                <div class="card-details-user-avatar member">
+                                    <div>{{ setMemberLetters(comment.byMember.fullname) }}</div>
                                 </div>
-                                <div class="comment-info-txt">
-                                    <p>{{ comment.txt }}</p>
-                                </div>
-                                <div class="comment-info-btns flex">
-                                    <p>Edit</p>
-                                    <a>-</a>
-                                    <p @click="deleteComment(comment.id)">Delete</p>
+                                <div class="comment-info">
+                                    <div class="comment-info-name-date">
+                                        <p>
+                                            <span>{{ comment.byMember.username }}</span>
+                                            {{ generateTime(comment.createdAt) }}
+                                        </p>
+                                    </div>
+                                    <div class="comment-info-txt">
+                                        <p>{{ comment.txt }}</p>
+                                    </div>
+                                    <div class="comment-info-btns flex">
+                                        <p>Edit</p>
+                                        <a>-</a>
+                                        <p @click="deleteComment(comment.id)">Delete</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>

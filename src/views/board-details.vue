@@ -18,12 +18,12 @@
             <group-list
                 @saveCopy="saveCopyToBoard"
                 @boardModified="updateBoard"
-                @removeGroup="groupRemove"
+                @removeGroup="groupRemoveFromBoard"
                 @activitySave="saveActivity"
                 @openCardDetails="openCardDetailsModal"
                 @groupUpdated="updateGroup"
-                :board="board"
                 :groups="board.groups"
+                :board="board"
                 :newGroup="newGroup"
                 @addGroup="addNewGroup"
                 @groupDnd="updateBoardDnd"
@@ -99,25 +99,26 @@ export default {
     },
 
     mounted() {
+        console.log(this.board)
         socketService.on('board-changed', this.socketTest)
         socketService.on('connected', this.socketTest)
     },
     methods: {
-        groupRemove(groupId) {
+        groupRemoveFromBoard(groupId) {
             this.boardToEdit = JSON.parse(JSON.stringify(this.board))
+            this.newActivity = boardService.getEmptyActivity()
             if (this.loggedinUser) this.newActivity.byMember = this.loggedinUser
 
-            const group = this.boardToEdit.groups.find((group) => group.id === groupId)
-            this.saveActivity('removed list ' + group.title)
-
             const idx = this.boardToEdit.groups.findIndex((group) => group.id === groupId)
+        
+            this.saveActivity('removed list ' + this.boardToEdit.groups[idx].title)
             this.boardToEdit.groups.splice(idx, 1)
             this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
         },
         addNewGroup(newGroup) {
             if (!newGroup.title) return
             this.boardToEdit = JSON.parse(JSON.stringify(this.board))
-
+            boardService.getEmptyActivity()
             this.saveActivity('added ' + newGroup.title + '  to this board')
 
             this.boardToEdit.groups.push(newGroup)
@@ -204,6 +205,7 @@ export default {
             // this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
         },
         saveActivity(txt) {
+            
             console.log('txt:',txt);
             this.boardToEdit = JSON.parse(JSON.stringify(this.board))
             if (this.loggedinUser) this.newActivity.byMember = this.loggedinUser
