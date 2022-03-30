@@ -8,13 +8,13 @@
     gap: 10px;
     flex-wrap: wrap;
     justify-content: flex-start;
+    margin-right: 150px;
 }
 
 // .main-container {
 //     // width: 100%;
 // }
 .contact {
-    // margin-top: rem(20px);
     display: flex;
     margin: 40px 0 0 210px;
 }
@@ -105,9 +105,10 @@
 .create-board-modal {
     position: fixed;
     width: rem(304px);
-    top: rem(184px);
+    // top: rem(584px);
     left: rem(650px);
     color: #172b4d;
+    z-index: 1;
     font-size: rem(14px);
     background-color: #ffffff;
     border-radius: rem(3px);
@@ -307,7 +308,7 @@
 
 .scroll-groups::-webkit-scrollbar-thumb {
     border-radius: 4px;
-    background-color: #70aad0;
+    background-color: #adb6b831;
 }
 
 .scroll-groups::-webkit-scrollbar-button {

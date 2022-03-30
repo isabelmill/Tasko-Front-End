@@ -112,7 +112,6 @@ export default {
         };
     },
     created() {
-        console.log('this.groups:',this.groups);
     },
     computed: {
         boardToEdit() {
@@ -140,7 +139,7 @@ export default {
             this.groupToEdit = JSON.parse(JSON.stringify(this.groups.find(groupToCheck => groupToCheck.id === group.id)))
             this.groupToEdit.cards.push(newCard)
             this.$emit('groupUpdated', this.groupToEdit)
-            this.$emit('activitySave', 'added ' + newCard.title + ' to ' + group.title)
+            // this.$emit('activitySave', 'added ' + newCard.title + ' to ' + group.title)
             this.groupToEdit = null
         },
         cardDelete(updatedGroup) {

@@ -90,9 +90,14 @@
             flex-direction: row;
             gap: 17px;
             font-weight: 400;
-            align-items: center;
+            // align-items: center;
             justify-content: center;
             p {
+                word-wrap: break-word;
+                height: 100%;
+                // width: 50px;
+                max-width: 32.1875rem;
+                line-break: auto;
                 font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
                 font-size: 20px;
                 font-weight: 600;
@@ -675,6 +680,7 @@
                 .card-description {
                     margin-top: 15px;
                     margin-bottom: 35px;
+                    max-width: 500px;
                     padding-left: 42px;
                     font-size: 13px;
                     color: #42526e;

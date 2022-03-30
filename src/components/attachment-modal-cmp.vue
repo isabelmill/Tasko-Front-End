@@ -71,7 +71,7 @@ export default {
                 name: result.original_filename,
                 link: result.secure_url
             })
-            console.log(this.cardToEdit.attachments)
+            // console.log(this.cardToEdit.attachments)
             this.$emit('cardEdit', this.cardToEdit)
         },
     },

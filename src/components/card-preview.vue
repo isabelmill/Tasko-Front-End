@@ -78,6 +78,9 @@
                         <span class="icon-sm icon-attachment-pre"></span>
                         <span class="attachments-length">{{ card.attachments.length }}</span>
                     </div>
+                    <div v-if="card.description" class="description">
+                        <span class="icon-sm icon-description"></span>
+                    </div>
                     <div class="card-bar-members">
                         <div v-if="card.members.length && board.members.length" class="members">
                             <div
@@ -151,6 +154,9 @@
                                 <div v-if="card.attachments.length" class="attachments">
                                     <span class="icon-sm icon-attachment-pre"></span>
                                     <span class="attachments-length">{{ card.attachments.length }}</span>
+                                </div>
+                                <div v-if="card.description" class="description">
+                                    <span class="icon-sm icon-description"></span>
                                 </div>
                                 <div class="card-bar-members">
                                     <div
@@ -402,7 +408,6 @@ export default {
         onDateClicked() {
             this.cardToEdit = JSON.parse(JSON.stringify(this.card))
             this.cardToEdit.isComplete = !this.cardToEdit.isComplete
-            console.log('this.cardToEdit', this.cardToEdit)
             this.$emit('editCard', { card: this.cardToEdit, group: this.group })
         },
         darkenLabels() {
@@ -429,7 +434,7 @@ export default {
             return { labelOpen: this.isLabelOpen };
         },
         setDateFormat() {
-            const timeCalc = (new Date() - this.card.date)
+            const timeCalc = (Date.now() - this.card.date)
             this.timeCalc = timeCalc
             const dt = new Date(this.card.date)
             const date = Intl.DateTimeFormat('en-Us', { month: 'short', day: 'numeric' }).format(dt)
