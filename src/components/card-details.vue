@@ -94,6 +94,7 @@
                                             src="data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23fff' viewBox='-3 -4 16 16'%3E%3Cpath d='M1.49 3.215a.667.667 0 0 0-.98.903l2.408 2.613c.358.351.892.351 1.223.02l.243-.239a1689.645 1689.645 0 0 0 2.625-2.589l.027-.026a328.23 328.23 0 0 0 2.439-2.429.667.667 0 1 0-.95-.936c-.469.476-1.314 1.316-2.426 2.417l-.027.026a1368.126 1368.126 0 0 1-2.517 2.482L1.49 3.215z'/%3E%3C/svg%3E"
                                             alt
                                         />
+
                                         <!-- <input @click="toggleCardComplete"  type="checkbox" /> -->
 
                                         <div class="card-details-date">
@@ -256,7 +257,7 @@
 
                                 </div>
                             </div>
-                        </div> -->
+                        </div>-->
                         <!-- Activity Area  -->
                         <div class="card-details-activity-show-details">
                             <div class="card-details-activity">
@@ -269,7 +270,7 @@
                         <!-- comment adding area  -->
                         <div class="card-details-input-user-comment">
                             <div class="card-details-user-avatar member">
-                                <div>AB</div>
+                                <div>{{ loggedinUser ? setMemberLetters(loggedinUser.fullname) : 'GU' }}</div>
                             </div>
                             <div
                                 @click.stop.prevent="showInput = true"
@@ -306,6 +307,12 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- comments render  -->
+                        <div class="comments-rendering">
+
+                        </div>
+                        
                     </section>
                 </section>
 
@@ -384,24 +391,24 @@
 
                     <label for>Actions</label>
 
-                    <button ref="moveBtn" class="card-details-btn" @click.stop.prevent="moveCard">
+                    <!-- <button ref="moveBtn" class="card-details-btn" @click.stop.prevent="moveCard">
                         <span class="icon-sm icon-move"></span>
                         Move
-                    </button>
+                    </button>-->
 
                     <button ref="copyBtn" class="card-details-btn" @click.stop.prevent="copyCard">
                         <span class="icon-sm icon-copy"></span>
                         Copy
                     </button>
 
-                    <button
+                    <!-- <button
                         ref="shareBtn"
                         class="card-details-btn last"
                         @click.stop.prevent="shareCard"
                     >
                         <span class="icon-sm icon-share"></span>
                         Share
-                    </button>
+                    </button>-->
 
                     <button
                         ref="deleteBtn"
@@ -497,6 +504,9 @@ export default {
     computed: {
         cardToEdit() {
             return JSON.parse(JSON.stringify(this.card))
+        },
+        loggedinUser() {
+            return this.$store.getters.loggedinUser
         },
         async backgroundCoverColor() {
             if (this.card.cover.type) {

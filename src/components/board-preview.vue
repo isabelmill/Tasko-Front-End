@@ -1,7 +1,7 @@
 <template>
     <div
         class="board-preview-main"
-        :style="board.background ? { 'backgroundColor': board.background } : { 'background-image': `url(${board.backgroundPhoto})` }"
+        :style="board.background ? { 'backgroundColor': board.background } : { 'background-image': `url(${board.backgroundPhoto})`,'background-size': 'cover'}"
     >
         <h1 @click.stop.prevent="goToDetails()">{{ board.title }}</h1>
         <span
