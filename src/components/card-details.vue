@@ -552,13 +552,7 @@ export default {
 </script>
 
 <style>
-.card-details-container {
-    /* margin: 0; */
-    /* display: flex; */
-    /* justify-content: center; */
-    /* overflow: hidden; */
-    /* width: 771px; */
-}
+
 
 .card-details-main {
     flex-direction: column;
