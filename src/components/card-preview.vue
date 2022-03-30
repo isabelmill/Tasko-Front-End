@@ -402,7 +402,6 @@ export default {
         onDateClicked() {
             this.cardToEdit = JSON.parse(JSON.stringify(this.card))
             this.cardToEdit.isComplete = !this.cardToEdit.isComplete
-            console.log('this.cardToEdit', this.cardToEdit)
             this.$emit('editCard', { card: this.cardToEdit, group: this.group })
         },
         darkenLabels() {
@@ -429,7 +428,7 @@ export default {
             return { labelOpen: this.isLabelOpen };
         },
         setDateFormat() {
-            const timeCalc = (new Date() - this.card.date)
+            const timeCalc = (Date.now() - this.card.date)
             this.timeCalc = timeCalc
             const dt = new Date(this.card.date)
             const date = Intl.DateTimeFormat('en-Us', { month: 'short', day: 'numeric' }).format(dt)

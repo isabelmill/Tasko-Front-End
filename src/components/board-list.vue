@@ -2,7 +2,6 @@
     <div class="board-list-main">
         <board-preview
             @starredChange="onStarredChange"
-            @viewedBoard="onUpdateRecentlyViewed"
             v-for="board in boards"
             :board="board"
             :key="board._id"
@@ -24,13 +23,11 @@ export default {
         onStarredChange(boardStarred) {
             this.$emit('updateStarred', boardStarred)
         },
-        onUpdateRecentlyViewed(board) {
-            this.$emit('updateRecentlyViewed', board)
-        }
+
     },
     components: {
         boardPreview,
     },
-    emits: ['updateStarred', 'updateRecentlyViewed']
+    emits: ['updateStarred']
 }
 </script>

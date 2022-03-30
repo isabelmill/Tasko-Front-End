@@ -112,7 +112,6 @@ export default {
         };
     },
     created() {
-        console.log('this.groups:',this.groups);
     },
     computed: {
         boardToEdit() {
