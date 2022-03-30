@@ -1,7 +1,7 @@
 <template>
     <section
         v-clickOutside="close"
-        :style="{ top: 0 + 'px', left: pos.left + 'px' }"
+        :style="{ top: pos.bottom+8 + 'px', left: pos.left + 'px' }"
         class="label-modal"
     >
         <div class="main-title-container">
@@ -11,8 +11,8 @@
         <section class="actions-modal-main">
             <section class="date-picker">
                 <datepicker v-model="date" inline autoApply typeabble />
-                <datepicker v-show="isStartDate" v-model="startDate" inline autoApply typeabble />
-                <button type="button" @click.stop.prevent="startDateInit" class="create-btn">init</button>
+                <!-- <datepicker v-show="isStartDate" v-model="startDate" inline autoApply typeabble /> -->
+                <!-- <button type="button" @click.stop.prevent="startDateInit" class="create-btn">init</button> -->
                 <button type="button" @click.stop.prevent="saveDate" class="create-btn">Save</button>
                 <button
                     type="button"

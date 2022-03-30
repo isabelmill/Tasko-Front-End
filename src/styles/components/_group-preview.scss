@@ -271,7 +271,6 @@
             justify-content: center;
             flex-direction: row;
             gap: 4px;
-
             .attachments-length {
                 color: #5e6c84;
                 display: inline-block;
@@ -363,9 +362,7 @@
     overflow: auto;
     position: relative;
     .label {
-        transition: all 0.3s;
         border-radius: 4px;
-        color: #fff;
         display: block;
         overflow: hidden;
         position: relative;
@@ -380,18 +377,21 @@
         margin: 0 4px 4px 0;
         width: auto;
         height: 8px;
-        line-height: 100px;
+        line-height: 16px;
         max-width: 40px;
         min-width: 40px;
+        color: transparent;
+        transition: max-width .3s .3s, padding .3s .3s, height .3s, color .3s;
         // &:hover {
         //     .label{
         //     }
         // }
     }
     .labelOpen {
+        transition: max-width .3s, padding .3s, height .3s .3s, color .3s .3s;
         ///on-click
+        color: #fff;
         height: 16px;
-        line-height: 16px;
         max-width: 198px;
         padding: 0 8px;
     }
@@ -595,7 +595,6 @@
                 gap: 6px;
                 margin: 4px 0 4px 0;
                 float: left;
-
                 .date {
                     font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
                     border-radius: 3px;
@@ -623,7 +622,6 @@
                     justify-content: center;
                     flex-direction: row;
                     gap: 4px;
-
                     .attachments-length {
                         color: #5e6c84;
                         display: inline-block;
@@ -756,26 +754,32 @@
     @include to-icon("\e912");
     color: #fff;
 }
+
 .icon-label-pen {
     @include to-icon("\e93f");
     color: #fff;
 }
+
 .icon-member-pen {
     @include to-icon("\e946");
     color: #fff;
 }
+
 .icon-card-cover-pen {
     @include to-icon("\e914");
     color: #fff;
 }
+
 .icon-card-copy-pen {
     @include to-icon("\e912");
     color: #fff;
 }
+
 .icon-clock-pen {
     @include to-icon("\e91b");
     color: #fff;
 }
+
 .icon-delete-pen {
     @include to-icon("\e907");
     color: #fff;
