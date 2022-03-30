@@ -19,7 +19,6 @@
                 @saveCopy="saveCopyToBoard"
                 @boardModified="updateBoard"
                 @removeGroup="groupRemoveFromBoard"
-                @activitySave="saveActivity"
                 @openCardDetails="openCardDetailsModal"
                 @groupUpdated="updateGroup"
                 :groups="board.groups"
@@ -92,11 +91,11 @@ export default {
 
     mounted() {
         console.log(this.board)
-        socketService.on('board-changed',this.socketBoardUpdate)
+        socketService.on('board-changed', this.socketBoardUpdate)
         socketService.on('connected', this.socketTest)
     },
     methods: {
-        socketBoardUpdate(board){
+        socketBoardUpdate(board) {
             this.$store.commit('setBoard', board)
         }
         ,
@@ -127,7 +126,6 @@ export default {
             this.updateGroup(this.groupToEdit)
         },
         deleteCardFromGroup({ card, group }) {
-            this.saveActivity('removed ' + card.title)
             this.groupToEdit = JSON.parse(JSON.stringify(group))
             const cardToEditIdx = this.groupToEdit.cards.findIndex(cardToFind => cardToFind.id === card.id)
             this.groupToEdit.cards.splice(cardToEditIdx, 1)
@@ -195,23 +193,10 @@ export default {
             // this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
         },
         saveActivity(txt) {
-<<<<<<< HEAD
             if (this.loggedinUser) this.newActivity.byMember = this.loggedinUser
             this.newActivity.txt = txt
             this.boardToEdit.activities.unshift(this.newActivity)
             this.newActivity = boardService.getEmptyActivity()
-=======
-
-            console.log('txt:', txt);
-            this.boardToEdit = JSON.parse(JSON.stringify(this.board))
-            if (this.loggedinUser) this.newActivity.byMember = this.loggedinUser
-            // if (this.boardToEdit.activities[0].txt !== txt) {
-            this.newActivity.txt = txt
-            this.boardToEdit.activities.unshift(this.newActivity)
-            this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
-            this.newActivity = boardService.getEmptyActivity()
-            // }
->>>>>>> 6c4573c13a74068ac42a285410bbd1bbc8cf1611
         }
     },
     computed: {
@@ -233,7 +218,6 @@ export default {
             async handler(newId) {
                 if (newId) {
                     await this.$store.dispatch({ type: 'loadBoardById', newId })
-                    console.log('newId:', newId);
                     // socketService.emit('board updated', board => {
                     //     this.socketTest(board)
                     // })
