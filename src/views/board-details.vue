@@ -204,14 +204,15 @@ export default {
             // this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
         },
         saveActivity(txt) {
+            console.log('txt:',txt);
             this.boardToEdit = JSON.parse(JSON.stringify(this.board))
             if (this.loggedinUser) this.newActivity.byMember = this.loggedinUser
-            if (this.boardToEdit.activities[0].txt !== 'changed the background of this board') {
+            // if (this.boardToEdit.activities[0].txt !== txt) {
                 this.newActivity.txt = txt
                 this.boardToEdit.activities.unshift(this.newActivity)
                 this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
                 this.newActivity = boardService.getEmptyActivity()
-            }
+            // }
         }
     },
     computed: {

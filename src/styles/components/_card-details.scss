@@ -129,7 +129,7 @@
             .card-details-members-labels-date {
                 display: flex;
                 flex-wrap: wrap;
-                gap: 16px;
+                // gap: 16px;
                 max-width: 500px;
                 margin-bottom: 35px;
                 margin-left: 42px;
@@ -254,6 +254,7 @@
                     display: flex;
                     flex-direction: row;
                     flex-wrap: wrap;
+                    margin-right: 16px;
 
                     // max-width: 400px;
                     .card-details-labels {
@@ -620,9 +621,9 @@
                             }
 
                             .icon-btns-inside-input {
-                                display: flex;
-                                justify-content: end;
-                                gap: 25px;
+                                // display: flex;
+                                // justify-content: end;
+                                // gap: 25px;
 
                                 span {
                                     cursor: pointer;
@@ -805,16 +806,18 @@
     }
 }
 
-.card-details-user-comment{
+.card-details-user-comment {
     // align-items: center;
     font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
     gap: 9px;
 
-    .card-details-user-avatar{
+    .card-details-user-avatar {
         cursor: default;
+        width: 32px;
+        height: 32px;
     }
 
-    .card-details-input{
+    .card-details-input {
         color: #7e8085;
         display: flex;
         cursor: pointer;
@@ -832,12 +835,10 @@
         margin-bottom: 5px;
         font-size: 14px;
     }
-    .card-details-input-show{
+
+    .card-details-input-show {
         color: #42526e;
-        // cursor: pointer;
-        height: 40px;
-        width: 650px;
-        padding: 8px 15px 15px 13px;
+        padding: 8px 15px 10px 13px;
         background-color: white;
         border: 2px solid #efeeec;
         border-radius: 3px;
@@ -847,18 +848,50 @@
         transition-timing-function: ease;
         margin-bottom: 5px;
         font-size: 14px;
-        height: 100px;
-        
-        input{
+        // height: 100px;
+        max-height: min-content;
+
+        input {
             font-size: 14px;
             border: none;
             width: 100%;
             color: #42526e;
-            padding-bottom: 50px;
+            padding-bottom: 20px;
 
-            &:focus{
+            &:focus {
                 outline: none;
             }
+        }
+
+        .card-details-all-btns {
+            align-items: center;
+            justify-content: space-between;
+
+            .icon-btns-inside-input {
+                padding-top: 0;
+                display: flex;
+                gap: 20px;
+
+                span {
+                    cursor: pointer;
+                }
+            }
+
+            button {
+                background-color: #0079bf;
+                border: none;
+                box-shadow: none;
+                color: #fff;
+                border-radius: 3px;
+                padding: 9px;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: #026aa7;
+                }
+
+            }
+
         }
     }
 }

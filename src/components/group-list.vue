@@ -193,7 +193,7 @@ export default {
             // console.log(...params)
         }
     },
-    emits: ['saveCopy', 'openCardDetails', 'removeGroup', 'groupUpdated', 'addGroup', 'groupDnd', 'boardModified']
+    emits: ['saveCopy','activitySave', 'openCardDetails', 'removeGroup', 'groupUpdated', 'addGroup', 'groupDnd', 'boardModified']
 
 }
 </script>

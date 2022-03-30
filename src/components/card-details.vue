@@ -267,53 +267,6 @@
                             <button>Show details</button>
                         </div>
 
-                        <!-- comment adding area  -->
-                        <!-- <div class="card-details-input-user-comment">
-                            <div class="card-details-user-avatar member">
-                                <div>{{ loggedinUser ? setMemberLetters(loggedinUser.fullname) : 'GU' }}</div>
-                            </div>
-                            <div
-                                @click.stop.prevent="showInput = true"
-                                v-clickOutside="closeInput"
-                                class="card-details-input-comment"
-                                :style="showInput ? {
-                                    'padding-bottom': '56px',
-                                    'margin-top': '38px', 'padding-top': '18px',
-                                    'cursor': 'default'
-                                } : null"
-                            >
-                                <div
-                                    class="input-icon-btns"
-                                    :style="showInput ? { 'padding-top': '50px' } : null"
-                                >
-                                    <input
-                                        :style="showInput ? null : { 'padding-top': '10px' }"
-                                        placeholder="Write a comment..."
-                                        @keydown.enter="addCardComment"
-                                        v-model="newComment.txt"
-                                        type="text"
-                                    />
-                                    <div class="card-details-all-btns">
-                                        <button
-                                            v-if="showInput"
-                                            class="card-details-save-btn"
-                                            @click.stop.prevent="addCardComment"
-                                        >Save</button>
-                                        <div
-                                            v-if="showInput"
-                                            :style="showInput ? { 'padding-top': '20px' } : null"
-                                            class="icon-btns-inside-input"
-                                        >
-                                            <span class="icon-smd icon-attachment"></span>
-                                            <span class="icon-smd icon-shtrudel"></span>
-                                            <span class="icon-smd icon-smiley"></span>
-                                            <span class="icon-smd icon-card"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>-->
-
                         <div class="card-details-user-comment flex">
                             <div class="card-details-user-avatar member">
                                 <div>{{ loggedinUser ? setMemberLetters(loggedinUser.fullname) : 'GU' }}</div>
@@ -335,6 +288,19 @@
                                     @keydown.enter="addCardComment"
                                     v-model="newComment.txt"
                                 />
+                                <div class="card-details-all-btns flex">
+                                    <button
+                                        v-if="showInput"
+                                        class="card-details-save-btn"
+                                        @click.stop.prevent="addCardComment"
+                                    >Save</button>
+                                    <div v-if="showInput" class="icon-btns-inside-input">
+                                        <span class="icon-smd icon-attachment"></span>
+                                        <span class="icon-smd icon-shtrudel"></span>
+                                        <span class="icon-smd icon-smiley"></span>
+                                        <span class="icon-smd icon-card"></span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -361,7 +327,7 @@
                                 <div class="comment-info-btns flex">
                                     <p>Edit</p>
                                     <a>-</a>
-                                    <p>Delete</p>
+                                    <p @click="deleteComment(comment.id)">Delete</p>
                                 </div>
                             </div>
                         </div>
@@ -554,7 +520,7 @@ export default {
             showInput: false,
             showDesc: false,
             description: '',
-            newComment: boardService.getEmptyGroup(),
+            newComment: boardService.getEmptyComment(),
             isLoading: false,
             currChecklistItem: '',
         }
@@ -679,14 +645,12 @@ export default {
             return dateTimeAgo
         },
         addCardComment() {
-            console.log('newComment.txt:', this.newComment.txt);
-            console.log('showInput:', this.showInput);
             if (!this.newComment.txt) return
             this.newComment.byMember = this.loggedinUser
-            this.cardToEdit.comments.push(this.newComment)
+            this.cardToEdit.comments.unshift(this.newComment)
             this.$emit('cardModified', { card: this.cardToEdit, group: this.group })
             this.newComment = boardService.getEmptyGroup()
-            // this.showInput = false
+            this.showInput = false
         },
         setDateFormat(timestamp) {
             let dt = new Date(timestamp)
@@ -708,6 +672,11 @@ export default {
         notifyComplete() {
             this.isLoading = false
         },
+        deleteComment(commentId) {
+            const commentIdx = this.cardToEdit.comments.findIndex(comment => comment.id === commentId)
+            this.cardToEdit.comments.splice(commentIdx, 1)
+            this.$emit('cardModified', { card: this.cardToEdit, group: this.group })
+        }
     },
     emits: ['cardCopySave', 'closeDialog', 'cardModified', 'boardModified', 'deleteCardFromGroup', 'saveCopy']
 }
