@@ -29,7 +29,6 @@
             ></group-list>
         </section>
 
-         
         <dialog ref="cardDetailsModal" class="modal">
             <card-details
                 v-if="isCardOpen"
@@ -57,7 +56,7 @@
                     :group="groupToShow"
                 ></card-details>
             </dialog>
-        </section> -->
+        </section>-->
     </section>
 </template>
 
@@ -99,7 +98,8 @@ export default {
     },
 
     mounted() {
-
+        socketService.on('board-changed', this.socketTest)
+        socketService.on('connected', this.socketTest)
     },
     methods: {
         groupRemove(groupId) {
@@ -197,10 +197,10 @@ export default {
             this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
         },
         socketTest(board) {
-            console.log('#############################')
+            console.log('#############################', board)
             // this.boardToEdit = JSON.parse(JSON.stringify(board))
             // this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
-        }
+        },
     },
     computed: {
         board() {
@@ -227,11 +227,6 @@ export default {
                     socketService.emit('watch board', newId)
                     socketService.emit('set-user-socket', userService.getLoggedinUser()._id)
                     // socketService.off('board-changed')
-                    socketService.on('board-changed', board => {
-                        // this.$store.dispatch({ type: 'loadBoardById', id: board._id })
-                        console.log('got board', board);
-                    })
-
                     // socketService.emit('watch board', this.board._id)
                     //     console.log('board updated', board._id)
                     // })

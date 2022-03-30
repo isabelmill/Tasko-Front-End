@@ -1,42 +1,43 @@
 import io from 'socket.io-client'
 
-export const SOCKET_EMIT_USER_WATCH = 'user-watch';
-export const SOCKET_EVENT_USER_UPDATED = 'user-updated';
-export const SOCKET_EVENT_REVIEW_ADDED = 'review-added';
-export const SOCKET_EVENT_REVIEW_ABOUT_YOU = 'review-about-you';
-export const SOCKET_EVENT_BOARD_UPDATED = 'board-changed'
+// export const SOCKET_EMIT_USER_WATCH = 'user-watch';
+// export const SOCKET_EVENT_USER_UPDATED = 'user-updated';
+// export const SOCKET_EVENT_REVIEW_ADDED = 'review-added';
+// export const SOCKET_EVENT_REVIEW_ABOUT_YOU = 'review-about-you';
+// export const SOCKET_EVENT_BOARD_UPDATED = 'board-changed'
 
-const baseUrl = (process.env.NODE_ENV === 'production')? '' : '//localhost:3030'
+const baseUrl = (process.env.NODE_ENV === 'production') ? '' : '//localhost:3030'
 export const socketService = createSocketService()
-// export const socketService = createDummySocketService()
+    // export const socketService = createDummySocketService()
 
 // For DEBUG:
-// window.socketService = socketService
+window.socketService = socketService
 
 socketService.setup()
 
 function createSocketService() {
-  var socket = null;
-  const socketService = {
-    async setup() {
-      socket = io(baseUrl)
-    },
-    on(eventName, cb) {
-      socket.on(eventName, cb)
-    },
-    off(eventName, cb=null) {
-      if (!socket) return;
-      if (!cb) socket.removeAllListeners(eventName)
-      else socket.off(eventName, cb)
-    },
-    emit(eventName, data) {
-      socket.emit(eventName, data)
-    },
-    terminate() {
-      socket = null
+    var socket = null;
+    const socketService = {
+        async setup() {
+            socket = io(baseUrl)
+            window.socket = socket
+        },
+        on(eventName, cb) {
+            socket.on(eventName, cb)
+        },
+        off(eventName, cb = null) {
+            if (!socket) return;
+            if (!cb) socket.removeAllListeners(eventName)
+            else socket.off(eventName, cb)
+        },
+        emit(eventName, data) {
+            socket.emit(eventName, data)
+        },
+        terminate() {
+            socket = null
+        }
     }
-  }
-  return socketService
+    return socketService
 }
 
 // eslint-disable-next-line
@@ -80,4 +81,3 @@ function createSocketService() {
 // socketService.on('mama', alert)
 // socketService.emit('baba', 'DATA123')
 // socketService.off('baba', cb)
-
