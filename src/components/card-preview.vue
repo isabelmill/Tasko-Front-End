@@ -175,23 +175,42 @@
                         <span class="icon-sm icon-card-pen"></span>
                         <p>Open card</p>
                     </button>
-                    <button type="button" ref="labelBtn" @click.stop.prevent="openThisModal('labelModal','labelBtn')">
+                    <button
+                        type="button"
+                        ref="labelBtn"
+                        @click.stop.prevent="openThisModal('labelModal', 'labelBtn')"
+                    >
                         <span class="icon-sm icon-label-pen"></span>
                         <p>Edit labels</p>
                     </button>
-                    <button type="button" ref="membersBtn" @click.stop.prevent="openThisModal('membersModal','membersBtn')">
+                    <button
+                        type="button"
+                        ref="membersBtn"
+                        @click.stop.prevent="openThisModal('membersModal', 'membersBtn')"
+                    >
                         <span class="icon-sm icon-member-pen"></span>
                         <p>Change members</p>
                     </button>
-                    <button type="button" ref="coverBtn" @click.stop.prevent="openThisModal('coverModal','coverBtn')">
+                    <button
+                        type="button"
+                        ref="coverBtn"
+                        @click.stop.prevent="openThisModal('coverModal', 'coverBtn')"
+                    >
                         <span class="icon-sm icon-card-cover-pen"></span>
                         <p>Change cover</p>
                     </button>
-                    <button type="button" ref="copyBtn" @click.stop.prevent="openThisModal('copyModal','copyBtn')">
+                    <button
+                        type="button"
+                        ref="copyBtn"
+                        @click.stop.prevent="openThisModal('copyModal', 'copyBtn')"
+                    >
                         <span class="icon-sm icon-card-copy-pen"></span>
                         <p>Copy</p>
                     </button>
-                    <button  ref="datesBtn" @click.stop.prevent="openThisModal('datesModal','datesBtn')">
+                    <button
+                        ref="datesBtn"
+                        @click.stop.prevent="openThisModal('datesModal', 'datesBtn')"
+                    >
                         <span class="icon-sm icon-clock-pen"></span>
                         <p>Edit dates</p>
                     </button>
@@ -295,7 +314,7 @@ export default {
     },
     methods: {
 
-         openThisModal(modalName,ref) {
+        openThisModal(modalName, ref) {
             if (this.isModalShown === true && modalName === this.currModal) this.isModalShown = false
             else {
                 const positionOfBtn = this.$refs[ref].getBoundingClientRect()
@@ -385,8 +404,10 @@ export default {
             return date
         },
         onDateClicked() {
+            this.cardToEdit = JSON.parse(JSON.stringify(this.card))
             this.cardToEdit.isComplete = !this.cardToEdit.isComplete
-            this.$emit('cardModified', { card: this.cardToEdit, group: this.group })
+            console.log('this.cardToEdit', this.cardToEdit)
+            this.$emit('editCard', { card: this.cardToEdit, group: this.group })
         },
         updateDateStyle(timestamp) {
             const timeCalc = (new Date() - timestamp)

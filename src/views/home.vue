@@ -8,7 +8,7 @@
                         fill="#0052cc"
                     ></path>
                 </div>
-                <p>Mello</p>
+                <p>Tasko</p>
             </div>
             <div>
                 <a @click="goTologin" href="#">Log in</a>
@@ -19,7 +19,7 @@
             <div class="img-txt">
                 <div>
                     <div>
-                        <h1>Mello helps teams move work forward.</h1>
+                        <h1>Tasko helps teams move work forward.</h1>
                         <p>
                             Collaborate, manage projects,
                             and reach new productivity peaks. From high rises to the home office,

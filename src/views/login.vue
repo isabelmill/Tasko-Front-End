@@ -5,7 +5,7 @@
                 src="https://res.cloudinary.com/dw85wdwsw/image/upload/v1648495274/ujlrratduzckpypdosan.jpg"
                 alt
             />
-            <h1>Mello</h1>
+            <h1>Tasko</h1>
         </div>
         <div class="login-container">
             <h1>Log in to Mello</h1>
