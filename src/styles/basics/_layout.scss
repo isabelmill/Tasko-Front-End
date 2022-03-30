@@ -11,21 +11,33 @@
     margin: 0 8px 8px 8px;
 }
 
-.smooth-dnd-container.horizontal>.smooth-dnd-draggable-wrapper {
+// group-card
+.group-preview-main {
+    font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
+    height: min-content !important;
+    // max-height:fit-content;
+    border-radius: 3px;
+    background-color: $groupGray;
+    width: rem(272px) !important;
+}
+
+.smooth-dnd-container.horizontal > .smooth-dnd-draggable-wrapper {
     // height: unset;
     // display: block;
     // vertical-align: unset;
-}
-
-.smooth-dnd-container.horizontal {
-    // display: unset;
+    // display: flex;
+    // flex-direction: column;
+    // height: 100%;
+    // flex: 1;
 }
 
 .smooth-dnd-container {
     min-height: 8px;
-    // display: flex;
     gap: 8px;
-    // margin: 0 8px 8px 8px;
+}
+
+.smooth-dnd-container.horizontal {
+    // display: unset;
 }
 
 .smooth-dnd-container.horizontal {
@@ -39,6 +51,5 @@
 }
 
 body * {
-     cursor: unset ; 
+    cursor: unset;
 }
-

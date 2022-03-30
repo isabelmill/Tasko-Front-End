@@ -17,6 +17,7 @@
         <!-- :class="{ 'no-pointer-events': pointerEvents }" -->
             <div :class="group.props.className">
                 <!-- <span class="column-drag-handle">&#x2630;</span> -->
+                <div>
                 <toggle-input-cmp
                     class="title"
                     @groupDelete="deleteGroup"
@@ -49,7 +50,7 @@
                             :isLabelOpen="isLabelOpen"
                         ></card-preview>
                     </Draggable>
-                </Container>
+                </Container></div>
                 <add-card-cmp @cardAdd="addNewCard" :group="group"></add-card-cmp>
             </div>
         </Draggable>
