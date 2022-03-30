@@ -11,10 +11,8 @@
             :key="group.id"
             class="group-preview-main"
             drag-class="tilt"
-            
         >
-
-        <!-- :class="{ 'no-pointer-events': pointerEvents }" -->
+            <!-- :class="{ 'no-pointer-events': pointerEvents }" -->
             <div :class="group.props.className">
                 <!-- <span class="column-drag-handle">&#x2630;</span> -->
                 <div>
@@ -141,6 +139,7 @@ export default {
             this.groupToEdit = JSON.parse(JSON.stringify(this.groups.find(groupToCheck => groupToCheck.id === group.id)))
             this.groupToEdit.cards.push(newCard)
             this.$emit('groupUpdated', this.groupToEdit)
+            this.$emit('activitySave', 'added ' + newCard.title + ' to ' + group.title)
             this.groupToEdit = null
         },
         cardDelete(updatedGroup) {
@@ -158,8 +157,8 @@ export default {
             this.groupToEdit.cards.splice(cardIdx, 1, card)
             this.$emit('groupUpdated', this.groupToEdit)
         },
-        saveCopyToGroup(copy){
-            this.$emit('saveCopy',copy)
+        saveCopyToGroup(copy) {
+            this.$emit('saveCopy', copy)
         },
         deleteGroup(groupId) {
             this.$emit('removeGroup', groupId)
@@ -194,7 +193,7 @@ export default {
             // console.log(...params)
         }
     },
-    emits: ['saveCopy','openCardDetails', 'removeGroup', 'groupUpdated', 'addGroup', 'groupDnd', 'boardModified']
+    emits: ['saveCopy', 'openCardDetails', 'removeGroup', 'groupUpdated', 'addGroup', 'groupDnd', 'boardModified']
 
 }
 </script>

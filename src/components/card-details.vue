@@ -94,6 +94,7 @@
                                             src="data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23fff' viewBox='-3 -4 16 16'%3E%3Cpath d='M1.49 3.215a.667.667 0 0 0-.98.903l2.408 2.613c.358.351.892.351 1.223.02l.243-.239a1689.645 1689.645 0 0 0 2.625-2.589l.027-.026a328.23 328.23 0 0 0 2.439-2.429.667.667 0 1 0-.95-.936c-.469.476-1.314 1.316-2.426 2.417l-.027.026a1368.126 1368.126 0 0 1-2.517 2.482L1.49 3.215z'/%3E%3C/svg%3E"
                                             alt
                                         />
+
                                         <!-- <input @click="toggleCardComplete"  type="checkbox" /> -->
 
                                         <div class="card-details-date">
@@ -256,7 +257,7 @@
 
                                 </div>
                             </div>
-                        </div> -->
+                        </div>-->
                         <!-- Activity Area  -->
                         <div class="card-details-activity-show-details">
                             <div class="card-details-activity">
@@ -269,7 +270,7 @@
                         <!-- comment adding area  -->
                         <div class="card-details-input-user-comment">
                             <div class="card-details-user-avatar member">
-                                <div>AB</div>
+                                <div>{{ loggedinUser ? setMemberLetters(loggedinUser.fullname) : 'GU' }}</div>
                             </div>
                             <div
                                 @click.stop.prevent="showInput = true"
@@ -306,6 +307,12 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- comments render  -->
+                        <div class="comments-rendering">
+
+                        </div>
+
                     </section>
                 </section>
 
@@ -316,7 +323,7 @@
                     <button
                         ref="membersBtn"
                         class="card-details-btn"
-                        @click.stop.prevent="changeMembers"
+                        @click.stop.prevent="openThisModal('membersModal', $event)"
                     >
                         <span class="icon-sm icon-member"></span>
                         Members
@@ -325,7 +332,7 @@
                     <button
                         ref="labelBtn"
                         class="card-details-btn"
-                        @click.stop.prevent="editLabels"
+                        @click.stop.prevent="openThisModal('labelModal', $event)"
                     >
                         <span class="icon-sm icon-label"></span>
                         Labels
@@ -333,14 +340,18 @@
 
                     <button
                         ref="checklistBtn"
-                        @click.stop.prevent="addChecklist"
+                        @click.stop.prevent="openThisModal('checklistModal', $event)"
                         class="card-details-btn"
                     >
                         <span class="icon-sm icon-checklist"></span>
                         Checklist
                     </button>
 
-                    <button ref="datesBtn" class="card-details-btn" @click.stop.prevent="editDates">
+                    <button
+                        ref="datesBtn"
+                        class="card-details-btn"
+                        @click.stop.prevent="openThisModal('datesModal', $event)"
+                    >
                         <svg
                             class="date-svg"
                             width="16"
@@ -367,7 +378,7 @@
                     <button
                         ref="attachmentBtn"
                         class="card-details-btn"
-                        @click.stop.prevent="addAttachment"
+                        @click.stop.prevent="openThisModal('attachmentModal', $event)"
                     >
                         <span class="icon-sm icon-attachment"></span>
                         Attachment
@@ -376,7 +387,7 @@
                     <button
                         ref="coverBtn"
                         class="card-details-btn"
-                        @click.stop.prevent="changeCover"
+                        @click.stop.prevent="openThisModal('coverModal', $event)"
                     >
                         <span class="icon-sm icon-cover"></span>
                         Cover
@@ -384,23 +395,13 @@
 
                     <label for>Actions</label>
 
-                    <button ref="moveBtn" class="card-details-btn" @click.stop.prevent="moveCard">
-                        <span class="icon-sm icon-move"></span>
-                        Move
-                    </button>
-
-                    <button ref="copyBtn" class="card-details-btn" @click.stop.prevent="copyCard">
+                    <button
+                        ref="copyBtn"
+                        class="card-details-btn"
+                        @click.stop.prevent="openThisModal('copyModal', $event)"
+                    >
                         <span class="icon-sm icon-copy"></span>
                         Copy
-                    </button>
-
-                    <button
-                        ref="shareBtn"
-                        class="card-details-btn last"
-                        @click.stop.prevent="shareCard"
-                    >
-                        <span class="icon-sm icon-share"></span>
-                        Share
                     </button>
 
                     <button
@@ -414,14 +415,18 @@
                 </section>
             </section>
         </section>
-        <section v-if="shown">
+
+        <!-- CR -->
+        <!-- CR -->
+        <!-- CR -->
+        <section v-if="isModalShown">
             <component
                 @uploadComplete="notifyComplete"
                 @uploading="notifyUploading"
                 @boardEdit="editBoard"
                 @cardEdit="editCard"
                 @actionsClose="closeMenu"
-                @cardCopySave="sendCardCopyTo"
+                @cardCopySave="sendCardCopyToStore"
                 :board="board"
                 :card="card"
                 :group="group"
@@ -429,6 +434,10 @@
                 :is="currModal"
             ></component>
         </section>
+        <!-- CR -->
+        <!-- CR -->
+        <!-- CR -->
+
         <delete-warning
             @closeDeleteWarning="closeWarning"
             @deleteConfirmed="deleteCard"
@@ -441,7 +450,7 @@
 
 <script>
 import labelModal from "./label-modal-cmp.vue";
-import memebersModal from "./memebers-modal-cmp.vue";
+import membersModal from "./memebers-modal-cmp.vue";
 import datesModal from "./date-modal-cmp.vue";
 import coverModal from "./cover-modal-cmp.vue";
 import attachmentModal from "./attachment-modal-cmp.vue";
@@ -466,7 +475,7 @@ export default {
     },
     components: {
         labelModal,
-        memebersModal,
+        membersModal,
         datesModal,
         deleteWarning,
         coverModal,
@@ -483,7 +492,7 @@ export default {
     data() {
         return {
             currModal: null,
-            shown: false,
+            isModalShown: false,
             warningOpen: false,
             warningTitle: '',
             pos: 0,
@@ -497,6 +506,9 @@ export default {
     computed: {
         cardToEdit() {
             return JSON.parse(JSON.stringify(this.card))
+        },
+        loggedinUser() {
+            return this.$store.getters.loggedinUser
         },
         async backgroundCoverColor() {
             if (this.card.cover.type) {
@@ -532,39 +544,28 @@ export default {
         closeModal() {
             this.$emit('closeDialog')
         },
+
+        //CR
+        //CR
+        //CR
+
+        openThisModal(modalName, event) {
+            if (this.isModalShown === true && modalName === this.currModal) this.isModalShown = false
+            else {
+                this.pos = event.target.getBoundingClientRect()
+                this.isModalShown = true
+                this.currModal = modalName
+            }
+        },
+
+        // CR
+        // CR
+        // CR
+
         closeMenu() {
-            this.shown = false;
+            this.isModalShown = false;
         },
-        changeMembers() {
-            this.pos = this.$refs['membersBtn'].getBoundingClientRect()
-            this.shown = true
-            this.currModal = "memebersModal"
-        },
-        addChecklist() {
-            this.pos = this.$refs['checklistBtn'].getBoundingClientRect()
-            this.shown = true
-            this.currModal = "checklistModal"
-        },
-        editLabels() {
-            this.pos = this.$refs['labelBtn'].getBoundingClientRect()
-            this.shown = true
-            this.currModal = "labelModal"
-        },
-        changeCover() {
-            this.pos = this.$refs['coverBtn'].getBoundingClientRect()
-            this.shown = true
-            this.currModal = "coverModal"
-        },
-        addAttachment() {
-            this.pos = this.$refs['attachmentBtn'].getBoundingClientRect()
-            this.shown = true
-            this.currModal = "attachmentModal"
-        },
-        editDates() {
-            this.pos = this.$refs['datesBtn'].getBoundingClientRect()
-            this.currModal = "datesModal"
-            this.shown = true
-        },
+
         editCard(card) {
             this.$emit('cardModified', { card, group: this.group })
         },
@@ -585,12 +586,7 @@ export default {
             //     return color
 
         },
-        copyCard() {
-            this.pos = this.$refs['copyBtn'].getBoundingClientRect()
-            this.shown = true
-            this.currModal = "copyModal"
-        },
-        sendCardCopyTo(copy) {
+        sendCardCopyToStore(copy) {
             this.$emit('saveCopy', copy)
         },
         deleteWarn() {
@@ -605,6 +601,9 @@ export default {
             this.$emit('deleteCardFromGroup', { card: this.cardToEdit, group: this.group })
             this.closeModal()
         },
+
+        
+
         closeInput() {
             this.showInput = false
         },

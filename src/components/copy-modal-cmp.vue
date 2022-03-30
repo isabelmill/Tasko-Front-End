@@ -1,5 +1,5 @@
 <template>
-    <section :style="{ top: pos.top - 200 + 'px', left: pos.left + 'px' }" class="copy-modal-main">
+    <section :style="{ top: pos.bottom + 8 + 'px', left: pos.left + 'px' }" class="copy-modal-main">
         <div class="header-modal">
             <div>
                 <p>Copy card</p>
