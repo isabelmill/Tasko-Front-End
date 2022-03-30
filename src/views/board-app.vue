@@ -20,6 +20,7 @@
                 </div>
 
                 <div class="folder-info">
+                    
                     <div v-if="isFolder.boards" class="boards-info">
                         <div class="border-list">
                             <div class="header">
@@ -32,6 +33,7 @@
                                 @updateRecentlyViewed="onUpdateRecentlyViewed"
                             />
                         </div>
+
                         <div class="border-list">
                             <div class="header">
                                 <span class="icon-lg icon-clock-boards"></span>
