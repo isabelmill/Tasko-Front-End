@@ -16,9 +16,10 @@
             :style="{ 'backgroundColor': board.background }"
         >
             <group-list
-                @saveCopy="SaveCopyToBoard"
+                @saveCopy="saveCopyToBoard"
                 @boardModified="updateBoard"
                 @removeGroup="groupRemove"
+                @activitySave="saveActivity"
                 @openCardDetails="openCardDetailsModal"
                 @groupUpdated="updateGroup"
                 :board="board"
@@ -36,7 +37,7 @@
                 @boardModified="updateBoard"
                 @cardModified="updateCard"
                 @closeDialog="closeDiag"
-                @saveCopy="SaveCopyToBoard"
+                @saveCopy="saveCopyToBoard"
                 :board="board"
                 :card="cardToShow"
                 :group="groupToShow"
@@ -104,6 +105,11 @@ export default {
     methods: {
         groupRemove(groupId) {
             this.boardToEdit = JSON.parse(JSON.stringify(this.board))
+            if (this.loggedinUser) this.newActivity.byMember = this.loggedinUser
+
+            const group = this.boardToEdit.groups.find((group) => group.id === groupId)
+            this.saveActivity('removed list ' + group.title)
+
             const idx = this.boardToEdit.groups.findIndex((group) => group.id === groupId)
             this.boardToEdit.groups.splice(idx, 1)
             this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
@@ -111,6 +117,9 @@ export default {
         addNewGroup(newGroup) {
             if (!newGroup.title) return
             this.boardToEdit = JSON.parse(JSON.stringify(this.board))
+
+            this.saveActivity('added ' + newGroup.title + '  to this board')
+
             this.boardToEdit.groups.push(newGroup)
             this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
             this.newGroup = boardService.getEmptyGroup()
@@ -127,6 +136,7 @@ export default {
             this.updateGroup(this.groupToEdit)
         },
         deleteCardFromGroup({ card, group }) {
+            this.saveActivity('removed ' + card.title)
             this.groupToEdit = JSON.parse(JSON.stringify(group))
             const cardToEditIdx = this.groupToEdit.cards.findIndex(cardToFind => cardToFind.id === card.id)
             this.groupToEdit.cards.splice(cardToEditIdx, 1)
@@ -153,7 +163,7 @@ export default {
             this.isCardOpen = false
             this.$refs.cardDetailsModal.close()
         },
-        SaveCopyToBoard(copy) {
+        saveCopyToBoard(copy) {
             this.groupToEdit = JSON.parse(JSON.stringify(copy.posCopy.group))
             this.groupToEdit.cards.splice(copy.posCopy.position - 1, 0, copy.cardCopy)
             this.updateGroup(this.groupToEdit)
@@ -164,6 +174,7 @@ export default {
         },
         updateBoardTitle(title) {
             this.boardToEdit = JSON.parse(JSON.stringify(this.board))
+            this.saveActivity('renamed this board from ' + '(' + this.board.title + ')')
             this.boardToEdit.title = title
             this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
         },
@@ -174,24 +185,15 @@ export default {
         },
         changeBoardBgcColor(color) {
             this.boardToEdit = JSON.parse(JSON.stringify(this.board))
-            if (this.loggedinUser) {
-                this.boardToEdit.createdBy = this.loggedinUser
-                this.newActivity.byMember = this.loggedinUser
-            }
-            this.newActivity.txt = 'changed the background of this board'
-            this.boardToEdit.activities.unshift(this.newActivity)
+
+            this.saveActivity('changed the background of this board')
 
             this.boardToEdit.background = color
             this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
         },
         changeBoardPhoto(photo) {
             this.boardToEdit = JSON.parse(JSON.stringify(this.board))
-            if (this.loggedinUser) {
-                this.boardToEdit.createdBy = this.loggedinUser
-                this.newActivity.byMember = this.loggedinUser
-            }
-            this.newActivity.txt = 'changed the background of this board'
-            this.boardToEdit.activities.unshift(this.newActivity)
+            this.saveActivity('changed the background of this board')
             this.boardToEdit.background = ''
             this.boardToEdit.backgroundPhoto = photo
             this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
@@ -201,6 +203,16 @@ export default {
             // this.boardToEdit = JSON.parse(JSON.stringify(board))
             // this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
         },
+        saveActivity(txt) {
+            this.boardToEdit = JSON.parse(JSON.stringify(this.board))
+            if (this.loggedinUser) this.newActivity.byMember = this.loggedinUser
+            if (this.boardToEdit.activities[0].txt !== 'changed the background of this board') {
+                this.newActivity.txt = txt
+                this.boardToEdit.activities.unshift(this.newActivity)
+                this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
+                this.newActivity = boardService.getEmptyActivity()
+            }
+        }
     },
     computed: {
         board() {

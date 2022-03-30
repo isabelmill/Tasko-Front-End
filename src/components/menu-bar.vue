@@ -37,8 +37,8 @@
                     >{{ setMemberLetters(activity.byMember.fullname) }}</div>
                     <div class="activity-info">
                         <div class="activities-info-txt flex">
-                            <h1>{{ activity.byMember.username }}</h1>
-                            <p>{{ activity.txt }}</p>
+                            <p><span>{{ activity.byMember.username }}</span>
+                            {{ activity.txt }}</p>
                         </div>
                         <div class="activity-timestamp">
                             <!-- {{moment(activity.createdAt).startOf('hour').fromNow()}} -->

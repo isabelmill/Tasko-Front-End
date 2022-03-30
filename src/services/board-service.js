@@ -478,6 +478,7 @@ function getEmptyActivity() {
         byMember: {
             _id: "u101",
             fullname: "Guest User",
+            username: "Guest User",
         },
         task: {}
     }
