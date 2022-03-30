@@ -335,6 +335,22 @@
                                     @keydown.enter="addCardComment"
                                     v-model="newComment.txt"
                                 />
+                                <div class="card-details-all-btns flex">
+                                    <button
+                                        v-if="showInput"
+                                        class="card-details-save-btn"
+                                        @click.stop.prevent="addCardComment"
+                                    >Save</button>
+                                    <div
+                                        v-if="showInput"
+                                        class="icon-btns-inside-input"
+                                    >
+                                        <span class="icon-smd icon-attachment"></span>
+                                        <span class="icon-smd icon-shtrudel"></span>
+                                        <span class="icon-smd icon-smiley"></span>
+                                        <span class="icon-smd icon-card"></span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -679,14 +695,12 @@ export default {
             return dateTimeAgo
         },
         addCardComment() {
-            console.log('newComment.txt:', this.newComment.txt);
-            console.log('showInput:', this.showInput);
             if (!this.newComment.txt) return
             this.newComment.byMember = this.loggedinUser
-            this.cardToEdit.comments.push(this.newComment)
+            this.cardToEdit.comments.unshift(this.newComment)
             this.$emit('cardModified', { card: this.cardToEdit, group: this.group })
             this.newComment = boardService.getEmptyGroup()
-            // this.showInput = false
+            this.showInput = false
         },
         setDateFormat(timestamp) {
             let dt = new Date(timestamp)
