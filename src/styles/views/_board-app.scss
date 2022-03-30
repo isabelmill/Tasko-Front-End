@@ -1,6 +1,7 @@
 .board-app-main {
     height: 100vh;
     width: 100%;
+    overflow-y: scroll;
 }
 
 .board-list-main {
@@ -94,6 +95,26 @@
             &:hover {
                 background-color: #091e4214;
             }
+        }
+    }
+    .header-templates {
+        display: flex;
+        align-items: center;
+        margin-bottom: 6px;
+        margin-top: 6px;
+        .category-title {
+            font-weight: 600;
+            line-height: 24px;
+            font-size: 20px;
+            margin-bottom: 0;
+        }
+        .category-icon {
+            display: inline-block;
+            height: 24px;
+            width: 24px;
+            min-width: 24px;
+            margin-right: 12px;
+            border-radius: 3px;
         }
     }
 }

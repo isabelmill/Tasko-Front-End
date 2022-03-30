@@ -20,17 +20,13 @@
                 </div>
 
                 <div class="folder-info">
-                    
                     <div v-if="isFolder.boards" class="boards-info">
                         <div class="border-list">
                             <div class="header">
                                 <span class="icon-lg icon-star-boards"></span>
                                 <p>Starred boards</p>
                             </div>
-                            <board-list
-                                v-if="boards"
-                                :boards="starredBoards"
-                            />
+                            <board-list v-if="boards" :boards="starredBoards" />
                         </div>
 
                         <div class="border-list">
@@ -38,10 +34,7 @@
                                 <span class="icon-lg icon-clock-boards"></span>
                                 <p>Recently viewed</p>
                             </div>
-                            <board-list
-                                v-if="boards"
-                                :boards="recentlyBoards"
-                            />
+                            <board-list v-if="boards" :boards="recentlyBoards" />
                         </div>
                         <button
                             class="create-btn"
@@ -56,9 +49,82 @@
                             v-clickOutside="closeBoardEdit"
                             @close="closeBoardEdit"
                             @add="saveNewBoard"
-                            :style="{ 'top': pos.top + 'px', 'left': '830' + 'px' , 'bottom' : '0' }"
+                            :style="{ 'top': pos.top + 'px', 'left': '830' + 'px', 'bottom': '0' }"
                             :newBoard="newBoard"
                         ></create-board-modal>
+                    </div>
+                    <div v-if="isFolder.templates" class="boards-info">
+                        <div class="border-list">
+                            <div class="header-templates">
+                                <img
+                                    class="category-icon"
+                                    src="../assets/svg/business-templates.svg"
+                                    alt="business-icon"
+                                />
+                                <p class="category-title">Business</p>
+                            </div>
+                            <board-list v-if="boards" :boards="templates" />
+                        </div>
+
+                        <div class="border-list">
+                            <div class="header-templates">
+                                <img
+                                    class="category-icon"
+                                    src="../assets/svg/design-templates.svg"
+                                    alt="business-icon"
+                                />
+                                <p class="category-title">Design</p>
+                            </div>
+                            <board-list v-if="boards" :boards="categoryDesign" />
+                        </div>
+
+                        <div class="border-list">
+                            <div class="header-templates">
+                                <img
+                                    class="category-icon"
+                                    src="../assets/svg/education-templates.svg"
+                                    alt="business-icon"
+                                />
+                                <p class="category-title">Education</p>
+                            </div>
+                            <board-list v-if="boards" :boards="categoryEducation" />
+                        </div>
+
+                        <div class="border-list">
+                            <div class="header-templates">
+                                <img
+                                    class="category-icon"
+                                    src="../assets/svg/engineering-templates.svg"
+                                    alt="business-icon"
+                                />
+                                <p class="category-title">Engineering</p>
+                            </div>
+                            <board-list v-if="boards" :boards="templates" />
+                        </div>
+
+                        <div class="border-list">
+                            <div class="header-templates">
+                                <img
+                                    class="category-icon"
+                                    src="../assets/svg/marketing-templates.svg"
+                                    alt="business-icon"
+                                />
+                                <p class="category-title">Marketing</p>
+                            </div>
+                            <board-list v-if="boards" :boards="templates" />
+                        </div>
+
+                        <div class="border-list">
+                            <div class="header-templates">
+                                <img
+                                    class="category-icon"
+                                    src="../assets/svg/project-management-templates.svg"
+                                    alt="business-icon"
+                                />
+                                <p class="category-title">Project management</p>
+                            </div>
+                            <board-list v-if="boards" :boards="templates" />
+                        </div>
                     </div>
                 </div>
             </div>
@@ -133,17 +199,26 @@ export default {
         },
     },
     computed: {
+        loggedinUser() {
+            return this.$store.getters.loggedinUser
+        },
         boards() {
             return this.$store.getters.boards
         },
-        starredBoards(){
+        starredBoards() {
             return this.$store.getters.starredBoards
         },
         recentlyBoards() {
             return this.$store.getters.recentlyBoards
         },
-        loggedinUser() {
-            return this.$store.getters.loggedinUser
+        templates() {
+            return this.$store.getters.templates
+        },
+        categoryDesign() {
+            return this.$store.getters.categoryDesign
+        },
+        categoryEducation() {
+            return this.$store.getters.categoryEducation
         },
     },
 

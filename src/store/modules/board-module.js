@@ -21,6 +21,15 @@ export default {
             const recentlyBoards = JSON.parse(JSON.stringify(state.boards))
             return recentlyBoards.sort((a, b) => b.lastTimeWatched - a.lastTimeWatched);
         },
+        templates(state) {
+            return state.boards.filter(board => board.isTemplate)
+        },
+        categoryDesign(state) {
+            return state.boards.filter(board => board.category === 'design')
+        },
+        categoryEducation(state) {
+            return state.boards.filter(board => board.category === 'education')
+        },
     },
     mutations: {
         setBoards(state, { boards }) {
@@ -55,7 +64,7 @@ export default {
             try {
                 const board = await boardService.getById(newId)
                 board.lastTimeWatched = Date.now()
-                console.log('board lastTimeWatched', board.lastTimeWatched)
+                console.log(board)
                 commit({ type: 'saveBoard', board })
                 commit({ type: 'setBoard', board })
             } catch (err) {
