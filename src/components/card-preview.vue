@@ -175,23 +175,23 @@
                         <span class="icon-sm icon-card-pen"></span>
                         <p>Open card</p>
                     </button>
-                    <button ref="labelBtn" @click.stop.prevent="editLabels">
+                    <button type="button" ref="labelBtn" @click.stop.prevent="openThisModal('labelModal','labelBtn')">
                         <span class="icon-sm icon-label-pen"></span>
                         <p>Edit labels</p>
                     </button>
-                    <button ref="membersBtn" @click.stop.prevent="changeMembers">
+                    <button type="button" ref="membersBtn" @click.stop.prevent="openThisModal('membersModal','membersBtn')">
                         <span class="icon-sm icon-member-pen"></span>
                         <p>Change members</p>
                     </button>
-                    <button ref="coverBtn" @click.stop.prevent="changeCover">
+                    <button type="button" ref="coverBtn" @click.stop.prevent="openThisModal('coverModal','coverBtn')">
                         <span class="icon-sm icon-card-cover-pen"></span>
                         <p>Change cover</p>
                     </button>
-                    <button ref="copyBtn" @click.stop.prevent="copyCard">
+                    <button type="button" ref="copyBtn" @click.stop.prevent="openThisModal('copyModal','copyBtn')">
                         <span class="icon-sm icon-card-copy-pen"></span>
                         <p>Copy</p>
                     </button>
-                    <button ref="datesBtn" @click.stop.prevent="editDates">
+                    <button  ref="datesBtn" @click.stop.prevent="openThisModal('datesModal','datesBtn')">
                         <span class="icon-sm icon-clock-pen"></span>
                         <p>Edit dates</p>
                     </button>
@@ -209,7 +209,7 @@
                 :title="warningTitle"
                 :pos="posOfEditor"
             ></delete-warning>
-            <section v-if="shown">
+            <section v-if="isModalShown">
                 <component
                     @click.prevent.stop
                     @cardCopySave="CopyNewCard"
@@ -232,7 +232,7 @@ import { boardService } from "../services/board-service.js";
 import { Container, Draggable } from "vue3-smooth-dnd";
 import { applyDrag, generateItems } from '../services/dnd-service.js';
 import labelModal from "./label-modal-cmp.vue";
-import memebersModal from "./memebers-modal-cmp.vue";
+import membersModal from "./memebers-modal-cmp.vue";
 import datesModal from "./date-modal-cmp.vue";
 import deleteWarning from "./delete-warning-modal-cmp.vue";
 import coverModal from "./cover-modal-cmp.vue";
@@ -262,17 +262,18 @@ export default {
         Container,
         Draggable,
         labelModal,
-        memebersModal,
+        membersModal,
         datesModal,
         moment,
         coverModal,
         deleteWarning,
+        copyModal
         // throws
     },
     data() {
         return {
             currModal: null,
-            shown: false,
+            isModalShown: false,
             pos: 0,
             posOfEditor: 0,
             isLabelDark: false,
@@ -293,43 +294,23 @@ export default {
     created() {
     },
     methods: {
+
+         openThisModal(modalName,ref) {
+            if (this.isModalShown === true && modalName === this.currModal) this.isModalShown = false
+            else {
+                const positionOfBtn = this.$refs[ref].getBoundingClientRect()
+                this.posOfEditor = JSON.parse(JSON.stringify(positionOfBtn))
+                this.posOfEditor.left -= 5
+                this.posOfEditor.bottom -= 4
+                this.isModalShown = true
+                this.currModal = modalName
+            }
+        },
         openTitleEdit() {
             // this.titleIsOpen = true;
         },
         editBoard(editedAttribute) {
             this.$emit('boardUpdated', editedAttribute)
-        },
-        changeMembers() {
-            // this.modalOpen = false;
-            this.posOfEditor = this.$refs['membersBtn'].getBoundingClientRect()
-            this.shown = !this.shown
-            this.currModal = "memebersModal"
-        },
-        editLabels() {
-            // this.modalOpen = false;
-            this.posOfEditor = this.$refs['labelBtn'].getBoundingClientRect()
-            this.shown = !this.shown
-            this.currModal = "labelModal"
-        },
-        editDates() {
-            // this.modalOpen = false;
-            this.posOfEditor = this.$refs['datesBtn'].getBoundingClientRect()
-            this.posOfEditor = JSON.parse(JSON.stringify(this.posOfEditor))
-            this.posOfEditor.bottom = 370
-            this.currModal = "datesModal"
-            this.shown = !this.shown
-        },
-        changeCover() {
-            this.posOfEditor = this.$refs['coverBtn'].getBoundingClientRect()
-            // this.posOfEditor = JSON.parse(JSON.stringify(this.posOfEditor))
-            // this.posOfEditor.bottom = 370
-            this.currModal = "coverModal"
-            this.shown = !this.shown
-        },
-        copyCard() {
-            this.posOfEditor = this.$refs['copyBtn'].getBoundingClientRect()
-            this.shown = !this.shown
-            this.currModal = "copyModal"
         },
         CopyNewCard(copy) {
             this.$emit('copyCardToGroup', copy)
@@ -352,7 +333,7 @@ export default {
         },
         openDetails() {
             this.modalOpen = false;
-            this.shown = false
+            this.isModalShown = false
             this.$emit('openCard', { card: this.card, group: this.group })
         },
         openAllLabels() {
@@ -361,7 +342,7 @@ export default {
         },
         closeModal() {
             this.modalOpen = false
-            this.shown = false
+            this.isModalShown = false
             this.$emit('toggleQuickEdit')
 
         },
@@ -385,7 +366,7 @@ export default {
         },
         saveCard() {
             this.$emit('editCard', { card: this.cardToDisplay, group: this.group })
-            this.shown = false
+            this.isModalShown = false
             this.closeModal()
         },
         setMemberLetters(fullname) {
@@ -396,7 +377,7 @@ export default {
             return firstLetters.toUpperCase()
         },
         closeMenu() {
-            this.shown = false
+            this.isModalShown = false
         },
         setDateFormat(timestamp) {
             const dt = new Date(timestamp)

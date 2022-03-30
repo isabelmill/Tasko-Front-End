@@ -13,7 +13,7 @@
             <span class="mini-edit-title">Name</span>
             <input @click.stop.prevent class="edit-input" @submit.prevent type="text" v-model="name" />
             <span class="mini-edit-title">Color</span>
-            <section class="create-board-background-color">
+            <section class="label-color-picker">
                 <div
                     :class="{ checked: color === '#61BD4F' }"
                     @click.stop.prevent="setLabelColor('#61BD4F')"
