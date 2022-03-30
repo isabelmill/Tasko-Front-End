@@ -61,12 +61,12 @@
 </template>
 
 <script>
-import groupList from "../components/group-list.vue"
 import { boardService } from "../services/board-service.js"
-import boardHeader from "../components/board-header.vue"
-import cardDetails from "../components/card-details.vue"
 import { socketService } from "../services/socket.service.js"
 import { userService } from "../services/user-service"
+import groupList from "../components/group-list.vue"
+import boardHeader from "../components/board-header.vue"
+import cardDetails from "../components/card-details.vue"
 
 export default {
     components: {
@@ -88,7 +88,6 @@ export default {
     },
     created() {
     },
-
     mounted() {
         console.log(this.board)
         socketService.on('board-changed', this.socketBoardUpdate)
@@ -101,6 +100,8 @@ export default {
         ,
         groupRemoveFromBoard(groupId) {
             this.boardToEdit = JSON.parse(JSON.stringify(this.board))
+            this.newActivity = boardService.getEmptyActivity()
+            if (this.loggedinUser) this.newActivity.byMember = this.loggedinUser
             const idx = this.boardToEdit.groups.findIndex((group) => group.id === groupId)
             this.saveActivity('removed list ' + this.boardToEdit.groups[idx].title)
             this.boardToEdit.groups.splice(idx, 1)
@@ -187,16 +188,14 @@ export default {
             this.boardToEdit.backgroundPhoto = photo
             this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
         },
-        socketTest(board) {
-            console.log('#############################', board)
-            // this.boardToEdit = JSON.parse(JSON.stringify(board))
-            // this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
-        },
         saveActivity(txt) {
             if (this.loggedinUser) this.newActivity.byMember = this.loggedinUser
+            // if (this.boardToEdit.activities[0].txt !== txt) {
             this.newActivity.txt = txt
             this.boardToEdit.activities.unshift(this.newActivity)
+            // this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
             this.newActivity = boardService.getEmptyActivity()
+            // }
         }
     },
     computed: {
@@ -218,16 +217,12 @@ export default {
             async handler(newId) {
                 if (newId) {
                     await this.$store.dispatch({ type: 'loadBoardById', newId })
+                    console.log('board lastTimeWatched')
                     // socketService.emit('board updated', board => {
                     //     this.socketTest(board)
                     // })
                     socketService.emit('watch board', newId)
                     socketService.emit('set-user-socket', userService.getLoggedinUser()._id)
-                    // socketService.off('board-changed')
-                    // socketService.emit('watch board', this.board._id)
-                    //     console.log('board updated', board._id)
-                    // })
-
                 }
             },
             immediate: true

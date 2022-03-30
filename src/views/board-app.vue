@@ -29,8 +29,7 @@
                             </div>
                             <board-list
                                 v-if="boards"
-                                :boards="boards"
-                                @updateRecentlyViewed="onUpdateRecentlyViewed"
+                                :boards="starredBoards"
                             />
                         </div>
 
@@ -41,8 +40,7 @@
                             </div>
                             <board-list
                                 v-if="boards"
-                                :boards="boards"
-                                @updateRecentlyViewed="onUpdateRecentlyViewed"
+                                :boards="recentlyBoards"
                             />
                         </div>
                         <button
@@ -95,7 +93,6 @@ export default {
     },
     created() {
         this.setFolder('boards')
-
     },
     methods: {
         calcPosOfBox(ref) {
@@ -131,12 +128,6 @@ export default {
         setColors(folder) {
             return this.isFolder[folder] ? 'selected-folder' : 'folder'
         },
-        onUpdateStarred(boardStarred) {
-            this.updateBoard(boardStarred)
-        },
-        onUpdateRecentlyViewed(board) {
-            console.log('Viewed', board)
-        },
         updateBoard(board) {
             this.$store.dispatch({ type: 'saveBoard', board: board })
         },
@@ -145,14 +136,16 @@ export default {
         boards() {
             return this.$store.getters.boards
         },
-        recentlyViewedBoards() {
-            return this.$store.getters.RecentlyViewedBoards
+        starredBoards(){
+            return this.$store.getters.starredBoards
+        },
+        recentlyBoards() {
+            return this.$store.getters.recentlyBoards
         },
         loggedinUser() {
             return this.$store.getters.loggedinUser
         },
     },
-
 
     components: {
         boardList,

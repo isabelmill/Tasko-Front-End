@@ -4,6 +4,7 @@ export default {
     state: {
         boards: null,
         selectedBoard: null,
+        recentlyBoards: null,
         filterBy: null,
     },
     getters: {
@@ -12,6 +13,13 @@ export default {
         },
         board(state) {
             return state.selectedBoard
+        },
+        starredBoards(state) {
+            return state.boards.filter(board => board.isStarred)
+        },
+        recentlyBoards(state) {
+            const recentlyBoards = JSON.parse(JSON.stringify(state.boards))
+            return recentlyBoards.sort((a, b) => b.lastTimeWatched - a.lastTimeWatched);
         },
     },
     mutations: {
@@ -46,7 +54,10 @@ export default {
         async loadBoardById({ commit }, { newId }) {
             try {
                 const board = await boardService.getById(newId)
-                commit({ type: 'setBoard', board });
+                board.lastTimeWatched = Date.now()
+                console.log('board lastTimeWatched', board.lastTimeWatched)
+                commit({ type: 'saveBoard', board })
+                commit({ type: 'setBoard', board })
             } catch (err) {
                 console.log('err!!');
             }
