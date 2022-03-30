@@ -268,7 +268,7 @@
                         </div>
 
                         <!-- comment adding area  -->
-                        <div class="card-details-input-user-comment">
+                        <!-- <div class="card-details-input-user-comment">
                             <div class="card-details-user-avatar member">
                                 <div>{{ loggedinUser ? setMemberLetters(loggedinUser.fullname) : 'GU' }}</div>
                             </div>
@@ -289,10 +289,16 @@
                                     <input
                                         :style="showInput ? null : { 'padding-top': '10px' }"
                                         placeholder="Write a comment..."
+                                        @keydown.enter="addCardComment"
+                                        v-model="newComment.txt"
                                         type="text"
                                     />
                                     <div class="card-details-all-btns">
-                                        <button v-if="showInput" class="card-details-save-btn">Save</button>
+                                        <button
+                                            v-if="showInput"
+                                            class="card-details-save-btn"
+                                            @click.stop.prevent="addCardComment"
+                                        >Save</button>
                                         <div
                                             v-if="showInput"
                                             :style="showInput ? { 'padding-top': '20px' } : null"
@@ -306,13 +312,59 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>-->
+
+                        <div class="card-details-user-comment flex">
+                            <div class="card-details-user-avatar member">
+                                <div>{{ loggedinUser ? setMemberLetters(loggedinUser.fullname) : 'GU' }}</div>
+                            </div>
+                            <div
+                                v-if="!showInput"
+                                class="card-details-input"
+                                @click="showInput = true"
+                                v-clickOutside="closeInput"
+                            >Write a comment...</div>
+                            <div
+                                v-if="showInput"
+                                class="card-details-input-show"
+                                v-clickOutside="closeInput"
+                            >
+                                <input
+                                    placeholder="Write a comment..."
+                                    type="text"
+                                    @keydown.enter="addCardComment"
+                                    v-model="newComment.txt"
+                                />
+                            </div>
                         </div>
 
                         <!-- comments render  -->
-                        <div class="comments-rendering">
-
+                        <div
+                            class="comments-rendering flex"
+                            v-if="card.comments"
+                            v-for="comment in card.comments"
+                            :key="comment"
+                        >
+                            <div class="card-details-user-avatar member">
+                                <div>{{ setMemberLetters(comment.byMember.fullname) }}</div>
+                            </div>
+                            <div class="comment-info">
+                                <div class="comment-info-name-date">
+                                    <p>
+                                        <span>{{ comment.byMember.username }}</span>
+                                        {{ generateTime(comment.createdAt) }}
+                                    </p>
+                                </div>
+                                <div class="comment-info-txt">
+                                    <p>{{ comment.txt }}</p>
+                                </div>
+                                <div class="comment-info-btns flex">
+                                    <p>Edit</p>
+                                    <a>-</a>
+                                    <p>Delete</p>
+                                </div>
+                            </div>
                         </div>
-
                     </section>
                 </section>
 
@@ -458,6 +510,8 @@ import deleteWarning from "./delete-warning-modal-cmp.vue";
 import FastAverageColor from 'fast-average-color';
 import copyModal from "./copy-modal-cmp.vue";
 import checklistModal from "./checklist-modal-cmp.vue";
+import { boardService } from "../services/board-service.js"
+import moment from 'moment';
 
 export default {
 
@@ -481,7 +535,8 @@ export default {
         coverModal,
         attachmentModal,
         copyModal,
-        checklistModal
+        checklistModal,
+        moment
     },
     created() {
         this.description = this.card.description
@@ -499,6 +554,7 @@ export default {
             showInput: false,
             showDesc: false,
             description: '',
+            newComment: boardService.getEmptyGroup(),
             isLoading: false,
             currChecklistItem: '',
         }
@@ -601,9 +657,6 @@ export default {
             this.$emit('deleteCardFromGroup', { card: this.cardToEdit, group: this.group })
             this.closeModal()
         },
-
-        
-
         closeInput() {
             this.showInput = false
         },
@@ -620,6 +673,20 @@ export default {
             this.cardToEdit.description = this.description
             this.$emit('cardModified', { card: this.cardToEdit, group: this.group })
             this.showDesc = false
+        },
+        generateTime(time) {
+            const dateTimeAgo = moment(time).fromNow();
+            return dateTimeAgo
+        },
+        addCardComment() {
+            console.log('newComment.txt:', this.newComment.txt);
+            console.log('showInput:', this.showInput);
+            if (!this.newComment.txt) return
+            this.newComment.byMember = this.loggedinUser
+            this.cardToEdit.comments.push(this.newComment)
+            this.$emit('cardModified', { card: this.cardToEdit, group: this.group })
+            this.newComment = boardService.getEmptyGroup()
+            // this.showInput = false
         },
         setDateFormat(timestamp) {
             let dt = new Date(timestamp)

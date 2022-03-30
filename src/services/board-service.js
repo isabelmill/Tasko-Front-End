@@ -17,6 +17,7 @@ export const boardService = {
     getById,
     remove,
     // updateBoard,
+    getEmptyComment,
     save,
     getEmptyCard,
     getEmptyGroup,
@@ -484,6 +485,19 @@ function getEmptyActivity() {
     }
 }
 
+function getEmptyComment() {
+    return {
+        id: utilService.makeId(),
+        txt: '',
+        createdAt: Date.now(),
+        byMember: {
+            _id: "u101",
+            fullname: "Guest User",
+            username: "Guest User",
+        },
+    }
+}
+
 function getEmptyCard() {
     return {
         id: utilService.makeId(),
@@ -494,6 +508,7 @@ function getEmptyCard() {
         createdAt: Date.now(),
         checklists: [],
         attachments: [],
+        comments: [],
         cover: {},
         members: [],
         dueDate: '',
