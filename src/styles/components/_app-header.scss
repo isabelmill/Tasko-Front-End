@@ -3,38 +3,39 @@
     height: rem(43px);
     width: 100%;
     background-color: $mainBlue;
-    color: #ffff;
+    color: #dfdfde;
     display: flex;
     align-items: center;
     padding: 0 8px 0 8px;
 
-    .logo {
-        font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
-        font-size: rem(22px);
-        height: rem(32px);
+    .logo-box {
         display: flex;
         justify-content: center;
         align-items: center;
-        gap: 8px;
-
-        img {
-            height: rem(16px);
-            width: rem(16px);
+        gap: 6px;
+        @include headerBtn();
+        .logo-txt {
+            font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
+            font-size: rem(20px);
+            font-weight: bold;
+        }
+        .logo-img {
+            background-image: url(../assets/gif/logo-not.gif);
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: center;
+            margin-top: 3px;
+            width: 20px;
+            height: 20px;
+        }
+        &:hover {
+            .logo-img {
+                background-image: url(../assets/gif/logo-move.gif);
+            }
         }
     }
 
     .link {
-        font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
-        display: flex;
-        gap: rem(8px);
-        align-items: center;
-        justify-content: center;
-
-        height: rem(32px);
-        @include headerBtn();
-    }
-
-    a {
         font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
         display: flex;
         gap: rem(8px);
@@ -246,7 +247,6 @@
                 font-weight: unset;
                 font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
                 font-size: 14px;
-
             }
         }
 
@@ -282,7 +282,7 @@
     }
 }
 
-.user-avatar-in-app-header{
+.user-avatar-in-app-header {
     display: flex;
     align-items: center;
     justify-content: center;

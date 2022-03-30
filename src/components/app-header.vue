@@ -3,7 +3,10 @@
     class="app-header-main"
     :style="board && isOnBoard ? { 'background-color': lightenDarkenColor(board.background, -20) } : null"
   >
-    <router-link to="/board" class="logo">Mello</router-link>
+    <router-link to="/board" class="logo-box">
+        <span class="logo-img"></span>
+        <p class="logo-txt">Tasko</p>
+    </router-link>
     <a class="link" to="/">
       Workspaces
       <svg
@@ -43,7 +46,7 @@
       v-clickOutside="closeRecentModal"
       @close="closeRecentModal"
     ></recent-boards-modal>
-    <a @click="openStarredBoardsModal(), calcPosOfBox()" ref="starred">
+    <a @click="openStarredBoardsModal(), calcPosOfBox()" ref="starred" class="link">
       Starred
       <svg
         width="16"
@@ -156,8 +159,11 @@
         @click="openLoggedInUserModal(), calcPosOfBox()"
         ref="user"
         class="user-avatar-in-app-header"
-      >{{ loggedinUser?  setMemberLetters(loggedinUser.fullname) : 'GU'}}</div>
-      
+      >
+        {{
+          loggedinUser ? setMemberLetters(loggedinUser.fullname) : 'GU'
+        }}
+      </div>
 
       <logged-in-user-modal
         v-if="openUserModal"
