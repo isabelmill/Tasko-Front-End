@@ -67,10 +67,11 @@
                             v-if="card.date"
                             class="date"
                             @click.stop.prevent="onDateClicked"
-                            :class="updateDateStyle(card.date)"
+                            :class="updateDateStyle"
                         >
                             <span class="icon-sm icon-clock-in-date"></span>
-                            <span class="date-txt">{{ setDateFormat(card.date) }}</span>
+                            <!-- <span class="date-txt">{{ setDateFormat(card.date) }}</span> -->
+                            <span class="date-txt">{{ setDateFormat }}</span>
                         </div>
                     </div>
                     <div v-if="card.attachments.length" class="attachments">
@@ -141,10 +142,10 @@
                                         v-if="card.date"
                                         class="date"
                                         @click.stop.prevent="onDateClicked"
-                                        :class="updateDateStyle(card.date)"
+                                        :class="updateDateStyle"
                                     >
                                         <span class="icon-sm icon-clock-in-date"></span>
-                                        <span class="date-txt">{{ setDateFormat(card.date) }}</span>
+                                        <span class="date-txt">{{ setDateFormat }}</span>
                                     </div>
                                 </div>
                                 <div v-if="card.attachments.length" class="attachments">
@@ -308,12 +309,12 @@ export default {
             isActionsOpen: false,
             activeComponent: null,
             isLabelClicked: false,
+            timeCalc: null,
         }
     },
     created() {
     },
     methods: {
-
         openThisModal(modalName, ref) {
             if (this.isModalShown === true && modalName === this.currModal) this.isModalShown = false
             else {
@@ -398,20 +399,11 @@ export default {
         closeMenu() {
             this.isModalShown = false
         },
-        setDateFormat(timestamp) {
-            const dt = new Date(timestamp)
-            const date = Intl.DateTimeFormat('en-Us', { month: 'short', day: 'numeric' }).format(dt)
-            return date
-        },
         onDateClicked() {
             this.cardToEdit = JSON.parse(JSON.stringify(this.card))
             this.cardToEdit.isComplete = !this.cardToEdit.isComplete
             console.log('this.cardToEdit', this.cardToEdit)
             this.$emit('editCard', { card: this.cardToEdit, group: this.group })
-        },
-        updateDateStyle(timestamp) {
-            const timeCalc = (new Date() - timestamp)
-            return { dateUncompleted: !this.cardToEdit.isComplete, dateCompleted: this.cardToEdit.isComplete, datePast: timeCalc > 0 };
         },
         darkenLabels() {
             this.isLabelDark = true
@@ -436,8 +428,15 @@ export default {
         openLabels() {
             return { labelOpen: this.isLabelOpen };
         },
-        updateDate() {
-            return { dateRed: !this.isDateClicked, dateGreen: this.isDateClicked };
+        setDateFormat() {
+            const timeCalc = (new Date() - this.card.date)
+            this.timeCalc = timeCalc
+            const dt = new Date(this.card.date)
+            const date = Intl.DateTimeFormat('en-Us', { month: 'short', day: 'numeric' }).format(dt)
+            return date
+        },
+        updateDateStyle() {
+            return { dateUncompleted: !this.cardToDisplay.isComplete, dateCompleted: this.cardToDisplay.isComplete, datePast: this.timeCalc > 0 };
         },
 
     },
