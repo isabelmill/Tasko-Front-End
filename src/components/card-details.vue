@@ -294,10 +294,7 @@
                                         class="card-details-save-btn"
                                         @click.stop.prevent="addCardComment"
                                     >Save</button>
-                                    <div
-                                        v-if="showInput"
-                                        class="icon-btns-inside-input"
-                                    >
+                                    <div v-if="showInput" class="icon-btns-inside-input">
                                         <span class="icon-smd icon-attachment"></span>
                                         <span class="icon-smd icon-shtrudel"></span>
                                         <span class="icon-smd icon-smiley"></span>
@@ -330,7 +327,7 @@
                                 <div class="comment-info-btns flex">
                                     <p>Edit</p>
                                     <a>-</a>
-                                    <p>Delete</p>
+                                    <p @click="deleteComment(comment.id)">Delete</p>
                                 </div>
                             </div>
                         </div>
@@ -523,7 +520,7 @@ export default {
             showInput: false,
             showDesc: false,
             description: '',
-            newComment: boardService.getEmptyGroup(),
+            newComment: boardService.getEmptyComment(),
             isLoading: false,
             currChecklistItem: '',
         }
@@ -675,6 +672,11 @@ export default {
         notifyComplete() {
             this.isLoading = false
         },
+        deleteComment(commentId) {
+            const commentIdx = this.cardToEdit.comments.findIndex(comment => comment.id === commentId)
+            this.cardToEdit.comments.splice(commentIdx, 1)
+            this.$emit('cardModified', { card: this.cardToEdit, group: this.group })
+        }
     },
     emits: ['cardCopySave', 'closeDialog', 'cardModified', 'boardModified', 'deleteCardFromGroup', 'saveCopy']
 }
