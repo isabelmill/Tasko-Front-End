@@ -100,17 +100,21 @@ export default {
 
     mounted() {
         console.log(this.board)
-        socketService.on('board-changed', this.socketTest)
+        socketService.on('board-changed',this.socketBoardUpdate)
         socketService.on('connected', this.socketTest)
     },
     methods: {
+        socketBoardUpdate(board){
+            this.$store.commit('setBoard', board)
+        }
+        ,
         groupRemoveFromBoard(groupId) {
             this.boardToEdit = JSON.parse(JSON.stringify(this.board))
             this.newActivity = boardService.getEmptyActivity()
             if (this.loggedinUser) this.newActivity.byMember = this.loggedinUser
 
             const idx = this.boardToEdit.groups.findIndex((group) => group.id === groupId)
-        
+
             this.saveActivity('removed list ' + this.boardToEdit.groups[idx].title)
             this.boardToEdit.groups.splice(idx, 1)
             this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
@@ -205,15 +209,15 @@ export default {
             // this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
         },
         saveActivity(txt) {
-            
-            console.log('txt:',txt);
+
+            console.log('txt:', txt);
             this.boardToEdit = JSON.parse(JSON.stringify(this.board))
             if (this.loggedinUser) this.newActivity.byMember = this.loggedinUser
             // if (this.boardToEdit.activities[0].txt !== txt) {
-                this.newActivity.txt = txt
-                this.boardToEdit.activities.unshift(this.newActivity)
-                this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
-                this.newActivity = boardService.getEmptyActivity()
+            this.newActivity.txt = txt
+            this.boardToEdit.activities.unshift(this.newActivity)
+            this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
+            this.newActivity = boardService.getEmptyActivity()
             // }
         }
     },
