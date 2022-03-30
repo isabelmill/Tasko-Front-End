@@ -1,5 +1,6 @@
 <!-- card preview inside group list -->
 <template >
+<section>
     <section class="group-list-main">
         <section v-for="group in groups" :key="group.id" class="group-preview-main">
             <toggle-input-cmp
@@ -39,6 +40,7 @@
             </div>
         </div>
     </div>
+    </section>
 </template>
 
 <script>
