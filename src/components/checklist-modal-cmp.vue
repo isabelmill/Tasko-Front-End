@@ -72,7 +72,7 @@ export default {
             this.$emit('cardEdit', this.cardToEdit)
         }
     },
-    emits: ['actionsClose', 'cardEdit', 'boardEdit']
+     emits: ['actionsClose', 'cardEdit', 'boardEdit']
 
 }
 </script>
