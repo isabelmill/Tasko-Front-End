@@ -1,16 +1,26 @@
 <template>
     <section>
-        <section v-if="Object.keys(card.cover).length" class="card-details-cover" ref="headerCover"
+        <section
+            v-if="Object.keys(card.cover).length"
+            class="card-details-cover"
+            ref="headerCover"
             :class="{ color: card.cover.type === 'color', attachmentofdetails: card.cover.type === 'attachment' }"
-            v-bind:style="[(card.cover.type === 'color') ? { backgroundColor: card.cover.value } : { backgroundImage: 'url(' + card.cover.value + ')' }]">
-        <div v-if="card.cover.type" class="card-details-cover-close " @click.stop.prevent="closeModal">
-        <span  class="icon-md icon-closed" ></span>
-        </div>
-        <button  class="card-details-btn-header"
-                        @click.stop.prevent="openThisModal('coverModal', $event)">
-                        <span class="icon-sm icon-cover"></span>
-                        Cover
-                    </button>
+            v-bind:style="[(card.cover.type === 'color') ? { backgroundColor: card.cover.value } : { backgroundImage: 'url(' + card.cover.value + ')' }]"
+        >
+            <div
+                v-if="card.cover.type"
+                class="card-details-cover-close"
+                @click.stop.prevent="closeModal"
+            >
+                <span class="icon-md icon-closed"></span>
+            </div>
+            <button
+                class="card-details-btn-header"
+                @click.stop.prevent="openThisModal('coverModal', $event)"
+            >
+                <span class="icon-sm icon-cover"></span>
+                Cover
+            </button>
         </section>
 
         <section class="card-details-container flex">
@@ -21,8 +31,12 @@
                         <p>{{ card.title }}</p>
                     </div>
                 </div>
-                <div v-if="!Object.keys(card.cover).length" class="card-details-no-cover-close " @click.stop.prevent="closeModal">
-                    <span  class="icon-md icon-closed"></span>
+                <div
+                    v-if="!Object.keys(card.cover).length"
+                    class="card-details-no-cover-close"
+                    @click.stop.prevent="closeModal"
+                >
+                    <span class="icon-md icon-closed"></span>
                 </div>
             </div>
 
@@ -31,17 +45,32 @@
             </div>
 
             <!-- Lables members and date adding area  -->
-            <section  class="card-details-actions-container-edit-btns flex">
+            <section class="card-details-actions-container-edit-btns flex">
                 <section class="card-details-actions-container">
                     <section class="card-details-main flex">
-                        <div  class="card-details-members-labels-date">
-                            <div v-if="card.members.length > 0"  class="card-detail-member-container-main">
+                        <div
+                            v-if="card.members.length > 0 || card.labels.length > 0 || card.date"
+                            class="card-details-members-labels-date"
+                        >
+                            <div
+                                v-if="card.members.length > 0"
+                                class="card-detail-member-container-main"
+                            >
                                 <label v-if="card.members.length > 0" for>Members</label>
-                                <div class="card-details-members-container" v-if="card.members.length > 0" for>
-                                    <section class="card-details-members" v-for="member in card.members"
-                                        :key="member._id">
+                                <div
+                                    class="card-details-members-container"
+                                    v-if="card.members.length > 0"
+                                    for
+                                >
+                                    <section
+                                        class="card-details-members"
+                                        v-for="member in card.members"
+                                        :key="member._id"
+                                    >
                                         <div class="card-details-member-img">
-                                            <div class="member">{{ setMemberLetters(member.fullname) }}</div>
+                                            <div
+                                                class="member"
+                                            >{{ setMemberLetters(member.fullname) }}</div>
                                         </div>
                                     </section>
                                 </div>
@@ -49,10 +78,20 @@
 
                             <div class="card-detail-labels-container-main">
                                 <label v-if="card.labels.length > 0" for>Labels</label>
-                                <div class="card-details-labels-container" v-if="card.labels.length > 0" for>
-                                    <section class="card-details-labels" v-for="label in card.labels" :key="label">
-                                        <div class="card-details-label"
-                                            :style="{ 'backgroundColor': board.labels[board.labels.findIndex(labelToFind => labelToFind.id === label)].color }">
+                                <div
+                                    class="card-details-labels-container"
+                                    v-if="card.labels.length > 0"
+                                    for
+                                >
+                                    <section
+                                        class="card-details-labels"
+                                        v-for="label in card.labels"
+                                        :key="label"
+                                    >
+                                        <div
+                                            class="card-details-label"
+                                            :style="{ 'backgroundColor': board.labels[board.labels.findIndex(labelToFind => labelToFind.id === label)].color }"
+                                        >
                                             <p>
                                                 {{
                                                     board.labels[board.labels.findIndex(labelToFind => labelToFind.id ===
@@ -68,29 +107,44 @@
                                 <label v-if="card.date" for>Due date</label>
                                 <div class="card-details-dates-container" v-if="card.date" for>
                                     <section class="card-details-dates">
-                                        <div v-if="!card.isComplete" @click.stop.prevent="toggleCardComplete"
-                                            class="checkbox"></div>
+                                        <div
+                                            v-if="!card.isComplete"
+                                            @click.stop.prevent="toggleCardComplete"
+                                            class="checkbox"
+                                        ></div>
 
-                                        <img v-if="card.isComplete" @click.stop.prevent="toggleCardComplete"
+                                        <img
+                                            v-if="card.isComplete"
+                                            @click.stop.prevent="toggleCardComplete"
                                             class="done-img"
                                             src="data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23fff' viewBox='-3 -4 16 16'%3E%3Cpath d='M1.49 3.215a.667.667 0 0 0-.98.903l2.408 2.613c.358.351.892.351 1.223.02l.243-.239a1689.645 1689.645 0 0 0 2.625-2.589l.027-.026a328.23 328.23 0 0 0 2.439-2.429.667.667 0 1 0-.95-.936c-.469.476-1.314 1.316-2.426 2.417l-.027.026a1368.126 1368.126 0 0 1-2.517 2.482L1.49 3.215z'/%3E%3C/svg%3E"
-                                            alt />
+                                            alt
+                                        />
 
                                         <!-- <input @click="toggleCardComplete"  type="checkbox" /> -->
 
                                         <div class="card-details-date">
                                             <p>{{ setDateFormat(card.date) }} at {{ setHourFormat(card.date) }}</p>
 
-                                            <span v-if="card.date < Date.now() && !card.isComplete"
-                                                class="overdue">overdue</span>
+                                            <span
+                                                v-if="card.date < Date.now() && !card.isComplete"
+                                                class="overdue"
+                                            >overdue</span>
                                             <span v-if="card.isComplete" class="complete">complete</span>
 
-                                            <svg class="down" width="20" height="20" role="presentation"
-                                                focusable="false" viewBox="0 0 24 24"
-                                                xmlns="http://www.w3.org/2000/svg">
+                                            <svg
+                                                class="down"
+                                                width="20"
+                                                height="20"
+                                                role="presentation"
+                                                focusable="false"
+                                                viewBox="0 0 24 24"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                            >
                                                 <path
                                                     d="M11.2929 16.7071L4.22185 9.63606C3.83132 9.24554 3.83132 8.61237 4.22185 8.22185C4.61237 7.83133 5.24554 7.83133 5.63606 8.22185L12 14.5858L18.364 8.22185C18.7545 7.83132 19.3877 7.83132 19.7782 8.22185C20.1687 8.61237 20.1687 9.24554 19.7782 9.63606L12.7071 16.7071C12.3166 17.0977 11.6834 17.0977 11.2929 16.7071Z"
-                                                    fill="currentColor" />
+                                                    fill="currentColor"
+                                                />
                                             </svg>
                                         </div>
                                     </section>
@@ -103,47 +157,82 @@
                             <div class="card-details-description">
                                 <span class="icon-lg icon-desc"></span>
                                 <h3>Description</h3>
-                                <button @click.stop.prevent="openTextArea" v-if="card.description">Edit</button>
+                                <button
+                                    @click.stop.prevent="openTextArea"
+                                    v-if="card.description"
+                                >Edit</button>
                             </div>
 
-                            <div class="card-details-input" :style="showDesc ? {
-                                'padding-left': '42px',
-                                'padding-top': '18px'
-                            } : null">
-                                <div v-if="!showDesc && !card.description" @click.stop.prevent="openTextArea"
-                                    class="open-input-btn">Add a more detailed description...</div>
-                                <div class="card-description" @click.stop.prevent="openTextArea" v-if="!showDesc">
+                            <div
+                                class="card-details-input"
+                                :style="showDesc ? {
+                                    'padding-left': '42px',
+                                    'padding-top': '18px'
+                                } : null"
+                            >
+                                <div
+                                    v-if="!showDesc && !card.description"
+                                    @click.stop.prevent="openTextArea"
+                                    class="open-input-btn"
+                                >Add a more detailed description...</div>
+                                <div
+                                    class="card-description"
+                                    @click.stop.prevent="openTextArea"
+                                    v-if="!showDesc"
+                                >
                                     {{
                                         card.description
                                     }}
                                 </div>
-                                <textarea v-focus placeholder="Add a more detailed description..." v-if="showDesc"
-                                    v-model="description" name="description" id cols="60" rows="4"></textarea>
+                                <textarea
+                                    v-focus
+                                    placeholder="Add a more detailed description..."
+                                    v-if="showDesc"
+                                    v-model="description"
+                                    name="description"
+                                    id
+                                    cols="60"
+                                    rows="4"
+                                ></textarea>
                                 <div v-if="showDesc" class="card-details-text-add-btn">
                                     <button @click.stop.prevent="updateCardDesc">Save</button>
-                                    <span @click.stop.prevent="closeTextArea" class="icon-xl icon-closed"></span>
+                                    <span
+                                        @click.stop.prevent="closeTextArea"
+                                        class="icon-xl icon-closed"
+                                    ></span>
                                 </div>
                             </div>
                         </section>
 
                         <!-- Attachments area  -->
-                        <div v-if="isLoading || card.attachments.length > 0"
-                            class="card-details-activity-show-attachments">
+                        <div
+                            v-if="isLoading || card.attachments.length > 0"
+                            class="card-details-activity-show-attachments"
+                        >
                             <div class="card-details-attachments">
                                 <span class="icon-lg icon-attachment"></span>
                                 <h3>Attachments</h3>
                             </div>
                             <div v-if="isLoading" class="loading-attachment">
                                 <div class="loading-container">
-                                    <img class="loading-svg"
-                                        src="https://res.cloudinary.com/dw85wdwsw/image/upload/v1648563503/dlcjcnpz0afvbj2mgrqj.svg" />
+                                    <img
+                                        class="loading-svg"
+                                        src="https://res.cloudinary.com/dw85wdwsw/image/upload/v1648563503/dlcjcnpz0afvbj2mgrqj.svg"
+                                    />
                                     processing...
                                 </div>
                             </div>
                             <div v-if="card.attachments.length">
-                                <div v-for="attachment in card.attachments" class="card-attachments-area"
-                                    :key="attachment.link">
-                                    <img @vnode-mounted="attachmentBGC($event)" :src="attachment.link" alt />
+                                <div
+                                    v-for="attachment in card.attachments"
+                                    class="card-attachments-area"
+                                    :key="attachment.link"
+                                >
+                                    <img
+                                        @vnode-mounted="attachmentBGC($event)"
+                                        :src="attachment.link"
+                                        alt
+                                    />
                                     <div class="card-attachment-area-main">
                                         <div class="card-attachment-area-header">
                                             <p>{{ attachment.name }}</p>
@@ -166,35 +255,89 @@
                             </div>
                         </div>
                         <!--checkLIST area -->
-                        <!-- <div v-if="card.checklists" class="card-details-checklist-show-details">
+                        <div v-if="card.checklists" class="card-details-checklist-show-details">
                             <div
                                 v-for="checklist in card.checklists"
                                 :key="checklist.id"
                                 class="card-details-checklist"
                             >
                                 <div class="icon-lg icon-checklist"></div>
-                                <h3>{{ checklist.title }}</h3>
-                                <button class="checklist-btn checklkist-delete">Delete</button>
-                                <div class="todo-bar"></div>
-                                <button @click.stop.prevent="openChecklistInput" class="checklist-btn checklist-add-item">Add an item</button>
-                                <div v-if="checklist.todos" class="checklist-item-container">
-                                    <div class="checklist-item"
-                                    v-for="item in checklist.todos"
-                                    :key="item.id"
-                                    ></div>
+                                <h3
+                                 v-if="!isChecklistOpen"
+                                    @click.stop.prevent="openChecklist(checklist)"
+                                >{{ checklist.title }}</h3>
+                                <div>
+                                    <textarea
+                                        v-clickOutside="closeChecklist"
+                                        class="edit-todo-text"
+                                        v-model="currChecklist.title"
+                                    />
+                                    <button
+                                        @click.stop.prevent="saveTodo"
+                                        class="checklist-btn save-btn"
+                                    >Save</button>
+                                    <div class="todo-discard">
+                                        <div class="icon-lg icon-closed"></div>
+                                    </div>
                                 </div>
-                                <div class="checklist-input-container">
+                                <button
+                                v-if="isChecklistOpen"
+                                    @click.stop.prevent="deleteChecklist(checklist.id)"
+                                    class="checklist-btn checklkist-delete"
+                                >Delete</button>
+                                <div class="todo-bar"></div>
+                                <div v-if="checklist.todos.length" class="todos-container">
+                                    <div
+                                        class="checklist-todo"
+                                        v-for="todo in checklist.todos"
+                                        :key="todo.id"
+                                    >
+                                        <!-- //STYLE CHECKBOX IF COMPLETE TODO AND UPDATE BAR -->
+                                        <div
+                                            @click="checkboxTodo(checklist, todo)"
+                                            class="todo-checkbox"
+                                        ></div>
+                                        <div
+                                            class="todo-preview"
+                                            @click.stop.prevent="openTodo(checklist, todo)"
+                                        >
+                                            <span
+                                                v-if="!isOpen(checklist, todo)"
+                                                class="todo-text"
+                                            >{{ todo.text }}</span>
+                                        </div>
+                                        <div v-if="isOpen(checklist, todo)">
+                                            <textarea
+                                                v-clickOutside="closeTodo"
+                                                v-model="currOpenTodo.text"
+                                                class="edit-todo-text"
+                                            ></textarea>
+                                            <button
+                                                @click.stop.prevent="saveTodo"
+                                                class="checklist-btn save-btn"
+                                            >Add</button>
+                                            <div class="todo-discard">
+                                                <div class="icon-lg icon-closed"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button
+                                v-if="!addingNewTodo"
+                                    @click.stop.prevent="openChecklistInput(checklist)"
+                                    class="checklist-btn checklist-add-item"
+                                >Add an item</button>
+                                <div v-if="addingNewTodo" class="checklist-input-container">
                                     <input
-                                        v-model="currChecklistItem"
+                                        v-model="currOpenTodo.text"
                                         placeholder="Add an item"
                                         type="text"
                                     />
-                                    <button class="item-add-btn">Add</button>
+                                    <button @click.stop.prevent="addTodo(checklist)" class="item-add-btn">Add</button>
                                     <button class="icon-lg icon-closed"></button>
-
                                 </div>
                             </div>
-                        </div>-->
+                        </div>
                         <!-- Activity Area  -->
                         <div class="card-details-activity-show-details">
                             <div class="card-details-activity">
@@ -208,14 +351,29 @@
                             <div class="card-details-user-avatar member">
                                 <div>{{ loggedinUser ? setMemberLetters(loggedinUser.fullname) : 'GU' }}</div>
                             </div>
-                            <div v-if="!showInput" class="card-details-input" @click="showInput = true"
-                                v-clickOutside="closeInput">Write a comment...</div>
-                            <div v-if="showInput" class="card-details-input-show" v-clickOutside="closeInput">
-                                <input placeholder="Write a comment..." type="text" @keydown.enter="addCardComment"
-                                    v-model="newComment.txt" />
+                            <div
+                                v-if="!showInput"
+                                class="card-details-input"
+                                @click="showInput = true"
+                                v-clickOutside="closeInput"
+                            >Write a comment...</div>
+                            <div
+                                v-if="showInput"
+                                class="card-details-input-show"
+                                v-clickOutside="closeInput"
+                            >
+                                <input
+                                    placeholder="Write a comment..."
+                                    type="text"
+                                    @keydown.enter="addCardComment"
+                                    v-model="newComment.txt"
+                                />
                                 <div class="card-details-all-btns flex">
-                                    <button v-if="showInput" class="card-details-save-btn"
-                                        @click.stop.prevent="addCardComment">Save</button>
+                                    <button
+                                        v-if="showInput"
+                                        class="card-details-save-btn"
+                                        @click.stop.prevent="addCardComment"
+                                    >Save</button>
                                     <div v-if="showInput" class="icon-btns-inside-input">
                                         <span class="icon-smd icon-attachment"></span>
                                         <span class="icon-smd icon-shtrudel"></span>
@@ -228,7 +386,11 @@
 
                         <!-- comments render  -->
                         <div v-if="card.comments">
-                            <div class="comments-rendering flex" v-for="comment in card.comments" :key="comment">
+                            <div
+                                class="comments-rendering flex"
+                                v-for="comment in card.comments"
+                                :key="comment"
+                            >
                                 <div class="card-details-user-avatar member">
                                     <div>{{ setMemberLetters(comment.byMember.fullname) }}</div>
                                 </div>
@@ -257,59 +419,96 @@
                 <section class="card-details-edit">
                     <label for>Add to card</label>
 
-                    <button ref="membersBtn" class="card-details-btn"
-                        @click.stop.prevent="openThisModal('membersModal', $event)">
+                    <button
+                        ref="membersBtn"
+                        class="card-details-btn"
+                        @click.stop.prevent="openThisModal('membersModal', $event)"
+                    >
                         <span class="icon-sm icon-member"></span>
                         Members
                     </button>
 
-                    <button ref="labelBtn" class="card-details-btn"
-                        @click.stop.prevent="openThisModal('labelModal', $event)">
+                    <button
+                        ref="labelBtn"
+                        class="card-details-btn"
+                        @click.stop.prevent="openThisModal('labelModal', $event)"
+                    >
                         <span class="icon-sm icon-label"></span>
                         Labels
                     </button>
 
-                    <button ref="checklistBtn" @click.stop.prevent="openThisModal('checklistModal', $event)"
-                        class="card-details-btn">
+                    <button
+                        ref="checklistBtn"
+                        @click.stop.prevent="openThisModal('checklistModal', $event)"
+                        class="card-details-btn"
+                    >
                         <span class="icon-sm icon-checklist"></span>
                         Checklist
                     </button>
 
-                    <button ref="datesBtn" class="card-details-btn"
-                        @click.stop.prevent="openThisModal('datesModal', $event)">
-                        <svg class="date-svg" width="16" height="16" role="presentation" focusable="false"
-                            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <button
+                        ref="datesBtn"
+                        class="card-details-btn"
+                        @click.stop.prevent="openThisModal('datesModal', $event)"
+                    >
+                        <svg
+                            class="date-svg"
+                            width="16"
+                            height="16"
+                            role="presentation"
+                            focusable="false"
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
                             <path
                                 d="M13 6C13 5.44772 12.5523 5 12 5C11.4477 5 11 5.44772 11 6V12C11 12.2652 11.1054 12.5196 11.2929 12.7071L13.7929 15.2071C14.1834 15.5976 14.8166 15.5976 15.2071 15.2071C15.5976 14.8166 15.5976 14.1834 15.2071 13.7929L13 11.5858V6Z"
-                                fill="currentColor" />
-                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                fill="currentColor"
+                            />
+                            <path
+                                fill-rule="evenodd"
+                                clip-rule="evenodd"
                                 d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12ZM12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20Z"
-                                fill="currentColor" />
+                                fill="currentColor"
+                            />
                         </svg>
                         Dates
                     </button>
 
-                    <button ref="attachmentBtn" class="card-details-btn"
-                        @click.stop.prevent="openThisModal('attachmentModal', $event)">
+                    <button
+                        ref="attachmentBtn"
+                        class="card-details-btn"
+                        @click.stop.prevent="openThisModal('attachmentModal', $event)"
+                    >
                         <span class="icon-sm icon-attachment"></span>
                         Attachment
                     </button>
 
-                    <button v-if="!card.cover.type" ref="coverBtn" class="card-details-btn"
-                        @click.stop.prevent="openThisModal('coverModal', $event)">
+                    <button
+                        v-if="!card.cover.type"
+                        ref="coverBtn"
+                        class="card-details-btn"
+                        @click.stop.prevent="openThisModal('coverModal', $event)"
+                    >
                         <span class="icon-sm icon-cover"></span>
                         Cover
                     </button>
 
                     <label for>Actions</label>
 
-                    <button ref="copyBtn" class="card-details-btn"
-                        @click.stop.prevent="openThisModal('copyModal', $event)">
+                    <button
+                        ref="copyBtn"
+                        class="card-details-btn"
+                        @click.stop.prevent="openThisModal('copyModal', $event)"
+                    >
                         <span class="icon-sm icon-copy"></span>
                         Copy
                     </button>
 
-                    <button ref="deleteBtn" class="card-details-btn" @click.stop.prevent="deleteWarn">
+                    <button
+                        ref="deleteBtn"
+                        class="card-details-btn"
+                        @click.stop.prevent="deleteWarn"
+                    >
                         <span class="icon-sm icon-archive"></span>
                         Delete
                     </button>
@@ -321,16 +520,31 @@
         <!-- CR -->
         <!-- CR -->
         <section v-if="isModalShown">
-            <component @uploadComplete="notifyComplete" @uploading="notifyUploading" @boardEdit="editBoard"
-                @cardEdit="editCard" @actionsClose="closeMenu" @cardCopySave="sendCardCopyToStore" :board="board"
-                :card="card" :group="group" :pos="pos" :is="currModal"></component>
+            <component
+                @uploadComplete="notifyComplete"
+                @uploading="notifyUploading"
+                @boardEdit="editBoard"
+                @cardEdit="editCard"
+                @actionsClose="closeMenu"
+                @cardCopySave="sendCardCopyToStore"
+                :board="board"
+                :card="card"
+                :group="group"
+                :pos="pos"
+                :is="currModal"
+            ></component>
         </section>
         <!-- CR -->
         <!-- CR -->
         <!-- CR -->
 
-        <delete-warning @closeDeleteWarning="closeWarning" @deleteConfirmed="deleteCard" v-if="warningOpen"
-            :title="warningTitle" :pos="pos"></delete-warning>
+        <delete-warning
+            @closeDeleteWarning="closeWarning"
+            @deleteConfirmed="deleteCard"
+            v-if="warningOpen"
+            :title="warningTitle"
+            :pos="pos"
+        ></delete-warning>
     </section>
 </template>
 
@@ -390,7 +604,10 @@ export default {
             description: '',
             newComment: boardService.getEmptyComment(),
             isLoading: false,
-            currChecklistItem: '',
+            currOpenTodo: {},
+            currChecklist: {},
+            isChecklistOpen:false,
+            addingNewTodo:false,
         }
     },
     computed: {
@@ -419,7 +636,7 @@ export default {
     watch: {
         backgroundCoverColor: {
             async handler(newColor) {
-                this.$refs['headerCover'].style.backgroundColor = newColor
+                if (Object.keys(this.card.cover).length) this.$refs['headerCover'].style.backgroundColor = newColor
             }
         }
     },
@@ -545,6 +762,45 @@ export default {
             const commentIdx = this.cardToEdit.comments.findIndex(comment => comment.id === commentId)
             this.cardToEdit.comments.splice(commentIdx, 1)
             this.$emit('cardModified', { card: this.cardToEdit, group: this.group })
+        },
+        isOpen(checklist, todo) {
+            if (Object.keys(this.currChecklist).length && Object.keys(this.currOpenTodo).length)
+                if (this.currChecklist.id === checklist.id && this.currOpenTodo.id === todo.id)
+                    return true
+            return false
+        },
+        openTodo(checklist, todo) {
+            this.currChecklist = JSON.parse(JSON.stringify(checklist))
+            this.currOpenTodo = JSON.parse(JSON.stringify(todo))
+        },
+        checkboxTodo(checklist, todo) {
+            this.currChecklist = JSON.parse(JSON.stringify(checklist))
+            this.currOpenTodo = JSON.parse(JSON.stringify(todo))
+            this.currOpenTodo.isComplete = true
+        },
+        closeTodo() {
+            this.currChecklist = {}
+            this.currOpenTodo = {}
+        },
+        openChecklist(checklist){
+            this.currChecklist = JSON.parse(JSON.stringify(checklist))
+            this.isChecklistOpen = true
+        },
+        closeChecklist(){
+            this.currChecklist = {}
+            this.isChecklistOpen = false
+        },
+        openChecklistInput(checklist){
+          this.currChecklist = checklist
+          this.addingNewTodo = true
+          this.currOpenTodo = boardService.getEmptyTodo()
+        },
+        saveTodo() {
+            this.cardToEdit = JSON.parse(JSON.stringify(this.card))
+            const checklistIdx = this.cardToEdit.checklists.findIndex(checklistToFind => checklistToFind.id = this.currChecklist.id)
+            const todoIdx = this.cardToEdit.checklists[checklistIdx].todos.findIndex(todoToFind => todoToFind.id === this.currOpenTodo.idi)
+            this.cardToEdit.checklists[checklistIdx].todos[todoIdx] = this.currOpenTodo
+            this.$emit('cardModified', { card: this.cardToEdit, group: this.group })
         }
     },
     emits: ['cardCopySave', 'closeDialog', 'cardModified', 'boardModified', 'deleteCardFromGroup', 'saveCopy']
@@ -552,8 +808,6 @@ export default {
 </script>
 
 <style>
-
-
 .card-details-main {
     flex-direction: column;
     justify-content: space-around;

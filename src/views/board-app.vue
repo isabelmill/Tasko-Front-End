@@ -297,6 +297,7 @@ export default {
             if (!board.title) return
             if (this.loggedinUser) {
                 board.createdBy = this.loggedinUser
+                board.members.push(this.loggedinUser)
                 this.newActivity.byMember = this.loggedinUser
             }
             this.newActivity.txt = 'created this board'
