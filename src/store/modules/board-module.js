@@ -33,6 +33,11 @@ export default {
         categoryEducation(state) {
             return state.boards.filter(board => board.category === 'education')
         },
+        allActivities(state) {
+            var allActivities = []
+            state.boards.forEach(board => board.activities.forEach(activity => allActivities.unshift(activity)))
+            return allActivities
+        }
     },
     mutations: {
         setBoards(state, { boards }) {

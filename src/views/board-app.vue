@@ -159,6 +159,91 @@
                             />
                         </div>-->
                     </div>
+                    <div v-if="isFolder.home" class="home-info">
+                        <div class="activities">
+                            <div class="side-bar-menu-activity-container">
+                                <div class="activity-header flex">
+                                    <span class="icon-sm icon-activity-home"></span>
+                                    <h1>Activity</h1>
+                                </div>
+                                <div
+                                    class="activities-render flex"
+                                    v-for=" activity in allActivities"
+                                    :key="activity"
+                                >
+                                    <div
+                                        class="member-avatar-in-activity"
+                                    >{{ setMemberLetters(activity.byMember.fullname) }}</div>
+                                    <div class="activity-info">
+                                        <div class="activities-info-txt flex">
+                                            <p>
+                                                <span>{{ activity.byMember.username }}</span>
+                                                {{ activity.txt }}
+                                            </p>
+                                        </div>
+                                        <div class="activity-timestamp">
+                                            <!-- {{moment(activity.createdAt).startOf('hour').fromNow()}} -->
+                                            {{ generateTime(activity.createdAt) }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="boards">
+                            <div class="starred-boards">
+                                <div class="starred-boards-header">
+                                    <span class="icon-sm icon-star-home"></span>
+                                    <p>Starred</p>
+                                </div>
+                                <div class="modal-starred-boards-list">
+                                    <div class="modal-starred-board-list">
+                                        <div
+                                            class="boards-render-modal-starred"
+                                            @click="goToDetails(board)"
+                                            v-for="board in starredBoards"
+                                            :board="board"
+                                            :key="board"
+                                        >
+                                            <div
+                                                class="board-background-starred-modal"
+                                                :style="board.background ? { 'backgroundColor': board.background } : { 'background-image': `url(${board.backgroundPhoto})` }"
+                                            ></div>
+
+                                            <div class="modal-starred-board">{{ board.title }}</div>
+                                            <span class="icon-sm icon-star-home-board"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <br />
+                            <div class="starred-boards">
+                                <div class="starred-boards-header">
+                                    <span class="icon-sm icon-clock-home"></span>
+                                    <p>Recently viewed</p>
+                                </div>
+                                <div class="modal-starred-boards-list">
+                                    <div class="modal-starred-board-list">
+                                        <div
+                                            class="boards-render-modal-starred"
+                                            @click="goToDetails(board)"
+                                            v-for="board in recentlyBoards"
+                                            :board="board"
+                                            :key="board"
+                                        >
+                                            <div
+                                                class="board-background-starred-modal"
+                                                :style="board.background ? { 'backgroundColor': board.background } : { 'background-image': `url(${board.backgroundPhoto})` }"
+                                            ></div>
+
+                                            <div class="modal-starred-board">{{ board.title }}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -170,6 +255,7 @@ import { boardService } from '../services/board-service'
 import boardList from '../components/board-list.vue'
 import unsplash from '../components/unsplash.vue'
 import createBoardModal from '../components/create-board-modal.vue'
+import moment from 'moment';
 
 export default {
     name: 'board-app',
@@ -188,6 +274,7 @@ export default {
             newActivity: boardService.getEmptyActivity(),
             setColor: '',
             pos: 0,
+
         }
     },
     created() {
@@ -233,7 +320,19 @@ export default {
         },
         addLastTimeWatched(board) {
             this.$store.dispatch({ type: 'saveBoard', board: board })
-        }
+        },
+        goToDetails(board) {
+            this.$emit("close");
+            this.$router.push(`/board/${board._id}`)
+        },
+        setMemberLetters(fullname) {
+            const firstLetters = fullname.split(' ').map(word => word[0]).join('');
+            return firstLetters.toUpperCase()
+        },
+        generateTime(time) {
+            const dateTimeAgo = moment(time).fromNow();
+            return dateTimeAgo
+        },
     },
     computed: {
         loggedinUser() {
@@ -260,6 +359,10 @@ export default {
         categoryEducation() {
             return this.$store.getters.categoryEducation
         },
+        allActivities() {
+            return this.$store.getters.allActivities
+        },
+
     },
 
     components: {
