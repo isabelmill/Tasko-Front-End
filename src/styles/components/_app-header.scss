@@ -59,7 +59,6 @@
     gap: 4px;
     justify-content: center;
     align-items: center;
-    // margin-left: 10px;
 
     .span-icon {
         width: 32px;
@@ -167,8 +166,6 @@
         padding-top: 0;
         overflow-x: hidden;
         overflow-y: auto;
-        // padding-bottom: 10px;
-        // padding-right: 12px;
         padding-left: 12px;
         margin-bottom: 8px;
 
@@ -182,8 +179,6 @@
                 display: flex;
                 flex-direction: row;
                 width: rem(279px);
-                // padding-left: 13px;
-                // padding-right: 13px;
                 align-items: center;
                 border-radius: 3px;
                 cursor: pointer;
@@ -264,16 +259,6 @@
             z-index: 2;
             outline: none;
             margin: auto;
-
-            // svg {
-            //     display: flex;
-            //     align-items: center;
-            //     justify-content: center;
-            //     height: auto;
-            //     width: 12px;
-            //     color: currentcolor;
-            //     display: inline-block;
-            // }
         }
     }
 
@@ -320,8 +305,6 @@
         padding-top: 0;
         overflow-x: hidden;
         overflow-y: auto;
-        // padding-bottom: 10px;
-        // padding-right: 12px;
         padding-left: 12px;
         margin-bottom: 8px;
 
@@ -335,8 +318,6 @@
                 display: flex;
                 flex-direction: row;
                 width: rem(279px);
-                // padding-left: 13px;
-                // padding-right: 13px;
                 align-items: center;
                 border-radius: 3px;
                 cursor: pointer;

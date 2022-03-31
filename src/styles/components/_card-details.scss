@@ -15,16 +15,11 @@
     height: 40px;
     width: 40px;
     overflow: hidden;
-    // padding-left: 8px;
-    // position: absolute;
     right: 0;
-    // top: 0;
     z-index: 20;
     font-size: 20;
     line-height: 32px;
     margin-top: -15px;
-    // margin-bottom: 60px;
-    // margin-left: auto;
     &:hover {
         background-color: #00000029;
         color: #42526e;
@@ -69,11 +64,9 @@
     height: 40px;
     width: 40px;
     overflow: hidden;
-    // padding-left: 8px;
     position: absolute;
     right: 0;
     top: 0;
-    // z-index: 99;
     font-size: 20;
     line-height: 32px;
     &:hover {
@@ -118,12 +111,10 @@
             flex-direction: row;
             gap: 17px;
             font-weight: 400;
-            // align-items: center;
             justify-content: center;
             p {
                 word-wrap: break-word;
                 height: 100%;
-                // width: 50px;
                 max-width: 32.1875rem;
                 line-break: auto;
                 font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
@@ -162,7 +153,6 @@
     .card-details-edit {
         display: flex;
         flex-direction: column;
-        // padding-right: 20px;
         label {
             color: #5e6c84;
             font-size: 12px;
@@ -198,14 +188,12 @@
         align-items: start;
         justify-content: center;
         padding: 0 16px 8px 20px;
-        // height: 900px;
         height: min-content;
         .card-details-main {
             margin-bottom: 24px;
             .card-details-members-labels-date {
                 display: flex;
                 flex-wrap: wrap;
-                // gap: 16px;
                 max-width: 500px;
                 margin-bottom: 35px;
                 margin-left: 42px;
@@ -241,7 +229,6 @@
                             border-radius: 3px;
                             height: 20px;
                             opacity: 1;
-                            // width: 16px;
                             background-color: #0079bf;
                             cursor: pointer;
                             margin: auto;
@@ -316,7 +303,6 @@
                     flex-direction: row;
                     flex-wrap: wrap;
                     margin-right: 16px;
-                    // max-width: 400px;
                     .card-details-labels {
                         padding-top: 8px;
                         .card-details-label {
@@ -366,13 +352,8 @@
                     display: flex;
                     justify-content: space-between;
                     margin-bottom: 10;
-                    // width: 100%;
                     .card-details-checklist {
-                        // display: flex;
-                        // align-items: center;
-                        // min-height: 32px;
                         width: 100%;
-                        // justify-content: space-between;
                         .checklist-header {
                             display: flex;
                             justify-content: space-between;
@@ -384,7 +365,6 @@
                                 justify-content: space-between;
                                 gap: 17px;
                                 min-height: 32px;
-                                // margin-bottom: 10px;
                                 h3 {
                                     color: #172b4d;
                                     font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
@@ -401,6 +381,78 @@
                             .checklist-delete {
                                 position: relative;
                                 display: inline-block;
+                            }
+                        }
+                        .todos-container {
+                            min-height: 8px;
+                            margin-bottom: 8px;
+                            .checklist-todo {
+                                cursor: pointer;
+                                position: relative;
+                                display: flex;
+                                gap: 17px;
+                                // margin-bottom: 12px;
+                                height: 36px;
+                                // padding-bottom: 8px;
+                                &:hover {
+                                    background-color: #091e420a;
+                                }
+                                .todo-checkbox {
+                                    border-radius: 3px;
+                                    cursor: pointer;
+                                    // height: 36px;
+                                    margin: -4px 6px 0 6px;
+                                    width: 16px;
+                                    .checkbox {
+                                        background-color: #FAFBFC;
+                                        border-radius: 2px;
+                                        box-shadow: inset 0 0 0 2px #DFE1E6;
+                                        cursor: pointer;
+                                        // flex-shrink: 0;
+                                        height: 16px;
+                                        left: 0;
+                                        margin: 6px;
+                                        overflow: hidden;
+                                        position: relative;
+                                        position: absolute;
+                                        text-align: center;
+                                        top: 4px;
+                                        transition: all .2s ease-in-out;
+                                        white-space: nowrap;
+                                        width: 16px;
+                                        transition: all .2s ease-in-out;
+                                        &:hover {
+                                            background-color: #ebecf0;
+                                            box-shadow: inset 0 0 0 2px #dfe1e6;
+                                        }
+                                    }
+                                    .checkboxchecked {
+                                        background-color: #0079bf;
+                                        box-shadow: inset 0 0 0 2px #0079bf;
+                                        &:hover {
+                                            background-color: #0079bf;
+                                            box-shadow: inset 0 0 0 2px #0079bf;
+                                        }
+                                    }
+                                }
+                                .todo-preview {
+                                    display: inline-flex;
+                                    padding-top: 6px;
+                                    width: 100%;
+                                    // margin-left: 40px;
+                                    .todo-text {
+                                        font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
+                                        align-self: center;
+                                        margin-bottom: 0;
+                                        min-height: 20px;
+                                        flex: 1;
+                                        color: #172b4d;
+                                        font-size: 14px;
+                                        font-weight: 400;
+                                        line-height: 20px;
+                                        padding-bottom: 4px;
+                                    }
+                                }
                             }
                         }
                     }
@@ -438,12 +490,7 @@
             .card-details-activity-show-attachments {
                 display: flex;
                 flex-direction: column;
-                // justify-content: space-between;
-                // margin-bottom: 10px;
                 min-height: 32px;
-                // height: 100%;
-                // overflow: unset;
-                // z-index: 30;
                 .loadaing-attachment {
                     width: 512px;
                     height: 80px;
@@ -454,11 +501,8 @@
                     line-height: 80px;
                     text-align: center;
                     border-radius: 3px;
-                    // margin: 0 0 8px;
-                    // min-height: 80px;
                     overflow: hidden;
                     margin-left: 40px;
-                    // position: relative;
                 }
                 .loading-container {
                     background-color: #091e420a;
@@ -561,13 +605,11 @@
                         padding-top: 1.5px;
                     }
                     img {
-                        // background-position: 50%;
                         object-fit: contain;
                         background-repeat: no-repeat;
                         border-radius: 3px;
                         height: 80px;
                         text-decoration: none;
-                        // margin-bottom: 10px;
                         width: 112px;
                     }
                 }
@@ -645,8 +687,6 @@
                     border-radius: 3px;
                     width: rem(520px);
                     transition-duration: 85ms;
-                    // transition-property: padding-bottom;
-                    // transition-property: margin-top;
                     transition-timing-function: ease;
                     .input-icon-btns {
                         display: flex;
@@ -680,9 +720,6 @@
                                 }
                             }
                             .icon-btns-inside-input {
-                                // display: flex;
-                                // justify-content: end;
-                                // gap: 25px;
                                 span {
                                     cursor: pointer;
                                 }
@@ -784,20 +821,16 @@
     font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
     gap: 9px;
     display: flex;
-    // align-items: center;
     margin-top: 15px;
     justify-items: center;
     gap: 9px;
-    // margin-top: 20px;
     .card-details-user-avatar {
         width: 32px;
         height: 32px;
         cursor: default;
     }
     .comment-info {
-        // margin-top: 25px;
         .comment-info-name-date {
-            // padding-top: 20px;
             margin-bottom: 5px;
             p {
                 font-size: 12px;
@@ -821,8 +854,6 @@
             border-radius: 3px;
             width: 32.5rem;
             box-shadow: 1px 1px 1px -2px rgb(0 0 0 / 28%);
-            // transition-duration: 85ms;
-            // transition-timing-function: ease;
             margin-bottom: 5px;
             font-size: 14px;
         }
@@ -845,10 +876,8 @@
 }
 
 .card-details-user-comment {
-    // align-items: center;
     font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
     gap: 9px;
-    // align-items: center;
     .card-details-user-avatar {
         cursor: default;
         width: 32px;
@@ -885,7 +914,6 @@
         transition-timing-function: ease;
         margin-bottom: 5px;
         font-size: 14px;
-        // height: 100px;
         max-height: min-content;
         input {
             font-size: 14px;
@@ -930,7 +958,6 @@
 
 .dialog-container {
     width: 100%;
-    // min-height: 100vh;
     background-color: #0009;
     position: fixed;
     justify-content: center;
@@ -943,12 +970,7 @@
     overflow-y: auto;
     overflow-x: hidden;
     .card-details-scroll::-webkit-scrollbar {
-        // position: sfixed;
-        // top: 0;
-        // -webkit-appearance: none;
         width: 8px;
-        // height: 8px;
-        // z-index: 10000000000000000;
     }
     .card-details-scroll::-webkit-scrollbar-track {
         border-radius: 10px;
@@ -959,31 +981,16 @@
         border-radius: 4px;
         background-color: #fff;
     }
-    // height: fit-content;
     .modal {
-        // flex-grow: ;
-        // position: fixed;
         z-index: 40;
         padding: unset;
         display: block;
         background-color: rgb(244, 245, 247);
-        // overflow-x: hidden;
-        // overflow: hidden;
         width: 779px;
         padding-bottom: 50px;
-        // padding-top: 8px;
-        // padding-left: 8px;
-        // padding-right: 2px;
-        // overflow-y: scroll;
         height: min-content;
-        // max-height: unset;
-        // max-width: unset;
         margin-top: 45px;
-        // height: min-content;
         margin-bottom: 88px;
-        // scroll-;
-        // overflow: hidden;
-        // overflow: scroll;
     }
 }
 
