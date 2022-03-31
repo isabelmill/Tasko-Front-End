@@ -664,7 +664,7 @@
     overflow-y: auto;
     margin: 0 4px 0 4px;
     max-height: calc(75vh - 100px);
-    width: 260px;
+    // width: 260px;
 }
 
 .scroller-group::-webkit-scrollbar {
@@ -674,12 +674,12 @@
 
 .scroller-group::-webkit-scrollbar-track {
     border-radius: 10px;
-    background: #bfc4ce;
+    background: #DADBE2;
 }
 
 .scroller-group::-webkit-scrollbar-thumb {
     border-radius: 10px;
-    background: #a7afbc;
+    background: #BFC4CE;
 }
 
 //icons

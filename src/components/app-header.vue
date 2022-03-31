@@ -1,13 +1,13 @@
 <template>
   <section
-    class="app-header-main"
-    :style="board && isOnBoard ? { 'background-color': lightenDarkenColor(board.background, -20) } : null"
+    class="app-header-main" ref="appheader"
   >
+    <!-- :style="board && isOnBoard ? { 'background-color': lightenDarkenColor(board.background, -20) } : null" -->
     <router-link to="/board" class="logo-box">
-        <span class="logo-img"></span>
-        <p class="logo-txt">Tasko</p>
+      <span class="logo-img"></span>
+      <p class="logo-txt">Tasko</p>
     </router-link>
-    <a class="link" to="/">
+    <!-- <a class="link" to="/">
       Workspaces
       <svg
         width="16"
@@ -22,7 +22,7 @@
           fill="currentColor"
         />
       </svg>
-    </a>
+    </a>-->
     <a @click="openRecentBoardsModal(), calcPosOfBox()" class="link" to="/" ref="recent">
       Recent
       <svg
@@ -69,7 +69,8 @@
       v-clickOutside="closeEditMode"
       @close="closeEditMode"
     ></starred-boards-modal>
-    <a class="link" to="/">
+
+    <a class="link" to="/" @click="openTemplateModal(), calcPosOfBox()" ref="template">
       Templates
       <svg
         width="16"
@@ -85,6 +86,15 @@
         />
       </svg>
     </a>
+
+    <template-modal
+      v-if="openTemplate && boards"
+      :boards="boards"
+      :style="{ top: '48' + 'px', left: posTemplate.left + 'px' }"
+      v-clickOutside="closeTemplate"
+      @close="closeTemplate"
+    ></template-modal>
+
     <a class="link" to="/">
       Create
       <svg
@@ -181,6 +191,9 @@ import search from "./search.vue"
 import starredBoardsModal from "./starred-boards-modal.vue"
 import recentBoardsModal from "./recent-boards-modal.vue"
 import loggedInUserModal from "./logged-in-user-modal.vue"
+import templateModal from "./template-modal.vue"
+import FastAverageColor from 'fast-average-color';
+
 export default {
   name: 'app-header',
   data() {
@@ -188,9 +201,11 @@ export default {
       openStarredModal: false,
       openRecentModal: false,
       openUserModal: false,
+      openTemplate: false,
       pos: 0,
       posRecent: 0,
       posUser: 0,
+      posTemplate: 0,
     }
   },
   computed: {
@@ -207,6 +222,26 @@ export default {
     loggedinUser() {
       return this.$store.getters.loggedinUser
     },
+    async appHeaderColor() {
+      if (this.board && this.isOnBoard) {
+        console.log('this.isOnBoard:',this.isOnBoard);
+        console.log('this.board:',this.board.background,this.board.backgroundPhoto);
+        if (this.board.backgroundPhoto) {
+          const fac = new FastAverageColor()
+          try {
+            const color = await fac.getColorAsync(this.board.backgroundPhoto)
+            this.$refs['appheader'].style.backgroundColor = color.hex
+            return color.hex
+          }
+          catch (err) {
+            console.log(err)
+          }
+        } 
+        if(this.board.background && this.isOnBoard){
+          this.$refs['appheader'].style.backgroundColor = this.lightenDarkenColor(this.board.background, -20)
+        }
+      }
+    }
   },
   created() {
   },
@@ -227,12 +262,19 @@ export default {
       this.pos = this.$refs['starred'].getBoundingClientRect()
       this.posRecent = this.$refs['recent'].getBoundingClientRect()
       this.posUser = this.$refs['user'].getBoundingClientRect()
+      this.posTemplate = this.$refs['template'].getBoundingClientRect()
     },
     openLoggedInUserModal() {
       this.openUserModal = true
     },
     closeUserModal() {
       this.openUserModal = false;
+    },
+    openTemplateModal() {
+      this.openTemplate = true
+    },
+    closeTemplate() {
+      this.openTemplate = false;
     },
     setMemberLetters(fullname) {
       const firstLetters = fullname.split(' ').map(word => word[0]).join('');
@@ -270,11 +312,24 @@ export default {
       return (usePound ? "#" : "") + (g | (b << 8) | (r << 16)).toString(16);
     }
   },
+  watch: {
+    appHeaderColor: {
+      async handler(newColor) {
+        this.$refs['appheader'].style.backgroundColor = newColor
+      }
+    },
+    isOnBoard : {
+            async handler(newId) {
+              if(!newId) this.$refs['appheader'].style.backgroundColor = '#026AA7'
+      }
+    }
+  },
   components: {
     search,
     recentBoardsModal,
     starredBoardsModal,
-    loggedInUserModal
+    loggedInUserModal,
+    templateModal,
   },
 }
 </script>

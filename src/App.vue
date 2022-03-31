@@ -3,7 +3,7 @@
     class="app-main"
     :style=" board && isOnBoard  && board.backgroundPhoto ? { 'background-image': `url(${board.backgroundPhoto})`, 'background-repeat': 'no-repeat', 'background-size': 'cover' } : null"
   >
-    <app-header />
+    <app-header v-if="this.$route.name !== 'home'" />
     <router-view />
   </section>
 </template>
@@ -28,7 +28,7 @@ export default {
     isOnBoard() {
       const { boardId } = this.$route.params
       return boardId
-    }
+    },
   },
   components: {
     appHeader,

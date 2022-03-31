@@ -45,14 +45,11 @@
             </div>
 
             <!-- Lables members and date adding area  -->
-            <section class="card-details-actions-container-edit-btns flex">
+            <section  class="card-details-actions-container-edit-btns flex">
                 <section class="card-details-actions-container">
                     <section class="card-details-main flex">
-                        <div class="card-details-members-labels-date">
-                            <div
-                                v-if="card.members.length > 0"
-                                class="card-detail-member-container-main"
-                            >
+                        <div v-if="card.members.length > 0 || card.labels.length > 0 || card.date"  class="card-details-members-labels-date">
+                            <div v-if="card.members.length > 0"  class="card-detail-member-container-main">
                                 <label v-if="card.members.length > 0" for>Members</label>
                                 <div
                                     class="card-details-members-container"
@@ -607,7 +604,7 @@ export default {
     watch: {
         backgroundCoverColor: {
             async handler(newColor) {
-                this.$refs['headerCover'].style.backgroundColor = newColor
+                if(Object.keys(this.card.cover).length) this.$refs['headerCover'].style.backgroundColor = newColor
             }
         }
     },

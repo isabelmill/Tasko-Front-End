@@ -9,7 +9,7 @@
             <div class="icon-sm icon-close" @click.stop.prevent="close"></div>
             <span class="main-title">Members</span>
         </div>
-         <input class="main-input" type="text" />
+        <input class="main-input" type="text" />
         <section>
             <span class="mini-title">Board members</span>
             <section
@@ -17,11 +17,10 @@
                 v-for="member in board.members"
                 :key="member._id"
                 class="member-container"
-                
             >
                 <div class="member-div">
-                    <div class="member">{{setMemberLetters(member.fullname)}}</div>
-                    <span> {{member.fullname}} </span>
+                    <div class="member">{{ setMemberLetters(member.fullname) }}</div>
+                    <span>{{ member.fullname }}</span>
                     <div v-if="membersToEdit.includes(member._id)" class="icon-sm icon-check"></div>
                 </div>
             </section>
@@ -57,7 +56,7 @@ export default {
         }
     },
     computed: {
-        membersToEdit(){
+        membersToEdit() {
             return this.card.members.map((member => member._id))
         }
     },
@@ -65,12 +64,12 @@ export default {
     },
 
     methods: {
-       
+
         close() {
             this.$emit('actionsClose')
         },
         addMemberToCard(member) {
-            if (!this.cardToEdit) this.cardToEdit = JSON.parse(JSON.stringify(this.card))
+            this.cardToEdit = JSON.parse(JSON.stringify(this.card))
             if (this.cardToEdit.members.length) {
                 const idx = this.cardToEdit.members.findIndex(cardMember => cardMember._id === member._id)
                 if (idx === -1) this.cardToEdit.members.push(member)
