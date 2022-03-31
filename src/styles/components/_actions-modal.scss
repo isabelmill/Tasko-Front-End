@@ -38,7 +38,6 @@
     }
     .attachment-container {
         display: grid;
-        // grid-auto-flow: row;
         gap: 8px;
         padding: 4px;
         margin: 0 0px;
@@ -77,9 +76,7 @@
     margin-top: 12px;
     margin-bottom: 12px;
     margin-left: 2px;
-    // margin-left: 12px;
     width: 98%;
-    // width: 280px;
     color: #172b4d;
     background-color: #fafbfc;
     border: none;
@@ -107,7 +104,6 @@
     margin-bottom: 12px;
     margin-left: 2px;
     width: 98%;
-    // width: 280px;
     color: #172b4d;
     background-color: #fafbfc;
     border: none;
@@ -136,7 +132,6 @@
     justify-content: center;
     align-items: center;
     left: 0px;
-    // top: 0px;
     height: 40px;
     width: 40px;
     padding: 10px 12px 10px 8px;
@@ -149,7 +144,6 @@
     justify-content: center;
     align-items: center;
     right: 0px;
-    // top: 0px;
     height: 40px;
     width: 40px;
     padding: 10px 12px 10px 8px;
@@ -160,7 +154,6 @@
     font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
     overflow-x: hidden;
     overflow-y: auto;
-    // padding: 0 12px 12px;
 }
 
 .cover-loading {
@@ -178,14 +171,10 @@
     font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
     margin-top: 8px;
     height: 92px;
-    // display: flex;
-    // justify-content: center;
-    // align-items: center;
     .delete-btn {
         margin-top: 40px;
         display: unset;
         width: 280px;
-        // align-self: center;
     }
 }
 
@@ -200,18 +189,13 @@
 }
 
 .label-container {
-    // width: 272px;
     margin-bottom: 2px;
     font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
     .icon-edit {
         position: absolute;
         right: 12px;
-        // font-size: 16px;
         outline: 0;
-        // height: 20px;
         line-height: 20px;
-        // width: 20px;
-        // color: purple;
         margin-top: 3px;
         margin-left: 4px;
         border-radius: 3px;
@@ -229,7 +213,6 @@
     display: grid;
     gap: 8px;
     padding: 4px;
-    // margin: 0 0;
     grid-template-columns: 1fr 1fr;
     overflow-x: hidden;
     .dark {
@@ -425,23 +408,12 @@
 
 .label-color-picker {
     display: table;
-    // align-items: center;
-    // justify-content: center;
-    // gap: rem(9px);
-    // padding-left: 12px;
-    // padding-right: 12px;
     .checked {
-        // position: absolute;
         display: flex;
         align-content: center;
         justify-content: center;
-        // text-align: center;
         color: white;
-        // font-weight: 400;
         line-height: 32px;
-        // right: 6px;
-        // align-self: center;
-        // top: 6px;
         text-decoration: none;
         font-family: icomoon;
         font-size: rem(16px);
@@ -485,10 +457,8 @@
         height: rem(32px);
         border-radius: 4px;
         float: left;
-        // height: 32px;
         margin: 0 8px 8px 0;
         padding: 0;
-        // width: 48px;
         cursor: pointer;
         &:hover {
             opacity: 80%;
@@ -520,10 +490,7 @@
         display: inline-block;
         line-height: 20px;
         margin: 0;
-        // height: 32px;
-        // margin: 0 8px 8px 0;
         padding: 0;
-        // width: 48px;
         cursor: pointer;
         &:hover {
             filter: saturate(85%) brightness(85%);
@@ -575,7 +542,6 @@
     font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
     display: flex;
     justify-content: center;
-    // align-content: center;
     width: 100%;
     padding: 8px;
     flex-wrap: wrap;
@@ -603,7 +569,6 @@
 .member-div {
     font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
     display: flex;
-    // justify-content: center;
     align-items: center;
     width: 284px;
     margin-right: 0;
@@ -614,17 +579,11 @@
     font-weight: 100;
     margin-top: 3px;
     min-height: 20px;
-    // padding-bottom: 12px;
-    // padding: 6px 12px;
-    // position: relative;
-    // transition: padding 85ms, margin 85ms, box-shadow 85ms;
-    // display: block;
     max-width: 100%;
     white-space: nowrap;
     color: #091e42;
     overflow: hidden;
     text-overflow: ellipsis;
-    // padding-right: 36px;
     &:hover {
         background-color: #091e4214;
     }
@@ -633,28 +592,21 @@
     }
     .icon-check {
         position: absolute;
-        // color: white;
         width: 20px;
         height: 20px;
         font-weight: 400;
         line-height: 20px;
         right: 18px;
-        // align-self: center;
-        // top: 6px;
         text-decoration: none;
     }
 }
 
 .label-color {
-    // display: flex;
-    // justify-content: space-between;
     width: 244px;
-    // width: 100%;
     height: 32px;
     border-radius: 3px;
     cursor: pointer;
     font-weight: 700;
-    // margin-top: 3px;
     min-height: 20px;
     padding: 6px 12px;
     position: relative;
@@ -684,20 +636,9 @@
     height: 32px;
     border-radius: 3px;
     margin-top: 3px;
-    // display: flex;
-    // justify-content: start;
     &:hover {
-        // width: 252px;
-
         padding-left: 8px;
         margin-right: 8px;
-
-        // width: 252px;
-        .label-color {
-            // width: 252px;
-            // margin-left: 8px;
-            // width: 236px;
-        }
     }
 }
 .create-btn {
@@ -742,7 +683,6 @@
     line-height: 16px;
     margin-top: 16px;
     margin-bottom: 4px;
-    // margin: 0 0 8px;
 }
 
 .no-color-title {
@@ -770,9 +710,6 @@
 
 .no-color-container {
     font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
-    // heightpx;
-    // width: 300px;
-    // width: 280px;
     padding-left: 56px;
     padding-top: 80px;
 }

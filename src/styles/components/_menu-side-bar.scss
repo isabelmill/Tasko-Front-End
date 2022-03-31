@@ -14,7 +14,6 @@
     width: 340px;
     transition: all .2s;
     padding-bottom: 15px;
-    // overflow: auto;
 
     hr {
         background-color: #091e4221;
@@ -58,8 +57,6 @@
     }
 
     .side-bar-menu-activity-container {
-
-        // background-color: #0079bf;
         max-width: 300px;
         overflow: scroll;
         height: 100vh;
@@ -79,12 +76,10 @@
         }
 
         .activities-render {
-            // background-color: #172B4D;
             align-items: center;
             gap: 8px;
             margin-top: 8px;
             margin-bottom: 20px;
-            // max-width: min-content;
 
             .member-avatar-in-activity {
                 display: flex;
@@ -104,26 +99,19 @@
 
             .activity-info {
                 display: flex;
-                // align-items: center;
-                // flex-wrap: wrap;
                 flex-direction: column;
-                // gap: 5px;
                 
                 .activities-info-txt {
                     display: flex;
                     align-items: center;
-                    // flex-wrap: wrap;
                     inline-size:auto;
                     gap: 5px;
                     overflow-wrap: break-word;
-                    // inline-size: 280px;
                     
                     span {
                         font-weight: 700;
                         font-size: 14px;
                         color: #172b4d;
-                        // inline-size: 150px;
-                        // overflow-wrap: break-word;
                     }
                     
                     p {
@@ -286,8 +274,6 @@
             width: 100%;
             height: 100%;
             margin-top: 13px;
-            // overflow: auto;
-            // height: 100vh;
 
             .unspash-img {
                 border-radius: 8px;
@@ -310,11 +296,6 @@
             align-items: center;
             margin-top: 12px;
             overflow-y: auto;
-
-            // &:focus {
-            //     outline-width: 1px;
-
-            // }
 
             &:focus-within {
                 background-color: #fff;

@@ -1,10 +1,6 @@
 .board-app-main {
     height: 100vh;
-    // width: 100%;
     overflow-y: scroll;
-    // display: flex;
-    // justify-content: center;
-    // gap: 32px;
 }
 
 .board-list-main {
@@ -15,9 +11,6 @@
     margin-right: 150px;
 }
 
-// .main-container {
-//     // width: 100%;
-// }
 .contact {
     display: flex;
     margin: 40px 0 0 170px;
@@ -132,10 +125,11 @@
 .home-info {
     display: flex;
     margin-left: 50px;
+    overflow-y: auto;
     .activities {
-        // background-color: #0079bf;
+        overflow-y: auto;
+        max-height: calc(100vh - 100px);
         width: 55vh;
-        // height: 100vh;
         .side-bar-menu-activity-container {
             .activity-header {
                 display: flex;
@@ -157,14 +151,11 @@
                     font-size: 14px;
                 }
             }
-
             .activities-render {
-                // background-color: #172B4D;
                 align-items: center;
                 gap: 8px;
                 margin-top: 8px;
                 margin-bottom: 20px;
-                // max-width: min-content;
 
                 .member-avatar-in-activity {
                     display: flex;
@@ -215,6 +206,8 @@
         }
     }
     .boards {
+        overflow-y: auto;
+        max-height: calc(100vh - 100px);
         width: 50vh;
         margin-bottom: 80px;
         .starred-boards {
@@ -343,7 +336,6 @@
             border-radius: 3px;
             width: rem(279px);
             height: rem(35px);
-            // border: none;
             font-size: 15px;
             border: 2px solid #d8d7d4;
             &:focus {
@@ -363,7 +355,6 @@
         margin-top: 12px;
         text-align: left;
         font-family: roboto-regular;
-        // padding: 12px;
         padding-left: 0.5rem;
         padding-right: 0.5rem;
     }
@@ -422,7 +413,6 @@
         .header-close-create-boards-modal {
             grid-column: 3;
             grid-row: 1;
-            // background: transparent;
             border: none;
             color: #6b778c;
             cursor: pointer;

@@ -51,27 +51,40 @@
         </div>
         <div>
             <p class="header-second">Copy to...</p>
-            <div class="selects-box">
-                <label for></label>
-                <select placeholder="List" class="select-board" @change="setGroupPosition($event)">
-                    <option
-                        selected="selected"
-                        v-for="(group) in board.groups"
-                        :key="group.id"
-                        :value="group.id"
-                    >{{ group.title }}</option>
-                </select>
-                <select
-                    placeholder="Position"
-                    class="select-pos-card"
-                    @change="setCardPosition($event)"
-                >
-                    <option
-                        v-for="position in positions"
-                        :key="position"
-                        :value="position"
-                    >{{ position }}</option>
-                </select>
+            <div class="selects-box-main">
+                <div class="select-box">
+                    <label for="group">List</label>
+                    <select
+                        placeholder="List"
+                        class="select-board"
+                        @change="setGroupPosition($event)"
+                        id="group"
+                        name="group"
+                    >
+                        <option
+                            selected="selected"
+                            v-for="(group) in board.groups"
+                            :key="group.id"
+                            :value="group.id"
+                        >{{ group.title }}</option>
+                    </select>
+                </div>
+                <div class="select-box">
+                    <label for="position">Position</label>
+                    <select
+                        id="position"
+                        name="position"
+                        placeholder="Position"
+                        class="select-pos-card"
+                        @change="setCardPosition($event)"
+                    >
+                        <option
+                            v-for="position in positions"
+                            :key="position"
+                            :value="position"
+                        >{{ position }}</option>
+                    </select>
+                </div>
             </div>
         </div>
         <button @click.stop.prevent="setCardKeeps">Create card</button>
