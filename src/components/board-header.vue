@@ -54,7 +54,7 @@
                     class="board-name"
                     v-if="!titleIsOpen"
                     @click.stop.prevent="openTitleEdit"
-                >{{ title }}</p>
+                >{{ board.title }}</p>
                 <input
                     maxlength="512"
                     v-clickOutside="changeTitle"
@@ -104,7 +104,7 @@ export default {
         return {
             isStarred: false,
             titleIsOpen: false,
-            boardToEdit: JSON.parse(JSON.stringify(this.board)),
+            // boardToEdit: null,
             titleLength: 0,
             title: '',
             showMenu: false,
@@ -112,14 +112,14 @@ export default {
         }
     },
     created() {
-        this.title = this.board.title
+        this.title = JSON.parse(JSON.stringify(this.board.title))
         this.calculateTxtLen()
     },
-    computed: {
-        boardToEdit() {
-            return JSON.parse(JSON.stringify(this.board))
-        }
-    },
+    // computed: {
+    //     boardToEdit() {
+    //         return JSON.parse(JSON.stringify(this.board))
+    //     }
+    // },
     methods: {
         boardStared() {
             this.isStarred = !this.isStarred
@@ -163,6 +163,6 @@ export default {
     components: {
         menuBar,
     },
-    emits: ['changeBoardBgc', 'changeBgcColor', 'starredChange']
+    emits: ['changeBoardBgc', 'changeBgcColor', 'starredChange', 'titleChange']
 }
 </script>

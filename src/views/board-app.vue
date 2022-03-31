@@ -26,7 +26,11 @@
                                 <span class="icon-lg icon-star-boards"></span>
                                 <p>Starred boards</p>
                             </div>
-                            <board-list v-if="boards" :boards="starredBoards" />
+                            <board-list
+                                v-if="boards"
+                                :boards="starredBoards"
+                                @updateRecentlyWatched="addLastTimeWatched"
+                            />
                         </div>
 
                         <div class="border-list">
@@ -34,7 +38,11 @@
                                 <span class="icon-lg icon-clock-boards"></span>
                                 <p>Recently viewed</p>
                             </div>
-                            <board-list v-if="boards" :boards="recentlyBoards" />
+                            <board-list
+                                v-if="boards"
+                                :boards="recentlyBoards"
+                                @updateRecentlyWatched="addLastTimeWatched"
+                            />
                         </div>
                         <button
                             class="create-btn"
@@ -49,10 +57,10 @@
                             v-clickOutside="closeBoardEdit"
                             @close="closeBoardEdit"
                             @add="saveNewBoard"
-                            :style="{  'left': '730' + 'px' , 'bottom' : '0' }"
+                            :style="{ 'left': '730' + 'px', 'bottom': '0' }"
                             :newBoard="newBoard"
                         ></create-board-modal>
-                         <!-- :style="{ 'top': pos.top + 'px', 'left': '830' + 'px', 'bottom': '0' }" -->
+                        <!-- :style="{ 'top': pos.top + 'px', 'left': '830' + 'px', 'bottom': '0' }" -->
                     </div>
                     <div v-if="isFolder.templates" class="boards-info">
                         <div class="border-list">
@@ -64,7 +72,11 @@
                                 />
                                 <p class="category-title">Business</p>
                             </div>
-                            <board-list v-if="boards" :boards="templates" />
+                            <board-list
+                                v-if="boards"
+                                :boards="templates"
+                                @updateRecentlyWatched="addLastTimeWatched"
+                            />
                         </div>
 
                         <div class="border-list">
@@ -76,7 +88,11 @@
                                 />
                                 <p class="category-title">Design</p>
                             </div>
-                            <board-list v-if="boards" :boards="categoryDesign" />
+                            <board-list
+                                v-if="boards"
+                                :boards="categoryDesign"
+                                @updateRecentlyWatched="addLastTimeWatched"
+                            />
                         </div>
 
                         <div class="border-list">
@@ -88,7 +104,11 @@
                                 />
                                 <p class="category-title">Education</p>
                             </div>
-                            <board-list v-if="boards" :boards="categoryEducation" />
+                            <board-list
+                                v-if="boards"
+                                :boards="categoryEducation"
+                                @updateRecentlyWatched="addLastTimeWatched"
+                            />
                         </div>
 
                         <div class="border-list">
@@ -100,7 +120,11 @@
                                 />
                                 <p class="category-title">Engineering</p>
                             </div>
-                            <board-list v-if="boards" :boards="templates" />
+                            <board-list
+                                v-if="boards"
+                                :boards="templates"
+                                @updateRecentlyWatched="addLastTimeWatched"
+                            />
                         </div>
 
                         <div class="border-list">
@@ -112,7 +136,11 @@
                                 />
                                 <p class="category-title">Marketing</p>
                             </div>
-                            <board-list v-if="boards" :boards="templates" />
+                            <board-list
+                                v-if="boards"
+                                :boards="templates"
+                                @updateRecentlyWatched="addLastTimeWatched"
+                            />
                         </div>
 
                         <div class="border-list">
@@ -124,7 +152,11 @@
                                 />
                                 <p class="category-title">Project management</p>
                             </div>
-                            <board-list v-if="boards" :boards="templates" />
+                            <board-list
+                                v-if="boards"
+                                :boards="templates"
+                                @updateRecentlyWatched="addLastTimeWatched"
+                            />
                         </div>
                     </div>
                 </div>
@@ -198,6 +230,9 @@ export default {
         updateBoard(board) {
             this.$store.dispatch({ type: 'saveBoard', board: board })
         },
+        addLastTimeWatched(board) {
+            this.$store.dispatch({ type: 'saveBoard', board: board })
+        }
     },
     computed: {
         loggedinUser() {

@@ -89,18 +89,16 @@ export default {
         }
     },
     created() {
-    },
+        },
     mounted() {
-        console.log(this.board)
         socketService.on('board-changed', this.socketBoardUpdate)
-        socketService.on('connected', this.socketTest)
+        // socketService.on('connected', this.socketTest)
     },
     methods: {
         socketBoardUpdate(board) {
             console.log(board);
             this.$store.commit({ type: 'setBoard', board })
-        }
-        ,
+        },
         groupRemoveFromBoard(groupId) {
             this.boardToEdit = JSON.parse(JSON.stringify(this.board))
             this.newActivity = boardService.getEmptyActivity()
@@ -216,8 +214,8 @@ export default {
             async handler(newId) {
                 if (newId) {
                     await this.$store.dispatch({ type: 'loadBoardById', newId })
-                    console.log('board lastTimeWatched')
-                    console.log('newId:', newId);
+                    console.log('newId:',newId);
+                    console.log('this.board:',this.board);
                     // socketService.emit('board updated', board => {
                     //     this.socketTest(board)
                     // })
@@ -234,11 +232,7 @@ export default {
 
 <style>
 .modal {
-    /* max-height: 800px; */
-    /* margin-top: 80px; */
     border-radius: 2px;
-    /* max-width: 768px; */
-    /* border: 0; */
     box-shadow: 0 0 1em rgb(0, 0, 0/0.3);
 }
 

@@ -64,10 +64,9 @@ export default {
         async loadBoardById({ commit }, { newId }) {
             try {
                 const board = await boardService.getById(newId)
-                board.lastTimeWatched = Date.now()
-                console.log(board)
-                commit({ type: 'saveBoard', board })
+                // board.lastTimeWatched = Date.now()
                 commit({ type: 'setBoard', board })
+                // commit({ type: 'saveBoard', board })
             } catch (err) {
                 console.log('err!!');
             }

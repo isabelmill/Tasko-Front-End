@@ -36,6 +36,7 @@ async function query() {
 
 async function getById(boardId) {
     // return asyncStorageService.get(BOARDS_KEY, boardId)
+    console.log('boardId in b-s:',boardId);
     try {
         return await httpService.get(`board/${boardId}`)
     } catch (err) {
