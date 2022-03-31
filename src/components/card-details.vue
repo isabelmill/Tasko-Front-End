@@ -255,75 +255,88 @@
                             </div>
                         </div>
                         <!--checkLIST area -->
-                        <div v-if="card.checklists" class="card-details-checklist-show-details">
+                        <div class="checklist">
                             <div
-                                v-for="checklist in card.checklists"
-                                :key="checklist.id"
-                                class="card-details-checklist"
+                                v-if="card.checklists.length"
+                                class="card-details-checklist-show-details"
                             >
-                                <div class="icon-lg icon-checklist"></div>
-                                <h3
-                                 v-if="!isChecklistOpen"
-                                    @click.stop.prevent="openChecklist(checklist)"
-                                >{{ checklist.title }}</h3>
-                                <div>
-                                    <textarea
-                                        v-clickOutside="closeChecklist"
-                                        class="edit-todo-text"
-                                        v-model="currChecklist.title"
-                                    />
-                                    <button
-                                        @click.stop.prevent="saveTodo"
-                                        class="checklist-btn save-btn"
-                                    >Save</button>
-                                    <div class="todo-discard">
-                                        <div class="icon-lg icon-closed"></div>
-                                    </div>
-                                </div>
-                                <button
-                                v-if="isChecklistOpen"
-                                    @click.stop.prevent="deleteChecklist(checklist.id)"
-                                    class="checklist-btn checklkist-delete"
-                                >Delete</button>
-                                <div class="todo-bar"></div>
-                                <div v-if="checklist.todos.length" class="todos-container">
-                                    <div
-                                        class="checklist-todo"
-                                        v-for="todo in checklist.todos"
-                                        :key="todo.id"
-                                    >
-                                        <!-- //STYLE CHECKBOX IF COMPLETE TODO AND UPDATE BAR -->
-                                        <div
-                                            @click="checkboxTodo(checklist, todo)"
-                                            class="todo-checkbox"
-                                        ></div>
-                                        <div
-                                            class="todo-preview"
-                                            @click.stop.prevent="openTodo(checklist, todo)"
-                                        >
-                                            <span
-                                                v-if="!isOpen(checklist, todo)"
-                                                class="todo-text"
-                                            >{{ todo.text }}</span>
-                                        </div>
-                                        <div v-if="isOpen(checklist, todo)">
+                                <div
+                                    v-for="checklist in card.checklists"
+                                    :key="checklist.id"
+                                    class="card-details-checklist"
+                                >
+                                    <div class="checklist-header">
+                                        <div class="checklist-title">
+                                        <div class="icon-lg icon-checklist"></div>
+                                        <h3
+                                            v-if="!isChecklistOpen"
+                                            @click.stop.prevent="openChecklist(checklist)"
+                                        >{{ checklist.title }}</h3>
+                                        <div v-if="isChecklistOpen">
                                             <textarea
-                                                v-clickOutside="closeTodo"
-                                                v-model="currOpenTodo.text"
+                                                v-clickOutside="closeChecklist"
                                                 class="edit-todo-text"
-                                            ></textarea>
+                                                v-model="currChecklist.title"
+                                            />
                                             <button
-                                                @click.stop.prevent="saveTodo"
+                                                @click.stop.prevent="saveChecklistTitle"
                                                 class="checklist-btn save-btn"
-                                            >Add</button>
+                                            >Save</button>
                                             <div class="todo-discard">
                                                 <div class="icon-lg icon-closed"></div>
                                             </div>
                                         </div>
+                                        </div>
+                                    <button
+                                        v-if="!isChecklistOpen"
+                                        @click.stop.prevent="deleteChecklist(checklist.id)"
+                                        class="checklist-btn checklkist-delete"
+                                    >Delete</button>
+                                    </div>
+
+
+                                    <div class="todo-bar"></div>
+                                    <div v-if="checklist.todos" class="todos-container">
+                                        <div
+                                            class="checklist-todo"
+                                            v-for="todo in checklist.todos"
+                                            :key="todo.id"
+                                        >
+                                            <!-- //STYLE CHECKBOX IF COMPLETE TODO AND UPDATE BAR -->
+                                            <div
+                                                @click="checkboxTodo(checklist, todo)"
+                                                class="todo-checkbox"
+                                            ></div>
+                                            <div
+                                                class="todo-preview"
+                                                @click.stop.prevent="openTodo(checklist, todo)"
+                                            >
+                                                <span
+                                                    v-if="!isOpen(checklist, todo)"
+                                                    class="todo-text"
+                                                >{{ todo.text }}</span>
+                                            </div>
+                                            <div v-if="isOpen(checklist, todo)">
+                                                <textarea
+                                                    v-clickOutside="closeTodo"
+                                                    v-model="currOpenTodo.text"
+                                                    class="edit-todo-text"
+                                                ></textarea>
+                                                <button
+                                                    @click.stop.prevent="saveTodo"
+                                                    class="checklist-btn save-btn"
+                                                >Add</button>
+                                                <div class="todo-discard">
+                                                    <div class="icon-lg icon-closed"></div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="add-todo-container">
                                 <button
-                                v-if="!addingNewTodo"
+                                    v-if="!addingNewTodo"
                                     @click.stop.prevent="openChecklistInput(checklist)"
                                     class="checklist-btn checklist-add-item"
                                 >Add an item</button>
@@ -333,7 +346,7 @@
                                         placeholder="Add an item"
                                         type="text"
                                     />
-                                    <button @click.stop.prevent="addTodo(checklist)" class="item-add-btn">Add</button>
+                                    <button @click.stop.prevent="saveTodo" class="item-add-btn">Add</button>
                                     <button class="icon-lg icon-closed"></button>
                                 </div>
                             </div>
@@ -606,8 +619,8 @@ export default {
             isLoading: false,
             currOpenTodo: {},
             currChecklist: {},
-            isChecklistOpen:false,
-            addingNewTodo:false,
+            isChecklistOpen: false,
+            addingNewTodo: false,
         }
     },
     computed: {
@@ -782,18 +795,18 @@ export default {
             this.currChecklist = {}
             this.currOpenTodo = {}
         },
-        openChecklist(checklist){
+        openChecklist(checklist) {
             this.currChecklist = JSON.parse(JSON.stringify(checklist))
             this.isChecklistOpen = true
         },
-        closeChecklist(){
+        closeChecklist() {
             this.currChecklist = {}
             this.isChecklistOpen = false
         },
-        openChecklistInput(checklist){
-          this.currChecklist = checklist
-          this.addingNewTodo = true
-          this.currOpenTodo = boardService.getEmptyTodo()
+        openChecklistInput(checklist) {
+            this.currChecklist = checklist
+            this.addingNewTodo = true
+            this.currOpenTodo = boardService.getEmptyTodo()
         },
         saveTodo() {
             this.cardToEdit = JSON.parse(JSON.stringify(this.card))
