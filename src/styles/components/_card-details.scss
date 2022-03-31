@@ -153,6 +153,7 @@
             font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
             padding-left: 62px;
             padding-bottom: 20px;
+            padding-top: 8px;
             font-weight: unset;
             color: #42526e;
             font-size: 13px;
@@ -211,8 +212,9 @@
                 .card-details-members-container {
                     display: flex;
                     gap: 5px;
+                    
                     .card-details-members {
-                        padding-top: 8px;
+                        padding-top: 5px;
                         .card-details-member-img {
                             border-radius: 50%;
                         }
@@ -808,10 +810,12 @@
     // align-items: center;
     font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
     gap: 9px;
+    // align-items: center;
     .card-details-user-avatar {
         cursor: default;
         width: 32px;
         height: 32px;
+        margin-top: 4px;
     }
     .card-details-input {
         color: #7e8085;
@@ -872,7 +876,7 @@
                 box-shadow: none;
                 color: #fff;
                 border-radius: 3px;
-                padding: 9px;
+                padding: 7px;
                 cursor: pointer;
                 &:hover {
                     background-color: #026aa7;
@@ -951,6 +955,10 @@
     fill: inherit;
     flex-shrink: 0;
     line-height: 1;
+}
+
+.card-detail-member-container-main{
+    margin-right: 19px;
 }
 
 .last {
