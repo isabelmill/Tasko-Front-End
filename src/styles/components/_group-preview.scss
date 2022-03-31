@@ -225,12 +225,16 @@
     }
     .card-bar {
         display: flex;
-        justify-content: space-between;
+        // justify-content: ;
+        width: 100%;
         align-items: center;
         flex-wrap: wrap;
         gap: 6px;
         margin: 4px 0 4px 0;
         float: left;
+        .card-bar-members {
+            margin-left: auto
+        }
         .date {
             font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
             border-radius: 3px;
