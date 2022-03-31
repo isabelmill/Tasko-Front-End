@@ -28,7 +28,7 @@ export const boardService = {
 async function query() {
     // return asyncStorageService.query(BOARDS_KEY);
     try {
-        return await httpService.get('board/')
+        return await httpService.get('board')
     } catch (err) {
         console.log('query err:', err);
     }
@@ -36,9 +36,11 @@ async function query() {
 
 async function getById(boardId) {
     // return asyncStorageService.get(BOARDS_KEY, boardId)
-    console.log('boardId in b-s:',boardId);
+    console.log('boardId in b-s:', boardId);
     try {
-        return await httpService.get(`board/${boardId}`)
+        const res = await httpService.get(`board/${boardId}`)
+        console.log('res', res)
+        return res
     } catch (err) {
         console.log('getById err:', err);
     }

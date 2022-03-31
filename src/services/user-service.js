@@ -30,7 +30,7 @@ function getUsers() {
 async function getById(userId) {
     // const user = await storageService.get('user', userId)
     const user = await httpService.get(`user/${userId}`)
-    gWatchedUser = user;
+        // gWatchedUser = user;
     return user;
 }
 
@@ -42,7 +42,7 @@ function remove(userId) {
 async function update(user) {
     // await storageService.put('user', user)
     user = await httpService.put(`user/${user._id}`, user)
-    // Handle case in which admin updates other user's details
+        // Handle case in which admin updates other user's details
     if (getLoggedinUser()._id === user._id) _saveLocalUser(user)
     return user;
 }
@@ -72,13 +72,15 @@ async function signup(userInfo) {
     }
 
 }
-
+//guest userid: 624559a71ec4197167765f73
 async function logout() {
     try {
         // const res = await axios.post(USER_URL + '/logout')
+        // const guestUser = await getById('624559a71ec4197167765f73')
+        // console.log('guestUser:', guestUser)
         await httpService.post('auth/logout')
         sessionStorage.setItem(STORAGE_KEY_LOGGEDIN, null)
-        // return res.data
+            // return res.data
     } catch (err) {
         console.log('logout err:', err);
     }
@@ -94,4 +96,5 @@ async function logout() {
 
 function getLoggedinUser() {
     return JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN))
+
 }

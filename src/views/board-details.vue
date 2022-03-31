@@ -29,20 +29,18 @@
             ></group-list>
         </section>
         <section v-if="isCardOpen" class="dialog-container card-details-scroll">
-           
-                <card-details
+            <card-details
                 ref="cardDetailsModal"
                 class="modal"
-                    @deleteCardFromGroup="deleteCardFromGroup"
-                    @boardModified="updateBoard"
-                    @cardModified="updateCard"
-                    @closeDialog="closeDiag"
-                    @saveCopy="saveCopyToBoard"
-                    :board="board"
-                    :card="cardToShow"
-                    :group="groupToShow"
-                ></card-details>
-            
+                @deleteCardFromGroup="deleteCardFromGroup"
+                @boardModified="updateBoard"
+                @cardModified="updateCard"
+                @closeDialog="closeDiag"
+                @saveCopy="saveCopyToBoard"
+                :board="board"
+                :card="cardToShow"
+                :group="groupToShow"
+            ></card-details>
         </section>
         <!-- <section>
             <dialog ref="cardDetailsModal" class="modal">
@@ -89,9 +87,11 @@ export default {
         }
     },
     created() {
-        },
+    },
     mounted() {
+        
         socketService.on('board-changed', this.socketBoardUpdate)
+        
         // socketService.on('connected', this.socketTest)
     },
     methods: {
@@ -214,13 +214,16 @@ export default {
             async handler(newId) {
                 if (newId) {
                     await this.$store.dispatch({ type: 'loadBoardById', newId })
-                    console.log('newId:',newId);
-                    console.log('this.board:',this.board);
+                    console.log('newId:', newId);
+                    console.log('this.board:', this.board);
                     // socketService.emit('board updated', board => {
                     //     this.socketTest(board)
                     // })
-                    socketService.emit('watch board', newId)
-                    socketService.emit('set-user-socket', userService.getLoggedinUser()._id)
+                    if (this.loggedinUser) {
+                        socketService.emit('watch board', newId)
+                        socketService.emit('set-user-socket', this.loggedinUser._id)
+                    }
+                    // else socketService.emit('set-user-socket', '')
                 }
             },
             immediate: true
