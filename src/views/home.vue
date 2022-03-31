@@ -27,8 +27,8 @@
                         </p>
                     </div>
                     <div class="input-mail-box">
-                        <input name="email" type="email" placeholder="Email" />
-                        <button type="submit">Sign up—it's free!</button>
+                        <!-- <input name="email" type="email" placeholder="Email" /> -->
+                        <button type="submit" @click="goToBoards">Let's start</button>
                     </div>
                 </div>
                 <div class="img-box">
@@ -56,6 +56,9 @@ export default {
         goTologin() {
             this.$router.push(`/login`)
         },
+        goToBoards(){
+            this.$router.push(`/board`)
+        }
     },
     components: {
     },

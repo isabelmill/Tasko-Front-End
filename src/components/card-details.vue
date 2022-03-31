@@ -31,7 +31,7 @@
             </div>
 
             <!-- Lables members and date adding area  -->
-            <section class="card-details-actions-container-edit-btns flex">
+            <section  class="card-details-actions-container-edit-btns flex">
                 <section class="card-details-actions-container">
                     <section class="card-details-main flex">
                         <div  class="card-details-members-labels-date">
