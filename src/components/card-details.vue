@@ -34,8 +34,8 @@
             <section class="card-details-actions-container-edit-btns flex">
                 <section class="card-details-actions-container">
                     <section class="card-details-main flex">
-                        <div v-if="card.members.length > 0 || card.labels.length > 0 || card.date" class="card-details-members-labels-date">
-                            <div  class="card-detail-member-container-main">
+                        <div  class="card-details-members-labels-date">
+                            <div v-if="card.members.length > 0"  class="card-detail-member-container-main">
                                 <label v-if="card.members.length > 0" for>Members</label>
                                 <div class="card-details-members-container" v-if="card.members.length > 0" for>
                                     <section class="card-details-members" v-for="member in card.members"
@@ -518,7 +518,7 @@ export default {
             this.newComment.byMember = this.loggedinUser
             this.cardToEdit.comments.unshift(this.newComment)
             this.$emit('cardModified', { card: this.cardToEdit, group: this.group })
-            this.newComment = boardService.getEmptyGroup()
+            this.newComment = boardService.getEmptyComment()
             this.showInput = false
         },
         setDateFormat(timestamp) {
