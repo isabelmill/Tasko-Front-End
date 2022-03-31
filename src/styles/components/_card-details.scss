@@ -353,35 +353,60 @@
                     line-height: 20px;
                 }
             }
-            .card-details-checklist-show-details {
-                display: flex;
-                justify-content: space-between;
-                margin-bottom: 10px;
-                min-height: 32px;
-                .card-details-checklist {
-                    display: flex;
-                    gap: 17px;
-                    align-items: center;
-                    min-height: 32px;
-                    h3 {
-                        color: #172b4d;
-                        font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
-                        font-size: 16px;
-                        line-height: 20px;
-                        display: inline-block;
-                        margin: 0;
-                        min-height: 18px;
-                        min-width: 40px;
-                        width: auto;
-                        font-weight: 500;
-                    }
-                }
+            .checklist {
+                margin-bottom: 24px;
                 .checklist-btn {
                     @include cardDetailsBtn();
                     background-color: #091e420a;
                     font-size: 14px;
                     font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
                     cursor: pointer;
+                }
+                .card-details-checklist-show-details {
+                    display: flex;
+                    justify-content: space-between;
+                    margin-bottom: 10;
+                    // width: 100%;
+                    .card-details-checklist {
+                        // display: flex;
+                        // align-items: center;
+                        // min-height: 32px;
+                        width: 100%;
+                        // justify-content: space-between;
+                        .checklist-header {
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                            width: 100%;
+                            .checklist-title {
+                                display: flex;
+                                align-items: center;
+                                justify-content: space-between;
+                                gap: 17px;
+                                min-height: 32px;
+                                // margin-bottom: 10px;
+                                h3 {
+                                    color: #172b4d;
+                                    font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
+                                    font-size: 16px;
+                                    line-height: 20px;
+                                    display: inline-block;
+                                    margin: 0;
+                                    min-height: 18px;
+                                    min-width: 40px;
+                                    width: auto;
+                                    font-weight: 500;
+                                }
+                            }
+                            .checklist-delete {
+                                position: relative;
+                                display: inline-block;
+                            }
+                        }
+                    }
+                }
+                .add-todo-container {
+                    margin-left: 40px
                 }
             }
             .card-details-description {
