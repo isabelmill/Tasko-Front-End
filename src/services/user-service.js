@@ -65,8 +65,9 @@ async function signup(userInfo) {
     try {
         // const res = await axios.post(USER_URL + '/signup', userInfo)
         // sessionStorage.setItem(STORAGE_KEY_LOGGEDIN, JSON.stringify(user))
-        await httpService.post('auth/signup', userInfo)
-        sessionStorage.setItem(STORAGE_KEY_LOGGEDIN, JSON.stringify(userInfo))
+        console.log('userInfo:',userInfo);
+        const loggedUser = await httpService.post('auth/signup', userInfo)
+        sessionStorage.setItem(STORAGE_KEY_LOGGEDIN, JSON.stringify(loggedUser))
     } catch (err) {
         console.log('signup err:', err);
     }

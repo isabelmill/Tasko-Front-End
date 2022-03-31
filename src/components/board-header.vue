@@ -71,11 +71,16 @@
                 <div :class="updateStar"></div>
             </button>
 
-            <div :style="{ 'opacity': '0' }" class="empty-div"></div>
-            <div class="board-members-render" v-for="member in board.members">
+            <div  class="empty-div"></div>
+            <div class="board-members-render" v-for="member in membersForDisplay">
                 <div class="users-avatar-name">
-                    <div class="users-avatar">{{ setMemberLetters(member.fullname) }}</div>
-                    <img class="admin-img" v-if="member._id === board.createdBy._id" src="https://a.trellocdn.com/prgb/dist/images/chevron.88a4454280d68a816b89.png" alt="">
+                    <div ref="user" @click="calcPosOfBox()" class="users-avatar">{{ setMemberLetters(member.fullname) }}</div>
+                    <img
+                        class="admin-img"
+                        v-if="member._id === board.createdBy._id"
+                        src="https://a.trellocdn.com/prgb/dist/images/chevron.88a4454280d68a816b89.png"
+                        alt
+                    />
                     <!-- <p>{{ member.username }}</p> -->
                 </div>
             </div>
@@ -162,13 +167,18 @@ export default {
             title: '',
             showMenu: false,
             filterByName: null,
+            pos: 0,
 
         }
     },
     created() {
         this.$store.dispatch({ type: 'loadUsers' })
+        // this.calcPosOfBox()
     },
     methods: {
+        calcPosOfBox() {
+            this.pos = this.$refs['user'].getBoundingClientRect()
+        },
         boardStared() {
             this.isStarred = !this.isStarred
             this.$emit('starredChange', this.isStarred)
@@ -229,6 +239,9 @@ export default {
             const regex = new RegExp(this.filterByName, 'i');
             return users.filter(user =>
                 regex.test(user.username) && user._id !== this.board.createdBy._id);
+        },
+        membersForDisplay(){
+            return this.board.members.filter(member => member._id !== this.board.createdBy._id)
         }
     },
     watch: {

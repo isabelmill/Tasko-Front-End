@@ -288,13 +288,6 @@
 }
 
 .board-members-render {
-    // float: left;
-    // margin-left: 4px;
-    // overflow: hidden;
-    // padding: 2px 0 0 2px;
-    // position: relative;
-    // left: -5px;
-    // z-index: 1;
     .users-avatar-name {
         font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
         display: flex;
@@ -311,31 +304,27 @@
         font-size: 12px;
         padding-left: 1px;
         margin-left: -7px;
-        // position: relative;
-        // left: -5px;
         z-index: 1;
-        // margin-left: -50;
-        
-        .users-avatar {
 
-
-        }
     }
 }
 
 .admin-img{
-    width: 8px;
+    // width: 8px;
     height: 8px;
-    // bottom: 50;
-    position: absolute;
-    right: 753px;
-    top: 76px;
-    // width: 9px;
+    // position: absolute;
+    // right: 753px;
+    // top: 76px;
     z-index: 3;
+    width: 10px;
+    position: absolute;
+    left: 12px;
+    top: 18px;
 }
 
 .empty-div{
-    width: 5px;
+    width: 2px;
+    opacity: 0;
 }
 .overlay {
     position: absolute;
