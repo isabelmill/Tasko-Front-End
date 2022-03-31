@@ -34,8 +34,8 @@
             <section class="card-details-actions-container-edit-btns flex">
                 <section class="card-details-actions-container">
                     <section class="card-details-main flex">
-                        <div class="card-details-members-labels-date">
-                            <div class="card-detail-member-container-main">
+                        <div v-if="card.members.length > 0 || card.labels.length > 0 || card.date" class="card-details-members-labels-date">
+                            <div  class="card-detail-member-container-main">
                                 <label v-if="card.members.length > 0" for>Members</label>
                                 <div class="card-details-members-container" v-if="card.members.length > 0" for>
                                     <section class="card-details-members" v-for="member in card.members"
