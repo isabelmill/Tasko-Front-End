@@ -6,12 +6,18 @@
     >
         <div class="main-title-container">
             <div class="icon-sm icon-back" type="button" @click.stop.prevent="closeEditLabel"></div>
-             <div class="icon-sm icon-close" @click.stop.prevent="close"></div>
-            <span class="main-title">{{txt}}</span>
+            <div class="icon-sm icon-close" @click.stop.prevent="close"></div>
+            <span class="main-title">{{ txt }}</span>
         </div>
         <section class="actions-modal-main">
             <span class="mini-edit-title">Name</span>
-            <input @click.stop.prevent class="edit-input" @submit.prevent type="text" v-model="name" />
+            <input
+                @click.stop.prevent
+                class="edit-input"
+                @submit.prevent
+                type="text"
+                v-model="name"
+            />
             <span class="mini-edit-title">Color</span>
             <section class="label-color-picker">
                 <div
@@ -74,7 +80,7 @@
                     <span class="no-color-text">This won't show up on the front of cards</span>
                 </div>
             </section>
-            <button class="save-btn" @click.stop.prevent="save">{{btnTxt}}</button>
+            <button class="save-btn" @click.stop.prevent="save">{{ btnTxt }}</button>
             <button v-if="!isCreate" class="delete-btn" @click.stop.prevent="deleteLabel">Delete</button>
         </section>
     </section>
@@ -103,9 +109,9 @@ export default {
             name: '',
             color: '',
             labelToEdit: '',
-            txt:'Create label',
+            txt: 'Create label',
             btnTxt: 'Create',
-            isCreate : this.new
+            isCreate: this.new
         }
     },
     created() {
@@ -137,8 +143,8 @@ export default {
             this.$emit('saveLabel', this.labelToEdit)
             this.closeEditLabel()
         },
-        deleteLabel(){
-            this.$emit('deleteLabel',this.label)
+        deleteLabel() {
+            this.$emit('deleteLabel', this.label)
             //TO ADD AGREE AFTER DELETE PROMPT
             this.closeEditLabel()
         },
@@ -150,7 +156,7 @@ export default {
             this.$emit('closeEditLabel')
         }
     },
-    emits: ['closeBoth', 'closeEditLabel', 'saveLabel','deleteLabel']
+    emits: ['closeBoth', 'closeEditLabel', 'saveLabel', 'deleteLabel']
 }
 </script>
 
