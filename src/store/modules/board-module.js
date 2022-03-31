@@ -24,6 +24,9 @@ export default {
         templates(state) {
             return state.boards.filter(board => board.isTemplate)
         },
+        categoryBusiness(state) {
+            return state.boards.filter(board => board.category === 'business')
+        },
         categoryDesign(state) {
             return state.boards.filter(board => board.category === 'design')
         },
@@ -64,9 +67,7 @@ export default {
         async loadBoardById({ commit }, { newId }) {
             try {
                 const board = await boardService.getById(newId)
-                // board.lastTimeWatched = Date.now()
                 commit({ type: 'setBoard', board })
-                // commit({ type: 'saveBoard', board })
             } catch (err) {
                 console.log('err!!');
             }

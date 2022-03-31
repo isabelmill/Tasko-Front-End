@@ -74,7 +74,7 @@
                             </div>
                             <board-list
                                 v-if="boards"
-                                :boards="templates"
+                                :boards="categoryBusiness"
                                 @updateRecentlyWatched="addLastTimeWatched"
                             />
                         </div>
@@ -110,7 +110,7 @@
                                 @updateRecentlyWatched="addLastTimeWatched"
                             />
                         </div>
-
+                        <!-- 
                         <div class="border-list">
                             <div class="header-templates">
                                 <img
@@ -157,7 +157,7 @@
                                 :boards="templates"
                                 @updateRecentlyWatched="addLastTimeWatched"
                             />
-                        </div>
+                        </div>-->
                     </div>
                 </div>
             </div>
@@ -249,6 +249,9 @@ export default {
         },
         templates() {
             return this.$store.getters.templates
+        },
+        categoryBusiness() {
+            return this.$store.getters.categoryBusiness
         },
         categoryDesign() {
             return this.$store.getters.categoryDesign

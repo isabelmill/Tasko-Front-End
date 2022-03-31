@@ -65,8 +65,9 @@
 
 .folder-info {
     font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
+    margin-left: rem(32px);
+
     .boards-info {
-        margin-left: rem(32px);
         .border-list {
             padding: 0 0 40px;
         }

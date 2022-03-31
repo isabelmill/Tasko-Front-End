@@ -108,10 +108,9 @@
     .card-details-header {
         display: flex;
         justify-content: space-between;
-        padding-left: 16px;
+        padding-left: 20px;
         padding-right: 16px;
-        padding-top: 25px;
-        padding-top: 12px;
+        padding-top: 20px;
         .card-details-header-icon {
             display: flex;
             flex-direction: row;
@@ -150,7 +149,7 @@
     .card-details-list-name {
         p {
             font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
-            padding-left: 59px;
+            padding-left: 62px;
             padding-bottom: 20px;
             font-weight: unset;
             color: #42526e;
@@ -195,7 +194,7 @@
         display: flex;
         align-items: start;
         justify-content: center;
-        padding: 0 16px 8px 16px;
+        padding: 0 16px 8px 20px;
         // height: 900px;
         height: min-content;
         .card-details-main {
@@ -695,7 +694,7 @@
                 textarea {
                     border-color: #091e4221;
                     height: 108px;
-                    width: 514px;
+                    width: 520px;
                     border-radius: 3px;
                     font-size: 13px;
                     padding: 12px;
@@ -719,12 +718,12 @@
                     box-shadow: none;
                     padding: 8px 12px;
                     cursor: pointer;
-                    margin-top: 17px;
+                    margin-top: 15px;
                     font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
                     color: #42526e;
                     margin-bottom: 24px;
                     margin-left: 42px;
-                    width: rem(515px);
+                    width: rem(520px);
                     height: rem(55px);
                     border-radius: 3px;
                     font-size: 13px;
@@ -926,7 +925,11 @@
         background-color: rgb(244, 245, 247);
         // overflow-x: hidden;
         // overflow: hidden;
-        width: 770px;
+        width: 785px;
+        padding-bottom: 50px;
+        // padding-top: 8px;
+        // padding-left: 8px;
+        // padding-right: 2px;
         // overflow-y: scroll;
         height: min-content;
         // max-height: unset;
