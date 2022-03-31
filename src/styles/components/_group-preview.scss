@@ -221,9 +221,6 @@
         background-color: #eeeef0;
         button {
             display: block;
-            &:hover {
-                background-color: #091e4214;
-            }
         }
     }
     .card-bar {
@@ -277,7 +274,6 @@
         }
     }
 }
-
 
 .dateUncompleted {
     cursor: pointer;
@@ -733,6 +729,7 @@
     top: 9px;
     right: 9px;
     // padding: 9px;
+    background-color: transparent;
     &:hover {
         color: #fff;
         width: 28px;
@@ -775,6 +772,7 @@
     @include to-icon("\e907");
     color: #fff;
 }
+
 .icon-description {
     @include to-icon("\e922");
 }

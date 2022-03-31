@@ -1,6 +1,6 @@
 <template>
     <section>
-        <section v-if="Object.keys(card.cover).length" class="coverOfCardDetails" ref="headerCover"
+        <section v-if="Object.keys(card.cover).length" class="card-details-cover" ref="headerCover"
             :class="{ color: card.cover.type === 'color', attachmentofdetails: card.cover.type === 'attachment' }"
             v-bind:style="[(card.cover.type === 'color') ? { backgroundColor: card.cover.value } : { backgroundImage: 'url(' + card.cover.value + ')' }]">
         <div v-if="card.cover.type" class="card-details-cover-close " @click.stop.prevent="closeModal">

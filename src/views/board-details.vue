@@ -151,7 +151,7 @@ export default {
         },
         closeDiag() {
             this.isCardOpen = false
-            this.$refs.cardDetailsModal.close()
+            // this.$refs.cardDetailsModal.close()
         },
         saveCopyToBoard(copy) {
             this.groupToEdit = JSON.parse(JSON.stringify(copy.posCopy.group))
