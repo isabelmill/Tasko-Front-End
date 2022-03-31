@@ -1,12 +1,12 @@
 <template>
     <section>
-        <section v-if="card.cover" class="coverOfCardDetails" ref="headerCover"
+        <section v-if="Object.keys(card.cover).length" class="coverOfCardDetails" ref="headerCover"
             :class="{ color: card.cover.type === 'color', attachmentofdetails: card.cover.type === 'attachment' }"
             v-bind:style="[(card.cover.type === 'color') ? { backgroundColor: card.cover.value } : { backgroundImage: 'url(' + card.cover.value + ')' }]">
         <div v-if="card.cover.type" class="card-details-cover-close " @click.stop.prevent="closeModal">
         <span  class="icon-md icon-closed" ></span>
         </div>
-        <button v-if="card.cover.type" class="card-details-btn-header"
+        <button  class="card-details-btn-header"
                         @click.stop.prevent="openThisModal('coverModal', $event)">
                         <span class="icon-sm icon-cover"></span>
                         Cover
@@ -21,7 +21,7 @@
                         <p>{{ card.title }}</p>
                     </div>
                 </div>
-                <div v-if="!card.cover.type" class="card-details-cover-close " @click.stop.prevent="closeModal">
+                <div v-if="!Object.keys(card.cover).length" class="card-details-no-cover-close " @click.stop.prevent="closeModal">
                     <span  class="icon-md icon-closed"></span>
                 </div>
             </div>
