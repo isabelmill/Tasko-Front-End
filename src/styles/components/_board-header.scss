@@ -14,12 +14,15 @@
         margin-right: rem(8px);
         gap: 5px;
     }
+
     button {
         @include btn();
+
         p {
             margin-left: 5px;
         }
     }
+
     .board-btn {
         display: flex;
         align-items: center;
@@ -27,13 +30,16 @@
         gap: 4px;
         margin: 0;
     }
+
     .invite {
         @include inviteBtn();
         background-color: #fff;
         color: #000;
-        p {
+
+        a {
             margin-left: 5px;
         }
+
         &:hover {
             background-color: #ffffffe6;
         }
@@ -44,6 +50,7 @@
     @include to-icon("\e966");
     width: 20px;
     color: #fff;
+
     &:hover {
         color: $mainYellow;
     }
@@ -70,6 +77,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
     // margin-bottom: 1px;
     p {
         font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
@@ -84,6 +92,7 @@
         padding-left: 8px;
         padding-right: 8px;
     }
+
     input {
         font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
         text-align: center;
@@ -98,14 +107,257 @@
         box-shadow: inset 0 0 0 2px #0079bf;
         color: $memberBlue;
         background-color: #fff;
+
         &::placeholder {
             color: #fff;
         }
+
         &:focus {
             outline: none !important;
         }
     }
+
     &:hover {
         background-color: rgba(255, 255, 255, 0.3);
     }
+}
+
+
+
+///////////////////////////////////////////
+.invite-modal-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+
+    .invite-modal {
+        padding: 20px;
+        background: #fff;
+        border: 1px solid #666;
+        width: 300px;
+        border-radius: 3px;
+        box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+        position: relative;
+        font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
+        color: rgb(74, 85, 104);
+        width: 600px;
+
+        .close {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            top: 20px;
+            right: 20px;
+            opacity: 0.8;
+            transition: all 200ms;
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+            color: #777;
+        }
+
+        h2 {
+            margin-top: 0;
+        }
+
+        .content {
+            width: 100%;
+
+            .user-render-container {
+                overflow-y: auto;
+                // overflow-y: scroll;
+                max-height: 150px;
+                min-height: 150px;
+
+                .users-render {
+
+                    .users-avatar-name {
+                        display: flex;
+                        align-items: center;
+                        gap: 8px;
+                        margin-bottom: 8px;
+                        border-radius: 3px;
+                        width: 800px;
+                        // .users-avatar{
+
+                        // }
+
+                        &:hover {
+                            background-color: #F0F2F5;
+                            cursor: pointer;
+                        }
+
+                        p {
+                            margin-bottom: 0;
+                        }
+                    }
+                }
+            }
+
+            input {
+                width: 100%;
+                margin-top: 16px;
+                background-color: #fafbfc;
+                border-radius: 3px;
+                box-shadow: inset 0 0 0 2px #dfe1e6;
+                box-sizing: border-box;
+                margin: auto;
+                min-height: 32px;
+                padding: 6px 12px;
+                height: 38px;
+                position: relative;
+                border: none;
+                margin-bottom: 20px;
+
+                &:focus {
+                    outline-color: #0079bf;
+                }
+
+                &:hover {
+                    background-color: #ebecf0;
+                    box-shadow: inset 0 0 0 2px #dfe1e6;
+                }
+            }
+
+            .admin-info {
+                justify-content: space-between;
+                align-items: center;
+                padding-top: 8px;
+
+                .admin-avatar-name {
+                    display: flex;
+                    align-items: center;
+                    gap: 9px;
+
+                    p {
+                        margin-bottom: 0;
+                    }
+                }
+
+                .admin-btn {
+                    display: flex;
+                    align-items: center;
+                    background-color: rgba(9, 30, 66, 0.04);
+                    border-radius: 4px;
+                    cursor: default;
+                    // min-height: 32px;
+                    font-size: 14px;
+                    padding: 5px 10px 5px 10px;
+                }
+            }
+        }
+
+        p {
+            margin: 0 0 1em;
+            text-align: center;
+        }
+
+        .invite-modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+
+            h1 {
+                font-size: 20px;
+                font-weight: 400;
+            }
+
+            span {
+                cursor: pointer;
+
+                .cancel {
+                    cursor: pointer;
+                    position: absolute;
+                    width: 20px;
+                    height: 20px;
+                    top: 20px;
+                    right: 20px;
+                    opacity: 0.8;
+                    transition: all 200ms;
+                    font-size: 24px;
+                    font-weight: bold;
+                    text-decoration: none;
+                    color: #777;
+                }
+            }
+        }
+
+    }
+}
+
+.board-members-render {
+    // float: left;
+    // margin-left: 4px;
+    // overflow: hidden;
+    // padding: 2px 0 0 2px;
+    // position: relative;
+    // left: -5px;
+    // z-index: 1;
+    .users-avatar-name {
+        font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        background-color: #172b4d;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        letter-spacing: 1px;
+        color: #fff;
+        font-weight: 600;
+        font-size: 12px;
+        padding-left: 1px;
+        margin-left: -7px;
+        // position: relative;
+        // left: -5px;
+        z-index: 1;
+        // margin-left: -50;
+        
+        .users-avatar {
+
+
+        }
+    }
+}
+
+.admin-img{
+    width: 8px;
+    height: 8px;
+    // bottom: 50;
+    position: absolute;
+    right: 753px;
+    top: 76px;
+    // width: 9px;
+    z-index: 3;
+}
+
+.empty-div{
+    width: 5px;
+}
+.overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.5);
+    transition: opacity 200ms;
+    visibility: hidden;
+    opacity: 0;
+    z-index: 1;
+}
+
+.overlay .cancel {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    cursor: default;
+}
+
+.overlay:target {
+    visibility: visible;
+    opacity: 1;
 }

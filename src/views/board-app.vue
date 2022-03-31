@@ -30,6 +30,7 @@
                                 v-if="boards"
                                 :boards="starredBoards"
                                 @updateRecentlyWatched="addLastTimeWatched"
+                                @updateStarred="updateBoard"
                             />
                         </div>
 
@@ -42,6 +43,7 @@
                                 v-if="boards"
                                 :boards="recentlyBoards"
                                 @updateRecentlyWatched="addLastTimeWatched"
+                                @updateStarred="updateBoard"
                             />
                         </div>
                         <button
