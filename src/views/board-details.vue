@@ -179,6 +179,7 @@ export default {
             this.saveActivity('changed the background of this board')
 
             this.boardToEdit.background = color
+            this.boardToEdit.backgroundPhoto = ''
             this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
         },
         changeBoardPhoto(photo) {

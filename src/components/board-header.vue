@@ -63,7 +63,7 @@
                     type="text"
                     @submit.prevent="changeBoardTitle"
                     @keyup="calculateTxtLen"
-                    :style="updateWidth"
+                    :style="updateLength"
                 />
             </div>
 
@@ -112,8 +112,8 @@ export default {
         }
     },
     created() {
-        this.title = JSON.parse(JSON.stringify(this.board.title))
-        this.calculateTxtLen()
+        // this.title = JSON.parse(JSON.stringify(this.board.title))
+        // this.calculateTxtLen()
     },
     // computed: {
     //     boardToEdit() {
@@ -127,6 +127,8 @@ export default {
         },
         openTitleEdit() {
             this.titleIsOpen = true;
+            this.title = this.board.title
+            this.calculateTxtLen()
         },
         changeTitle() {
             if (!this.title) return
@@ -148,6 +150,9 @@ export default {
         },
         updatePhoto(photo) {
             this.$emit("changeBoardBgc", photo);
+        },
+        updateWidth() {
+            return `width: ${24 + (this.titleLength * 8) + 'px'};`
         }
     },
     computed: {
@@ -155,8 +160,19 @@ export default {
             if (this.board.isStarred) return `icon-sm icon-starred`
             else return `icon-sm icon-star`
         },
-        updateWidth() {
+        updateLength() {
             return `width: ${24 + (this.titleLength * 8) + 'px'};`
+        }
+
+    },
+    watch: {
+        "$route.params.boardId": {
+            async handler(newId) {
+                this.title = JSON.parse(JSON.stringify(this.board.title))
+                this.calculateTxtLen()
+                this.updateWidth()
+            },
+
         }
 
     },

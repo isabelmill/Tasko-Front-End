@@ -1,8 +1,8 @@
 <template>
   <section
-    class="app-header-main"
-    :style="board && isOnBoard ? { 'background-color': lightenDarkenColor(board.background, -20) } : null"
+    class="app-header-main" ref="appheader"
   >
+    <!-- :style="board && isOnBoard ? { 'background-color': lightenDarkenColor(board.background, -20) } : null" -->
     <router-link to="/board" class="logo-box">
       <span class="logo-img"></span>
       <p class="logo-txt">Tasko</p>
@@ -22,7 +22,7 @@
           fill="currentColor"
         />
       </svg>
-    </a> -->
+    </a>-->
     <a @click="openRecentBoardsModal(), calcPosOfBox()" class="link" to="/" ref="recent">
       Recent
       <svg
@@ -192,6 +192,7 @@ import starredBoardsModal from "./starred-boards-modal.vue"
 import recentBoardsModal from "./recent-boards-modal.vue"
 import loggedInUserModal from "./logged-in-user-modal.vue"
 import templateModal from "./template-modal.vue"
+import FastAverageColor from 'fast-average-color';
 
 export default {
   name: 'app-header',
@@ -221,6 +222,26 @@ export default {
     loggedinUser() {
       return this.$store.getters.loggedinUser
     },
+    async appHeaderColor() {
+      if (this.board && this.isOnBoard) {
+        console.log('this.isOnBoard:',this.isOnBoard);
+        console.log('this.board:',this.board.background,this.board.backgroundPhoto);
+        if (this.board.backgroundPhoto) {
+          const fac = new FastAverageColor()
+          try {
+            const color = await fac.getColorAsync(this.board.backgroundPhoto)
+            this.$refs['appheader'].style.backgroundColor = color.hex
+            return color.hex
+          }
+          catch (err) {
+            console.log(err)
+          }
+        } 
+        if(this.board.background && this.isOnBoard){
+          this.$refs['appheader'].style.backgroundColor = this.lightenDarkenColor(this.board.background, -20)
+        }
+      }
+    }
   },
   created() {
   },
@@ -289,6 +310,18 @@ export default {
       }
 
       return (usePound ? "#" : "") + (g | (b << 8) | (r << 16)).toString(16);
+    }
+  },
+  watch: {
+    appHeaderColor: {
+      async handler(newColor) {
+        this.$refs['appheader'].style.backgroundColor = newColor
+      }
+    },
+    isOnBoard : {
+            async handler(newId) {
+              if(!newId) this.$refs['appheader'].style.backgroundColor = '#026AA7'
+      }
     }
   },
   components: {
