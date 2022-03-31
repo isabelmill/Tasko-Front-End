@@ -70,10 +70,63 @@
             <button @click.stop.prevent="boardStared">
                 <div :class="updateStar"></div>
             </button>
+
+            <div :style="{ 'opacity': '0' }" class="empty-div"></div>
+            <div class="board-members-render" v-for="member in board.members">
+                <div class="users-avatar-name">
+                    <div class="users-avatar">{{ setMemberLetters(member.fullname) }}</div>
+                    <img class="admin-img" v-if="member._id === board.createdBy._id" src="https://a.trellocdn.com/prgb/dist/images/chevron.88a4454280d68a816b89.png" alt="">
+                    <!-- <p>{{ member.username }}</p> -->
+                </div>
+            </div>
+
             <div class="invite">
                 <div class="icon-sm icon-add-member"></div>
-                <p>Invite</p>
+                <a href="#modal1">Share</a>
             </div>
+            <!-- invite modal start -->
+
+            <div id="modal1" class="overlay">
+                <a class="cancel" href="#"></a>
+                <div class="invite-modal-container">
+                    <div class="invite-modal">
+                        <div class="invite-modal-header">
+                            <h1>Share</h1>
+                            <span class="icon-lg icon-closed">
+                                <a class="cancel" href="#"></a>
+                            </span>
+                        </div>
+                        <div class="content">
+                            <input placeholder="Search by name" type="text" v-model="filterByName" />
+                            <div class="user-render-container">
+                                <div
+                                    class="users-render"
+                                    v-for="user in usersForDisplay"
+                                    :key="user"
+                                    @click="inviteUser(user)"
+                                >
+                                    <div class="users-avatar-name">
+                                        <div
+                                            class="users-avatar member"
+                                        >{{ setMemberLetters(user.fullname) }}</div>
+                                        <p>{{ user.username }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="admin-info flex">
+                                <div class="admin-avatar-name">
+                                    <div
+                                        class="admin-avatar member"
+                                    >{{ setMemberLetters(board.createdBy.fullname) }}</div>
+                                    <p>{{ board.createdBy.username }}</p>
+                                </div>
+                                <div class="admin-btn">Admin</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- invite modal end  -->
         </nav>
         <nav>
             <button @click.stop.prevent="openMenuBar">
@@ -95,6 +148,7 @@
 
 <script>
 import menuBar from "../components/menu-bar.vue"
+// import { userService } from '../services/user-service'
 
 export default {
     props: {
@@ -104,22 +158,16 @@ export default {
         return {
             isStarred: false,
             titleIsOpen: false,
-            // boardToEdit: null,
             titleLength: 0,
             title: '',
             showMenu: false,
+            filterByName: null,
 
         }
     },
     created() {
-        // this.title = JSON.parse(JSON.stringify(this.board.title))
-        // this.calculateTxtLen()
+        this.$store.dispatch({ type: 'loadUsers' })
     },
-    // computed: {
-    //     boardToEdit() {
-    //         return JSON.parse(JSON.stringify(this.board))
-    //     }
-    // },
     methods: {
         boardStared() {
             this.isStarred = !this.isStarred
@@ -153,6 +201,15 @@ export default {
         },
         updateWidth() {
             return `width: ${24 + (this.titleLength * 8) + 'px'};`
+        },
+        setMemberLetters(fullname) {
+            const firstLetters = fullname.split(' ').map(word => word[0]).join('');
+            return firstLetters.toUpperCase()
+        },
+        inviteUser(invitedUser) {
+            const userMember = this.board.members.find(user => user._id === invitedUser._id)
+            if (userMember) return
+            this.$emit('makeMember', invitedUser)
         }
     },
     computed: {
@@ -162,8 +219,17 @@ export default {
         },
         updateLength() {
             return `width: ${24 + (this.titleLength * 8) + 'px'};`
+        },
+        users() {
+            return this.$store.getters.users
+        },
+        usersForDisplay() {
+            const users = this.$store.getters.users
+            if (!this.filterByName) return users.filter(user => user._id !== this.board.createdBy._id);
+            const regex = new RegExp(this.filterByName, 'i');
+            return users.filter(user =>
+                regex.test(user.username) && user._id !== this.board.createdBy._id);
         }
-
     },
     watch: {
         "$route.params.boardId": {
@@ -179,6 +245,6 @@ export default {
     components: {
         menuBar,
     },
-    emits: ['changeBoardBgc', 'changeBgcColor', 'starredChange', 'titleChange']
+    emits: ['changeBoardBgc', 'changeBgcColor', 'starredChange', 'titleChange', 'makeMember']
 }
 </script>

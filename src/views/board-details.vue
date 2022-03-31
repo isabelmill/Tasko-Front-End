@@ -8,6 +8,7 @@
                 @starredChange="isStarredBoard"
                 @changeBgcColor="changeBoardBgcColor"
                 @changeBoardBgc="changeBoardPhoto"
+                @makeMember="inviteUser"
             />
         </section>
         <section
@@ -89,9 +90,9 @@ export default {
     created() {
     },
     mounted() {
-        
+
         socketService.on('board-changed', this.socketBoardUpdate)
-        
+
         // socketService.on('connected', this.socketTest)
     },
     methods: {
@@ -194,6 +195,11 @@ export default {
             this.newActivity.txt = txt
             this.boardToEdit.activities.unshift(this.newActivity)
             this.newActivity = boardService.getEmptyActivity()
+        },
+        inviteUser(user) {
+             this.boardToEdit = JSON.parse(JSON.stringify(this.board))
+             this.boardToEdit.members.push(user)
+             this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
         }
     },
     computed: {
