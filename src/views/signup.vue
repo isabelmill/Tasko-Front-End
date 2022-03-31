@@ -1,6 +1,6 @@
 <template>
     <section class="signup-main-container flex">
-        <div class="mello-logo-login">
+        <div class="tasko-logo-login">
             <img
                 src="https://res.cloudinary.com/dw85wdwsw/image/upload/v1648495274/ujlrratduzckpypdosan.jpg"
                 alt
