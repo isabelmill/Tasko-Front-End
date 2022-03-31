@@ -1,6 +1,6 @@
 <template>
     <section class="login-main-container flex">
-        <div class="mello-logo-login">
+        <div class="tasko-logo-login">
             <img
                 src="https://res.cloudinary.com/dw85wdwsw/image/upload/v1648495274/ujlrratduzckpypdosan.jpg"
                 alt
@@ -8,7 +8,7 @@
             <h1>Tasko</h1>
         </div>
         <div class="login-container">
-            <h1>Log in to Mello</h1>
+            <h1>Log in to Tasko</h1>
             <input v-model="user.username" placeholder="Enter username" type="text" />
             <input
                 v-model="user.password"

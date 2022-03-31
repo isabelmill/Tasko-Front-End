@@ -5,12 +5,10 @@
     width: rem(192px);
     cursor: pointer;
     position: relative;
+    &:hover {
+        opacity: 0.8;
+    }
 
-    // &:hover{
-    //     background-color: #0000004d;
-    // }
-
-    
     h1 {
         padding: 4px 0 0 8px;
         color: #ffff;
@@ -31,6 +29,5 @@
             @include to-icon("\e966");
             color: $mainYellow;
         }
-        opacity: 0.8
     }
 }

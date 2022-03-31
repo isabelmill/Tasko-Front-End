@@ -23,6 +23,7 @@ export const boardService = {
     getEmptyGroup,
     getEmptyBoard,
     getEmptyActivity,
+    getEmptyTodo
 }
 
 async function query() {
@@ -472,6 +473,14 @@ function _createBoards() {
         utilService.saveToStorage(BOARDS_KEY, boards)
     }
     return boards
+}
+
+function getEmptyTodo() {
+    return {
+        id: utilService.makeId(),
+        text: '',
+        isComplete: false,
+    }
 }
 
 function getEmptyActivity() {
