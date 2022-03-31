@@ -5,7 +5,6 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
-
     nav {
         display: flex;
         align-items: center;
@@ -13,15 +12,12 @@
         margin-right: rem(8px);
         gap: 5px;
     }
-
     button {
         @include btn();
-
         p {
             margin-left: 5px;
         }
     }
-
     .board-btn {
         display: flex;
         align-items: center;
@@ -29,16 +25,13 @@
         gap: 4px;
         margin: 0;
     }
-
     .invite {
         @include inviteBtn();
         background-color: #fff;
         color: #000;
-
         a {
             margin-left: 5px;
         }
-
         &:hover {
             background-color: #ffffffe6;
         }
@@ -49,7 +42,6 @@
     @include to-icon("\e966");
     width: 20px;
     color: #fff;
-
     &:hover {
         color: $mainYellow;
     }
@@ -76,11 +68,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-<<<<<<< HEAD
-=======
-
-    // margin-bottom: 1px;
->>>>>>> aa11b34b713dc60c53fc38b0dc9654673e9ca56f
     p {
         font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
         display: flex;
@@ -94,7 +81,6 @@
         padding-left: 8px;
         padding-right: 8px;
     }
-
     input {
         font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
         text-align: center;
@@ -109,22 +95,17 @@
         box-shadow: inset 0 0 0 2px #0079bf;
         color: $memberBlue;
         background-color: #fff;
-
         &::placeholder {
             color: #fff;
         }
-
         &:focus {
             outline: none !important;
         }
     }
-
     &:hover {
         background-color: rgba(255, 255, 255, 0.3);
     }
 }
-
-
 
 ///////////////////////////////////////////
 .invite-modal-container {
@@ -132,7 +113,6 @@
     align-items: center;
     justify-content: center;
     height: 100vh;
-
     .invite-modal {
         padding: 20px;
         background: #fff;
@@ -144,7 +124,6 @@
         font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
         color: rgb(74, 85, 104);
         width: 600px;
-
         .close {
             position: absolute;
             width: 20px;
@@ -158,22 +137,17 @@
             text-decoration: none;
             color: #777;
         }
-
         h2 {
             margin-top: 0;
         }
-
         .content {
             width: 100%;
-
             .user-render-container {
                 overflow-y: auto;
                 // overflow-y: scroll;
                 max-height: 150px;
                 min-height: 150px;
-
                 .users-render {
-
                     .users-avatar-name {
                         display: flex;
                         align-items: center;
@@ -182,21 +156,17 @@
                         border-radius: 3px;
                         width: 800px;
                         // .users-avatar{
-
                         // }
-
                         &:hover {
                             background-color: #F0F2F5;
                             cursor: pointer;
                         }
-
                         p {
                             margin-bottom: 0;
                         }
                     }
                 }
             }
-
             input {
                 width: 100%;
                 margin-top: 16px;
@@ -211,32 +181,26 @@
                 position: relative;
                 border: none;
                 margin-bottom: 20px;
-
                 &:focus {
                     outline-color: #0079bf;
                 }
-
                 &:hover {
                     background-color: #ebecf0;
                     box-shadow: inset 0 0 0 2px #dfe1e6;
                 }
             }
-
             .admin-info {
                 justify-content: space-between;
                 align-items: center;
                 padding-top: 8px;
-
                 .admin-avatar-name {
                     display: flex;
                     align-items: center;
                     gap: 9px;
-
                     p {
                         margin-bottom: 0;
                     }
                 }
-
                 .admin-btn {
                     display: flex;
                     align-items: center;
@@ -249,26 +213,21 @@
                 }
             }
         }
-
         p {
             margin: 0 0 1em;
             text-align: center;
         }
-
         .invite-modal-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
             margin-bottom: 16px;
-
             h1 {
                 font-size: 20px;
                 font-weight: 400;
             }
-
             span {
                 cursor: pointer;
-
                 .cancel {
                     cursor: pointer;
                     position: absolute;
@@ -285,7 +244,6 @@
                 }
             }
         }
-
     }
 }
 
@@ -307,11 +265,10 @@
         padding-left: 1px;
         margin-left: -7px;
         z-index: 1;
-
     }
 }
 
-.admin-img{
+.admin-img {
     // width: 8px;
     height: 8px;
     // position: absolute;
@@ -324,10 +281,11 @@
     top: 18px;
 }
 
-.empty-div{
+.empty-div {
     width: 2px;
     opacity: 0;
 }
+
 .overlay {
     position: absolute;
     top: 0;

@@ -72,7 +72,7 @@
             </button>
 
             <div  class="empty-div"></div>
-            <div class="board-members-render" v-for="member in membersForDisplay">
+            <div class="board-members-render" v-for="member in membersForDisplay" :key="member._id">
                 <div class="users-avatar-name">
                     <div ref="user" @click="calcPosOfBox()" class="users-avatar">{{ setMemberLetters(member.fullname) }}</div>
                     <img
