@@ -45,11 +45,17 @@
             </div>
 
             <!-- Lables members and date adding area  -->
-            <section  class="card-details-actions-container-edit-btns flex">
+            <section class="card-details-actions-container-edit-btns flex">
                 <section class="card-details-actions-container">
                     <section class="card-details-main flex">
-                        <div v-if="card.members.length > 0 || card.labels.length > 0 || card.date"  class="card-details-members-labels-date">
-                            <div v-if="card.members.length > 0"  class="card-detail-member-container-main">
+                        <div
+                            v-if="card.members.length > 0 || card.labels.length > 0 || card.date"
+                            class="card-details-members-labels-date"
+                        >
+                            <div
+                                v-if="card.members.length > 0"
+                                class="card-detail-member-container-main"
+                            >
                                 <label v-if="card.members.length > 0" for>Members</label>
                                 <div
                                     class="card-details-members-container"
@@ -257,10 +263,25 @@
                             >
                                 <div class="icon-lg icon-checklist"></div>
                                 <h3
-                                    @click.stop.prevent="openChecklistTitleInput(checklist.id)"
+                                 v-if="!isChecklistOpen"
+                                    @click.stop.prevent="openChecklist(checklist)"
                                 >{{ checklist.title }}</h3>
-                                <input v-model="currChecklist.title">
+                                <div>
+                                    <textarea
+                                        v-clickOutside="closeChecklist"
+                                        class="edit-todo-text"
+                                        v-model="currChecklist.title"
+                                    />
+                                    <button
+                                        @click.stop.prevent="saveTodo"
+                                        class="checklist-btn save-btn"
+                                    >Save</button>
+                                    <div class="todo-discard">
+                                        <div class="icon-lg icon-closed"></div>
+                                    </div>
+                                </div>
                                 <button
+                                v-if="isChecklistOpen"
                                     @click.stop.prevent="deleteChecklist(checklist.id)"
                                     class="checklist-btn checklkist-delete"
                                 >Delete</button>
@@ -271,39 +292,48 @@
                                         v-for="todo in checklist.todos"
                                         :key="todo.id"
                                     >
-                                        <div class="todo-checkbox"></div>
+                                        <!-- //STYLE CHECKBOX IF COMPLETE TODO AND UPDATE BAR -->
+                                        <div
+                                            @click="checkboxTodo(checklist, todo)"
+                                            class="todo-checkbox"
+                                        ></div>
                                         <div
                                             class="todo-preview"
-                                            @click.stop.prevent="openTodo(todo.id)"
+                                            @click.stop.prevent="openTodo(checklist, todo)"
                                         >
                                             <span
-                                                v-if="!isOpen(todo.id)"
+                                                v-if="!isOpen(checklist, todo)"
                                                 class="todo-text"
                                             >{{ todo.text }}</span>
                                         </div>
-                                        <div v-if="isOpen(todo.id)">
-                                            <textarea class="edit-todo-text"></textarea>
+                                        <div v-if="isOpen(checklist, todo)">
+                                            <textarea
+                                                v-clickOutside="closeTodo"
+                                                v-model="currOpenTodo.text"
+                                                class="edit-todo-text"
+                                            ></textarea>
+                                            <button
+                                                @click.stop.prevent="saveTodo"
+                                                class="checklist-btn save-btn"
+                                            >Add</button>
+                                            <div class="todo-discard">
+                                                <div class="icon-lg icon-closed"></div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 <button
-                                    @click.stop.prevent="openChecklistInput"
+                                v-if="!addingNewTodo"
+                                    @click.stop.prevent="openChecklistInput(checklist)"
                                     class="checklist-btn checklist-add-item"
                                 >Add an item</button>
-                                <div v-if="checklist.todos" class="checklist-item-container">
-                                    <div
-                                        class="checklist-item"
-                                        v-for="item in checklist.todos"
-                                        :key="item.id"
-                                    ></div>
-                                </div>
-                                <div class="checklist-input-container">
+                                <div v-if="addingNewTodo" class="checklist-input-container">
                                     <input
-                                        v-model="currChecklistItem"
+                                        v-model="currOpenTodo.text"
                                         placeholder="Add an item"
                                         type="text"
                                     />
-                                    <button class="item-add-btn">Add</button>
+                                    <button @click.stop.prevent="addTodo(checklist)" class="item-add-btn">Add</button>
                                     <button class="icon-lg icon-closed"></button>
                                 </div>
                             </div>
@@ -574,8 +604,10 @@ export default {
             description: '',
             newComment: boardService.getEmptyComment(),
             isLoading: false,
-            currOpenTodoID: '',
-            currOpenChecklistId: '',
+            currOpenTodo: {},
+            currChecklist: {},
+            isChecklistOpen:false,
+            addingNewTodo:false,
         }
     },
     computed: {
@@ -604,7 +636,7 @@ export default {
     watch: {
         backgroundCoverColor: {
             async handler(newColor) {
-                if(Object.keys(this.card.cover).length) this.$refs['headerCover'].style.backgroundColor = newColor
+                if (Object.keys(this.card.cover).length) this.$refs['headerCover'].style.backgroundColor = newColor
             }
         }
     },
@@ -731,12 +763,44 @@ export default {
             this.cardToEdit.comments.splice(commentIdx, 1)
             this.$emit('cardModified', { card: this.cardToEdit, group: this.group })
         },
-        isOpen(id) {
-            if (this.currOpenTodoID === id) {
-                this.currOpenTodoText = this.card.check
-                return true
-            }
+        isOpen(checklist, todo) {
+            if (Object.keys(this.currChecklist).length && Object.keys(this.currOpenTodo).length)
+                if (this.currChecklist.id === checklist.id && this.currOpenTodo.id === todo.id)
+                    return true
             return false
+        },
+        openTodo(checklist, todo) {
+            this.currChecklist = JSON.parse(JSON.stringify(checklist))
+            this.currOpenTodo = JSON.parse(JSON.stringify(todo))
+        },
+        checkboxTodo(checklist, todo) {
+            this.currChecklist = JSON.parse(JSON.stringify(checklist))
+            this.currOpenTodo = JSON.parse(JSON.stringify(todo))
+            this.currOpenTodo.isComplete = true
+        },
+        closeTodo() {
+            this.currChecklist = {}
+            this.currOpenTodo = {}
+        },
+        openChecklist(checklist){
+            this.currChecklist = JSON.parse(JSON.stringify(checklist))
+            this.isChecklistOpen = true
+        },
+        closeChecklist(){
+            this.currChecklist = {}
+            this.isChecklistOpen = false
+        },
+        openChecklistInput(checklist){
+          this.currChecklist = checklist
+          this.addingNewTodo = true
+          this.currOpenTodo = boardService.getEmptyTodo()
+        },
+        saveTodo() {
+            this.cardToEdit = JSON.parse(JSON.stringify(this.card))
+            const checklistIdx = this.cardToEdit.checklists.findIndex(checklistToFind => checklistToFind.id = this.currChecklist.id)
+            const todoIdx = this.cardToEdit.checklists[checklistIdx].todos.findIndex(todoToFind => todoToFind.id === this.currOpenTodo.idi)
+            this.cardToEdit.checklists[checklistIdx].todos[todoIdx] = this.currOpenTodo
+            this.$emit('cardModified', { card: this.cardToEdit, group: this.group })
         }
     },
     emits: ['cardCopySave', 'closeDialog', 'cardModified', 'boardModified', 'deleteCardFromGroup', 'saveCopy']
