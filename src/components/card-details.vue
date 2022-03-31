@@ -1,12 +1,12 @@
 <template>
     <section>
-        <section v-if="card.cover" class="coverOfCardDetails" ref="headerCover"
+        <section v-if="Object.keys(card.cover).length" class="card-details-cover" ref="headerCover"
             :class="{ color: card.cover.type === 'color', attachmentofdetails: card.cover.type === 'attachment' }"
             v-bind:style="[(card.cover.type === 'color') ? { backgroundColor: card.cover.value } : { backgroundImage: 'url(' + card.cover.value + ')' }]">
         <div v-if="card.cover.type" class="card-details-cover-close " @click.stop.prevent="closeModal">
         <span  class="icon-md icon-closed" ></span>
         </div>
-        <button v-if="card.cover.type" class="card-details-btn-header"
+        <button  class="card-details-btn-header"
                         @click.stop.prevent="openThisModal('coverModal', $event)">
                         <span class="icon-sm icon-cover"></span>
                         Cover
@@ -21,7 +21,7 @@
                         <p>{{ card.title }}</p>
                     </div>
                 </div>
-                <div v-if="!card.cover.type" class="card-details-cover-close " @click.stop.prevent="closeModal">
+                <div v-if="!Object.keys(card.cover).length" class="card-details-no-cover-close " @click.stop.prevent="closeModal">
                     <span  class="icon-md icon-closed"></span>
                 </div>
             </div>
@@ -31,11 +31,11 @@
             </div>
 
             <!-- Lables members and date adding area  -->
-            <section class="card-details-actions-container-edit-btns flex">
+            <section  class="card-details-actions-container-edit-btns flex">
                 <section class="card-details-actions-container">
                     <section class="card-details-main flex">
-                        <div class="card-details-members-labels-date">
-                            <div class="card-detail-member-container-main">
+                        <div  class="card-details-members-labels-date">
+                            <div v-if="card.members.length > 0"  class="card-detail-member-container-main">
                                 <label v-if="card.members.length > 0" for>Members</label>
                                 <div class="card-details-members-container" v-if="card.members.length > 0" for>
                                     <section class="card-details-members" v-for="member in card.members"
@@ -518,7 +518,7 @@ export default {
             this.newComment.byMember = this.loggedinUser
             this.cardToEdit.comments.unshift(this.newComment)
             this.$emit('cardModified', { card: this.cardToEdit, group: this.group })
-            this.newComment = boardService.getEmptyGroup()
+            this.newComment = boardService.getEmptyComment()
             this.showInput = false
         },
         setDateFormat(timestamp) {

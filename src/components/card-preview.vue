@@ -360,6 +360,7 @@ export default {
         openDetails() {
             this.modalOpen = false;
             this.isModalShown = false
+            this.$emit('toggleQuickEdit')
             this.$emit('openCard', { card: this.card, group: this.group })
         },
         openAllLabels() {

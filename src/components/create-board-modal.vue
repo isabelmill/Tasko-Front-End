@@ -98,8 +98,9 @@ export default {
             this.setColor = color
         },
         saveNewBoard() {
+            console.log('this.newBoard.title:',this.newBoard.title);
             if (!this.newBoard.title) return
-            this.$emit("add", this.newBoard)
+            // this.$emit("add", this.newBoard)
         },
         setBoardColor(color = '#0079BF') {
             this.setColor = color

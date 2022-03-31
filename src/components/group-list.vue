@@ -8,10 +8,9 @@
     >
         <Draggable
             v-for="group in board.groups" :key="group"
-            class="group-preview-main"
+            class="group-preview-main cursor-pointer"
             drag-class="tilt"
         >
-            <!-- :class="{ 'no-pointer-events': pointerEvents }" -->
             <div>
                 <!-- <span class="column-drag-handle">&#x2630;</span> -->
                 <div>
@@ -31,6 +30,7 @@
                     @drag-start="(e) => log('drag start', e)"
                     @drag-end="(e) => log('drag end', e)"
                     @drop="(e) => onCardDrop(group.id, e)"
+                    
                 >
                     <Draggable v-for="card in group.cards" :key="card.id">
                         <card-preview
@@ -146,6 +146,8 @@ export default {
             this.$emit('groupUpdated', updatedGroup)
         },
         openCardModal(info) {
+            console.log('opened');
+            this.isQuickEditOpen = false
             this.$emit('openCardDetails', info)
         },
         onOpenAllLabels(isLabelClicked) {

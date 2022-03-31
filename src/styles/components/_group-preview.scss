@@ -54,7 +54,7 @@
     user-select: none;
     display: block;
     // height: 160px;
-    margin-bottom: 8px;
+    margin-bottom: 1px;
     width: 100%;
     img {
         width: 100%;
@@ -93,7 +93,7 @@
             word-wrap: break-word;
             clear: both;
             display: block;
-            margin: 0 0 4px;
+            // margin: 0 0 4px;
             overflow: hidden;
             text-decoration: none;
             cursor: pointer;
@@ -221,19 +221,20 @@
         background-color: #eeeef0;
         button {
             display: block;
-            &:hover {
-                background-color: #091e4214;
-            }
         }
     }
     .card-bar {
         display: flex;
-        justify-content: space-between;
+        // justify-content: ;
+        width: 100%;
         align-items: center;
         flex-wrap: wrap;
         gap: 6px;
         margin: 4px 0 4px 0;
         float: left;
+        .card-bar-members {
+            margin-left: auto
+        }
         .date {
             font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
             border-radius: 3px;
@@ -277,7 +278,6 @@
         }
     }
 }
-
 
 .dateUncompleted {
     cursor: pointer;
@@ -335,8 +335,8 @@
     align-items: center;
     text-align: center;
     background-color: $memberBlue;
-    width: 28px;
-    height: 28px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
     letter-spacing: 1px;
     color: #fff;
@@ -664,7 +664,7 @@
     overflow-y: auto;
     margin: 0 4px 0 4px;
     max-height: calc(75vh - 100px);
-    width: 260px;
+    // width: 260px;
 }
 
 .scroller-group::-webkit-scrollbar {
@@ -674,12 +674,12 @@
 
 .scroller-group::-webkit-scrollbar-track {
     border-radius: 10px;
-    background: #bfc4ce;
+    background: #DADBE2;
 }
 
 .scroller-group::-webkit-scrollbar-thumb {
     border-radius: 10px;
-    background: #a7afbc;
+    background: #BFC4CE;
 }
 
 //icons
@@ -733,6 +733,7 @@
     top: 9px;
     right: 9px;
     // padding: 9px;
+    background-color: transparent;
     &:hover {
         color: #fff;
         width: 28px;
@@ -775,6 +776,7 @@
     @include to-icon("\e907");
     color: #fff;
 }
+
 .icon-description {
     @include to-icon("\e922");
 }
