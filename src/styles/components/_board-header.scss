@@ -141,6 +141,7 @@
         color: rgb(74, 85, 104);
         width: 600px;
 
+
         .close {
             position: absolute;
             width: 20px;
@@ -336,7 +337,7 @@
 }
 
 
-.empty-div {
+// .empty-div {
     .admin-img {
         // width: 8px;
         height: 8px;
@@ -365,7 +366,7 @@
         transition: opacity 200ms;
         visibility: hidden;
         opacity: 0;
-        z-index: 1;
+        z-index: 20;
     }
 
     .overlay .cancel {
@@ -379,4 +380,4 @@
         visibility: visible;
         opacity: 1;
     }
-}
+// }
