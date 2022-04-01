@@ -153,8 +153,8 @@
       </span>
 
       <search-modal
-        v-if="openSearch && boards"
-        :boards="boards"
+        v-if="openSearch"
+        :boards="filteredBoards"
         :style="{ top: '48' + 'px', right: '4' + 'px' }"
         v-clickOutside="closeSearchModal"
         @close="closeSearchModal"
@@ -213,8 +213,7 @@ export default {
   },
   methods: {
     onSetFilter(filterBy) {
-      console.log(filterBy)
-      this.$store.dispatch({ type: 'setFilter', filterBy })
+      this.$store.commit({ type: 'setFilter', filterBy })
     },
     openSearchModal() {
       this.openSearch = true
@@ -310,11 +309,14 @@ export default {
     }
   },
   computed: {
+    board() {
+      return this.$store.getters.board
+    },
     boards() {
       return this.$store.getters.boards
     },
-    board() {
-      return this.$store.getters.board
+    filteredBoards() {
+      return this.$store.getters.filteredBoards
     },
     isOnBoard() {
       const { boardId } = this.$route.params

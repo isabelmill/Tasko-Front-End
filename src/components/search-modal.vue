@@ -12,9 +12,8 @@
             <div
                 class="boards-render-modal-search"
                 @click="goToDetails(board)"
-                v-for="board in starredBoards"
-                :board="board"
-                :key="board"
+                v-for="board in boards"
+                :key="board._id"
             >
                 <div
                     class="board-background-search-modal"
@@ -43,11 +42,6 @@ export default {
         goToDetails(board) {
             this.$emit("close");
             this.$router.push(`/board/${board._id}`)
-        },
-    },
-    computed: {
-        starredBoards() {
-            return this.$store.getters.starredBoards
         },
     },
 }

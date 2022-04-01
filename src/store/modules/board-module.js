@@ -4,8 +4,9 @@ export default {
     state: {
         boards: null,
         selectedBoard: null,
-        recentlyBoards: null,
-        filterBy: null,
+        filterBy: {
+            txt: '',
+        },
     },
     getters: {
         board(state) {
@@ -19,7 +20,7 @@ export default {
         },
         recentlyBoards(state) {
             const recentlyBoards = JSON.parse(JSON.stringify(state.boards))
-            let newBoards = recentlyBoards.filter(board => !board.isTemplate )
+            let newBoards = recentlyBoards.filter(board => !board.isTemplate)
             return newBoards.sort((a, b) => b.lastTimeWatched - a.lastTimeWatched);
         },
         templates(state) {
@@ -38,7 +39,15 @@ export default {
             var allActivities = []
             state.boards.forEach(board => board.activities.forEach(activity => allActivities.unshift(activity)))
             return allActivities
-        }
+        },
+        filteredBoards(state) {
+            if (!state.filterBy.txt) return state.boards.filter(board => !board.isTemplate)
+            if (state.filterBy.txt) {
+                const regexTxt = new RegExp(state.filterBy.txt, 'i')
+                return state.boards.filter(board =>
+                    regexTxt.test(board.title) && !board.isTemplate)
+            }
+        },
     },
     mutations: {
         setBoards(state, { boards }) {
@@ -57,7 +66,7 @@ export default {
             else state.boards.push(board)
         },
         setFilter(state, { filterBy }) {
-            state.filterBy = filterBy;
+            state.filterBy = filterBy
         },
     },
     actions: {
