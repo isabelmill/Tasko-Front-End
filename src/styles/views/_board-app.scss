@@ -551,34 +551,11 @@
     cursor: pointer;
 }
 
-/////groups-scrollbar
-.scroll-groups {
-    overflow-x: auto;
-    overflow-y: hidden;
-}
 
-.scroll-groups::-webkit-scrollbar {
-    height: 12px;
-    width: 12px;
-}
-
-.scroll-groups::-webkit-scrollbar-track {
-    border-radius: 4px;
-    background: #00000026;
-}
-
-.scroll-groups::-webkit-scrollbar-thumb {
-    border-radius: 4px;
-    background-color: #adb6b831;
-}
-
-.scroll-groups::-webkit-scrollbar-button {
-    width: 24px;
-}
 
 /////////////main
 ::-webkit-scrollbar {
-    overflow-x: hidden;
+    overflow-x: auto;
     overflow-y: hidden;
 }
 

@@ -413,31 +413,57 @@
                     }
                     .edit-options {
                         display: flex;
-                        align-items: center;
-                        .save-btn {
-                            background-color: #0079bf;
-                            color: #fff;
-                            font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
-                            box-shadow: none;
-                            width: unset;
-                            margin-right: 4px;
-                            &:hover {
-                                background-color: #026aa7;
-                                border: none;
+                        justify-content: space-between;
+                        // margin-bottom: 10px;
+                        // margin-bottom: 2px;
+                        .main-actions {
+                            display: flex;
+                            align-items: center;
+                            margin-bottom: 6px;
+                            .save-btn {
+                                background-color: #0079bf;
+                                color: #fff;
+                                font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
                                 box-shadow: none;
+                                width: unset;
+                                margin-right: 4px;
+                                &:hover {
+                                    background-color: #026aa7;
+                                    border: none;
+                                    box-shadow: none;
+                                }
+                            }
+                            .todo-discard {
+                                // margin-top: 6px;
+                                height: 40px;
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                color: #091e42;
+                                .icon-closed {
+                                    &:hover {
+                                        color: #172b4d;
+                                    }
+                                }
                             }
                         }
-                        .todo-discard {
-                            // margin-top: 6px;
-                            height: 40px;
+                        .more-options {
                             display: flex;
+                            border-radius: 3px;
                             justify-content: center;
-                            align-items: center;
-                            color: #091e42;
-                            .icon-closed {
-                                &:hover {
+                            align-content: center;
+                            width: 36px;
+                            height: 32px;
+                            padding: 8px 6px;
+                            // justify-self: flex-end;
+                            &:hover {
+                                background-color: #091e4214;
+                                .icon-overflow-menu-horizontal {
                                     color: #172b4d;
                                 }
+                            }
+                            .icon-overflow-menu-horizontal {
+                                color: #42526e;
                             }
                         }
                     }
@@ -1145,7 +1171,6 @@
 // .card-detail-member-container-main {
 //     // margin-right: 19px;
 // }
-
 .last {
     margin-bottom: 20px;
 }

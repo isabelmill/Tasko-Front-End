@@ -1,34 +1,96 @@
+.app-main {
+    overflow-y: hidden;
+    // overflow-x: scroll;
+    width: 100%;
+}
+
 .board-details-main {
-    display: flex;
-    gap: 8px;
-    height: calc(100vh - 95px);
-    // background-color: #0079bf;
+    height: calc(100vh - 88px);
+    width: 100%;
+    overflow-y: hidden;
+   
+    .group-list-main {
+        display: flex;
+        gap: 8px;
+        white-space: nowrap;
+        margin: 0 0 0 8px;
+
+        // group-preview
+        .group-preview-main {
+            font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
+            border-radius: 3px;
+            box-sizing: border-box;
+            display: inline-block;
+            height: 100%;
+            width: rem(272px);
+            vertical-align: top;
+            white-space: nowrap;
+            margin-bottom: 8px;
+            .group-preview {
+                background-color: #ebecf0;
+                border-radius: 3px;
+                box-sizing: border-box;
+                display: flex;
+                flex-direction: column;
+                max-height: 100%;
+                position: relative;
+                white-space: normal;
+                width: 100%;
+                // z-index: 10;
+
+                //scrollbar
+                .scroller-group {
+                    margin: 0 4px 0 4px;
+                    flex: 1 1 auto;
+                    // min-height: 0;
+                    overflow-x: hidden;
+                    overflow-y: auto;
+                    padding: 0 4px;
+                    // z-index: 1;
+                    max-height: calc(100vh - 163px);
+                }
+
+                .scroller-group::-webkit-scrollbar {
+                    width: 8px;
+                    height: 8px;
+                }
+
+                .scroller-group::-webkit-scrollbar-track {
+                    border-radius: 10px;
+                    background: #dadbe2;
+                }
+
+                .scroller-group::-webkit-scrollbar-thumb {
+                    border-radius: 10px;
+                    background: #bfc4ce;
+                }
+            }
+        }
+    }
 }
 
-.group-list-main {
-    display: flex;
-    gap: 8px;
-    margin: 0 8px 8px 8px;
+/////groups-scrollbar
+.scroll-groups {
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+.scroll-groups::-webkit-scrollbar {
+    height: 12px;
+    width: 12px;
+}
+.scroll-groups::-webkit-scrollbar-track {
+    border-radius: 4px;
+    background: #00000026;
+}
+.scroll-groups::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: #adb6b831;
+}
+.scroll-groups::-webkit-scrollbar-button {
+    width: 24px;
 }
 
-// group-card
-.group-preview-main {
-    font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
-    height: min-content !important;
-    // max-height:fit-content;
-    border-radius: 3px;
-    background-color: $groupGray;
-    width: rem(272px) !important;
-}
-
-.smooth-dnd-container.horizontal>.smooth-dnd-draggable-wrapper {
-    // height: unset;
-    // display: block;
-    // vertical-align: unset;
-    // display: flex;
-    // flex-direction: column;
-    // height: 100%;
-    // flex: 1;
+.smooth-dnd-container.horizontal > .smooth-dnd-draggable-wrapper {
 }
 
 .smooth-dnd-container {
@@ -37,17 +99,16 @@
 }
 
 .smooth-dnd-container.horizontal {
-    // display: unset;
 }
 
 .smooth-dnd-container.horizontal {
-    display: flex;
 }
 
 .tilt {
     transform: rotate(4deg);
     transition: all 0.3s;
     cursor: grab;
+    // z-index: 30;
 }
 
 body * {

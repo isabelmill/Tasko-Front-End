@@ -355,17 +355,23 @@
                                                         @click.stop.prevent="closeTodo"
                                                         class="edit-options"
                                                     >
-                                                        <button
-                                                            @click.stop.prevent="saveTodo"
-                                                            class="checklist-btn save-btn"
-                                                        >Save</button>
-                                                        <div class="todo-discard">
-                                                            <div class="icon-lg icon-closed"></div>
+                                                        <div class="main-actions">
+                                                            <button
+                                                                @click.stop.prevent="saveTodo"
+                                                                class="checklist-btn save-btn"
+                                                            >Save</button>
+                                                            <div class="todo-discard">
+                                                                <div class="icon-lg icon-closed"></div>
+                                                            </div>
                                                         </div>
                                                         <div
                                                             @click.stop.prevent="openChecklistOptions(checklist, todo)"
                                                             class="more-options"
-                                                        ></div>
+                                                        >
+                                                            <div
+                                                                class="icon-sm icon-overflow-menu-horizontal"
+                                                            ></div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -382,7 +388,7 @@
                                             class="checklist-input-container"
                                         >
                                             <textarea
-                                            @keydown.enter.stop.prevent="createTodo"
+                                                @keydown.enter.stop.prevent="createTodo"
                                                 class="add-todo-text"
                                                 v-clickOutside="closeAdder"
                                                 :style="{ minHeight: parseInt((currOpenTodo.text.length / 64) + 1) * 24 + 'px' }"
@@ -447,7 +453,7 @@
                                         <span class="icon-smd icon-shtrudel"></span>
                                         <span class="icon-smd icon-smiley"></span>
                                         <span class="icon-smd icon-card"></span>
-                                    </div> -->
+                                    </div>-->
                                 </div>
                             </div>
                         </div>
@@ -861,11 +867,11 @@ export default {
             this.currChecklist = JSON.parse(JSON.stringify(checklist))
             this.isChecklistOpen = true
         },
-        saveChecklistTitle(){
+        saveChecklistTitle() {
             this.cardToEdit = JSON.parse(JSON.stringify(this.card))
             const checklistIdx = this.cardToEdit.checklists.findIndex(checklistToFind => checklistToFind.id === this.currChecklist.id)
             this.cardToEdit.checklists[checklistIdx] = this.currChecklist
-            this.$emit('cardModified',{ card: this.cardToEdit, group: this.group })
+            this.$emit('cardModified', { card: this.cardToEdit, group: this.group })
             this.currChecklist = {}
 
         },
@@ -887,11 +893,11 @@ export default {
             this.currChecklist = {}
             this.currOpenTodo = {}
         },
-        deleteChecklist(id){
+        deleteChecklist(id) {
             this.currChecklist = {}
             this.cardToEdit = JSON.parse(JSON.stringify(this.card))
             const checklistIdx = this.cardToEdit.checklists.findIndex(checklistToFind => checklistToFind.id === id)
-            this.cardToEdit.checklists.splice(checklistIdx,1)
+            this.cardToEdit.checklists.splice(checklistIdx, 1)
             this.$emit('cardModified', { card: this.cardToEdit, group: this.group })
         },
         createTodo() {

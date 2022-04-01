@@ -1,45 +1,54 @@
 <!-- card preview inside group list -->
 <template >
-<section>
-    <section class="group-list-main">
-        <section v-for="group in groups" :key="group.id" class="group-preview-main">
-            <toggle-input-cmp
-                class="title"
-                @groupDelete="deleteGroup"
-                @titleChange="changeTitle"
-                :title="group.title"
-                :id="group.id"
-            ></toggle-input-cmp>
-            <section class="scroller-group">
-                <card-preview
-                    @openCard="openCardModal"
-                    v-for="card in group.cards"
-                    :key="card.id"
-                    :group="group"
-                    :card="card"
-                    :board="board"
-                ></card-preview>
+    <section>
+
+        <section class="group-list-main">
+            <!-- group -->
+            <section v-for="group in groups" :key="group.id" class="group-preview-main">
+                <div class="group-preview">
+                    <!-- title -->
+                    <toggle-input-cmp
+                        class="title"
+                        @groupDelete="deleteGroup"
+                        @titleChange="changeTitle"
+                        :title="group.title"
+                        :id="group.id"
+                    ></toggle-input-cmp>
+                    <!-- card-list -->
+                    <div class="scroller-group">
+                        <card-preview
+                            @openCard="openCardModal"
+                            v-for="card in group.cards"
+                            :key="card.id"
+                            :group="group"
+                            :card="card"
+                            :board="board"
+                        ></card-preview>
+                    </div>
+                    <!-- add-card-btn -->
+                    <add-card-cmp @cardAdd="addNewCard" :group="group"></add-card-cmp>
+                </div>
             </section>
-            <add-card-cmp @cardAdd="addNewCard" :group="group"></add-card-cmp>
+            <!-- end -->
         </section>
-    </section>
-    <div class="add-new-group" :style="show ? { 'height': '100px' } : null">
-        <button class="add-another-list-btn" v-if="!show" @click="show = true">
-            <span class="icon-sm icon-add-light"></span>Add another list
-        </button>
-        <div v-clickOutside="close" v-if="show" class="add-new-group-in">
-            <textarea
-                @keyup.enter="addNewGroup"
-                placeholder="Enter list title..."
-                type="text"
-                v-model="newGroup.title"
-            />
-            <div class="controls-add-list">
-                <button class="btn-add-card-in" @click="addNewGroup">Add List</button>
-                <span class="icon-lg icon-close-close" @click="show = false"></span>
+
+        <section class="add-new-group" :style="show ? { 'height': '100px' } : null">
+            <button class="add-another-list-btn" v-if="!show" @click="show = true">
+                <span class="icon-sm icon-add-light"></span>Add another list
+            </button>
+            <div v-clickOutside="close" v-if="show" class="add-new-group-in">
+                <textarea
+                    @keyup.enter="addNewGroup"
+                    placeholder="Enter list title..."
+                    type="text"
+                    v-model="newGroup.title"
+                />
+                <div class="controls-add-list">
+                    <button class="btn-add-card-in" @click="addNewGroup">Add List</button>
+                    <span class="icon-lg icon-close-close" @click="show = false"></span>
+                </div>
             </div>
-        </div>
-    </div>
+        </section>
     </section>
 </template>
 
@@ -65,7 +74,7 @@ export default {
         newGroup: {
             type: Object
         },
-        board:{
+        board: {
             type: Object
         },
     },
@@ -112,7 +121,7 @@ export default {
     },
     mounted() {
     },
-    emits: ['openCardDetails', 'removeGroup', 'groupUpdated','addGroup']
+    emits: ['openCardDetails', 'removeGroup', 'groupUpdated', 'addGroup']
 
 }
 </script>

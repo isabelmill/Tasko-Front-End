@@ -47,16 +47,20 @@
 
 //card-preview
 .card-preview {
+    background-color: #fff;
     border-radius: 3px;
-    background-color: white;
-    margin: 0 4px 8px 4px;
-    box-shadow: 0 1px 0 hsla(218, 76%, 15%, 0.251);
+    box-shadow: 0 1px 0 #091e4240;
+    cursor: pointer;
+    display: block;
+    margin-bottom: 8px;
+    max-width: 300px;
+    min-height: 20px;
     position: relative;
-    flex-direction: column;
-    display: flex;
+    text-decoration: none;
     .card-preview-main {
         overflow: hidden;
         padding: 6px 8px 2px;
+        position: relative;
         cursor: pointer;
     }
     .card-title {
@@ -81,9 +85,10 @@
         width: rem(26px);
         border: none;
         display: none;
+        background-color: #f7f8fb55;
     }
     &:hover {
-        background-color: #eeeef0;
+        background-color: #f7f8fb;
         button {
             display: block;
         }
@@ -365,17 +370,17 @@
         height: 16px;
         max-width: 198px;
         padding: 0 8px 4px 8px;
-        
     }
 }
 
 ///add card
 .add-card-cmp {
     font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
-    width: rem(260px);
+    // width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+
     .btn-add-card-out {
         font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
         cursor: pointer;
@@ -385,7 +390,7 @@
         border-radius: 3px;
         color: #5e6c84;
         border: none;
-        margin: 2px 0 8px 8px;
+        margin: 0 0 8px 0;
         padding: 4px 8px;
         width: rem(260px);
         font-family: Roboto-regular;
@@ -396,14 +401,14 @@
     }
     .add-new-card-input {
         font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
-        width: rem(256px);
+        width: rem(260px);
         .txt-box {
             font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 6px 8px 2px;
-            margin: 0 0 0 4px;
+            // margin: 0 0 0 4px;
             background-color: #fff;
             box-shadow: 0 1px 0 #091e4240;
             border-radius: 3px;
@@ -419,7 +424,6 @@
             width: 100%;
             border: none;
             color: $memberBlue;
-            font-family: roboto-regular;
             margin: 0 0 4px;
             &:focus {
                 outline: none !important;
@@ -428,7 +432,7 @@
         .btn-card-add {
             display: flex;
             gap: 4px;
-            margin: 8px;
+            margin: 8px 8px 8px 0;
             .btn-add-card-in {
                 @include btnAddCard();
             }
@@ -447,6 +451,7 @@
 //add another list
 .add-new-group {
     border-radius: 3px;
+    margin-right: 8px;
     .add-new-group-in {
         width: rem(276px);
         border-radius: 3px;
@@ -503,7 +508,7 @@
 ////Pencil-modal
 .mini-edit-modal-main {
     font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
-    z-index: 20;
+    z-index: 30;
     width: 100%;
     height: 100%;
     background-color: #0009;
@@ -631,29 +636,6 @@
             }
         }
     }
-}
-
-//scrollbar
-.scroller-group {
-    overflow-x: hidden;
-    overflow-y: auto;
-    margin: 0 4px 0 4px;
-    max-height: calc(75vh - 100px);
-}
-
-.scroller-group::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-}
-
-.scroller-group::-webkit-scrollbar-track {
-    border-radius: 10px;
-    background: #dadbe2;
-}
-
-.scroller-group::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    background: #bfc4ce;
 }
 
 //icons
