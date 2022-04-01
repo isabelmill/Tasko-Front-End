@@ -71,12 +71,19 @@
                 <div :class="updateStar"></div>
             </button>
 
-            <div :style="{ 'opacity': '0' }" class="empty-div"></div>
-            <div class="board-members-render" v-for="member in board.members">
+            <div class="users-avatar-admin">
+                <div class="users-avatar">{{ setMemberLetters(board.createdBy.fullname) }}</div>
+                <img
+                    class="admin-img"
+                    src="https://a.trellocdn.com/prgb/dist/images/chevron.88a4454280d68a816b89.png"
+                    alt
+                />
+            </div>
+
+            <div class="empty-div"></div>
+            <div class="board-members-render" v-for="member in membersForDisplay">
                 <div class="users-avatar-name">
                     <div class="users-avatar">{{ setMemberLetters(member.fullname) }}</div>
-                    <img class="admin-img" v-if="member._id === board.createdBy._id" src="https://a.trellocdn.com/prgb/dist/images/chevron.88a4454280d68a816b89.png" alt="">
-                    <!-- <p>{{ member.username }}</p> -->
                 </div>
             </div>
 
@@ -84,8 +91,8 @@
                 <div class="icon-sm icon-add-member"></div>
                 <a href="#modal1">Share</a>
             </div>
-            <!-- invite modal start -->
 
+            <!-- invite modal start -->
             <div id="modal1" class="overlay">
                 <a class="cancel" href="#"></a>
                 <div class="invite-modal-container">
@@ -97,7 +104,12 @@
                             </span>
                         </div>
                         <div class="content">
-                            <input placeholder="Search by name" type="text" v-model="filterByName" />
+                            <input
+                                v-focus
+                                placeholder="Search by name"
+                                type="text"
+                                v-model="filterByName"
+                            />
                             <div class="user-render-container">
                                 <div
                                     class="users-render"
@@ -109,7 +121,7 @@
                                         <div
                                             class="users-avatar member"
                                         >{{ setMemberLetters(user.fullname) }}</div>
-                                        <p>{{ user.username }}</p>
+                                        <p>{{ user.fullname }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -118,7 +130,7 @@
                                     <div
                                         class="admin-avatar member"
                                     >{{ setMemberLetters(board.createdBy.fullname) }}</div>
-                                    <p>{{ board.createdBy.username }}</p>
+                                    <p>{{ board.createdBy.fullname }}</p>
                                 </div>
                                 <div class="admin-btn">Admin</div>
                             </div>
@@ -162,13 +174,18 @@ export default {
             title: '',
             showMenu: false,
             filterByName: null,
+            pos: 0,
 
         }
     },
     created() {
         this.$store.dispatch({ type: 'loadUsers' })
+        // this.calcPosOfBox()
     },
     methods: {
+        calcPosOfBox() {
+            this.pos = this.$refs['user'].getBoundingClientRect()
+        },
         boardStared() {
             this.isStarred = !this.isStarred
             this.$emit('starredChange', this.isStarred)
@@ -225,10 +242,15 @@ export default {
         },
         usersForDisplay() {
             const users = this.$store.getters.users
-            if (!this.filterByName) return users.filter(user => user._id !== this.board.createdBy._id);
+
+            if (!this.filterByName) return users.filter(user => user._id !== this.board.createdBy._id && !this.board.members.some(member => user._id === member._id));
             const regex = new RegExp(this.filterByName, 'i');
+
             return users.filter(user =>
-                regex.test(user.username) && user._id !== this.board.createdBy._id);
+                regex.test(user.username) && user._id !== this.board.createdBy._id  && !this.board.members.some(member => user._id === member._id));
+        },
+        membersForDisplay() {
+            return this.board.members.filter(member => member._id !== this.board.createdBy._id)
         }
     },
     watch: {

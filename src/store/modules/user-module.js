@@ -43,11 +43,7 @@ export default {
         // },
     },
     actions: {
-        async login({
-            commit
-        }, {
-            user
-        }) {
+        async login({ commit }, { user}) {
             console.log('user:', user);
             try {
                 const newUser = await userService.login(user)
@@ -60,17 +56,15 @@ export default {
         async logout({commit }) {
             try {
                 await userService.logout()
-                commit({
-                    type: 'logout'
-                })
+                commit({ type: 'logout'})
             } catch (err) {
                 console.log('err');
             }
         },
         async signup({commit}, {user}) {
             try {
-                await userService.signup(user)
-                commit({type: 'login',user })
+                const newUser = await userService.signup(user)
+                commit({type: 'login', newUser })
             } catch (err) {
                 console.log('err');
             }
