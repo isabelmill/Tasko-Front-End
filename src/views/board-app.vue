@@ -29,6 +29,7 @@
                             <board-list
                                 v-if="boards"
                                 :boards="starredBoards"
+                                @duplicateTemplate="saveNewBoard"
                                 @updateRecentlyWatched="addLastTimeWatched"
                                 @updateStarred="updateBoard"
                             />
@@ -42,6 +43,7 @@
                             <board-list
                                 v-if="boards"
                                 :boards="recentlyBoards"
+                                @duplicateTemplate="saveNewBoard"
                                 @updateRecentlyWatched="addLastTimeWatched"
                                 @updateStarred="updateBoard"
                             />
@@ -77,6 +79,7 @@
                             <board-list
                                 v-if="boards"
                                 :boards="categoryBusiness"
+                                @duplicateTemplate="saveNewBoard"
                                 @updateRecentlyWatched="addLastTimeWatched"
                             />
                         </div>
@@ -93,6 +96,7 @@
                             <board-list
                                 v-if="boards"
                                 :boards="categoryDesign"
+                                @duplicateTemplate="saveNewBoard"
                                 @updateRecentlyWatched="addLastTimeWatched"
                             />
                         </div>
@@ -109,6 +113,7 @@
                             <board-list
                                 v-if="boards"
                                 :boards="categoryEducation"
+                                @duplicateTemplate="saveNewBoard"
                                 @updateRecentlyWatched="addLastTimeWatched"
                             />
                         </div>
@@ -302,10 +307,12 @@ export default {
                 board.members.push(this.loggedinUser)
                 this.newActivity.byMember = this.loggedinUser
             }
+            board.isTemplate = false
             this.newActivity.txt = 'created this board'
             board.activities.push(this.newActivity)
             this.$store.dispatch({ type: 'saveBoard', board: board })
             this.isEdit = false
+            console.log('board in save new board:',board);
             this.newBoard = boardService.getEmptyBoard()
         },
         setFolder(folder) {

@@ -19,19 +19,20 @@ export default {
         },
         recentlyBoards(state) {
             const recentlyBoards = JSON.parse(JSON.stringify(state.boards))
-            return recentlyBoards.sort((a, b) => b.lastTimeWatched - a.lastTimeWatched);
+            let newBoards = recentlyBoards.filter(board => !board.isTemplate )
+            return newBoards.sort((a, b) => b.lastTimeWatched - a.lastTimeWatched);
         },
         templates(state) {
             return state.boards.filter(board => board.isTemplate)
         },
         categoryBusiness(state) {
-            return state.boards.filter(board => board.category === 'business')
+            return state.boards.filter(board => board.category === 'business' && board.isTemplate)
         },
         categoryDesign(state) {
-            return state.boards.filter(board => board.category === 'design')
+            return state.boards.filter(board => board.category === 'design' && board.isTemplate)
         },
         categoryEducation(state) {
-            return state.boards.filter(board => board.category === 'education')
+            return state.boards.filter(board => board.category === 'education' && board.isTemplate)
         },
         allActivities(state) {
             var allActivities = []
@@ -44,7 +45,6 @@ export default {
             state.boards = boards;
         },
         setBoard(state, { board }) {
-            console.log(board);
             state.selectedBoard = board;
         },
         removeBoard(state, { id }) {
@@ -87,10 +87,8 @@ export default {
         },
         async saveBoard({ commit }, { board }) {
             try {
-                console.log('board._id:', board._id);
                 if (board._id) commit({ type: 'setBoard', board });
                 const savedBoard = await boardService.save(board)
-                console.log('savedBoard:', savedBoard);
                 commit({ type: 'saveBoard', board: savedBoard });
             } catch (err) {
                 console.log('sorry user connot do that!!!');

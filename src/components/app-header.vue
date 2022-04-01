@@ -352,6 +352,11 @@ export default {
       async handler(newId) {
         if (!newId) this.$refs['appheader'].style.backgroundColor = '#026AA7'
       }
+    },
+    loggedinUser: {
+      async handler(newId) {
+        // if (!newId) this.$refs['appheader'].style.backgroundColor = '#026AA7'
+      }
     }
   },
   components: {
