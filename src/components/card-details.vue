@@ -283,12 +283,14 @@
                                                     @keydown.enter.stop.prevent="saveChecklistTitle"
                                                 />
                                                 <div class="edit-options">
-                                                    <button
-                                                        @click.stop.prevent="saveChecklistTitle"
-                                                        class="checklist-btn save-btn"
-                                                    >Save</button>
-                                                    <div class="todo-discard">
-                                                        <div class="icon-lg icon-closed"></div>
+                                                    <div class="main-actions">
+                                                        <button
+                                                            @click.stop.prevent="saveChecklistTitle"
+                                                            class="checklist-btn save-btn"
+                                                        >Save</button>
+                                                        <div class="todo-discard">
+                                                            <div class="icon-lg icon-closed"></div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -339,9 +341,14 @@
                                                     class="todo-text"
                                                 >{{ todo.text }}</span>
                                                 <div
-                                                    @click="openChecklistOptions(checklist, todo)"
+                                                    v-if="!isOpen(checklist, todo)"
+                                                    @click.stop.prevent="openChecklistOptions(checklist, todo, $event)"
                                                     class="todo-options"
-                                                ></div>
+                                                >
+                                                    <div
+                                                        class="icon-sm icon-overflow-menu-horizontal"
+                                                    ></div>
+                                                </div>
                                                 <div v-if="isOpen(checklist, todo)">
                                                     <!-- <div style="fontSize: 11px, width: 100%, visibility:hidden"></div> -->
                                                     <textarea
@@ -365,7 +372,7 @@
                                                             </div>
                                                         </div>
                                                         <div
-                                                            @click.stop.prevent="openChecklistOptions(checklist, todo)"
+                                                            @click.stop.prevent="openChecklistOptions(checklist, todo, $event)"
                                                             class="more-options"
                                                         >
                                                             <div
@@ -399,12 +406,16 @@
                                                 v-focus
                                             />
                                             <div class="edit-options">
-                                                <button
-                                                    @click.stop.prevent="createTodo"
-                                                    class="checklist-btn save-btn"
-                                                >Add</button>
-                                                <div class="todo-discard">
-                                                    <div class="icon-lg icon-closed cursor-pointer"></div>
+                                                <div class="main-actions">
+                                                    <button
+                                                        @click.stop.prevent="createTodo"
+                                                        class="checklist-btn save-btn"
+                                                    >Add</button>
+                                                    <div class="todo-discard">
+                                                        <div
+                                                            class="icon-lg icon-closed cursor-pointer"
+                                                        ></div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -412,6 +423,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <!-- Activity Area  -->
                         <div class="card-details-activity-show-details">
                             <div class="card-details-activity">
@@ -611,6 +623,15 @@
         <!-- CR -->
         <!-- CR -->
         <!-- CR -->
+        <todo-options
+            @convertToCard="convertTodoToCard"
+            @removeTodo="deleteTodo"
+            @close="optionsOpen = false"
+            v-if="optionsOpen"
+            :checklistId="checklistId"
+            :todoId="todoId"
+            :pos="pos"
+        ></todo-options>
 
         <delete-warning
             @closeDeleteWarning="closeWarning"
@@ -634,7 +655,7 @@ import copyModal from "./copy-modal-cmp.vue";
 import checklistModal from "./checklist-modal-cmp.vue";
 import { boardService } from "../services/board-service.js"
 import moment from 'moment';
-// import { ref } from 'vue'
+import todoOptions from "./todo-options-cmp.vue";
 
 export default {
 
@@ -659,7 +680,8 @@ export default {
         attachmentModal,
         copyModal,
         checklistModal,
-        moment
+        moment,
+        todoOptions
     },
     created() {
         this.description = this.card.description
@@ -683,6 +705,9 @@ export default {
             currChecklist: {},
             isChecklistOpen: false,
             addingNewTodo: false,
+            optionsOpen: false,
+            checklistId: '',
+            todoId: '',
         }
     },
     computed: {
@@ -924,9 +949,37 @@ export default {
         calcBarColor(checklist) {
             if (this.todoPercentage(checklist) === 100) return '#61bd4f'
             else return '#5ba4cf'
+        },
+        openChecklistOptions(checklist, todo, ev) {
+            this.checklistId = checklist.id
+            this.todoId = todo.id
+            this.pos = ev.target.getBoundingClientRect()
+            this.optionsOpen = true
+        },
+        convertTodoToCard({ checklistId, todoId }) {
+            const groupToEdit = JSON.parse(JSON.stringify(this.group))
+            this.cardToEdit = JSON.parse(JSON.stringify(this.card))
+            const cardIdx = groupToEdit.cards.findIndex(cardToFind => cardToFind.id === this.cardToEdit.id)
+            const checklistIdx = this.cardToEdit.checklists.findIndex(checklistToFind => checklistToFind.id === checklistId)
+            const todoIdx = this.cardToEdit.checklists[checklistIdx].todos.findIndex(todoToFind => todoToFind.id === todoId)
+            const newCard = boardService.getEmptyCard()
+            newCard.title = this.cardToEdit.checklists[checklistIdx].todos[todoIdx].text
+            groupToEdit.cards.push(newCard)
+            groupToEdit.cards[cardIdx].checklists[checklistIdx].todos.splice(todoIdx, 1)
+            this.$emit('groupUpdate', groupToEdit)
+        },
+        deleteTodo({ checklistId, todoId }) {
+            this.cardToEdit = JSON.parse(JSON.stringify(this.card))
+            const checklistIdx = this.cardToEdit.checklists.findIndex(checklistToFind => checklistToFind.id === checklistId)
+            const todoIdx = this.cardToEdit.checklists[checklistIdx].todos.findIndex(todoToFind => todoToFind.id === todoId)
+            this.cardToEdit.checklists[checklistIdx].todos.splice(todoIdx,1)
+            this.$emit('cardModified', { card: this.cardToEdit, group: this.group })
+            this.currOpenTodo = {}
+            this.currChecklist = {}
+
         }
     },
-    emits: ['cardCopySave', 'closeDialog', 'cardModified', 'boardModified', 'deleteCardFromGroup', 'saveCopy']
+    emits: ['groupUpdate', 'cardCopySave', 'closeDialog', 'cardModified', 'boardModified', 'deleteCardFromGroup', 'saveCopy']
 }
 </script>
 

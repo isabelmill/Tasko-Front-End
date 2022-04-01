@@ -357,14 +357,14 @@
                     display: flex;
                     flex-direction: column;
                     .todo-text {
-                        width: 32.5rem;
+                        width: 428px;
                         font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
                         align-self: center;
                         padding-top: 6px;
                         word-wrap: break-word;
                         margin-bottom: 0;
                         min-height: 20px;
-                        flex: 1;
+                        // flex: 1;
                         color: #172b4d;
                         font-size: 14px;
                         font-weight: 400;
@@ -590,12 +590,42 @@
                                 .todo-preview {
                                     display: inline-flex;
                                     // padding-top: 6px;
+                                    justify-content: space-between;
                                     width: 100%;
+                                    width: 32.5rem;
                                     // margin-left: 40px;
                                     min-height: 36px;
                                     height: min-content;
                                     margin-bottom: 0px;
+                                    &:hover {
+                                        .todo-options {
+                                            visibility: visible;
+                                        }
+                                    }
                                     // justify-content: flex-start;
+                                    .todo-options {
+                                        display: flex;
+                                        visibility: hidden;
+                                        border-radius: 3px;
+                                        justify-content: center;
+                                        align-content: center;
+                                        // box-sizing: unset;
+                                        width: 24px;
+                                        height: 24px;
+                                        padding-top: 4px;
+                                        margin-top: 6px;
+                                        // display: block;
+                                        // justify-self: flex-end;
+                                        &:hover {
+                                            background-color: #091e4214;
+                                            .icon-overflow-menu-horizontal {
+                                                color: #172b4d;
+                                            }
+                                        }
+                                        .icon-overflow-menu-horizontal {
+                                            color: #42526e;
+                                        }
+                                    }
                                 }
                             }
                         }
