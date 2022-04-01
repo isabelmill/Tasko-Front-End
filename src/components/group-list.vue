@@ -47,8 +47,8 @@
                             :isLabelOpen="isLabelOpen"
                         ></card-preview>
                     </Draggable>
-                </Container></div>
                 <add-card-cmp @cardAdd="addNewCard" :group="group"></add-card-cmp>
+                </Container></div>
             </div>
         </Draggable>
         <div class="add-new-group" :style="show ? { 'height': '100px' } : null">

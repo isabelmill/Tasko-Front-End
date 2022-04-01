@@ -269,21 +269,27 @@
                                         <div class="checklist-title">
                                             <div class="icon-lg icon-checklist"></div>
                                             <h3
-                                                v-if="!isChecklistOpen"
+                                                v-if="!isChecklistOpen || currChecklist.id !== checklist.id"
                                                 @click.stop.prevent="openChecklist(checklist)"
                                             >{{ checklist.title }}</h3>
-                                            <div v-if="isChecklistOpen">
+                                            <div
+                                                v-if="isChecklistOpen && currChecklist.id === checklist.id"
+                                            >
                                                 <textarea
                                                     v-clickOutside="closeChecklist"
+                                                    :style="{ height: parseInt((currChecklist.title.length / 64) + 1) * 24 + 'px' }"
                                                     class="edit-todo-text"
                                                     v-model="currChecklist.title"
+                                                    @keydown.enter.stop.prevent="saveChecklistTitle"
                                                 />
-                                                <button
-                                                    @click.stop.prevent="saveChecklistTitle"
-                                                    class="checklist-btn save-btn"
-                                                >Save</button>
-                                                <div class="todo-discard">
-                                                    <div class="icon-lg icon-closed"></div>
+                                                <div class="edit-options">
+                                                    <button
+                                                        @click.stop.prevent="saveChecklistTitle"
+                                                        class="checklist-btn save-btn"
+                                                    >Save</button>
+                                                    <div class="todo-discard">
+                                                        <div class="icon-lg icon-closed"></div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -294,7 +300,16 @@
                                         >Delete</button>
                                     </div>
 
-                                    <div class="todo-bar"></div>
+                                    <div class="todo-bar">
+                                        <div class="bar-percentage">{{ todoPercentage(checklist) }}%</div>
+                                        <el-progress
+                                            class="bar"
+                                            :stroke-width="8"
+                                            :show-text="false"
+                                            :percentage="todoPercentage(checklist)"
+                                            :color="calcBarColor(checklist)"
+                                        />
+                                    </div>
                                     <div v-if="checklist.todos" class="todos-container">
                                         <div
                                             class="checklist-todo"
@@ -309,8 +324,8 @@
                                                     @click.stop.prevent="checkboxTodo(checklist, todo)"
                                                 >
                                                     <img
-                                                    v-show="todo.isComplete"
-                                                    style="z-index: 40"
+                                                        v-show="todo.isComplete"
+                                                        style="z-index: 40"
                                                         src="data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23fff' viewBox='-3 -4 16 16'%3E%3Cpath d='M1.49 3.215a.667.667 0 0 0-.98.903l2.408 2.613c.358.351.892.351 1.223.02l.243-.239a1689.645 1689.645 0 0 0 2.625-2.589l.027-.026a328.23 328.23 0 0 0 2.439-2.429.667.667 0 1 0-.95-.936c-.469.476-1.314 1.316-2.426 2.417l-.027.026a1368.126 1368.126 0 0 1-2.517 2.482L1.49 3.215z'/%3E%3C/svg%3E"
                                                     />
                                                 </div>
@@ -323,41 +338,69 @@
                                                     v-if="!isOpen(checklist, todo)"
                                                     class="todo-text"
                                                 >{{ todo.text }}</span>
-                                                <div @click.stop.prevent="openChecklistOptions(checklist,todo)" class="todo-options"></div>
-                                            </div>
-                                            <div v-if="isOpen(checklist, todo)">
-                                                <textarea
-                                                    v-clickOutside="closeTodo"
-                                                    v-model="currOpenTodo.text"
-                                                    class="edit-todo-text"
-                                                ></textarea>
-                                                <button
-                                                    @click.stop.prevent="saveTodo"
-                                                    class="checklist-btn save-btn"
-                                                >Add</button>
-                                                <div class="todo-discard">
-                                                    <div class="icon-lg icon-closed"></div>
+                                                <div
+                                                    @click="openChecklistOptions(checklist, todo)"
+                                                    class="todo-options"
+                                                ></div>
+                                                <div v-if="isOpen(checklist, todo)">
+                                                    <!-- <div style="fontSize: 11px, width: 100%, visibility:hidden"></div> -->
+                                                    <textarea
+                                                        @keydown.enter.prevent="saveTodo"
+                                                        v-clickOutside.stop.prevent="closeTodo"
+                                                        :style="{ height: parseInt((currOpenTodo.text.length / 64) + 1) * 24 + 'px' }"
+                                                        v-model="currOpenTodo.text"
+                                                        class="edit-todo-text"
+                                                    ></textarea>
+                                                    <div
+                                                        @click.stop.prevent="closeTodo"
+                                                        class="edit-options"
+                                                    >
+                                                        <button
+                                                            @click.stop.prevent="saveTodo"
+                                                            class="checklist-btn save-btn"
+                                                        >Save</button>
+                                                        <div class="todo-discard">
+                                                            <div class="icon-lg icon-closed"></div>
+                                                        </div>
+                                                        <div
+                                                            @click.stop.prevent="openChecklistOptions(checklist, todo)"
+                                                            class="more-options"
+                                                        ></div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="add-todo-container">
                                         <button
-                                            v-if="!addingNewTodo"
+                                            v-if="!addingNewTodo || currChecklist.id !== checklist.id"
                                             @click.stop.prevent="openChecklistInput(checklist)"
                                             class="checklist-btn checklist-add-item"
                                         >Add an item</button>
-                                        <div v-if="addingNewTodo" class="checklist-input-container">
-                                            <input
+                                        <div
+                                            v-if="addingNewTodo && currChecklist.id === checklist.id"
+                                            class="checklist-input-container"
+                                        >
+                                            <textarea
+                                            @keydown.enter.stop.prevent="createTodo"
+                                                class="add-todo-text"
+                                                v-clickOutside="closeAdder"
+                                                :style="{ minHeight: parseInt((currOpenTodo.text.length / 64) + 1) * 24 + 'px' }"
                                                 v-model="currOpenTodo.text"
                                                 placeholder="Add an item"
                                                 type="text"
+                                                ref="addingtextarea"
+                                                v-focus
                                             />
-                                            <button
-                                                @click.stop.prevent="createTodo"
-                                                class="item-add-btn"
-                                            >Add</button>
-                                            <button class="icon-lg icon-closed"></button>
+                                            <div class="edit-options">
+                                                <button
+                                                    @click.stop.prevent="createTodo"
+                                                    class="checklist-btn save-btn"
+                                                >Add</button>
+                                                <div class="todo-discard">
+                                                    <div class="icon-lg icon-closed cursor-pointer"></div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -818,6 +861,14 @@ export default {
             this.currChecklist = JSON.parse(JSON.stringify(checklist))
             this.isChecklistOpen = true
         },
+        saveChecklistTitle(){
+            this.cardToEdit = JSON.parse(JSON.stringify(this.card))
+            const checklistIdx = this.cardToEdit.checklists.findIndex(checklistToFind => checklistToFind.id === this.currChecklist.id)
+            this.cardToEdit.checklists[checklistIdx] = this.currChecklist
+            this.$emit('cardModified',{ card: this.cardToEdit, group: this.group })
+            this.currChecklist = {}
+
+        },
         closeChecklist() {
             this.currChecklist = {}
             this.isChecklistOpen = false
@@ -830,15 +881,43 @@ export default {
         saveTodo() {
             this.cardToEdit = JSON.parse(JSON.stringify(this.card))
             const checklistIdx = this.cardToEdit.checklists.findIndex(checklistToFind => checklistToFind.id = this.currChecklist.id)
-            const todoIdx = this.cardToEdit.checklists[checklistIdx].todos.findIndex(todoToFind => todoToFind.id === this.currOpenTodo.idi)
+            const todoIdx = this.cardToEdit.checklists[checklistIdx].todos.findIndex(todoToFind => todoToFind.id === this.currOpenTodo.id)
             this.cardToEdit.checklists[checklistIdx].todos[todoIdx] = this.currOpenTodo
+            this.$emit('cardModified', { card: this.cardToEdit, group: this.group })
+            this.currChecklist = {}
+            this.currOpenTodo = {}
+        },
+        deleteChecklist(id){
+            this.currChecklist = {}
+            this.cardToEdit = JSON.parse(JSON.stringify(this.card))
+            const checklistIdx = this.cardToEdit.checklists.findIndex(checklistToFind => checklistToFind.id === id)
+            this.cardToEdit.checklists.splice(checklistIdx,1)
             this.$emit('cardModified', { card: this.cardToEdit, group: this.group })
         },
         createTodo() {
+            if (this.currOpenTodo.text === '') return
             this.cardToEdit = JSON.parse(JSON.stringify(this.card))
             const checklistIdx = this.cardToEdit.checklists.findIndex(checklistToFind => checklistToFind.id = this.currChecklist.id)
             this.cardToEdit.checklists[checklistIdx].todos.push(this.currOpenTodo)
             this.$emit('cardModified', { card: this.cardToEdit, group: this.group })
+            this.currOpenTodo = boardService.getEmptyTodo()
+        },
+        closeAdder() {
+            this.addingNewTodo = false
+        },
+        todoPercentage(checklist) {
+            var todoPercentage = 0
+            if (checklist.todos.length) {
+                checklist.todos.forEach(todo => {
+                    if (todo.isComplete) todoPercentage++
+                })
+                todoPercentage = parseInt(todoPercentage / checklist.todos.length * 100)
+            }
+            return todoPercentage
+        },
+        calcBarColor(checklist) {
+            if (this.todoPercentage(checklist) === 100) return '#61bd4f'
+            else return '#5ba4cf'
         }
     },
     emits: ['cardCopySave', 'closeDialog', 'cardModified', 'boardModified', 'deleteCardFromGroup', 'saveCopy']
