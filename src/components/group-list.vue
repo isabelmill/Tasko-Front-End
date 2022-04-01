@@ -15,6 +15,7 @@
         >
             <div class="group-preview">
                 <div>
+<<<<<<< HEAD
                     <!-- title -->
                     <toggle-input-cmp
                         class="title"
@@ -54,6 +55,43 @@
                         <add-card-cmp @cardAdd="addNewCard" :group="group"></add-card-cmp>
                     </Container>
                 </div>
+=======
+                <toggle-input-cmp
+                    class="title"
+                    @groupDelete="deleteGroup"
+                    @titleChange="changeTitle"
+                    :title="group.title"
+                    :id="group.id"
+                ></toggle-input-cmp>
+                <Container
+                    class="scroller-group"
+                    drag-class="tilt"
+                    group-name="col"
+                    orientation="vertical"
+                    :get-child-payload="getCardPayload(group.id)"
+                    @drag-start="(e) => log('drag start', e)"
+                    @drag-end="(e) => log('drag end', e)"
+                    @drop="(e) => onCardDrop(group.id, e)"
+                    
+                >
+                    <Draggable v-for="card in group.cards" :key="card.id">
+                        <card-preview
+                        @copyCardToGroup="saveCopyToGroup"
+                            @toggleQuickEdit="toggleQuickEdit"
+                            @boardUpdated="modifyBoard"
+                            @deleteCard="cardDelete"
+                            @openCard="openCardModal"
+                            @openAllLabels="onOpenAllLabels"
+                            @editCard="saveCardToBoard"
+                            :group="group"
+                            :card="card"
+                            :board="board"
+                            :isLabelOpen="isLabelOpen"
+                        ></card-preview>
+                    </Draggable>
+                <add-card-cmp @cardAdd="addNewCard" :group="group"></add-card-cmp>
+                </Container></div>
+>>>>>>> dd62a4afd494711a24ae46c970997bf5410d26fe
             </div>
         </Draggable>
         <!-- end -->

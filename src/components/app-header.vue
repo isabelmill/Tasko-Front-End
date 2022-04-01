@@ -1,7 +1,5 @@
 <template>
-  <section
-    class="app-header-main" ref="appheader"
-  >
+  <section class="app-header-main" ref="appheader">
     <!-- :style="board && isOnBoard ? { 'background-color': lightenDarkenColor(board.background, -20) } : null" -->
     <router-link to="/board" class="logo-box">
       <span class="logo-img"></span>
@@ -79,7 +77,7 @@
       @close="closeTemplate"
     ></template-modal>
 
-    <a class="link" to="/">
+    <a class="link" to="/" @click="openCreateModal(), calcPosOfBox()" ref="create">
       Create
       <svg
         width="16"
@@ -95,6 +93,15 @@
         />
       </svg>
     </a>
+
+    <create-board-modal
+      v-if="openCreate"
+      :style="{ top: '48' + 'px', left: posCreate.left + 'px' }"
+      v-clickOutside="closeCreateModal"
+      :newBoard="newBoard"
+      @add="saveNewBoard"
+      @close="closeCreateModal"
+    ></create-board-modal>
     <!-- <button class="icon-btn"><font-awesome-icon icon="fa-regular fa-plus-large" /></button> -->
     <!-- <button class="icon-btn">
       <span class="icon-md icon-add-light"></span>
@@ -177,6 +184,8 @@ import recentBoardsModal from "./recent-boards-modal.vue"
 import loggedInUserModal from "./logged-in-user-modal.vue"
 import templateModal from "./template-modal.vue"
 import FastAverageColor from 'fast-average-color';
+import createBoardModal from "./create-board-modal.vue"
+import { boardService } from '../services/board-service'
 
 export default {
   name: 'app-header',
@@ -186,10 +195,14 @@ export default {
       openRecentModal: false,
       openUserModal: false,
       openTemplate: false,
+      openCreate: false,
       pos: 0,
       posRecent: 0,
       posUser: 0,
       posTemplate: 0,
+      posCreate: 0,
+      newBoard: boardService.getEmptyBoard(),
+      newActivity: boardService.getEmptyActivity(),
     }
   },
   computed: {
@@ -208,8 +221,6 @@ export default {
     },
     async appHeaderColor() {
       if (this.board && this.isOnBoard) {
-        console.log('this.isOnBoard:',this.isOnBoard);
-        console.log('this.board:',this.board.background,this.board.backgroundPhoto);
         if (this.board.backgroundPhoto) {
           const fac = new FastAverageColor()
           try {
@@ -220,8 +231,8 @@ export default {
           catch (err) {
             console.log(err)
           }
-        } 
-        if(this.board.background && this.isOnBoard){
+        }
+        if (this.board.background && this.isOnBoard) {
           this.$refs['appheader'].style.backgroundColor = this.lightenDarkenColor(this.board.background, -20)
         }
       }
@@ -247,6 +258,7 @@ export default {
       this.posRecent = this.$refs['recent'].getBoundingClientRect()
       this.posUser = this.$refs['user'].getBoundingClientRect()
       this.posTemplate = this.$refs['template'].getBoundingClientRect()
+      this.posCreate = this.$refs['create'].getBoundingClientRect()
     },
     openLoggedInUserModal() {
       this.openUserModal = true
@@ -260,9 +272,29 @@ export default {
     closeTemplate() {
       this.openTemplate = false;
     },
+    openCreateModal() {
+      this.openCreate = true
+    },
+    closeCreateModal() {
+      this.openCreate = false;
+    },
     setMemberLetters(fullname) {
       const firstLetters = fullname.split(' ').map(word => word[0]).join('');
       return firstLetters.toUpperCase()
+    },
+    saveNewBoard(board) {
+      if (!board.title) return
+      if (this.loggedinUser) {
+        board.createdBy = this.loggedinUser
+        board.members.push(this.loggedinUser)
+        this.newActivity.byMember = this.loggedinUser
+      }
+      this.newActivity.txt = 'created this board'
+      board.activities.push(this.newActivity)
+      this.$store.dispatch({ type: 'saveBoard', board: board })
+      this.isEdit = false
+      this.newBoard = boardService.getEmptyBoard()
+      if(this.isOnBoard) this.$router.push(`/board`)
     },
     lightenDarkenColor(colorCode, amount) {
       if (colorCode === '#0079BF') return '#0066A0'
@@ -302,9 +334,9 @@ export default {
         this.$refs['appheader'].style.backgroundColor = newColor
       }
     },
-    isOnBoard : {
-            async handler(newId) {
-              if(!newId) this.$refs['appheader'].style.backgroundColor = '#026AA7'
+    isOnBoard: {
+      async handler(newId) {
+        if (!newId) this.$refs['appheader'].style.backgroundColor = '#026AA7'
       }
     }
   },
@@ -314,6 +346,7 @@ export default {
     starredBoardsModal,
     loggedInUserModal,
     templateModal,
+    createBoardModal,
   },
 }
 </script>

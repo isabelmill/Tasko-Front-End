@@ -76,6 +76,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    // margin-bottom: 1px;
+
     p {
         font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
         display: flex;
@@ -163,6 +165,7 @@
 
             .user-render-container {
                 overflow-y: auto;
+                // overflow-y: scroll;
                 max-height: 150px;
                 min-height: 150px;
 
@@ -175,6 +178,8 @@
                         border-radius: 3px;
                         width: 800px;
 
+                        // .users-avatar{
+                        // }
                         &:hover {
                             background-color: #F0F2F5;
                             cursor: pointer;
@@ -233,6 +238,7 @@
                     background-color: rgba(9, 30, 66, 0.04);
                     border-radius: 4px;
                     cursor: default;
+                    // min-height: 32px;
                     font-size: 14px;
                     padding: 5px 10px 5px 10px;
                 }
@@ -296,42 +302,21 @@
         padding-left: 1px;
         margin-left: -7px;
         z-index: 1;
-        // .users-avatar {
-
-
-        // }
     }
 }
 
-.admin-img{
-    width: 8px;
-    height: 8px;
-    position: absolute;
-    right: 753px;
-    top: 76px;
-    z-index: 3;
-}
-
-.empty-div{
-    width: 5px;
-}
-.overlay {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: rgba(0, 0, 0, 0.5);
-    transition: opacity 200ms;
-    visibility: hidden;
-    opacity: 0;
-    z-index: 1;
-}
-
-.overlay .cancel {
-    position: absolute;
-    width: 100%;
-    height: 100%;
+.users-avatar-admin {
+    font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: #172b4d;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    letter-spacing: 1px;
+    color: #fff;
     cursor: default;
     font-weight: 600;
     font-size: 12px;
@@ -351,48 +336,87 @@
     }
 }
 
+.remove-member-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    p {
+        font-size: 14px;
+        margin: 0 12px 0 12px;
+    }
+
+    span{
+        font-weight: 700;
+    }
+
+    button {
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #b04632;
+        box-shadow: none;
+        border: none;
+        color: #ffffff;
+        width: 280px;
+        cursor: pointer;
+        // margin: 0 12px 0 12px;
+        margin-top: 12px;
+        margin-bottom: 12px;
+
+        &:hover {
+            background-color: #933b27;
+            box-shadow: none;
+            border: none;
+            color: #ffffff;
+        }
+    }
+}
+
 
 // .empty-div {
-    .admin-img {
-        // width: 8px;
-        height: 8px;
-        // position: absolute;
-        // right: 753px;
-        // top: 76px;
-        z-index: 3;
-        width: 10px;
-        position: absolute;
-        left: 12px;
-        top: 18px;
-    }
+.admin-img {
+    // width: 8px;
+    height: 8px;
+    // position: absolute;
+    // right: 753px;
+    // top: 76px;
+    z-index: 3;
+    width: 10px;
+    position: absolute;
+    left: 12px;
+    top: 18px;
+}
 
-    .empty-div {
-        width: 2px;
-        opacity: 0;
-    }
+.empty-div {
+    width: 2px;
+    opacity: 0;
+}
 
-    .overlay {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background: rgba(0, 0, 0, 0.5);
-        transition: opacity 200ms;
-        visibility: hidden;
-        opacity: 0;
-        z-index: 20;
-    }
+.overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.5);
+    transition: opacity 200ms;
+    visibility: hidden;
+    opacity: 0;
+    z-index: 20;
+}
 
-    .overlay .cancel {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        cursor: default;
-    }
+.overlay .cancel {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    cursor: default;
+}
 
-    .overlay:target {
-        visibility: visible;
-        opacity: 1;
-    }
+.overlay:target {
+    visibility: visible;
+    opacity: 1;
+}
+
 // }

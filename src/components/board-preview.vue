@@ -1,7 +1,7 @@
 <template>
     <div
         class="board-preview-main"
-        :style="board.background ? { 'backgroundColor': board.background } : { 'background-image': `linear-gradient(rgba(0, 0, 0, 0.527),rgba(0, 0, 0, 0.5)) , url(${board.backgroundPhoto})`, 'background-size': 'cover' }"
+        :style="board.background ? { 'backgroundColor': board.background } : { 'background-image': `linear-gradient(rgba(0, 0, 0, 0.527),rgba(0, 0, 0, 0.5)) , url(${board.backgroundThumb})`, 'background-size': 'cover' }"
     >
         <h1 @click.stop.prevent="goToDetails()">{{ board.title }}</h1>
         <span
