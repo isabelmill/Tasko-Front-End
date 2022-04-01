@@ -300,7 +300,7 @@ export default {
         closeBoardEdit() {
             this.isEdit = false;
         },
-        saveNewBoard(board) {
+         saveNewBoard(board) {
             if (!board.title) return
             if (this.loggedinUser) {
                 board.createdBy = this.loggedinUser
@@ -310,7 +310,7 @@ export default {
             board.isTemplate = false
             this.newActivity.txt = 'created this board'
             board.activities.push(this.newActivity)
-            this.$store.dispatch({ type: 'saveBoard', board: board })
+             this.$store.dispatch({ type: 'saveBoard', board: board })
             this.isEdit = false
             console.log('board in save new board:',board);
             this.newBoard = boardService.getEmptyBoard()

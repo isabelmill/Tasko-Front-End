@@ -34,6 +34,7 @@
             <card-details
                 ref="cardDetailsModal"
                 class="modal"
+                @groupUpdate="updateGroup"
                 @deleteCardFromGroup="deleteCardFromGroup"
                 @boardModified="updateBoard"
                 @cardModified="updateCard"

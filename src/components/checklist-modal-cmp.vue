@@ -50,7 +50,7 @@ export default {
     data() {
         return {
             cardToEdit: null,
-            name: '',
+            name: 'Checklist',
         }
     },
     computed: {
@@ -70,6 +70,7 @@ export default {
                 todos: [],
             })
             this.$emit('cardEdit', this.cardToEdit)
+            this.name= 'Checklist'
         }
     },
      emits: ['actionsClose', 'cardEdit', 'boardEdit']
