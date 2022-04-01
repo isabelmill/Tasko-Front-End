@@ -9,6 +9,7 @@
                 @changeBgcColor="changeBoardBgcColor"
                 @changeBoardBgc="changeBoardPhoto"
                 @makeMember="inviteUser"
+                @removeInvitedUser="removeMember"
             />
         </section>
         <section
@@ -97,7 +98,6 @@ export default {
     },
     methods: {
         socketBoardUpdate(board) {
-            console.log(board);
             this.$store.commit({ type: 'setBoard', board })
         },
         groupRemoveFromBoard(groupId) {
@@ -198,9 +198,17 @@ export default {
             this.newActivity = boardService.getEmptyActivity()
         },
         inviteUser(user) {
-             this.boardToEdit = JSON.parse(JSON.stringify(this.board))
-             this.boardToEdit.members.push(user)
-             this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
+            this.boardToEdit = JSON.parse(JSON.stringify(this.board))
+            this.boardToEdit.members.push(user)
+            this.saveActivity(' added ' + user.fullname + ' to this board')
+            this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
+        },
+        removeMember(user) {
+            this.boardToEdit = JSON.parse(JSON.stringify(this.board))
+            const idx = this.boardToEdit.members.findIndex((member) => member._id === user._id)
+            this.boardToEdit.members.splice(idx, 1)
+             this.saveActivity(' removed ' + user.fullname + ' from this board')
+            this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
         }
     },
     computed: {
@@ -222,8 +230,6 @@ export default {
             async handler(newId) {
                 if (newId) {
                     await this.$store.dispatch({ type: 'loadBoardById', newId })
-                    console.log('newId:', newId);
-                    console.log('this.board:', this.board);
                     // socketService.emit('board updated', board => {
                     //     this.socketTest(board)
                     // })
