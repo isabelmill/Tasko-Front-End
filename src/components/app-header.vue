@@ -108,7 +108,7 @@
     </button>-->
 
     <span class="search-nav">
-      <search />
+      <search @setFilter="onSetFilter" @click="openSearchModal()" />
       <span class="span-icon">
         <svg
           width="24"
@@ -152,9 +152,13 @@
         </svg>
       </span>
 
-      <!-- <span @click="openLoggedInUserModal(), calcPosOfBox()" ref="user" class="user-icon">
-        <img src="../assets/img/user.png" alt="user-icon" />
-      </span>-->
+      <search-modal
+        v-if="openSearch && boards"
+        :boards="boards"
+        :style="{ top: '48' + 'px', right: '4' + 'px' }"
+        v-clickOutside="closeSearchModal"
+        @close="closeSearchModal"
+      ></search-modal>
 
       <div
         @click="openLoggedInUserModal(), calcPosOfBox()"
@@ -183,9 +187,10 @@ import starredBoardsModal from "./starred-boards-modal.vue"
 import recentBoardsModal from "./recent-boards-modal.vue"
 import loggedInUserModal from "./logged-in-user-modal.vue"
 import templateModal from "./template-modal.vue"
-import FastAverageColor from 'fast-average-color';
+import FastAverageColor from 'fast-average-color'
 import createBoardModal from "./create-board-modal.vue"
 import { boardService } from '../services/board-service'
+import searchModal from "./search-modal.vue"
 
 export default {
   name: 'app-header',
@@ -196,6 +201,7 @@ export default {
       openUserModal: false,
       openTemplate: false,
       openCreate: false,
+      openSearch: false,
       pos: 0,
       posRecent: 0,
       posUser: 0,
@@ -205,42 +211,17 @@ export default {
       newActivity: boardService.getEmptyActivity(),
     }
   },
-  computed: {
-    boards() {
-      return this.$store.getters.boards
-    },
-    board() {
-      return this.$store.getters.board
-    },
-    isOnBoard() {
-      const { boardId } = this.$route.params
-      return boardId
-    },
-    loggedinUser() {
-      return this.$store.getters.loggedinUser
-    },
-    async appHeaderColor() {
-      if (this.board && this.isOnBoard) {
-        if (this.board.backgroundPhoto) {
-          const fac = new FastAverageColor()
-          try {
-            const color = await fac.getColorAsync(this.board.backgroundPhoto)
-            this.$refs['appheader'].style.backgroundColor = color.hex
-            return color.hex
-          }
-          catch (err) {
-            console.log(err)
-          }
-        }
-        if (this.board.background && this.isOnBoard) {
-          this.$refs['appheader'].style.backgroundColor = this.lightenDarkenColor(this.board.background, -20)
-        }
-      }
-    }
-  },
-  created() {
-  },
   methods: {
+    onSetFilter(filterBy) {
+      console.log(filterBy)
+      this.$store.dispatch({ type: 'setFilter', filterBy })
+    },
+    openSearchModal() {
+      this.openSearch = true
+    },
+    closeSearchModal() {
+      this.openSearch = false;
+    },
     openStarredBoardsModal() {
       this.openStarredModal = true
     },
@@ -294,7 +275,7 @@ export default {
       this.$store.dispatch({ type: 'saveBoard', board: board })
       this.isEdit = false
       this.newBoard = boardService.getEmptyBoard()
-      if(this.isOnBoard) this.$router.push(`/board`)
+      if (this.isOnBoard) this.$router.push(`/board`)
     },
     lightenDarkenColor(colorCode, amount) {
       if (colorCode === '#0079BF') return '#0066A0'
@@ -328,6 +309,39 @@ export default {
       return (usePound ? "#" : "") + (g | (b << 8) | (r << 16)).toString(16);
     }
   },
+  computed: {
+    boards() {
+      return this.$store.getters.boards
+    },
+    board() {
+      return this.$store.getters.board
+    },
+    isOnBoard() {
+      const { boardId } = this.$route.params
+      return boardId
+    },
+    loggedinUser() {
+      return this.$store.getters.loggedinUser
+    },
+    async appHeaderColor() {
+      if (this.board && this.isOnBoard) {
+        if (this.board.backgroundPhoto) {
+          const fac = new FastAverageColor()
+          try {
+            const color = await fac.getColorAsync(this.board.backgroundPhoto)
+            this.$refs['appheader'].style.backgroundColor = color.hex
+            return color.hex
+          }
+          catch (err) {
+            console.log(err)
+          }
+        }
+        if (this.board.background && this.isOnBoard) {
+          this.$refs['appheader'].style.backgroundColor = this.lightenDarkenColor(this.board.background, -20)
+        }
+      }
+    }
+  },
   watch: {
     appHeaderColor: {
       async handler(newColor) {
@@ -347,6 +361,7 @@ export default {
     loggedInUserModal,
     templateModal,
     createBoardModal,
+    searchModal,
   },
 }
 </script>

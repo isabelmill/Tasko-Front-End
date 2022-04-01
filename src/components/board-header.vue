@@ -81,7 +81,7 @@
             </div>
 
             <div class="empty-div"></div>
-            <div class="board-members-render" v-for="member in membersForDisplay">
+            <div class="board-members-render" v-for="member in membersForDisplay" :key="member.fullname">
                 <div class="users-avatar-name">
                     <div
                         @click="openRemoveUser(); calcPosOfBox(); setUser(member);"

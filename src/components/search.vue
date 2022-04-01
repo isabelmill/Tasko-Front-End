@@ -1,7 +1,14 @@
 <template>
   <section class="search-main">
     <label class="search-box" for="search">
-      <input type="search" name="search" id="search" placeholder="Search">
+      <input
+        type="search"
+        name="search"
+        id="search"
+        placeholder="Search"
+        v-model="filterBy.txt"
+        @input="setFilter"
+      />
       <svg
         width="20"
         height="20"
@@ -24,9 +31,17 @@
 <script>
 export default {
   name: 'search',
-  methods: {
+  data() {
+    return {
+      filterBy: {
+        txt: '',
+      },
+    };
   },
-  components: {
+  methods: {
+    setFilter() {
+      this.$emit('setFilter', { ...this.filterBy })
+    },
   },
 }
 </script>
