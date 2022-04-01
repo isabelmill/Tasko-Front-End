@@ -75,6 +75,7 @@
       :style="{ top: '48' + 'px', left: posTemplate.left + 'px' }"
       v-clickOutside="closeTemplate"
       @close="closeTemplate"
+      @duplicateTemplate="saveNewBoard"
     ></template-modal>
 
     <a class="link" to="/" @click="openCreateModal(), calcPosOfBox()" ref="create">
@@ -291,6 +292,7 @@ export default {
       }
       this.newActivity.txt = 'created this board'
       board.activities.push(this.newActivity)
+      board.isTemplate = false
       this.$store.dispatch({ type: 'saveBoard', board: board })
       this.isEdit = false
       this.newBoard = boardService.getEmptyBoard()
