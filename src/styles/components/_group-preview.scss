@@ -59,7 +59,7 @@
     text-decoration: none;
     .card-preview-main {
         overflow: hidden;
-        padding: 6px 6px 2px;
+        padding: 6px;
         position: relative;
         cursor: pointer;
     }
@@ -326,8 +326,8 @@
     align-items: center;
     text-align: center;
     background-color: $memberBlue;
-    width: 32px;
-    height: 32px;
+    height: 28px;
+    width: 28px;
     border-radius: 50%;
     letter-spacing: 1px;
     color: #fff;
@@ -522,7 +522,7 @@
     right: 0;
     pointer-events: auto;
     .labels {
-        margin: 6px 4px 0 4px;
+        margin: 6px 4px 0 6px;
     }
     .modal-card {
         border-radius: 3px;
@@ -552,8 +552,9 @@
         .modal-card-main {
             font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
             margin-bottom: 12px;
+
             textarea {
-                padding: 6px 0 0 6px;
+                padding: 4px 0 0 6px;
                 overflow: hidden;
                 overflow-wrap: break-word;
                 color: #504658;
@@ -578,9 +579,11 @@
                 flex-wrap: wrap;
                 gap: 6px;
                 float: left;
+                margin: 6px;
+
                 .card-bar-members {
                     margin-left: auto;
-                    margin-right: 4px;
+                    margin-right: 6px;
                 }
 
                 .date {
@@ -653,8 +656,7 @@
     }
 }
 
-.member-in-card{
-
+.member-in-card {
     font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
     display: flex;
     justify-content: center;
