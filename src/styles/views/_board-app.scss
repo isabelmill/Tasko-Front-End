@@ -30,6 +30,7 @@
         margin: 0 0 4px 0;
         height: rem(32px);
         width: rem(242px);
+
         p {
             font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
             font-size: rem(14px);
@@ -42,6 +43,7 @@
     p {
         color: #172b4d;
     }
+
     &:hover {
         background-color: rgba(9, 30, 66, 0.08);
     }
@@ -49,12 +51,15 @@
 
 .selected-folder {
     background-color: #e4f0f6;
+
     p {
         color: #0079bf;
     }
+
     span {
         color: #0079bf;
     }
+
     &:hover {
         background-color: none;
     }
@@ -68,20 +73,24 @@
         .border-list {
             padding: 0 0 40px;
         }
+
         .header {
             display: flex;
             align-items: center;
             gap: 8px;
             padding: 0 0 10px;
+
             p {
                 font-size: 16px;
                 font-weight: 700;
                 color: #172b4d;
             }
+
             span {
                 margin-bottom: 4px;
             }
         }
+
         .create-btn {
             font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
             color: #172b4d;
@@ -94,23 +103,27 @@
             border: none;
             margin: 16px 0 16px 0;
             cursor: pointer;
+
             &:hover {
                 background-color: #091e4214;
             }
         }
     }
+
     .header-templates {
         color: #172b4d;
         display: flex;
         align-items: center;
         margin-bottom: 20px;
         margin-top: 6px;
+
         .category-title {
             font-weight: 600;
             line-height: 24px;
             font-size: 20px;
             margin-bottom: 0;
         }
+
         .category-icon {
             display: inline-block;
             height: 24px;
@@ -126,10 +139,12 @@
     display: flex;
     margin-left: 50px;
     overflow-y: auto;
+
     .activities {
         overflow-y: auto;
         max-height: calc(100vh - 100px);
         width: 55vh;
+
         .side-bar-menu-activity-container {
             .activity-header {
                 display: flex;
@@ -151,6 +166,7 @@
                     font-size: 14px;
                 }
             }
+
             .activities-render {
                 align-items: center;
                 gap: 8px;
@@ -176,6 +192,7 @@
                 .activity-info {
                     display: flex;
                     flex-direction: column;
+
                     .activities-info-txt {
                         display: flex;
                         align-items: center;
@@ -205,16 +222,19 @@
             }
         }
     }
+
     .boards {
         overflow-y: auto;
         max-height: calc(100vh - 100px);
         width: 50vh;
         margin-bottom: 80px;
+
         .starred-boards {
             .starred-boards-header {
                 margin: 0 0 8px 8px;
                 display: flex;
                 gap: 6px;
+
                 .icon-star-home {
                     @include to-icon("\e966");
                     color: #5e6c84;
@@ -223,6 +243,7 @@
                     justify-content: center;
                     font-size: 14px;
                 }
+
                 .icon-clock-home {
                     @include to-icon("\e91b");
                     color: #5e6c84;
@@ -231,6 +252,7 @@
                     justify-content: center;
                     font-size: 14px;
                 }
+
                 p {
                     color: #5e6c84;
                     font-size: 12px;
@@ -238,6 +260,7 @@
                     line-height: 20px;
                 }
             }
+
             .modal-starred-board-list {
                 display: flex;
                 flex-direction: column;
@@ -274,11 +297,13 @@
                         font-size: 14px;
                         cursor: pointer;
                     }
+
                     .icon-star-home-board {
                         margin-left: auto;
                         margin-right: 8px;
                         @include to-icon("\e967");
                         color: $mainYellow;
+
                         &:hover {
                             @include to-icon("\e966");
                             color: $mainYellow;
@@ -303,11 +328,13 @@
     box-sizing: border-box;
     outline: 0;
     overflow: hidden;
+
     .create-board-title-add-btns {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
+
         button {
             display: flex;
             align-items: center;
@@ -323,6 +350,7 @@
             text-align: center;
             cursor: pointer;
             border-radius: 3px;
+
             &:hover {
                 background-color: #026aa7;
                 border: none;
@@ -330,6 +358,7 @@
                 color: #fff;
             }
         }
+
         input {
             padding-top: 0;
             margin-top: 0;
@@ -338,14 +367,17 @@
             height: rem(35px);
             font-size: 15px;
             border: 2px solid #d8d7d4;
+
             &:focus {
                 outline-color: #0079bf;
             }
         }
     }
+
     .background-label {
         margin-top: 26px;
     }
+
     label {
         color: #5e6c84;
         display: block;
@@ -358,11 +390,13 @@
         padding-left: 0.5rem;
         padding-right: 0.5rem;
     }
+
     .create-board-background-preview {
         display: flex;
         align-items: center;
         justify-content: center;
         margin-top: 9px;
+
         .create-board-img-preview {
             display: flex;
             align-items: center;
@@ -372,12 +406,14 @@
             border-radius: 3px;
             box-shadow: 0 7px 15px rgb(0 0 0 / 15%);
             background-color: #0079bf;
+
             img {
                 width: rem(180px);
                 height: rem(100px);
             }
         }
     }
+
     .create-board-modal-header {
         margin-bottom: 8px;
         padding: 0 12px;
@@ -385,10 +421,12 @@
         text-align: center;
         display: grid;
         grid-template-columns: 12px 1fr 12px;
+
         h1 {
             font-weight: unset;
             font-size: 15px;
         }
+
         .header-text-create-boards-modal {
             color: #172b4d;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Noto Sans", "Ubuntu", "Droid Sans",
@@ -410,6 +448,7 @@
             grid-column: 1 / span 3;
             grid-row: 1;
         }
+
         .header-close-create-boards-modal {
             grid-column: 3;
             grid-row: 1;
@@ -421,6 +460,7 @@
             z-index: 2;
             outline: none;
             margin: auto;
+
             svg {
                 height: auto;
                 width: 12px;
@@ -429,36 +469,68 @@
             }
         }
     }
+
+    .create-background-photo {
+        display: flex;
+        align-items: center;
+        gap: rem(5px);
+        margin-bottom: 8px;
+        padding-left: 12px;
+        padding-right: 12px;
+        
+        .photos {
+            display: flex;
+            .photo-pref {
+                background-color: linear-gradient(rgba(0, 0, 0, 0.527),rgba(0, 0, 0, 0.5)) ,;
+                background-color: #172b4d;
+                width: rem(63px);
+                height: rem(40px);
+                border-radius: 3px;
+                cursor: pointer;
+            }
+        }
+    }
+
+
+
+
     .create-board-background-color {
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: rem(5px);
+        gap: rem(8px);
         padding-left: 12px;
         padding-right: 12px;
         margin-bottom: rem(20px);
         padding-left: rem(8px);
         padding-right: rem(8px);
+
         .blue {
             background-color: rgb(0, 121, 191);
         }
+
         .yellow {
             background-color: rgb(210, 144, 52);
         }
+
         .green {
             background-color: rgb(81, 152, 57);
         }
+
         .red {
             background-color: rgb(176, 70, 50);
         }
+
         .purple {
             background-color: rgb(137, 96, 158);
         }
+
         .more {
             background-color: rgb(245, 246, 248);
             display: flex;
             align-items: center;
             justify-content: center;
+
             &:hover {
                 background-color: rgba(9, 30, 66, 0.08);
                 box-shadow: none;
@@ -467,6 +539,8 @@
         }
     }
 }
+
+
 
 .color-pref {
     width: rem(40px);

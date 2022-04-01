@@ -1,6 +1,8 @@
 <template>
     <div class="create-board-modal">
+        
         <form>
+            
             <div class="create-board-modal-header">
                 <div class="header-text-create-boards-modal">
                     <h1>Create board</h1>
@@ -11,15 +13,33 @@
             </div>
 
             <div class="create-board-background-preview">
-                <div class="create-board-img-preview" :style="{ backgroundColor: setColor }">
+                <div
+                    class="create-board-img-preview"
+                    :style="setColor ? { backgroundColor: setColor } : { 'background-image': `url(${setPhoto})` , 'background-size': 'contain' }"
+                >
                     <img
-                        :style="{ backgroundColor: setColor }"
                         src="https://a.trellocdn.com/prgb/dist/images/board-preview-skeleton.14cda5dc635d1f13bc48.svg"
                         alt
                     />
                 </div>
             </div>
             <label class="background-label">Background</label>
+            <div class="create-background-photo">
+                <div class="photos" v-for="photo in photos" :key="photo">
+                    <div
+                        @click="setBoardPhoto(photo.urls)"
+                        class="photo-pref"
+                        :style="setPhoto === photo.urls.thumb ? { 'background-image': `linear-gradient(rgba(0, 0, 0, 0.527),rgba(0, 0, 0, 0.5)) , url(${photo.urls.thumb})`,'background-size': 'cover' } : { 'background-image': `url(${photo.urls.thumb})`,'background-size': 'cover' }"
+                        alt
+                    >
+                        <span
+                            v-if="setPhoto === photo.urls.thumb"
+                            class="checked"
+                            :style="setPhoto === photo.urls.thumb ? { 'padding-top': '5px' } : null"
+                        ></span>
+                    </div>
+                </div>
+            </div>
             <div class="create-board-background-color">
                 <div @click="setBoardColor('#0079BF')" class="blue color-pref">
                     <span v-if="setColor === '#0079BF'" class="checked"></span>
@@ -68,10 +88,13 @@
             </div>
         </form>
     </div>
+
 </template>      
 
 <script>
+import { uploadImg } from '../services/unsplash-service.js';
 export default {
+
     name: 'board-app',
     props: {
         newBoard: {
@@ -82,8 +105,14 @@ export default {
     data() {
         return {
             isEdit: false,
-            setColor: '',
+            setColor: '#0079BF',
+            setPhoto: '',
+            photos: null,
+            num: 4,
         }
+    },
+    created() {
+        this.onUploadImg()
     },
     computed: {
         boards() {
@@ -94,18 +123,36 @@ export default {
         closeModal() {
             this.$emit("close");
         },
-        setBoardColor(color) {
-            this.setColor = color
-        },
         saveNewBoard() {
-            console.log('this.newBoard.title:',this.newBoard.title);
             if (!this.newBoard.title) return
+            if (!this.newBoard.background && !this.newBoard.backgroundPhoto) {
+                this.newBoard.background = '#0079BF'
+            }
             this.$emit("add", this.newBoard)
         },
         setBoardColor(color = '#0079BF') {
             this.setColor = color
+            this.setPhoto = ''
+            this.newBoard.backgroundPhoto = ''
             this.newBoard.background = color
         },
+        async onUploadImg() {
+            const res = await uploadImg('abstract', this.num);
+            this.photos = res.results
+        },
+        setBoardPhoto(photo) {
+            this.setPhoto = photo.thumb
+            this.setColor = ''
+            this.newBoard.background = ''
+            this.newBoard.backgroundPhoto = photo.full
+            this.newBoard.backgroundThumb = photo.thumb
+        },
+        // openUnsplash() {
+        //     this.showUnsplash = true
+        // },
+        // closeUnsplash() {
+        //     this.showUnsplash = false
+        // }
     },
     components: {
     },

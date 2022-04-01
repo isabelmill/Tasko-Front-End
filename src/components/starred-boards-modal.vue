@@ -19,7 +19,7 @@
                 >
                     <div
                         class="board-background-starred-modal"
-                        :style="board.background ? { 'backgroundColor': board.background } : { 'background-image': `url(${board.backgroundPhoto})` }"
+                        :style="board.background ? { 'backgroundColor': board.background } : { 'background-image': `url(${board.backgroundThumb})` }"
                     ></div>
 
                     <div class="modal-starred-board" >{{ board.title }}</div>

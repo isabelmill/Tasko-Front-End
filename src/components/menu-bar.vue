@@ -16,7 +16,7 @@
             <hr />
             <div class="side-bar-menu-container flex">
                 <div
-                    :style="board.background ? { 'backgroundColor': board.background } : { 'background-image': `url(${board.backgroundPhoto})` }"
+                    :style="board.background ? { 'backgroundColor': board.background } : { 'background-image': `url(${board.backgroundThumb})` }"
                     class="board-background"
                 ></div>
                 <p @click="openBgcBar">Change background</p>
@@ -214,6 +214,7 @@ export default {
             this.unsplashSearch = this.searchInput
         },
         updateBgc(photo) {
+            console.log('photo:',photo);
             this.$emit('changeBgcPhoto', photo)
         },
         setMemberLetters(fullname) {

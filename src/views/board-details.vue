@@ -187,7 +187,8 @@ export default {
             this.boardToEdit = JSON.parse(JSON.stringify(this.board))
             this.saveActivity('changed the background of this board')
             this.boardToEdit.background = ''
-            this.boardToEdit.backgroundPhoto = photo
+            this.boardToEdit.backgroundPhoto = photo.full
+            this.boardToEdit.backgroundThumb = photo.thumb
             this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
         },
         saveActivity(txt) {
