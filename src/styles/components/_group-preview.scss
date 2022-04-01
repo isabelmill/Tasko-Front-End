@@ -72,25 +72,29 @@
         overflow-wrap: break-word;
         overflow: hidden;
     }
-    button {
+    .icon-edit {
+        @include to-icon("\e928");
         position: absolute;
         right: 0px;
         top: 0px;
         border-radius: 3px;
         margin: 2px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
         height: rem(26px);
         width: rem(26px);
         border: none;
         display: none;
-        background-color: #f7f8fb55;
+        background-color: #f7f8fb;
+        color: #5e6c84;
+        z-index: 20;
     }
     &:hover {
         background-color: #f7f8fb;
-        button {
+        .icon-edit {
             display: block;
+            &:hover {
+                background-color: #ebecf0;
+                color: #172b4d;
+            }
         }
     }
     .card-bar {
@@ -520,6 +524,9 @@
         border-radius: 3px;
         overflow: hidden;
         background-color: #fff;
+        height: auto;
+        width: rem(256px);
+        
     }
     .mini-edit-cover-color {
         height: 32px;
@@ -528,30 +535,29 @@
     .mini-edit-cover-attach {
         width: 100%;
         background-position: 50%;
-        background-size: cover;
+        background-size:cover;
         background-repeat: no-repeat;
         img {
             width: 100%;
+            
         }
     }
     .mini-edit-modal-second {
         display: flex;
     }
     .modal-edit {
-        width: rem(252px);
-        height: auto;
         .modal-card-main {
             font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
             margin-bottom: 12px;
-            padding: 6px 8px 2px;
             textarea {
+                padding: 6px 0 0 6px;
                 overflow: hidden;
                 overflow-wrap: break-word;
                 color: #504658;
                 resize: none;
                 height: rem(90px);
                 border: none;
-                width: 95%;
+                width: 100%;
                 font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
                 font-size: rem(14px);
                 font-weight: 400;
@@ -652,24 +658,6 @@
 .icon-add-light {
     @include to-icon("\e901");
     color: #fff;
-}
-
-.icon-edit {
-    @include to-icon("\e928");
-    position: absolute;
-    border-radius: 3px;
-    margin: 2px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: rem(26px);
-    width: rem(26px);
-    border: none;
-    background-color: #ebecf0;
-    opacity: 0.8;
-    &:hover {
-        background-color: #f4f5f7;
-    }
 }
 
 .icon-close-close {

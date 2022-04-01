@@ -8,11 +8,11 @@ export default {
         filterBy: null,
     },
     getters: {
-        boards(state) {
-            return state.boards
-        },
         board(state) {
             return state.selectedBoard
+        },
+        boards(state) {
+            return state.boards
         },
         starredBoards(state) {
             return state.boards.filter(board => board.isStarred)
@@ -89,18 +89,16 @@ export default {
             try {
                 if (board._id) commit({ type: 'setBoard', board });
                 const savedBoard = await boardService.save(board)
-                // console.log(savedBoard);
                 commit({ type: 'saveBoard', board: savedBoard });
-                // commit({ type: 'setBoard', board: newBoard });
             } catch (err) {
                 console.log('sorry user connot do that!!!');
             }
         },
-        filter({ commit, dispatch }, { filterBy }) {
-            commit({ type: 'setFilter', filterBy });
-            dispatch({
-                type: 'loadBoards'
-            });
-        },
+        // filter({ commit, dispatch }, { filterBy }) {
+        //     commit({ type: 'setFilter', filterBy });
+        //     dispatch({
+        //         type: 'loadBoards'
+        //     });
+        // },
     },
 }
