@@ -3,6 +3,7 @@
         <board-preview
             @starredChange="onStarredChange"
             @viewedBoard="addViewedBoard"
+            @duplicateTemplate="addBoard"
             v-for="board in boards"
             :board="board"
             :key="board._id"
@@ -28,12 +29,16 @@ export default {
             let boardToEdit = JSON.parse(JSON.stringify(board))
             boardToEdit.lastTimeWatched = Date.now()
             this.$emit('updateRecentlyWatched',boardToEdit )
+        },
+        addBoard(board){
+            console.log('board in list :',board);
+            this.$emit('duplicateTemplate',board )
         }
 
     },
     components: {
         boardPreview,
     },
-    emits: ['updateStarred','updateRecentlyWatched']
+    emits: ['updateStarred','updateRecentlyWatched','duplicateTemplate']
 }
 </script>

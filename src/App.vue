@@ -3,7 +3,7 @@
     class="app-main"
     :style=" board && isOnBoard  && board.backgroundPhoto ? { 'background-image': `url(${board.backgroundPhoto})`, 'background-repeat': 'no-repeat', 'background-size': 'cover' } : null"
   >
-    <app-header v-if="this.$route.name !== 'home'" />
+    <app-header v-if="this.$route.name !== 'home' && this.$route.name !== 'login' && this.$route.name !== 'signup'" />
     <router-view />
   </section>
 </template>

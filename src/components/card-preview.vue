@@ -84,7 +84,7 @@
                     <div class="card-bar-members">
                         <div v-if="card.members.length && board.members.length" class="members">
                             <div
-                                class="member"
+                                class="member-in-card"
                                 v-for="member in card.members"
                                 :key="member._id"
                             >{{ setMemberLetters(member.fullname) }}</div>

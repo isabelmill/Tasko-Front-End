@@ -22,7 +22,7 @@
                         :style="board.background ? { 'backgroundColor': board.background } : { 'background-image': `url(${board.backgroundThumb})` }"
                     ></div>
 
-                    <div class="modal-template-board" >{{ board.title }}</div>
+                    <div class="modal-template-board">{{ board.title }}</div>
                 </div>
             </div>
         </div>
@@ -44,11 +44,14 @@ export default {
         },
         goToDetails(board) {
             this.$emit("close");
-            this.$router.push(`/board/${board._id}`)
+            const duplicateBoard = JSON.parse(JSON.stringify(board))
+            delete duplicateBoard._id
+            this.$emit('duplicateTemplate', duplicateBoard)
+            // this.$router.push(`/board/${board._id}`)
         },
     },
-        computed: {
-        templateBoards(){
+    computed: {
+        templateBoards() {
             return this.$store.getters.templates
         },
     },

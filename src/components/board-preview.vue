@@ -1,9 +1,10 @@
 <template>
     <div
         class="board-preview-main"
+        @click.stop.prevent="goToDetails()"
         :style="board.background ? { 'backgroundColor': board.background } : { 'background-image': `linear-gradient(rgba(0, 0, 0, 0.527),rgba(0, 0, 0, 0.5)) , url(${board.backgroundThumb})`, 'background-size': 'cover' }"
     >
-        <h1 @click.stop.prevent="goToDetails()">{{ board.title }}</h1>
+        <h1>{{ board.title }}</h1>
         <span
             v-if="board.isStarred"
             class="icon-sm icon-starred-boards"
@@ -27,7 +28,13 @@ export default {
     },
     methods: {
         goToDetails() {
-            // console.log('this.board._id:', this.board._id);
+            if (this.board.isTemplate) {
+                const duplicateBoard = JSON.parse(JSON.stringify(this.board))
+                delete duplicateBoard._id
+                this.$emit('duplicateTemplate', duplicateBoard)
+                // this.$router.push(`/board`)
+                return
+            }
             this.$router.push(`/board/${this.board._id}`)
             this.$emit('viewedBoard', this.board)
         },
@@ -38,6 +45,6 @@ export default {
             this.$emit('starredChange', starredBoard)
         },
     },
-    emits: ['starredChange', 'viewedBoard']
+    emits: ['starredChange', 'viewedBoard', 'duplicateTemplate']
 }
 </script>
