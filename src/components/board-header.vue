@@ -71,27 +71,42 @@
                 <div :class="updateStar"></div>
             </button>
 
-            <div  class="empty-div"></div>
-            <div class="board-members-render" v-for="member in membersForDisplay" :key="member._id">
+            <div class="users-avatar-admin">
+                <div class="users-avatar">{{ setMemberLetters(board.createdBy.fullname) }}</div>
+                <img
+                    class="admin-img"
+                    src="https://a.trellocdn.com/prgb/dist/images/chevron.88a4454280d68a816b89.png"
+                    alt
+                />
+            </div>
+
+            <div class="empty-div"></div>
+            <div class="board-members-render" v-for="member in membersForDisplay">
                 <div class="users-avatar-name">
-                    <div ref="user" @click="calcPosOfBox()" class="users-avatar">{{ setMemberLetters(member.fullname) }}</div>
-                    <img
-                        class="admin-img"
-                        v-if="member._id === board.createdBy._id"
-                        src="https://a.trellocdn.com/prgb/dist/images/chevron.88a4454280d68a816b89.png"
-                        alt
-                    />
-                    <!-- <p>{{ member.username }}</p> -->
+                    <div
+                        @click="openRemoveUser(); calcPosOfBox(); setUser(member);"
+                        ref="user"
+                        class="users-avatar"
+                    >{{ setMemberLetters(member.fullname) }}</div>
                 </div>
             </div>
+
+            <remove-user-modal
+                :style="{ 'top': '90' + 'px', 'left': pos.left + 'px' }"
+                v-if="removeUser && loggedinUser._id === board.createdBy._id"
+                @close="closeRemoveUser"
+                v-clickOutside="closeRemoveUser"
+                :currUser="currUser"
+                @remove="removeMember"
+            ></remove-user-modal>
 
             <div class="invite">
                 <div class="icon-sm icon-add-member"></div>
                 <a href="#modal1">Share</a>
             </div>
-            <!-- invite modal start -->
 
-            <div id="modal1" class="overlay">
+            <!-- invite modal start -->
+            <div  v-if="loggedinUser._id === board.createdBy._id" id="modal1" class="overlay">
                 <a class="cancel" href="#"></a>
                 <div class="invite-modal-container">
                     <div class="invite-modal">
@@ -102,7 +117,12 @@
                             </span>
                         </div>
                         <div class="content">
-                            <input placeholder="Search by name" type="text" v-model="filterByName" />
+                            <input
+                                v-focus
+                                placeholder="Search by name"
+                                type="text"
+                                v-model="filterByName"
+                            />
                             <div class="user-render-container">
                                 <div
                                     class="users-render"
@@ -114,7 +134,7 @@
                                         <div
                                             class="users-avatar member"
                                         >{{ setMemberLetters(user.fullname) }}</div>
-                                        <p>{{ user.username }}</p>
+                                        <p>{{ user.fullname }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -123,7 +143,7 @@
                                     <div
                                         class="admin-avatar member"
                                     >{{ setMemberLetters(board.createdBy.fullname) }}</div>
-                                    <p>{{ board.createdBy.username }}</p>
+                                    <p>{{ board.createdBy.fullname }}</p>
                                 </div>
                                 <div class="admin-btn">Admin</div>
                             </div>
@@ -153,6 +173,7 @@
 
 <script>
 import menuBar from "../components/menu-bar.vue"
+import removeUserModal from "../components/remove-user-modal.vue"
 // import { userService } from '../services/user-service'
 
 export default {
@@ -166,18 +187,22 @@ export default {
             titleLength: 0,
             title: '',
             showMenu: false,
+            removeUser: false,
             filterByName: null,
             pos: 0,
+            currUser: '',
 
         }
     },
     created() {
         this.$store.dispatch({ type: 'loadUsers' })
-        // this.calcPosOfBox()
     },
     methods: {
+        setUser(member) {
+            this.currUser = member
+        },
         calcPosOfBox() {
-            this.pos = this.$refs['user'].getBoundingClientRect()
+            this.pos = this.$refs['user'][0].getBoundingClientRect()
         },
         boardStared() {
             this.isStarred = !this.isStarred
@@ -201,7 +226,12 @@ export default {
         },
         openMenuBar() {
             this.showMenu = true;
-            // this.$emit("isMenuOpen",this.showMenu);
+        },
+        closeRemoveUser() {
+            this.removeUser = false;
+        },
+        openRemoveUser() {
+            this.removeUser = true;
         },
         changeBoardBgcColor(color) {
             this.$emit("changeBgcColor", color);
@@ -220,6 +250,10 @@ export default {
             const userMember = this.board.members.find(user => user._id === invitedUser._id)
             if (userMember) return
             this.$emit('makeMember', invitedUser)
+        },
+        removeMember(user) {
+            this.removeUser = false;
+            this.$emit('removeInvitedUser', user)
         }
     },
     computed: {
@@ -235,14 +269,19 @@ export default {
         },
         usersForDisplay() {
             const users = this.$store.getters.users
-            if (!this.filterByName) return users.filter(user => user._id !== this.board.createdBy._id);
+
+            if (!this.filterByName) return users.filter(user => user._id !== this.board.createdBy._id && !this.board.members.some(member => user._id === member._id));
             const regex = new RegExp(this.filterByName, 'i');
+
             return users.filter(user =>
-                regex.test(user.username) && user._id !== this.board.createdBy._id);
+                regex.test(user.username) && user._id !== this.board.createdBy._id && !this.board.members.some(member => user._id === member._id));
         },
-        membersForDisplay(){
+        membersForDisplay() {
             return this.board.members.filter(member => member._id !== this.board.createdBy._id)
-        }
+        },
+        loggedinUser() {
+            return this.$store.getters.loggedinUser
+        },
     },
     watch: {
         "$route.params.boardId": {
@@ -257,7 +296,8 @@ export default {
     },
     components: {
         menuBar,
+        removeUserModal,
     },
-    emits: ['changeBoardBgc', 'changeBgcColor', 'starredChange', 'titleChange', 'makeMember']
+    emits: ['changeBoardBgc', 'changeBgcColor', 'starredChange', 'titleChange', 'makeMember','removeInvitedUser']
 }
 </script>

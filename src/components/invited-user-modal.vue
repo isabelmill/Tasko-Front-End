@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
     <div class="starred-boards-modal">
         <div class="starred-boards-header">
             <div class="header-text-starred-boards-modal">
@@ -19,7 +19,7 @@
                 >
                     <div
                         class="board-background-starred-modal"
-                        :style="board.background ? { 'backgroundColor': board.background } : { 'background-image': `url(${board.backgroundThumb})` }"
+                        :style="board.background ? { 'backgroundColor': board.background } : { 'background-image': `url(${board.backgroundPhoto})` }"
                     ></div>
 
                     <div class="modal-starred-board" >{{ board.title }}</div>
@@ -53,4 +53,4 @@ export default {
         },
     },
 }
-</script>
+</script> -->

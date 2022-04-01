@@ -1,6 +1,11 @@
 <template>
     <div class="unspash-imgs" v-for="photo in photos" :key="photo">
-        <img @click="setBgc(photo.urls.full)" class="unspash-img" :src="photo.urls.thumb" alt />
+        <img
+            @click="setBgc(photo.urls)"
+            class="unspash-img"
+            :src="photo.urls.thumb"
+            alt
+        />
     </div>
 </template>
 

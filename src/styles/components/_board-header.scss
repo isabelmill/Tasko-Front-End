@@ -5,6 +5,7 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
+
     nav {
         display: flex;
         align-items: center;
@@ -12,12 +13,15 @@
         margin-right: rem(8px);
         gap: 5px;
     }
+
     button {
         @include btn();
+
         p {
             margin-left: 5px;
         }
     }
+
     .board-btn {
         display: flex;
         align-items: center;
@@ -25,13 +29,16 @@
         gap: 4px;
         margin: 0;
     }
+
     .invite {
         @include inviteBtn();
         background-color: #fff;
         color: #000;
+
         a {
             margin-left: 5px;
         }
+
         &:hover {
             background-color: #ffffffe6;
         }
@@ -42,6 +49,7 @@
     @include to-icon("\e966");
     width: 20px;
     color: #fff;
+
     &:hover {
         color: $mainYellow;
     }
@@ -68,6 +76,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    // margin-bottom: 1px;
+
     p {
         font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
         display: flex;
@@ -81,6 +91,7 @@
         padding-left: 8px;
         padding-right: 8px;
     }
+
     input {
         font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
         text-align: center;
@@ -95,17 +106,21 @@
         box-shadow: inset 0 0 0 2px #0079bf;
         color: $memberBlue;
         background-color: #fff;
+
         &::placeholder {
             color: #fff;
         }
+
         &:focus {
             outline: none !important;
         }
     }
+
     &:hover {
         background-color: rgba(255, 255, 255, 0.3);
     }
 }
+
 
 ///////////////////////////////////////////
 .invite-modal-container {
@@ -113,6 +128,7 @@
     align-items: center;
     justify-content: center;
     height: 100vh;
+
     .invite-modal {
         padding: 20px;
         background: #fff;
@@ -124,6 +140,8 @@
         font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
         color: rgb(74, 85, 104);
         width: 600px;
+
+
         .close {
             position: absolute;
             width: 20px;
@@ -137,16 +155,20 @@
             text-decoration: none;
             color: #777;
         }
+
         h2 {
             margin-top: 0;
         }
+
         .content {
             width: 100%;
+
             .user-render-container {
                 overflow-y: auto;
                 // overflow-y: scroll;
                 max-height: 150px;
                 min-height: 150px;
+
                 .users-render {
                     .users-avatar-name {
                         display: flex;
@@ -155,18 +177,21 @@
                         margin-bottom: 8px;
                         border-radius: 3px;
                         width: 800px;
+
                         // .users-avatar{
                         // }
                         &:hover {
                             background-color: #F0F2F5;
                             cursor: pointer;
                         }
+
                         p {
                             margin-bottom: 0;
                         }
                     }
                 }
             }
+
             input {
                 width: 100%;
                 margin-top: 16px;
@@ -181,26 +206,32 @@
                 position: relative;
                 border: none;
                 margin-bottom: 20px;
+
                 &:focus {
                     outline-color: #0079bf;
                 }
+
                 &:hover {
                     background-color: #ebecf0;
                     box-shadow: inset 0 0 0 2px #dfe1e6;
                 }
             }
+
             .admin-info {
                 justify-content: space-between;
                 align-items: center;
                 padding-top: 8px;
+
                 .admin-avatar-name {
                     display: flex;
                     align-items: center;
                     gap: 9px;
+
                     p {
                         margin-bottom: 0;
                     }
                 }
+
                 .admin-btn {
                     display: flex;
                     align-items: center;
@@ -213,21 +244,26 @@
                 }
             }
         }
+
         p {
             margin: 0 0 1em;
             text-align: center;
         }
+
         .invite-modal-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
             margin-bottom: 16px;
+
             h1 {
                 font-size: 20px;
                 font-weight: 400;
             }
+
             span {
                 cursor: pointer;
+
                 .cancel {
                     cursor: pointer;
                     position: absolute;
@@ -258,6 +294,7 @@
         width: 28px;
         height: 28px;
         border-radius: 50%;
+        cursor: pointer;
         letter-spacing: 1px;
         color: #fff;
         font-weight: 600;
@@ -268,6 +305,77 @@
     }
 }
 
+.users-avatar-admin {
+    font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: #172b4d;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    letter-spacing: 1px;
+    color: #fff;
+    cursor: default;
+    font-weight: 600;
+    font-size: 12px;
+    margin-right: -7px;
+    position: relative;
+
+    .users-avatar {
+        position: relative;
+    }
+
+    img {
+        width: 9px;
+        height: 9px;
+        position: absolute;
+        left: 17px;
+        top: 20px;
+    }
+}
+
+.remove-member-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    p {
+        font-size: 14px;
+        margin: 0 12px 0 12px;
+    }
+
+    span{
+        font-weight: 700;
+    }
+
+    button {
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #b04632;
+        box-shadow: none;
+        border: none;
+        color: #ffffff;
+        width: 280px;
+        cursor: pointer;
+        // margin: 0 12px 0 12px;
+        margin-top: 12px;
+        margin-bottom: 12px;
+
+        &:hover {
+            background-color: #933b27;
+            box-shadow: none;
+            border: none;
+            color: #ffffff;
+        }
+    }
+}
+
+
+// .empty-div {
 .admin-img {
     // width: 8px;
     height: 8px;
@@ -296,7 +404,7 @@
     transition: opacity 200ms;
     visibility: hidden;
     opacity: 0;
-    z-index: 1;
+    z-index: 20;
 }
 
 .overlay .cancel {
@@ -310,3 +418,5 @@
     visibility: visible;
     opacity: 1;
 }
+
+// }
