@@ -644,6 +644,27 @@
     }
 }
 
+.member-in-card{
+
+    font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: $memberBlue;
+    height: 28px;
+    width: 28px;
+    border-radius: 50%;
+    letter-spacing: 1px;
+    color: #fff;
+    font-weight: 600;
+    font-size: 12px;
+    padding-left: 1px;
+    &:hover {
+        background-color: #213c6d;
+    }
+}
+
 //icons
 .icon-add-dark {
     @include to-icon("\e901");
