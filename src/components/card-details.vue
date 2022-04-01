@@ -399,12 +399,12 @@
                                         class="card-details-save-btn"
                                         @click.stop.prevent="addCardComment"
                                     >Save</button>
-                                    <div v-if="showInput" class="icon-btns-inside-input">
+                                    <!-- <div v-if="showInput" class="icon-btns-inside-input">
                                         <span class="icon-smd icon-attachment"></span>
                                         <span class="icon-smd icon-shtrudel"></span>
                                         <span class="icon-smd icon-smiley"></span>
                                         <span class="icon-smd icon-card"></span>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                         </div>
@@ -430,8 +430,8 @@
                                         <p>{{ comment.txt }}</p>
                                     </div>
                                     <div class="comment-info-btns flex">
-                                        <p>Edit</p>
-                                        <a>-</a>
+                                        <!-- <p>Edit</p> -->
+                                        <!-- <a>-</a> -->
                                         <p @click="deleteComment(comment.id)">Delete</p>
                                     </div>
                                 </div>
