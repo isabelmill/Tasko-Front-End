@@ -6,51 +6,58 @@
         @drop="onGroupDrop($event)"
         drag-handle-selector=".group-preview-main"
     >
+        <!-- group -->
         <Draggable
-            v-for="group in board.groups" :key="group"
+            v-for="group in board.groups"
+            :key="group"
             class="group-preview-main cursor-pointer"
             drag-class="tilt"
         >
-            <div>
-                <!-- <span class="column-drag-handle">&#x2630;</span> -->
+            <div class="group-preview">
                 <div>
-                <toggle-input-cmp
-                    class="title"
-                    @groupDelete="deleteGroup"
-                    @titleChange="changeTitle"
-                    :title="group.title"
-                    :id="group.id"
-                ></toggle-input-cmp>
-                <Container
-                    class="scroller-group"
-                    drag-class="tilt"
-                    group-name="col"
-                    orientation="vertical"
-                    :get-child-payload="getCardPayload(group.id)"
-                    @drag-start="(e) => log('drag start', e)"
-                    @drag-end="(e) => log('drag end', e)"
-                    @drop="(e) => onCardDrop(group.id, e)"
-                    
-                >
-                    <Draggable v-for="card in group.cards" :key="card.id">
-                        <card-preview
-                        @copyCardToGroup="saveCopyToGroup"
-                            @toggleQuickEdit="toggleQuickEdit"
-                            @boardUpdated="modifyBoard"
-                            @deleteCard="cardDelete"
-                            @openCard="openCardModal"
-                            @openAllLabels="onOpenAllLabels"
-                            @editCard="saveCardToBoard"
-                            :group="group"
-                            :card="card"
-                            :board="board"
-                            :isLabelOpen="isLabelOpen"
-                        ></card-preview>
-                    </Draggable>
-                </Container></div>
-                <add-card-cmp @cardAdd="addNewCard" :group="group"></add-card-cmp>
+                    <!-- title -->
+                    <toggle-input-cmp
+                        class="title"
+                        @groupDelete="deleteGroup"
+                        @titleChange="changeTitle"
+                        :title="group.title"
+                        :id="group.id"
+                    ></toggle-input-cmp>
+                    <!-- card-list -->
+
+                    <Container
+                        class="scroller-group"
+                        drag-class="tilt"
+                        group-name="col"
+                        orientation="vertical"
+                        :get-child-payload="getCardPayload(group.id)"
+                        @drag-start="(e) => log('drag start', e)"
+                        @drag-end="(e) => log('drag end', e)"
+                        @drop="(e) => onCardDrop(group.id, e)"
+                    >
+                        <Draggable v-for="card in group.cards" :key="card.id">
+                            <card-preview
+                                @copyCardToGroup="saveCopyToGroup"
+                                @toggleQuickEdit="toggleQuickEdit"
+                                @boardUpdated="modifyBoard"
+                                @deleteCard="cardDelete"
+                                @openCard="openCardModal"
+                                @openAllLabels="onOpenAllLabels"
+                                @editCard="saveCardToBoard"
+                                :group="group"
+                                :card="card"
+                                :board="board"
+                                :isLabelOpen="isLabelOpen"
+                            ></card-preview>
+                        </Draggable>
+                        <!-- add-card-btn -->
+                        <add-card-cmp @cardAdd="addNewCard" :group="group"></add-card-cmp>
+                    </Container>
+                </div>
             </div>
         </Draggable>
+        <!-- end -->
+
         <div class="add-new-group" :style="show ? { 'height': '100px' } : null">
             <button class="add-another-list-btn" v-if="!show" @click="show = true">
                 <span class="icon-sm icon-add-light"></span>Add another list
@@ -96,7 +103,7 @@ export default {
         },
         board: {
             type: Object,
-            required : true
+            required: true
         },
     },
     data() {
@@ -108,7 +115,7 @@ export default {
             groupToEdit: null,
             titleIsOpen: false,
             isLabelOpen: false,
-            isQuickEditOpen: false
+            isQuickEditOpen: false,
         };
     },
     created() {
@@ -163,7 +170,7 @@ export default {
             this.$emit('saveCopy', copy)
         },
         deleteGroup(groupId) {
-            console.log('got here',groupId);
+            console.log('got here', groupId);
             this.$emit('removeGroup', groupId)
         },
         close() {
@@ -196,7 +203,7 @@ export default {
             // console.log(...params)
         }
     },
-    emits: ['saveCopy','activitySave', 'openCardDetails', 'removeGroup', 'groupUpdated', 'addGroup', 'groupDnd', 'boardModified']
+    emits: ['saveCopy', 'activitySave', 'openCardDetails', 'removeGroup', 'groupUpdated', 'addGroup', 'groupDnd', 'boardModified']
 
 }
 </script>
