@@ -20,11 +20,13 @@
             border-radius: 3px;
             box-sizing: border-box;
             display: flex;
-            height: 100%;
+            // flex-direction: column;
+            max-height: 100%;
             width: rem(272px);
             vertical-align: top;
             white-space: nowrap;
             margin-bottom: 8px;
+            // margin-right: 8px;
             .group-preview {
                 background-color: #ebecf0;
                 border-radius: 3px;

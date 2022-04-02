@@ -47,6 +47,7 @@
 
 //card-preview
 .card-preview {
+    // width: rem(256px);
     background-color: #fff;
     border-radius: 3px;
     box-shadow: 0 1px 0 #091e4240;
@@ -416,7 +417,8 @@
 ///add card
 .add-new-card-input {
     font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
-    width: rem(244px);
+    width: 100%;
+    // max-width: rem(256px);
     .txt-box {
         font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
         display: flex;
@@ -448,11 +450,11 @@
 
 .add-card-cmp {
     font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
-    // width: 100%;
+    width: 272px;
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    padding-right: 8px;
+    // padding-right: 8px;
     .btn-add-card-out {
         font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
         cursor: pointer;
@@ -464,7 +466,8 @@
         border: none;
         margin: 0px 8px 8px 8px;
         padding: 4px 8px;
-        width: rem(244px);
+        // width: 100%;
+        width: rem(256px);
         font-family: Roboto-regular;
         cursor: pointer;
         &:hover {

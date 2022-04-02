@@ -13,7 +13,7 @@
                 <datepicker v-model="date" inline autoApply typeabble />
                 <!-- <datepicker v-show="isStartDate" v-model="startDate" inline autoApply typeabble /> -->
                 <!-- <button type="button" @click.stop.prevent="startDateInit" class="create-btn">init</button> -->
-                <button type="button" @click.stop.prevent="saveDate" class="create-btn">Save</button>
+                <button type="button" @click.stop.prevent="saveDate" class="create-btn date-modal-btn">Save</button>
                 <button
                     type="button"
                     @click.stop.prevent="remove"
