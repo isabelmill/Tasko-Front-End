@@ -14,8 +14,8 @@
                 class="group-preview-main cursor-pointer"
                 drag-class="tilt"
             >
-                <div class="group-preview">
                     <div>
+                <div class="group-preview">
                         <!-- title -->
                         <toggle-input-cmp
                             class="title"
@@ -43,7 +43,7 @@
                                     @boardUpdated="modifyBoard"
                                     @deleteCard="cardDelete"
                                     @editCard="modCard"
-                                    @openCard="openCardModal"
+                                    @openCard="openCardModalFromPreview"
                                     @openAllLabels="onOpenAllLabels"
                                     :group="group"
                                     :card="card"
@@ -51,9 +51,38 @@
                                     :isLabelOpen="isLabelOpen"
                                 ></card-preview>
                             </Draggable>
+                            <div
+                                v-if="isAddingCard && groupToEdit.id === group.id"
+                                v-clickOutside="saveNewCardAndClose"
+                                class="add-new-card-input"
+                            >
+                                <div class="txt-box">
+                                    <textarea
+                                        v-focus
+                                        @keydown.enter.stop.prevent="saveNewCard(group)"
+                                        placeholder="Enter a title for this card..."
+                                        type="text"
+                                        v-model="newCard.title"
+                                    />
+                                </div>
+                            </div>
                             <!-- add-card-btn -->
-                            <add-card-cmp @cardAdd="addNewCard" :group="group"></add-card-cmp>
                         </Container>
+                    <section class="add-card-cmp">
+                        <button
+                            class="btn-add-card-out"
+                            v-if="!isAddingCard||groupToEdit.id !== group.id"
+                            @click.stop.prevent="openCardAdder(group)"
+                        >
+                            <span class="icon-sm icon-add-gray"></span>
+                            <p>Add a card</p>
+                        </button>
+
+                        <div v-if="isAddingCard&&groupToEdit.id === group.id" class="btn-card-add">
+                            <button type="button" class="btn-add-card-in" @click.stop.prevent="saveNewCardAndClose">Add card</button>
+                            <span type="button" class="icon-lg icon-close-close" @click.stop.prevent="closeAdder"></span>
+                        </div>
+                    </section>
                     </div>
                 </div>
             </Draggable>
@@ -152,9 +181,11 @@
                                 <!-- ///////////////////////////////////////////////////////////////////////////////////////////////// -->
                                 <div v-if="cardToDisplay.checklists.length" class="checklists">
                                     <span class="icon-sm icon-checklists-pre"></span>
-                                    <span class="nums">{{ setChecklistPreview(cardToDisplay.checklists) }}</span>
+                                    <span
+                                        class="nums"
+                                    >{{ setChecklistPreview(cardToDisplay.checklists) }}</span>
                                 </div>
-                                <div class="card-bar-members">   
+                                <div class="card-bar-members">
                                     <div
                                         v-if="cardToDisplay.members.length && board.members.length"
                                         class="members"
@@ -252,7 +283,6 @@
 <script>
 import cardPreview from "./card-preview.vue";
 import toggleInputCmp from "./toggle-input-cmp.vue";
-import addCardCmp from "./add-card-cmp.vue";
 import labelModal from "./label-modal-cmp.vue";
 import membersModal from "./memebers-modal-cmp.vue";
 import datesModal from "./date-modal-cmp.vue";
@@ -262,13 +292,13 @@ import copyModal from "./copy-modal-cmp.vue";
 
 import { Container, Draggable } from "vue3-smooth-dnd";
 import { applyDrag, generateItems } from '../services/dnd-service.js'
+import { boardService } from '../services/board-service';
 
 export default {
     name: "group-list",
     components: {
         cardPreview,
         toggleInputCmp,
-        addCardCmp,
         Container,
         Draggable,
         labelModal,
@@ -315,6 +345,8 @@ export default {
                 title: "",
             },
             timeCalc: null,
+            newCard: {},
+            isAddingCard: false
         };
     },
     created() {
@@ -338,7 +370,33 @@ export default {
         },
     },
     methods: {
-         setChecklistPreview(cardChecklists) {
+        openCardAdder(group) {
+            if (!this.newCard.id) this.newCard = boardService.getEmptyCard()
+            this.groupToEdit = JSON.parse(JSON.stringify(group))
+            this.isAddingCard = true
+        },
+        saveNewCard(group) {
+            if (this.newCard.title === '') return
+            console.log(this.newCard.title)
+            this.groupToEdit = JSON.parse(JSON.stringify(group))
+            this.groupToEdit.cards.push(this.newCard)
+            this.$emit('groupUpdated', this.groupToEdit)
+            this.newCard = boardService.getEmptyCard()
+        },
+        saveNewCardAndClose() {
+            if (this.newCard.title === '') {
+                this.isAddingCard = false
+                return
+            }
+            this.groupToEdit.cards.push(this.newCard)
+            this.$emit('groupUpdated', this.groupToEdit)
+            this.newCard = boardService.getEmptyCard()
+            this.isAddingCard = false
+        },
+        closeAddACard() {
+            this.isAddingCard = false
+        },
+        setChecklistPreview(cardChecklists) {
             var checklists = JSON.parse(JSON.stringify(cardChecklists))
             var allTodosSum = 0
             var completedTodos = []
@@ -438,6 +496,12 @@ export default {
             this.isModalShown = false
             this.$emit('openCardDetails', { card: this.cardToDisplay, group: this.groupToEdit })
         },
+        openCardModalFromPreview({ card, group }) {
+            this.isQuickEditOpen = false
+            this.modalOpen = false;
+            this.isModalShown = false
+            this.$emit('openCardDetails', { card, group })
+        },
         onOpenAllLabels(isLabelClicked) {
             this.isLabelOpen = isLabelClicked
         },
@@ -482,7 +546,7 @@ export default {
             // console.log(...params)
         }
     },
-    emits: ['boardUpdated','saveCopy', 'activitySave', 'openCardDetails', 'removeGroup', 'groupUpdated', 'addGroup', 'groupDnd', 'boardModified']
+    emits: ['boardUpdated', 'saveCopy', 'activitySave', 'openCardDetails', 'removeGroup', 'groupUpdated', 'addGroup', 'groupDnd', 'boardModified']
 }
 </script>
 

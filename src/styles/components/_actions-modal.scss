@@ -191,7 +191,9 @@
 .label-container {
     margin-bottom: 2px;
     font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
-    .icon-edit {
+    .icon-edited {
+        @include to-icon("\e928");
+        color: rgb(66, 82, 110);
         position: absolute;
         right: 12px;
         outline: 0;
@@ -204,6 +206,7 @@
         border: none;
         background: none;
         &:hover {
+            color: rgb(9, 30, 66);
             background-color: #091e4214;
         }
     }
@@ -549,8 +552,17 @@
         background-color: #0079bf;
         margin-bottom: 0;
     }
+    .date-modal-btn {
+        color: #FFF;
+        &:hover {
+            background-color: #026aa7;
+        }
+    }
     .delete-date {
         background-color: #edeef1;
+        &:hover {
+            background-color: #091e4214;
+        }
     }
 }
 
