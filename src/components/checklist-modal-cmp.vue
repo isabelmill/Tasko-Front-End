@@ -71,6 +71,7 @@ export default {
             })
             this.$emit('cardEdit', this.cardToEdit)
             this.name= 'Checklist'
+            console.log(this.cardToEdit.checklists)
         }
     },
      emits: ['actionsClose', 'cardEdit', 'boardEdit']
