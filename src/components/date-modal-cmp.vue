@@ -1,7 +1,7 @@
 <template>
     <section
         v-clickOutside="close"
-        :style="{ top: pos.bottom+8 + 'px', left: pos.left + 'px' }"
+        :style="{ top: setBottomPos(pos.bottom) + 'px', left: pos.left + 'px' }"
         class="label-modal"
     >
         <div class="main-title-container">
@@ -69,6 +69,17 @@ export default {
         // console.log(this.pos)
     },
     methods: {
+        setBottomPos(BottomPos) {
+            console.log('screen.height + "px"', window.innerHeight)
+            if ((window.innerHeight - BottomPos) < 480) {
+                console.log('true')
+                const bottom = window.innerHeight - 480
+                console.log('bottom', bottom)
+                return bottom
+            } else {
+                return BottomPos + 8
+            }
+        },
         close() {
             this.$emit('actionsClose')
         },

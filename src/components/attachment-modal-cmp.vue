@@ -1,7 +1,7 @@
 <template>
     <section
         v-clickOutside="close"
-        :style="{ top: pos.bottom + 8 + 'px', left: pos.left + 'px' }"
+        :style="{ top: setBottomPos(pos.bottom) + 'px', left: pos.left + 'px' }"
         class="label-modal"
     >
         <div class="main-title-container">
@@ -50,6 +50,17 @@ export default {
     created() {
     },
     methods: {
+        setBottomPos(BottomPos) {
+            console.log('screen.height + "px"', window.innerHeight)
+            if ((window.innerHeight - BottomPos) < 240) {
+                console.log('true')
+                const bottom = window.innerHeight - 240
+                console.log('bottom', bottom)
+                return bottom
+            } else {
+                return BottomPos + 8
+            }
+        },
         close() {
             this.$emit('actionsClose');
         },
@@ -75,7 +86,7 @@ export default {
             this.$emit('cardEdit', this.cardToEdit)
         },
     },
-    emits: ['actionsClose', 'cardEdit','uploadComplete','uploading']
+    emits: ['actionsClose', 'cardEdit', 'uploadComplete', 'uploading']
 }
 </script>
 

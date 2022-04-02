@@ -2,7 +2,7 @@
     <section>
         <section
             v-clickOutside="close"
-            :style="{ top: pos.bottom + 8 + 'px', left: pos.left + 'px' }"
+            :style="{ top: setBottomPos(pos.bottom) + 'px', left: pos.left + 'px' }"
             class="label-modal"
         >
             <div class="main-title-container">
@@ -58,6 +58,17 @@ export default {
     created() {
     },
     methods: {
+        setBottomPos(BottomPos) {
+            console.log('screen.height + "px"', window.innerHeight)
+            if ((window.innerHeight - BottomPos) < 186) {
+                console.log('true')
+                const bottom = window.innerHeight - 186
+                console.log('bottom', bottom)
+                return bottom
+            } else {
+                return BottomPos + 8
+            }
+        },
         close() {
             this.$emit('actionsClose')
         },
@@ -70,11 +81,10 @@ export default {
                 todos: [],
             })
             this.$emit('cardEdit', this.cardToEdit)
-            this.name= 'Checklist'
-            console.log(this.cardToEdit.checklists)
+            this.name = 'Checklist'
         }
     },
-     emits: ['actionsClose', 'cardEdit', 'boardEdit']
+    emits: ['actionsClose', 'cardEdit', 'boardEdit']
 
 }
 </script>

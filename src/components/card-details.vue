@@ -755,16 +755,16 @@ export default {
         //CR
         //CR
         //CR
-
         openThisModal(modalName, event) {
             if (this.isModalShown === true && modalName === this.currModal) this.isModalShown = false
             else {
                 this.pos = event.target.getBoundingClientRect()
+                this.pos = JSON.parse(JSON.stringify(this.pos))
+                if(this.pos.top > 430) this.pos.top = 430;
                 this.isModalShown = true
                 this.currModal = modalName
             }
         },
-
         // CR
         // CR
         // CR
@@ -983,7 +983,7 @@ export default {
             this.cardToEdit = JSON.parse(JSON.stringify(this.card))
             const checklistIdx = this.cardToEdit.checklists.findIndex(checklistToFind => checklistToFind.id === checklistId)
             const todoIdx = this.cardToEdit.checklists[checklistIdx].todos.findIndex(todoToFind => todoToFind.id === todoId)
-            this.cardToEdit.checklists[checklistIdx].todos.splice(todoIdx,1)
+            this.cardToEdit.checklists[checklistIdx].todos.splice(todoIdx, 1)
             this.$emit('cardModified', { card: this.cardToEdit, group: this.group })
             this.currOpenTodo = {}
             this.currChecklist = {}
