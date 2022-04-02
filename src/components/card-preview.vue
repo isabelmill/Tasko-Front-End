@@ -177,8 +177,6 @@ export default {
             checklists.forEach(checklist => allTodosSum += checklist.todos.length)
             checklists.forEach(checklist => checklist.todos.forEach(todo => completedTodos.push(todo)))
             completedTodos = completedTodos.filter(todo => todo.isComplete)
-            console.log('completedTodos', completedTodos)
-            console.log('completed length', completedTodos.length)
             return completedTodos.length + '/' + allTodosSum
         },
         openThisModal(modalName, ref) {
@@ -286,7 +284,7 @@ export default {
             if (colorCode === '#51E898') return '#4bbf6b'
             if (colorCode === '#FF78CB') return '#c9558f'
             if (colorCode === '#344563') return '#091e42'
-        }
+        },
     },
     computed: {
         openLabels() {

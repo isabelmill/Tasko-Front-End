@@ -1,5 +1,5 @@
 <template>
-    <section :style="{ top: pos.bottom + 8 + 'px', left: pos.left + 'px' }" class="copy-modal-main">
+    <section :style="{ top: setBottomPos(pos.bottom) + 'px', left: pos.left + 'px' }" class="copy-modal-main">
         <div class="header-modal">
             <div>
                 <p>Copy card</p>
@@ -126,6 +126,17 @@ export default {
         this.setCardToCopy()
     },
     methods: {
+        setBottomPos(BottomPos) {
+            console.log('screen.height + "px"', window.innerHeight)
+            if ((window.innerHeight - BottomPos) < 290) {
+                console.log('true')
+                const bottom = window.innerHeight - 290
+                console.log('bottom', bottom)
+                return bottom
+            } else {
+                return BottomPos + 8
+            }
+        },
         setCardToCopy() {
             this.cardToCopy = JSON.parse(JSON.stringify(this.card))
             // this.cardToCopy.title += ' - copy'

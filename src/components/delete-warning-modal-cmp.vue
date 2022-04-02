@@ -1,35 +1,38 @@
 <template>
     <section
         v-clickOutside="close"
-        :style="{ top: pos.bottom + 8 + 'px', left: pos.left + 'px' }"
+        :style="{ top: setBottomPos(pos.bottom) + 'px', left: pos.left + 'px' }"
         class="label-modal"
     >
         <div class="main-title-container">
             <!-- <div class="icon-sm icon-back" type="button" @click="close"></div> -->
             <div class="icon-sm icon-close" @click="close"></div>
-            <span class="main-title">Delete {{title}}?</span>
+            <span class="main-title">Delete {{ title }}?</span>
         </div>
         <section class="delete-modal-main">
-            <span class="delete-txt">There is no undo. This will remove this {{title}} and destroy its history.</span> 
+            <span
+                class="delete-txt"
+            >There is no undo. This will remove this {{ title }} and destroy its history.</span>
             <button type="button" @click="confirmDelete" class="delete-btn">Delete</button>
-            </section>
         </section>
+    </section>
 </template>
 
 <script>
+
 export default {
     name: 'delete-modal',
     props: {
-        title:{
+        title: {
 
-        },  
+        },
         pos: {
             type: Object
         }
     },
     data() {
         return {
-            
+
         }
     },
     computed: {
@@ -37,10 +40,21 @@ export default {
     created() {
     },
     methods: {
+        setBottomPos(BottomPos) {
+            console.log('screen.height + "px"', window.innerHeight)
+            if ((window.innerHeight - BottomPos) < 175) {
+                console.log('true')
+                const bottom = window.innerHeight - 175
+                console.log('bottom', bottom)
+                return bottom
+            } else {
+                return BottomPos + 8
+            }
+        },
         close() {
             this.$emit('closeDeleteWarning');
         },
-        confirmDelete(){
+        confirmDelete() {
             this.$emit('deleteConfirmed')
         }
 
