@@ -173,6 +173,17 @@ export default {
     created() {
     },
     methods: {
+        setChecklistPreview(cardChecklists) {
+            var checklists = JSON.parse(JSON.stringify(cardChecklists))
+            var allTodosSum = 0
+            var completedTodos = []
+            checklists.forEach(checklist => allTodosSum += checklist.todos.length)
+            checklists.forEach(checklist => checklist.todos.forEach(todo => completedTodos.push(todo)))
+            completedTodos = completedTodos.filter(todo => todo.isComplete)
+            console.log('completedTodos', completedTodos)
+            console.log('completed length', completedTodos.length)
+            return completedTodos.length + '/' + allTodosSum
+        },
         openThisModal(modalName, ref) {
             if (this.isModalShown === true && modalName === this.currModal) this.isModalShown = false
             else {
