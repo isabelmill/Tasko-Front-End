@@ -44,10 +44,10 @@ export default {
         },
         goToDetails(board) {
             this.$emit("close");
-            const duplicateBoard = JSON.parse(JSON.stringify(board))
-            delete duplicateBoard._id
-            this.$emit('duplicateTemplate', duplicateBoard)
-            // this.$router.push(`/board/${board._id}`)
+            // const duplicateBoard = JSON.parse(JSON.stringify(board))
+            // delete duplicateBoard._id
+            // this.$emit('duplicateTemplate', duplicateBoard)
+            this.$router.push(`/board/${board._id}`)
         },
     },
     computed: {
