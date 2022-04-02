@@ -1,4 +1,5 @@
 import { boardService } from '../../services/board-service.js'
+import { userService } from '../../services/user-service.js'
 
 export default {
     state: {
@@ -7,20 +8,21 @@ export default {
         filterBy: {
             txt: '',
         },
+        loggedinUser: userService.getLoggedinUser(),
     },
     getters: {
         board(state) {
             return state.selectedBoard
         },
         boards(state) {
-            return state.boards
+            return state.boards.filter(board => board.members.some(member => member._id === state.loggedinUser._id))
         },
         starredBoards(state) {
-            return state.boards.filter(board => board.isStarred)
+            return state.boards.filter(board => board.isStarred && board.members.some(member => member._id === state.loggedinUser._id))
         },
         recentlyBoards(state) {
             const recentlyBoards = JSON.parse(JSON.stringify(state.boards))
-            let newBoards = recentlyBoards.filter(board => !board.isTemplate)
+            let newBoards = recentlyBoards.filter(board => !board.isTemplate && board.members.some(member => member._id === state.loggedinUser._id))
             return newBoards.sort((a, b) => b.lastTimeWatched - a.lastTimeWatched);
         },
         templates(state) {
@@ -35,6 +37,9 @@ export default {
         categoryEducation(state) {
             return state.boards.filter(board => board.category === 'education' && board.isTemplate)
         },
+        categoryLifestyle(state) {
+            return state.boards.filter(board => board.category === 'lifestyle' && board.isTemplate)
+        },
         allActivities(state) {
             var allActivities = []
             state.boards.forEach(board => board.activities.forEach(activity => allActivities.unshift(activity)))
@@ -48,10 +53,13 @@ export default {
                     regexTxt.test(board.title) && !board.isTemplate)
             }
         },
+        loggedinUserBoards(state) {
+            return state.boards.filter(board => board.createdBy._id === state.loggedinUser._id)
+        },
     },
     mutations: {
         setBoards(state, { boards }) {
-            state.boards = boards;
+            state.boards = boards
         },
         setBoard(state, { board }) {
             state.selectedBoard = board;
@@ -72,7 +80,7 @@ export default {
     actions: {
         async loadBoards({ commit, state }) {
             try {
-                const boards = await boardService.query(state.filterBy)
+                const boards = await boardService.query()
                 commit({ type: 'setBoards', boards });
             } catch (err) {
                 console.log('err');
