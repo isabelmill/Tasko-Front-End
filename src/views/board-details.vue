@@ -219,7 +219,6 @@ export default {
             this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
         },
         addTemplateBoard(board) {
-            // if (!board.title) return
             if (this.loggedinUser) {
                 board.createdBy = this.loggedinUser
                 board.members.push(this.loggedinUser)
