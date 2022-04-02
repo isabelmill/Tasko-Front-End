@@ -171,7 +171,7 @@
             />
             <button
                 type="button"
-                @click.stop.prevent="$refs.file.click()"
+                @click.stop.prevent="$refs['file'].click()"
                 class="create-btn"
             >Upload a cover image</button>
         </section>
@@ -183,6 +183,7 @@ import FastAverageColor from 'fast-average-color'
 import axios from "axios"
 import { uploadService } from "../services/upload-service.js"
 import { isDate } from 'moment'
+import { utilService } from '../services/util-service.js'
 export default {
     components: {
 
@@ -270,7 +271,8 @@ export default {
             this.isLoading = true
             const result = await uploadService.uploadFromSystem(event)
             this.isLoading = false
-            this.cardToEdit.attachments.push({
+            this.cardToEdit.attachments.unshift({
+                id : utilService.makeId(),
                 name: result.original_filename,
                 link: result.secure_url
             })

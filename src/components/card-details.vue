@@ -239,16 +239,22 @@
                                             <span class="icon-sm icon-link-arrow"></span>
                                         </div>
                                         <div class="attachment-area-body flex">
-                                            <p>When added... -</p>
-                                            <a>Comment</a>
+                                            <a
+                                                @click.stop.prevent="deleteAttachment(attachment.id)"
+                                            >Delete</a>
                                             <span>-</span>
-                                            <a>Delete</a>
-                                            <span>-</span>
-                                            <a>Edit</a>
+                                            <a @click.stop.prevent="editAttachName(attachment,$event)">Edit</a>
                                         </div>
                                         <div class="attachment-area-footer">
                                             <span class="icon-sm icon-cover"></span>
-                                            <p>Make cover</p>
+                                            <p
+                                                v-if="card.cover.value !== attachment.link"
+                                                @click.stop.prevent="makeAttachCover(attachment)"
+                                            >Make cover</p>
+                                            <p
+                                                v-if="card.cover.value === attachment.link"
+                                                @click.stop.prevent="removeCover"
+                                            >Remove cover</p>
                                         </div>
                                     </div>
                                 </div>
@@ -632,7 +638,13 @@
             :todoId="todoId"
             :pos="pos"
         ></todo-options>
-
+        <attach-edit-modal
+            v-if="edditingAttachName"
+            :pos="pos"
+            :linkName="currAttach.name"
+            @close="closeAttachModal"
+            @changeAttachmentName="changeAttachName"
+        ></attach-edit-modal>
         <delete-warning
             @closeDeleteWarning="closeWarning"
             @deleteConfirmed="deleteCard"
@@ -653,6 +665,7 @@ import deleteWarning from "./delete-warning-modal-cmp.vue";
 import FastAverageColor from 'fast-average-color';
 import copyModal from "./copy-modal-cmp.vue";
 import checklistModal from "./checklist-modal-cmp.vue";
+import attachEditModal from "./attach-edit-modal-cmp.vue";
 import { boardService } from "../services/board-service.js"
 import moment from 'moment';
 import todoOptions from "./todo-options-cmp.vue";
@@ -681,7 +694,8 @@ export default {
         copyModal,
         checklistModal,
         moment,
-        todoOptions
+        todoOptions,
+        attachEditModal
     },
     created() {
         this.description = this.card.description
@@ -708,6 +722,8 @@ export default {
             optionsOpen: false,
             checklistId: '',
             todoId: '',
+            edditingAttachName: false,
+            currAttach: {},
         }
     },
     computed: {
@@ -741,6 +757,39 @@ export default {
         }
     },
     methods: {
+        removeCover(){
+            this.cardToEdit = JSON.parse(JSON.stringify(this.card))
+            this.cardToEdit.cover = {}
+              this.$emit('cardModified', { card: this.cardToEdit, group: this.group })
+        },
+        makeAttachCover(attachment) {
+            this.cardToEdit = JSON.parse(JSON.stringify(this.card))
+            this.cardToEdit.cover.type = 'attachment'
+            this.cardToEdit.cover.value = attachment.link
+            this.cardToEdit.cover.size = 'small'
+            this.$emit('cardModified', { card: this.cardToEdit, group: this.group })
+        },
+        closeAttachModal() {
+            this.edditingAttachName = false
+        },
+        deleteAttachment(id) {
+            this.cardToEdit = JSON.parse(JSON.stringify(this.card))
+            const idx = this.cardToEdit.attachments.findIndex(attach => attach.id === id)
+            this.cardToEdit.attachments.splice(idx, 1)
+            this.$emit('cardModified', { card: this.cardToEdit, group: this.group })
+        },
+        editAttachName(attachment,ev) {
+            this.currAttach = JSON.parse(JSON.stringify(attachment))
+            this.edditingAttachName = true
+            this.pos = ev.target.getBoundingClientRect()
+        },
+        changeAttachName(attachName) {
+            this.cardToEdit = JSON.parse(JSON.stringify(this.card))
+            const idx = this.cardToEdit.attachments.findIndex(attach => attach.id === this.currAttach.id)
+            this.cardToEdit.attachments[idx].name = attachName
+            this.$emit('cardModified', { card: this.cardToEdit, group: this.group })
+            this.edditingAttachName = false
+        },
         setMemberLetters(fullname) {
             const firstLetters = fullname
                 .split(' ')
@@ -760,7 +809,7 @@ export default {
             else {
                 this.pos = event.target.getBoundingClientRect()
                 this.pos = JSON.parse(JSON.stringify(this.pos))
-                if(this.pos.top > 430) this.pos.top = 430;
+                if (this.pos.top > 430) this.pos.top = 430;
                 this.isModalShown = true
                 this.currModal = modalName
             }
@@ -774,7 +823,6 @@ export default {
         },
 
         editCard(card) {
-            console.log(card)
             this.$emit('cardModified', { card, group: this.group })
         },
         async attachmentBGC(el) {
@@ -872,7 +920,7 @@ export default {
         openTodo(checklist, todo) {
             this.currChecklist = JSON.parse(JSON.stringify(checklist))
             this.currOpenTodo = JSON.parse(JSON.stringify(todo))
-            
+
             this.closeAdder()
         },
         async checkboxTodo(checklist, todo) {
@@ -898,7 +946,7 @@ export default {
             this.closeAdder()
         },
         saveChecklistTitle() {
-            
+
             this.closeAdder()
             this.cardToEdit = JSON.parse(JSON.stringify(this.card))
             const checklistIdx = this.cardToEdit.checklists.findIndex(checklistToFind => checklistToFind.id === this.currChecklist.id)
@@ -910,7 +958,7 @@ export default {
         closeChecklist() {
             this.currChecklist = {}
             this.isChecklistOpen = false
-            
+
             this.closeAdder()
         },
         openChecklistInput(checklist) {
@@ -922,7 +970,7 @@ export default {
             this.cardToEdit = JSON.parse(JSON.stringify(this.card))
             const checklistIdx = this.cardToEdit.checklists.findIndex(checklistToFind => checklistToFind.id === this.currChecklist.id)
             const todoIdx = this.cardToEdit.checklists[checklistIdx].todos.findIndex(todoToFind => todoToFind.id === this.currOpenTodo.id)
-            console.log(checklistIdx,todoIdx)
+            console.log(checklistIdx, todoIdx)
             this.cardToEdit.checklists[checklistIdx].todos[todoIdx] = this.currOpenTodo
             this.$emit('cardModified', { card: this.cardToEdit, group: this.group })
             this.currChecklist = {}
@@ -942,7 +990,7 @@ export default {
             this.cardToEdit.checklists[checklistIdx].todos.push(this.currOpenTodo)
             this.$emit('cardModified', { card: this.cardToEdit, group: this.group })
             this.currOpenTodo = boardService.getEmptyTodo()
-            
+
         },
         closeAdder() {
             this.addingNewTodo = false
