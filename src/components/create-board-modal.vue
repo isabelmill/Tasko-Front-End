@@ -1,8 +1,6 @@
 <template>
     <div class="create-board-modal">
-        
         <form>
-            
             <div class="create-board-modal-header">
                 <div class="header-text-create-boards-modal">
                     <h1>Create board</h1>
@@ -15,7 +13,7 @@
             <div class="create-board-background-preview">
                 <div
                     class="create-board-img-preview"
-                    :style="setColor ? { backgroundColor: setColor } : { 'background-image': `url(${setPhoto})` , 'background-size': 'contain' }"
+                    :style="setColor ? { backgroundColor: setColor } : { 'background-image': `url(${setPhoto})`, 'background-size': 'cover', 'background-repeat': 'no-repeat' }"
                 >
                     <img
                         src="https://a.trellocdn.com/prgb/dist/images/board-preview-skeleton.14cda5dc635d1f13bc48.svg"
@@ -29,7 +27,7 @@
                     <div
                         @click="setBoardPhoto(photo.urls)"
                         class="photo-pref"
-                        :style="setPhoto === photo.urls.thumb ? { 'background-image': `linear-gradient(rgba(0, 0, 0, 0.527),rgba(0, 0, 0, 0.5)) , url(${photo.urls.thumb})`,'background-size': 'cover' } : { 'background-image': `url(${photo.urls.thumb})`,'background-size': 'cover' }"
+                        :style="setPhoto === photo.urls.thumb ? { 'background-image': `linear-gradient(rgba(0, 0, 0, 0.527),rgba(0, 0, 0, 0.5)) , url(${photo.urls.thumb})`, 'background-size': 'cover' } : { 'background-image': `url(${photo.urls.thumb})`, 'background-size': 'cover' }"
                         alt
                     >
                         <span
@@ -56,7 +54,7 @@
                 <div @click="setBoardColor('#89609E')" class="purple color-pref">
                     <span v-if="setColor === '#89609E'" class="checked"></span>
                 </div>
-                <div class="more color-pref">
+                <div @click="openUnsplash" class="more color-pref">
                     <svg
                         width="16"
                         height="16"
@@ -74,6 +72,10 @@
                     </svg>
                 </div>
             </div>
+            <unsplash-modal v-if="unsplashOpen" @close="closeUnsplash" v-clickOutside="closeUnsplash"
+             :style="{ 'left': '1040' + 'px', 'bottom': '0' }"
+             @changeBgc="setBoardPhoto"
+            ></unsplash-modal>
             <label for>Board title</label>
             <div class="create-board-title-add-btns">
                 <input v-focus type="text" v-model="newBoard.title" />
@@ -83,16 +85,16 @@
                         'background-color': '#F5F6F8',
                         'color': '#BFC4CE',
                     } : null"
-                    @click="saveNewBoard"
+                    @click.stop.prevent="saveNewBoard"
                 >Create</button>
             </div>
         </form>
     </div>
-
 </template>      
 
 <script>
 import { uploadImg } from '../services/unsplash-service.js';
+import unsplashModal from './unsplash-modal.vue';
 export default {
 
     name: 'board-app',
@@ -105,6 +107,7 @@ export default {
     data() {
         return {
             isEdit: false,
+            unsplashOpen: false,
             setColor: '#0079BF',
             setPhoto: '',
             photos: null,
@@ -147,14 +150,15 @@ export default {
             this.newBoard.backgroundPhoto = photo.full
             this.newBoard.backgroundThumb = photo.thumb
         },
-        // openUnsplash() {
-        //     this.showUnsplash = true
-        // },
-        // closeUnsplash() {
-        //     this.showUnsplash = false
-        // }
+        openUnsplash() {
+            this.unsplashOpen = true
+        },
+        closeUnsplash() {
+            this.unsplashOpen = false
+        }
     },
     components: {
+        unsplashModal,
     },
 }
 </script>
