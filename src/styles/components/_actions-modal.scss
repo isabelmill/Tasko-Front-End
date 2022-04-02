@@ -552,8 +552,17 @@
         background-color: #0079bf;
         margin-bottom: 0;
     }
+    .date-modal-btn {
+        color: #FFF;
+        &:hover {
+            background-color: #026aa7;
+        }
+    }
     .delete-date {
         background-color: #edeef1;
+        &:hover {
+            background-color: #091e4214;
+        }
     }
 }
 

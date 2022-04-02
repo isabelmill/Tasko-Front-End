@@ -47,11 +47,15 @@
 
 //card-preview
 .card-preview {
+    // display: flex;
+    max-width: rem(256px);
+    // width: rem(256px);
     background-color: #fff;
     border-radius: 3px;
     box-shadow: 0 1px 0 #091e4240;
     cursor: pointer;
     display: block;
+    // display: flex;
     margin-bottom: 8px;
     max-width: 300px;
     min-height: 20px;
@@ -64,6 +68,7 @@
         cursor: pointer;
     }
     .card-title {
+        max-width: rem(234px);
         font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
         font-size: 14px;
         margin: 4px 0 0 0;
@@ -100,7 +105,6 @@
     .card-bar {
         display: flex;
         width: 100%;
-        height: 28px;
         align-items: center;
         flex-wrap: wrap;
         gap: 6px;
@@ -121,6 +125,7 @@
             justify-content: center;
             align-items: center;
             gap: 2px;
+            height: 28px;
             .date-txt {
                 font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
                 font-size: 12px;
@@ -135,6 +140,7 @@
             justify-content: center;
             flex-direction: row;
             gap: 4px;
+            height: 28px;
             .attachments-length {
                 color: #5e6c84;
                 display: inline-block;
@@ -155,6 +161,7 @@
             justify-content: center;
             flex-direction: row;
             gap: 4px;
+            height: 28px;
             .nums {
                 font-size: 12px;
                 vertical-align: top;
@@ -173,6 +180,7 @@
             justify-content: center;
             flex-direction: row;
             gap: 4px;
+            height: 28px;
             .length {
                 font-size: 12px;
                 vertical-align: top;
@@ -208,6 +216,7 @@
     min-height: 56px;
     border-radius: 3px;
     .card-title {
+        max-width: rem(236px);
         border-radius: 0 0 3px 3px;
         align-self: flex-end;
         padding: 6px 8px 2px;
@@ -236,6 +245,7 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
+    // padding-right: 8px;
     margin: 0;
     border-radius: 3px;
     width: 100%;
@@ -243,6 +253,9 @@
         width: 100%;
     }
     .card-title {
+        padding-right: 8px;
+        word-wrap: break-word;
+        max-width: rem(256px);
         border-radius: 0 0 3px 3px;
         align-self: flex-end;
         padding: 4px 8px 2px;
@@ -252,7 +265,9 @@
         width: 100%;
         padding-bottom: 24px;
         margin: 0 !important;
+        height: fit-content;
         span {
+            height: fit-content;
             font-size: 16px;
             position: absolute;
             font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
@@ -411,76 +426,80 @@
 }
 
 ///add card
+.add-new-card-input {
+    font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
+    width: 100%;
+    // max-width: rem(256px);
+    .txt-box {
+        font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 6px 8px 2px;
+        // margin: 0 0 0 4px;
+        background-color: #fff;
+        box-shadow: 0 1px 0 #091e4240;
+        border-radius: 3px;
+    }
+    textarea {
+        font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
+        border-radius: 3px;
+        overflow: hidden;
+        overflow-wrap: break-word;
+        display: flex;
+        align-items: flex-start;
+        height: rem(75px);
+        width: 100%;
+        border: none;
+        color: $memberBlue;
+        margin: 0 0 4px;
+        &:focus {
+            outline: none !important;
+        }
+    }
+}
+
 .add-card-cmp {
     font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
-    // width: 100%;
+    width: 272px;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-
+    // padding-right: 8px;
     .btn-add-card-out {
         font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
         cursor: pointer;
         background-color: #e3e4e6;
         display: flex;
-        gap: 5px;
+        // gap: 5px;
         border-radius: 3px;
         color: #5e6c84;
         border: none;
-        margin: 0 0 8px 0;
+        margin: 0px 8px 8px 8px;
         padding: 4px 8px;
-        width: rem(260px);
+        // width: 100%;
+        width: rem(256px);
         font-family: Roboto-regular;
         cursor: pointer;
         &:hover {
             background-color: #091e4214;
         }
     }
-    .add-new-card-input {
-        font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
-        width: rem(260px);
-        .txt-box {
-            font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
+    .btn-card-add {
+        display: flex;
+        // left: 0;
+        gap: 4px;
+        margin: 8px;
+        .btn-add-card-in {
+            @include btnAddCard();
+        }
+        span {
+            cursor: pointer;
+            height: 32px;
+            width: 32px;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 6px 8px 2px;
-            // margin: 0 0 0 4px;
-            background-color: #fff;
-            box-shadow: 0 1px 0 #091e4240;
-            border-radius: 3px;
-        }
-        textarea {
-            font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
-            border-radius: 3px;
-            overflow: hidden;
-            overflow-wrap: break-word;
-            display: flex;
-            align-items: flex-start;
-            height: rem(75px);
-            width: 100%;
-            border: none;
-            color: $memberBlue;
-            margin: 0 0 4px;
-            &:focus {
-                outline: none !important;
-            }
-        }
-        .btn-card-add {
-            display: flex;
-            gap: 4px;
-            margin: 8px 8px 8px 0;
-            .btn-add-card-in {
-                @include btnAddCard();
-            }
-            span {
-                cursor: pointer;
-                height: 32px;
-                width: 32px;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-            }
         }
     }
 }
@@ -572,7 +591,6 @@
         background-position: 50%;
         background-size: cover;
         background-repeat: no-repeat;
-
         img {
             width: 100%;
         }
@@ -584,7 +602,6 @@
         .modal-card-main {
             font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
             margin-bottom: 12px;
-
             textarea {
                 padding: 4px 0 0 6px;
                 overflow: hidden;
@@ -602,29 +619,27 @@
                     outline: none !important;
                 }
             }
-
             .card-bar {
                 display: flex;
                 width: 100%;
-                height: 28px;
                 align-items: center;
                 flex-wrap: wrap;
                 gap: 6px;
                 float: left;
                 margin: 6px;
                 padding-right: 6px;
-
                 .card-bar-members {
                     margin-left: auto;
                     margin-right: 6px;
+                    // height: 28px;
                 }
-
                 .date {
                     font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
                     border-radius: 3px;
                     display: inline-block;
                     max-width: 100%;
                     min-height: 20px;
+                    height: 28px;
                     overflow: hidden;
                     padding: 4px;
                     display: flex;
@@ -645,6 +660,7 @@
                     justify-content: center;
                     flex-direction: row;
                     gap: 4px;
+                    height: 28px;
                     .attachments-length {
                         color: #5e6c84;
                         display: inline-block;
@@ -665,6 +681,7 @@
                     justify-content: center;
                     flex-direction: row;
                     gap: 4px;
+                    height: 28px;
                     .nums {
                         font-size: 12px;
                         vertical-align: top;
@@ -683,6 +700,7 @@
                     justify-content: center;
                     flex-direction: row;
                     gap: 4px;
+                    height: 28px;
                     .length {
                         font-size: 12px;
                         vertical-align: top;

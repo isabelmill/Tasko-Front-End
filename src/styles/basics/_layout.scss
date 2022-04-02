@@ -8,25 +8,26 @@
     height: calc(100vh - 88px);
     width: 100%;
     overflow-y: hidden;
-   
     .group-list-main {
         display: flex;
         gap: 8px;
         white-space: nowrap;
         margin: 0 0 0 8px;
         height: calc(100vh - 100px);
-
         // group-preview
         .group-preview-main {
             font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
             border-radius: 3px;
             box-sizing: border-box;
-            display: inline-block;
-            height: 100%;
+            display: flex;
+            // flex-direction: column;
+            height: fit-content;
+            max-height: 100%;
             width: rem(272px);
             vertical-align: top;
             white-space: nowrap;
             margin-bottom: 8px;
+            // margin-right: 8px;
             .group-preview {
                 background-color: #ebecf0;
                 border-radius: 3px;
@@ -38,7 +39,6 @@
                 white-space: normal;
                 width: 100%;
                 // z-index: 10;
-
                 //scrollbar
                 .scroller-group {
                     margin: 0 4px 0 4px;
@@ -50,17 +50,14 @@
                     // z-index: 1;
                     max-height: calc(100vh - 163px);
                 }
-
                 .scroller-group::-webkit-scrollbar {
                     width: 8px;
                     height: 8px;
                 }
-
                 .scroller-group::-webkit-scrollbar-track {
                     border-radius: 10px;
                     background: #dadbe2;
                 }
-
                 .scroller-group::-webkit-scrollbar-thumb {
                     border-radius: 10px;
                     background: #bfc4ce;
@@ -75,35 +72,36 @@
     overflow-x: auto;
     overflow-y: hidden;
 }
+
 .scroll-groups::-webkit-scrollbar {
     height: 12px;
     width: 12px;
 }
+
 .scroll-groups::-webkit-scrollbar-track {
     border-radius: 4px;
     background: #00000026;
 }
+
 .scroll-groups::-webkit-scrollbar-thumb {
     border-radius: 4px;
     background-color: #adb6b831;
 }
+
 .scroll-groups::-webkit-scrollbar-button {
     width: 24px;
 }
 
-.smooth-dnd-container.horizontal > .smooth-dnd-draggable-wrapper {
-}
+.smooth-dnd-container.horizontal>.smooth-dnd-draggable-wrapper {}
 
 .smooth-dnd-container {
     min-height: 8px;
     gap: 8px;
 }
 
-.smooth-dnd-container.horizontal {
-}
+.smooth-dnd-container.horizontal {}
 
-.smooth-dnd-container.horizontal {
-}
+.smooth-dnd-container.horizontal {}
 
 .tilt {
     transform: rotate(4deg);

@@ -1,7 +1,7 @@
 <template>
     <section
         v-clickOutside="close"
-        :style="{ top: pos.bottom+8 + 'px', left: pos.left + 'px' }"
+        :style="{ top: setBottomPos(pos.bottom) + 'px', left: pos.left + 'px' }"
         class="label-modal"
     >
         <div class="main-title-container">
@@ -13,7 +13,7 @@
                 <datepicker v-model="date" inline autoApply typeabble />
                 <!-- <datepicker v-show="isStartDate" v-model="startDate" inline autoApply typeabble /> -->
                 <!-- <button type="button" @click.stop.prevent="startDateInit" class="create-btn">init</button> -->
-                <button type="button" @click.stop.prevent="saveDate" class="create-btn">Save</button>
+                <button type="button" @click.stop.prevent="saveDate" class="create-btn date-modal-btn">Save</button>
                 <button
                     type="button"
                     @click.stop.prevent="remove"
@@ -69,6 +69,17 @@ export default {
         // console.log(this.pos)
     },
     methods: {
+        setBottomPos(BottomPos) {
+            console.log('screen.height + "px"', window.innerHeight)
+            if ((window.innerHeight - BottomPos) < 480) {
+                console.log('true')
+                const bottom = window.innerHeight - 480
+                console.log('bottom', bottom)
+                return bottom
+            } else {
+                return BottomPos + 8
+            }
+        },
         close() {
             this.$emit('actionsClose')
         },
