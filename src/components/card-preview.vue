@@ -81,6 +81,16 @@
                     <div v-if="card.description" class="description">
                         <span class="icon-sm icon-description"></span>
                     </div>
+                    <!-- ///////////////////////////////////////////////////////////////////////////////////////////////// -->
+                    <div v-if="card.comments.length" class="comments">
+                        <span class="icon-sm icon-comments-pre"></span>
+                        <span class="length">{{ card.comments.length }}</span>
+                    </div>
+                    <!-- ///////////////////////////////////////////////////////////////////////////////////////////////// -->
+                    <div v-if="card.checklists.length" class="checklists">
+                        <span class="icon-sm icon-checklists-pre"></span>
+                        <span class="nums">{{ setChecklistPreview(card.checklists) }}</span>
+                    </div>
                     <div class="card-bar-members">
                         <div v-if="card.members.length && board.members.length" class="members">
                             <div
@@ -158,6 +168,16 @@
                                 <div v-if="card.description" class="description">
                                     <span class="icon-sm icon-description"></span>
                                 </div>
+                                <div v-if="card.comments.length" class="comments">
+                                    <span class="icon-sm icon-comments-pre"></span>
+                                    <span class="length">{{ card.comments.length }}</span>
+                                </div>
+                                <!-- ///////////////////////////////////////////////////////////////////////////////////////////////// -->
+                                <div v-if="card.checklists.length" class="checklists">
+                                    <span class="icon-sm icon-checklists-pre"></span>
+                                    <span class="nums">{{ setChecklistPreview(card.checklists) }}</span>
+                                </div>
+                                <!-- ///////////////////////////////////////////////////////////////////////////////////////////////// -->
                                 <div class="card-bar-members">
                                     <div
                                         v-if="card.members.length && board.members.length"
@@ -428,7 +448,18 @@ export default {
             if (colorCode === '#51E898') return '#4bbf6b'
             if (colorCode === '#FF78CB') return '#c9558f'
             if (colorCode === '#344563') return '#091e42'
-        }
+        },
+        setChecklistPreview(cardChecklists) {
+            var checklists = JSON.parse(JSON.stringify(cardChecklists))
+            var allTodosSum = 0
+            var completedTodos = []
+            checklists.forEach(checklist => allTodosSum += checklist.todos.length)
+            checklists.forEach(checklist => checklist.todos.forEach(todo => completedTodos.push(todo)))
+            completedTodos = completedTodos.filter(todo => todo.isComplete)
+            console.log('completedTodos', completedTodos)
+            console.log('completed length', completedTodos.length)
+            return completedTodos.length + '/' + allTodosSum
+        },
     },
     computed: {
         openLabels() {

@@ -148,6 +148,38 @@
                 color: #5e6c84;
             }
         }
+        .checklists {
+            margin: 0 3px 0 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: row;
+            gap: 4px;
+            .nums {
+                font-size: 12px;
+                vertical-align: top;
+                white-space: nowrap;
+                color: #5e6c84;
+            }
+            .icon-checklists-pre {
+                @include to-icon("\e91a");
+                color: #5e6c84;
+            }
+        }
+        .comments {
+            margin: 0 3px 0 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: row;
+            gap: 4px;
+            .length {
+                font-size: 12px;
+                vertical-align: top;
+                white-space: nowrap;
+                color: #5e6c84;
+            }
+        }
     }
 }
 
@@ -580,6 +612,7 @@
                 gap: 6px;
                 float: left;
                 margin: 6px;
+                padding-right: 6px;
 
                 .card-bar-members {
                     margin-left: auto;
@@ -622,6 +655,38 @@
                     }
                     .icon-attachment-pre {
                         @include to-icon("\e908");
+                        color: #5e6c84;
+                    }
+                }
+                .checklists {
+                    margin: 0 3px 0 3px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    flex-direction: row;
+                    gap: 4px;
+                    .nums {
+                        font-size: 12px;
+                        vertical-align: top;
+                        white-space: nowrap;
+                        color: #5e6c84;
+                    }
+                    .icon-checklists-pre {
+                        @include to-icon("\e91a");
+                        color: #5e6c84;
+                    }
+                }
+                .comments {
+                    margin: 0 3px 0 3px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    flex-direction: row;
+                    gap: 4px;
+                    .length {
+                        font-size: 12px;
+                        vertical-align: top;
+                        white-space: nowrap;
                         color: #5e6c84;
                     }
                 }
@@ -754,4 +819,10 @@
 
 .icon-description {
     @include to-icon("\e922");
+    color: #5e6c84;
+}
+
+.icon-comments-pre {
+    @include to-icon("\e91e");
+    color: #5e6c84;
 }
