@@ -29,7 +29,7 @@
                         </div>
                     </div>
 
-                    <button class="icon-sm icon-edit" @click.stop.prevent="openEditLabel(label)"></button>
+                    <button class="icon-sm icon-edited" @click.stop.prevent="openEditLabel(label)"></button>
                 </section>
 
                 <button

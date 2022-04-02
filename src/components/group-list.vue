@@ -43,7 +43,7 @@
                                     @boardUpdated="modifyBoard"
                                     @deleteCard="cardDelete"
                                     @editCard="modCard"
-                                    @openCard="openCardModal"
+                                    @openCard="openCardModalFromPreview"
                                     @openAllLabels="onOpenAllLabels"
                                     :group="group"
                                     :card="card"
@@ -437,6 +437,12 @@ export default {
             this.modalOpen = false;
             this.isModalShown = false
             this.$emit('openCardDetails', { card: this.cardToDisplay, group: this.groupToEdit })
+        },
+         openCardModalFromPreview({card,group}) {
+            this.isQuickEditOpen = false
+            this.modalOpen = false;
+            this.isModalShown = false
+            this.$emit('openCardDetails', { card, group })
         },
         onOpenAllLabels(isLabelClicked) {
             this.isLabelOpen = isLabelClicked
