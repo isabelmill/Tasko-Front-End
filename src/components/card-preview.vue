@@ -81,11 +81,11 @@
                     <div v-if="card.description" class="description">
                         <span class="icon-sm icon-description"></span>
                     </div>
-                     <div v-if="card.comments.length" class="comments">
+                    <div v-if="card.comments.length" class="comments">
                         <span class="icon-sm icon-comments-pre"></span>
                         <span class="length">{{ card.comments.length }}</span>
                     </div>
-                     <div v-if="card.checklists.length" class="checklists">
+                    <div v-if="card.checklists.length" class="checklists">
                         <span class="icon-sm icon-checklists-pre"></span>
                         <span class="nums">{{ setChecklistPreview(card.checklists) }}</span>
                     </div>
@@ -101,10 +101,8 @@
                 </div>
             </section>
         </section>
-        
     </section>
 </template>
-
 <script>
 import { boardService } from "../services/board-service.js";
 import { Container, Draggable } from "vue3-smooth-dnd";
@@ -118,7 +116,6 @@ import copyModal from "./copy-modal-cmp.vue";
 import moment from 'moment'
 // import { json } from "stream/consumers";
 // import { throws } from "assert";
-
 export default {
     name: 'card-preview',
     props: {
@@ -217,7 +214,7 @@ export default {
         openMiniEdit() {
             this.pos = this.$refs['card-modal'].getBoundingClientRect()
             this.cardToDisplay = JSON.parse(JSON.stringify(this.card))
-            this.$emit('toggleQuickEdit', {card:this.cardToDisplay, group:this.group ,pos:this.pos})
+            this.$emit('toggleQuickEdit', { card: this.cardToDisplay, group: this.group, pos: this.pos })
         },
         openDetails() {
             this.modalOpen = false;
@@ -233,7 +230,6 @@ export default {
             this.modalOpen = false
             this.isModalShown = false
             this.$emit('toggleQuickEdit')
-
         },
         deleteWarn() {
             this.posOfEditor = this.$refs['deleteBtn'].getBoundingClientRect()
@@ -306,8 +302,20 @@ export default {
         updateDateStyle() {
             return { dateUncompleted: !this.cardToDisplay.isComplete, dateCompleted: this.cardToDisplay.isComplete, datePast: this.timeCalc > 0 };
         },
-
     },
     emits: ['copyCardToGroup', 'openCard', 'editCard', 'openAllLabels', 'deleteCard', 'boardUpdated', 'toggleQuickEdit'],
 }
 </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
