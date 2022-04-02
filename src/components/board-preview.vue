@@ -28,13 +28,13 @@ export default {
     },
     methods: {
         goToDetails() {
-            if (this.board.isTemplate) {
-                const duplicateBoard = JSON.parse(JSON.stringify(this.board))
-                delete duplicateBoard._id
-                this.$emit('duplicateTemplate', duplicateBoard)
-                // this.$router.push(`/board`)
-                return
-            }
+            // if (this.board.isTemplate) {
+            //     const duplicateBoard = JSON.parse(JSON.stringify(this.board))
+            //     delete duplicateBoard._id
+            //     this.$emit('duplicateTemplate', duplicateBoard)
+            //     // this.$router.push(`/board`)
+            //     return
+            // }
             this.$router.push(`/board/${this.board._id}`)
             this.$emit('viewedBoard', this.board)
         },

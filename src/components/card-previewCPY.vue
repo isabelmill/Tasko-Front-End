@@ -81,10 +81,12 @@
                     <div v-if="card.description" class="description">
                         <span class="icon-sm icon-description"></span>
                     </div>
+                    <!-- ///////////////////////////////////////////////////////////////////////////////////////////////// -->
                     <div v-if="card.comments.length" class="comments">
                         <span class="icon-sm icon-comments-pre"></span>
                         <span class="length">{{ card.comments.length }}</span>
                     </div>
+                    <!-- ///////////////////////////////////////////////////////////////////////////////////////////////// -->
                     <div v-if="card.checklists.length" class="checklists">
                         <span class="icon-sm icon-checklists-pre"></span>
                         <span class="nums">{{ setChecklistPreview(card.checklists) }}</span>
@@ -101,8 +103,176 @@
                 </div>
             </section>
         </section>
+        <section
+            @click.stop.prevent="closeModal"
+            class="mini-edit-modal-main flex"
+            v-if="modalOpen"
+        >
+            <span class="icon-xl icon-close-in-pencil-modal" @click.stop.prevent="closeModal"></span>
+            <section
+                @click.prevent.stop
+                class="mini-edit-modal-second"
+                style="position:fixed;"
+                :style="{ top: pos.top + 'px', left: pos.left + 'px' }"
+            >
+                <section class="modal-edit" @click.prevent.stop>
+                    <div class="modal-card" @click.prevent.stop>
+                        <div
+                            v-if="cardToDisplay.cover.type === 'color'"
+                            class="mini-edit-cover-color"
+                            :style="{ backgroundColor: cardToDisplay.cover.value }"
+                        ></div>
+                        <div
+                            v-if="cardToDisplay.cover.type === 'attachment'"
+                            class="mini-edit-cover-attach"
+                            :style="{ backgroundImage: 'url(' + cardToDisplay.cover.value + ')' }"
+                        >
+                            <img :src="cardToDisplay.cover.value" style="visibility:hidden" />
+                        </div>
+                        <div class="modal-card-main">
+                            <div
+                                v-if="cardToDisplay.labels.length && cardToDisplay.labels.length"
+                                class="labels"
+                            >
+                                <div
+                                    class="label"
+                                    v-for="label in cardToDisplay.labels"
+                                    :key="label"
+                                    :style="{ 'backgroundColor': board.labels[board.labels.findIndex(labelToFind => labelToFind.id === label)].color }"
+                                >{{ board.labels[board.labels.findIndex(labelToFind => labelToFind.id === label)].title }}</div>
+                            </div>
+                            <div>
+                                <textarea
+                                    @click.stop.prevent="focus()"
+                                    name="mini-edit-ta"
+                                    style="resize:none"
+                                    v-model="cardToDisplay.title"
+                                ></textarea>
+                            </div>
+                            <div class="card-bar">
+                                <div class="card-bar-icon">
+                                    <div
+                                        v-if="card.date"
+                                        class="date"
+                                        @click.stop.prevent="onDateClicked"
+                                        :class="updateDateStyle"
+                                    >
+                                        <span class="icon-sm icon-clock-in-date"></span>
+                                        <span class="date-txt">{{ setDateFormat }}</span>
+                                    </div>
+                                </div>
+                                <div v-if="card.attachments.length" class="attachments">
+                                    <span class="icon-sm icon-attachment-pre"></span>
+                                    <span class="attachments-length">{{ card.attachments.length }}</span>
+                                </div>
+                                <div v-if="card.description" class="description">
+                                    <span class="icon-sm icon-description"></span>
+                                </div>
+                                <div v-if="card.comments.length" class="comments">
+                                    <span class="icon-sm icon-comments-pre"></span>
+                                    <span class="length">{{ card.comments.length }}</span>
+                                </div>
+                                <!-- ///////////////////////////////////////////////////////////////////////////////////////////////// -->
+                                <div v-if="card.checklists.length" class="checklists">
+                                    <span class="icon-sm icon-checklists-pre"></span>
+                                    <span class="nums">{{ setChecklistPreview(card.checklists) }}</span>
+                                </div>
+                                <!-- ///////////////////////////////////////////////////////////////////////////////////////////////// -->
+                                <div class="card-bar-members">
+                                    <div
+                                        v-if="card.members.length && board.members.length"
+                                        class="members"
+                                    >
+                                        <div
+                                            class="member"
+                                            v-for="member in card.members"
+                                            :key="member._id"
+                                        >{{ setMemberLetters(member.fullname) }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <button class="mini-edit-save" @click.stop.prevent="saveCard">Save</button>
+                    </div>
+                </section>
+                <section class="modal-actions-btns" @click.prevent.stop>
+                    <button @click.stop.prevent="openDetails">
+                        <span class="icon-sm icon-card-pen"></span>
+                        <p>Open card</p>
+                    </button>
+                    <button
+                        type="button"
+                        ref="labelBtn"
+                        @click.stop.prevent="openThisModal('labelModal', 'labelBtn')"
+                    >
+                        <span class="icon-sm icon-label-pen"></span>
+                        <p>Edit labels</p>
+                    </button>
+                    <button
+                        type="button"
+                        ref="membersBtn"
+                        @click.stop.prevent="openThisModal('membersModal', 'membersBtn')"
+                    >
+                        <span class="icon-sm icon-member-pen"></span>
+                        <p>Change members</p>
+                    </button>
+                    <button
+                        type="button"
+                        ref="coverBtn"
+                        @click.stop.prevent="openThisModal('coverModal', 'coverBtn')"
+                    >
+                        <span class="icon-sm icon-card-cover-pen"></span>
+                        <p>Change cover</p>
+                    </button>
+                    <button
+                        type="button"
+                        ref="copyBtn"
+                        @click.stop.prevent="openThisModal('copyModal', 'copyBtn')"
+                    >
+                        <span class="icon-sm icon-card-copy-pen"></span>
+                        <p>Copy</p>
+                    </button>
+                    <button
+                        ref="datesBtn"
+                        @click.stop.prevent="openThisModal('datesModal', 'datesBtn')"
+                    >
+                        <span class="icon-sm icon-clock-pen"></span>
+                        <p>Edit dates</p>
+                    </button>
+                    <button ref="deleteBtn" @click.stop.prevent="deleteWarn">
+                        <span class="icon-sm icon-delete-pen"></span>
+                        <p>Delete</p>
+                    </button>
+                </section>
+            </section>
+            <delete-warning
+                @click.prevent.stop
+                @closeDeleteWarning="closeWarning"
+                @deleteConfirmed="deleteCard"
+                v-if="warningOpen"
+                :title="warningTitle"
+                :pos="posOfEditor"
+            ></delete-warning>
+            <section v-if="isModalShown">
+                <component
+                    @click.prevent.stop
+                    @cardCopySave="CopyNewCard"
+                    @boardEdit="editBoard"
+                    @cardEdit="showEditedCard"
+                    @actionsClose="closeMenu"
+                    :board="board"
+                    :card="cardToDisplay"
+                    :group="group"
+                    :pos="posOfEditor"
+                    :is="currModal"
+                ></component>
+            </section>
+        </section>
     </section>
 </template>
+
 <script>
 import { boardService } from "../services/board-service.js";
 import { Container, Draggable } from "vue3-smooth-dnd";
@@ -116,6 +286,7 @@ import copyModal from "./copy-modal-cmp.vue";
 import moment from 'moment'
 // import { json } from "stream/consumers";
 // import { throws } from "assert";
+
 export default {
     name: 'card-preview',
     props: {
@@ -170,17 +341,6 @@ export default {
     created() {
     },
     methods: {
-        setChecklistPreview(cardChecklists) {
-            var checklists = JSON.parse(JSON.stringify(cardChecklists))
-            var allTodosSum = 0
-            var completedTodos = []
-            checklists.forEach(checklist => allTodosSum += checklist.todos.length)
-            checklists.forEach(checklist => checklist.todos.forEach(todo => completedTodos.push(todo)))
-            completedTodos = completedTodos.filter(todo => todo.isComplete)
-            console.log('completedTodos', completedTodos)
-            console.log('completed length', completedTodos.length)
-            return completedTodos.length + '/' + allTodosSum
-        },
         openThisModal(modalName, ref) {
             if (this.isModalShown === true && modalName === this.currModal) this.isModalShown = false
             else {
@@ -212,9 +372,10 @@ export default {
             this.pos = this.$refs['card-modal'].getBoundingClientRect()
         },
         openMiniEdit() {
-            this.pos = this.$refs['card-modal'].getBoundingClientRect()
+            this.calcPosOfModal()
             this.cardToDisplay = JSON.parse(JSON.stringify(this.card))
-            this.$emit('toggleQuickEdit', { card: this.cardToDisplay, group: this.group, pos: this.pos })
+            this.modalOpen = true;
+            this.$emit('toggleQuickEdit')
         },
         openDetails() {
             this.modalOpen = false;
@@ -230,6 +391,7 @@ export default {
             this.modalOpen = false
             this.isModalShown = false
             this.$emit('toggleQuickEdit')
+
         },
         deleteWarn() {
             this.posOfEditor = this.$refs['deleteBtn'].getBoundingClientRect()
@@ -286,7 +448,18 @@ export default {
             if (colorCode === '#51E898') return '#4bbf6b'
             if (colorCode === '#FF78CB') return '#c9558f'
             if (colorCode === '#344563') return '#091e42'
-        }
+        },
+        setChecklistPreview(cardChecklists) {
+            var checklists = JSON.parse(JSON.stringify(cardChecklists))
+            var allTodosSum = 0
+            var completedTodos = []
+            checklists.forEach(checklist => allTodosSum += checklist.todos.length)
+            checklists.forEach(checklist => checklist.todos.forEach(todo => completedTodos.push(todo)))
+            completedTodos = completedTodos.filter(todo => todo.isComplete)
+            console.log('completedTodos', completedTodos)
+            console.log('completed length', completedTodos.length)
+            return completedTodos.length + '/' + allTodosSum
+        },
     },
     computed: {
         openLabels() {
@@ -302,20 +475,8 @@ export default {
         updateDateStyle() {
             return { dateUncompleted: !this.cardToDisplay.isComplete, dateCompleted: this.cardToDisplay.isComplete, datePast: this.timeCalc > 0 };
         },
+
     },
     emits: ['copyCardToGroup', 'openCard', 'editCard', 'openAllLabels', 'deleteCard', 'boardUpdated', 'toggleQuickEdit'],
 }
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-

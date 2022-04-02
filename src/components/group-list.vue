@@ -1,87 +1,265 @@
 <!-- card preview inside group list -->
 <template >
-    <Container
-        class="group-list-main scroll-groups"
-        orientation="horizontal"
-        @drop="onGroupDrop($event)"
-        drag-handle-selector=".group-preview-main"
-    >
-        <!-- group -->
-        <Draggable
-            v-for="group in board.groups"
-            :key="group"
-            class="group-preview-main cursor-pointer"
-            drag-class="tilt"
+    <section>
+        <Container
+            class="group-list-main scroll-groups"
+            orientation="horizontal"
+            @drop="onGroupDrop($event)"
+            drag-handle-selector=".group-preview-main"
         >
-            <div class="group-preview">
-                <div>
-                    <!-- title -->
-                    <toggle-input-cmp
-                        class="title"
-                        @groupDelete="deleteGroup"
-                        @titleChange="changeTitle"
-                        :title="group.title"
-                        :id="group.id"
-                    ></toggle-input-cmp>
-                    <!-- card-list -->
+            <!-- group -->
+            <Draggable
+                v-for="group in board.groups"
+                :key="group"
+                class="group-preview-main cursor-pointer"
+                drag-class="tilt"
+            >
+                <div class="group-preview">
+                    <div>
+                        <!-- title -->
+                        <toggle-input-cmp
+                            class="title"
+                            @groupDelete="deleteGroup"
+                            @titleChange="changeTitle"
+                            :title="group.title"
+                            :id="group.id"
+                        ></toggle-input-cmp>
+                        <!-- card-list -->
 
-                    <Container
-                        class="scroller-group"
-                        drag-class="tilt"
-                        group-name="col"
-                        orientation="vertical"
-                        :get-child-payload="getCardPayload(group.id)"
-                        @drag-start="(e) => log('drag start', e)"
-                        @drag-end="(e) => log('drag end', e)"
-                        @drop="(e) => onCardDrop(group.id, e)"
+                        <Container
+                            class="scroller-group"
+                            drag-class="tilt"
+                            group-name="col"
+                            orientation="vertical"
+                            :get-child-payload="getCardPayload(group.id)"
+                            @drag-start="(e) => log('drag start', e)"
+                            @drag-end="(e) => log('drag end', e)"
+                            @drop="(e) => onCardDrop(group.id, e)"
+                        >
+                            <Draggable v-for="card in group.cards" :key="card.id">
+                                <card-preview
+                                    @copyCardToGroup="CopyNewCard"
+                                    @toggleQuickEdit="openMiniEdit"
+                                    @boardUpdated="modifyBoard"
+                                    @deleteCard="cardDelete"
+                                    @editCard="modCard"
+                                    @openCard="openCardModal"
+                                    @openAllLabels="onOpenAllLabels"
+                                    :group="group"
+                                    :card="card"
+                                    :board="board"
+                                    :isLabelOpen="isLabelOpen"
+                                ></card-preview>
+                            </Draggable>
+                            <!-- add-card-btn -->
+                            <add-card-cmp @cardAdd="addNewCard" :group="group"></add-card-cmp>
+                        </Container>
+                    </div>
+                </div>
+            </Draggable>
+            <!-- end -->
+
+            <div class="add-new-group" :style="show ? { 'height': '100px' } : null">
+                <button class="add-another-list-btn" v-if="!show" @click="show = true">
+                    <span class="icon-sm icon-add-light"></span>Add another list
+                </button>
+                <div v-clickOutside="close" v-if="show" class="add-new-group-in">
+                    <textarea
+                        @keyup.enter="addNewGroup"
+                        placeholder="Enter list title..."
+                        type="text"
+                        v-model="newGroup.title"
+                    />
+                    <div class="controls-add-list">
+                        <button class="btn-add-card-in" @click="addNewGroup">Add List</button>
+                        <span class="icon-lg icon-close-close" @click="show = false"></span>
+                    </div>
+                </div>
+            </div>
+        </Container>
+
+        <section
+            @click.stop.prevent="closeModal"
+            class="mini-edit-modal-main flex"
+            v-if="modalOpen"
+        >
+            <span class="icon-xl icon-close-in-pencil-modal" @click.stop.prevent="closeModal"></span>
+            <section
+                @click.prevent.stop
+                class="mini-edit-modal-second"
+                style="position:fixed;"
+                :style="{ top: pos.top + 'px', left: pos.left + 'px' }"
+            >
+                <section class="modal-edit" @click.prevent.stop>
+                    <div class="modal-card" @click.prevent.stop>
+                        <div
+                            v-if="cardToDisplay.cover.type === 'color'"
+                            class="mini-edit-cover-color"
+                            :style="{ backgroundColor: cardToDisplay.cover.value }"
+                        ></div>
+                        <div
+                            v-if="cardToDisplay.cover.type === 'attachment'"
+                            class="mini-edit-cover-attach"
+                            :style="{ backgroundImage: 'url(' + cardToDisplay.cover.value + ')' }"
+                        >
+                            <img :src="cardToDisplay.cover.value" style="visibility:hidden" />
+                        </div>
+                        <div class="modal-card-main">
+                            <div
+                                v-if="cardToDisplay.labels.length && cardToDisplay.labels.length"
+                                class="labels"
+                            >
+                                <div
+                                    class="label"
+                                    v-for="label in cardToDisplay.labels"
+                                    :key="label"
+                                    :style="{ 'backgroundColor': board.labels[board.labels.findIndex(labelToFind => labelToFind.id === label)].color }"
+                                >{{ board.labels[board.labels.findIndex(labelToFind => labelToFind.id === label)].title }}</div>
+                            </div>
+                            <div>
+                                <textarea
+                                    @click.stop.prevent="focus()"
+                                    name="mini-edit-ta"
+                                    style="resize:none"
+                                    v-model="cardToDisplay.title"
+                                ></textarea>
+                            </div>
+                            <div class="card-bar">
+                                <div class="card-bar-icon">
+                                    <div
+                                        v-if="cardToDisplay.date"
+                                        class="date"
+                                        @click.stop.prevent="onDateClicked"
+                                        :class="updateDateStyle"
+                                    >
+                                        <span class="icon-sm icon-clock-in-date"></span>
+                                        <span class="date-txt">{{ setDateFormat }}</span>
+                                    </div>
+                                </div>
+                                <div v-if="cardToDisplay.attachments.length" class="attachments">
+                                    <span class="icon-sm icon-attachment-pre"></span>
+                                    <span
+                                        class="attachments-length"
+                                    >{{ cardToDisplay.attachments.length }}</span>
+                                </div>
+                                <div v-if="cardToDisplay.description" class="description">
+                                    <span class="icon-sm icon-description"></span>
+                                </div>
+                                <div v-if="cardToDisplay.comments.length" class="comments">
+                                    <span class="icon-sm icon-comments-pre"></span>
+                                    <span class="length">{{ cardToDisplay.comments.length }}</span>
+                                </div>
+                                <!-- ///////////////////////////////////////////////////////////////////////////////////////////////// -->
+                                <div v-if="cardToDisplay.checklists.length" class="checklists">
+                                    <span class="icon-sm icon-checklists-pre"></span>
+                                    <span class="nums">{{ setChecklistPreview(cardToDisplay.checklists) }}</span>
+                                </div>
+                                <div class="card-bar-members">   
+                                    <div
+                                        v-if="cardToDisplay.members.length && board.members.length"
+                                        class="members"
+                                    >
+                                        <div
+                                            class="member"
+                                            v-for="member in cardToDisplay.members"
+                                            :key="member._id"
+                                        >{{ setMemberLetters(member.fullname) }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <button class="mini-edit-save" @click.stop.prevent="saveCard">Save</button>
+                    </div>
+                </section>
+                <section class="modal-actions-btns" @click.prevent.stop>
+                    <button @click.stop.prevent="openCardModal">
+                        <span class="icon-sm icon-card-pen"></span>
+                        <p>Open card</p>
+                    </button>
+                    <button
+                        type="button"
+                        ref="labelBtn"
+                        @click.stop.prevent="openThisModal('labelModal', 'labelBtn')"
                     >
-                        <Draggable v-for="card in group.cards" :key="card.id">
-                            <card-preview
-                                @copyCardToGroup="saveCopyToGroup"
-                                @toggleQuickEdit="toggleQuickEdit"
-                                @boardUpdated="modifyBoard"
-                                @deleteCard="cardDelete"
-                                @openCard="openCardModal"
-                                @openAllLabels="onOpenAllLabels"
-                                @editCard="saveCardToBoard"
-                                :group="group"
-                                :card="card"
-                                :board="board"
-                                :isLabelOpen="isLabelOpen"
-                            ></card-preview>
-                        </Draggable>
-                        <!-- add-card-btn -->
-                        <add-card-cmp @cardAdd="addNewCard" :group="group"></add-card-cmp>
-                    </Container>
-                </div>
-            </div>
-        </Draggable>
-        <!-- end -->
-
-        <div class="add-new-group" :style="show ? { 'height': '100px' } : null">
-            <button class="add-another-list-btn" v-if="!show" @click="show = true">
-                <span class="icon-sm icon-add-light"></span>Add another list
-            </button>
-            <div v-clickOutside="close" v-if="show" class="add-new-group-in">
-                <textarea
-                    @keyup.enter="addNewGroup"
-                    placeholder="Enter list title..."
-                    type="text"
-                    v-model="newGroup.title"
-                />
-                <div class="controls-add-list">
-                    <button class="btn-add-card-in" @click="addNewGroup">Add List</button>
-                    <span class="icon-lg icon-close-close" @click="show = false"></span>
-                </div>
-            </div>
-        </div>
-    </Container>
+                        <span class="icon-sm icon-label-pen"></span>
+                        <p>Edit labels</p>
+                    </button>
+                    <button
+                        type="button"
+                        ref="membersBtn"
+                        @click.stop.prevent="openThisModal('membersModal', 'membersBtn')"
+                    >
+                        <span class="icon-sm icon-member-pen"></span>
+                        <p>Change members</p>
+                    </button>
+                    <button
+                        type="button"
+                        ref="coverBtn"
+                        @click.stop.prevent="openThisModal('coverModal', 'coverBtn')"
+                    >
+                        <span class="icon-sm icon-card-cover-pen"></span>
+                        <p>Change cover</p>
+                    </button>
+                    <button
+                        type="button"
+                        ref="copyBtn"
+                        @click.stop.prevent="openThisModal('copyModal', 'copyBtn')"
+                    >
+                        <span class="icon-sm icon-card-copy-pen"></span>
+                        <p>Copy</p>
+                    </button>
+                    <button
+                        ref="datesBtn"
+                        @click.stop.prevent="openThisModal('datesModal', 'datesBtn')"
+                    >
+                        <span class="icon-sm icon-clock-pen"></span>
+                        <p>Edit dates</p>
+                    </button>
+                    <button ref="deleteBtn" @click.stop.prevent="deleteWarn">
+                        <span class="icon-sm icon-delete-pen"></span>
+                        <p>Delete</p>
+                    </button>
+                </section>
+            </section>
+            <delete-warning
+                @click.prevent.stop
+                @closeDeleteWarning="closeWarning"
+                @deleteConfirmed="deleteCard"
+                v-if="warningOpen"
+                :title="warningTitle"
+                :pos="posOfEditor"
+            ></delete-warning>
+            <section v-if="isModalShown">
+                <component
+                    @click.prevent.stop
+                    @cardCopySave="CopyNewCard"
+                    @boardEdit="modifyBoard"
+                    @cardEdit="showEditedCard"
+                    @actionsClose="closeMenu"
+                    :board="board"
+                    :card="cardToDisplay"
+                    :group="groupToEdit"
+                    :pos="posOfEditor"
+                    :is="currModal"
+                ></component>
+            </section>
+        </section>
+    </section>
 </template>
 
 <script>
 import cardPreview from "./card-preview.vue";
 import toggleInputCmp from "./toggle-input-cmp.vue";
 import addCardCmp from "./add-card-cmp.vue";
+import labelModal from "./label-modal-cmp.vue";
+import membersModal from "./memebers-modal-cmp.vue";
+import datesModal from "./date-modal-cmp.vue";
+import deleteWarning from "./delete-warning-modal-cmp.vue";
+import coverModal from "./cover-modal-cmp.vue";
+import copyModal from "./copy-modal-cmp.vue";
+
 import { Container, Draggable } from "vue3-smooth-dnd";
 import { applyDrag, generateItems } from '../services/dnd-service.js'
 
@@ -93,6 +271,12 @@ export default {
         addCardCmp,
         Container,
         Draggable,
+        labelModal,
+        membersModal,
+        datesModal,
+        coverModal,
+        deleteWarning,
+        copyModal
     },
     props: {
         groups: {
@@ -116,6 +300,21 @@ export default {
             titleIsOpen: false,
             isLabelOpen: false,
             isQuickEditOpen: false,
+            currModal: null,
+            isModalShown: false,
+            pos: 0,
+            posOfEditor: 0,
+            isLabelDark: false,
+            modalOpen: false,
+            titleIsOpen: false,
+            warningOpen: false,
+            warningTitle: '',
+            groupToEdit: {},
+            cardToDisplay: {},
+            cardToEdit: {
+                title: "",
+            },
+            timeCalc: null,
         };
     },
     created() {
@@ -126,11 +325,92 @@ export default {
         },
         pointerEvents() {
             return this.isQuickEditOpen
-        }
+        },
+        setDateFormat() {
+            const timeCalc = (Date.now() - this.cardToDisplay.date)
+            this.timeCalc = timeCalc
+            const dt = new Date(this.cardToDisplay.date)
+            const date = Intl.DateTimeFormat('en-Us', { month: 'short', day: 'numeric' }).format(dt)
+            return date
+        },
+        updateDateStyle() {
+            return { dateUncompleted: !this.cardToDisplay.isComplete, dateCompleted: this.cardToDisplay.isComplete, datePast: this.timeCalc > 0 };
+        },
     },
     methods: {
-        toggleQuickEdit() {
-            this.isQuickEditOpen = !this.isQuickEditOpen
+         setChecklistPreview(cardChecklists) {
+            var checklists = JSON.parse(JSON.stringify(cardChecklists))
+            var allTodosSum = 0
+            var completedTodos = []
+            checklists.forEach(checklist => allTodosSum += checklist.todos.length)
+            checklists.forEach(checklist => checklist.todos.forEach(todo => completedTodos.push(todo)))
+            completedTodos = completedTodos.filter(todo => todo.isComplete)
+            console.log('completedTodos', completedTodos)
+            console.log('completed length', completedTodos.length)
+            return completedTodos.length + '/' + allTodosSum
+        },
+        openThisModal(modalName, ref) {
+            if (this.isModalShown === true && modalName === this.currModal) this.isModalShown = false
+            else {
+                const positionOfBtn = this.$refs[ref].getBoundingClientRect()
+                this.posOfEditor = JSON.parse(JSON.stringify(positionOfBtn))
+                this.posOfEditor.left -= 5
+                this.posOfEditor.bottom -= 4
+                this.isModalShown = true
+                this.currModal = modalName
+            }
+        },
+        CopyNewCard(copy) {
+            this.$emit('saveCopy', copy)
+            this.closeModal()
+        },
+        calcPosOfModal() {
+            this.pos = this.$refs['card-modal'].getBoundingClientRect()
+        },
+        openMiniEdit({ card, group, pos }) {
+            this.cardToDisplay = card
+            this.groupToEdit = group
+            this.pos = pos
+            this.modalOpen = true;
+        },
+        closeModal() {
+            this.modalOpen = false
+            this.isModalShown = false
+        },
+        deleteWarn() {
+            this.posOfEditor = this.$refs['deleteBtn'].getBoundingClientRect()
+            this.warningTitle = 'card'
+            this.warningOpen = true
+        },
+        closeWarning() {
+            this.warningOpen = false
+        },
+        deleteCard() {
+            this.groupToEdit = JSON.parse(JSON.stringify(this.groupToEdit))
+            const cardIdx = this.groupToEdit.cards.findIndex(cardToFind => cardToFind.id === this.cardToDisplay.id)
+            this.groupToEdit.cards.splice(cardIdx, 1)
+            this.$emit('groupUpdated', this.groupToEdit)
+            this.warningOpen = false
+            this.modalOpen = false;
+        },
+        showEditedCard(card) {
+            this.cardToDisplay = card
+        },
+        setMemberLetters(fullname) {
+            const firstLetters = fullname
+                .split(' ')
+                .map(word => word[0])
+                .join('');
+            return firstLetters.toUpperCase()
+        },
+        closeMenu() {
+            this.isModalShown = false
+        },
+        modCard({ card, group }) {
+            this.groupToEdit = JSON.parse(JSON.stringify(group))
+            const idx = this.groupToEdit.cards.findIndex(cardToFind => cardToFind.id === card.id)
+            this.groupToEdit.cards[idx] = card
+            this.$emit('groupUpdated', this.groupToEdit)
         },
         changeTitle({ txt, id }) {
             this.groupToEdit = JSON.parse(JSON.stringify(this.groups.find(group => group.id === id)))
@@ -152,25 +432,24 @@ export default {
         cardDelete(updatedGroup) {
             this.$emit('groupUpdated', updatedGroup)
         },
-        openCardModal(info) {
-            console.log('opened');
+        openCardModal() {
             this.isQuickEditOpen = false
-            this.$emit('openCardDetails', info)
+            this.modalOpen = false;
+            this.isModalShown = false
+            this.$emit('openCardDetails', { card: this.cardToDisplay, group: this.groupToEdit })
         },
         onOpenAllLabels(isLabelClicked) {
             this.isLabelOpen = isLabelClicked
         },
-        saveCardToBoard({ card, group }) {
-            this.groupToEdit = JSON.parse(JSON.stringify(group))
-            const cardIdx = this.groupToEdit.cards.findIndex(cardToFind => cardToFind.id === card.id)
-            this.groupToEdit.cards.splice(cardIdx, 1, card)
+        saveCard() {
+            const cardIdx = this.groupToEdit.cards.findIndex(cardToFind => cardToFind.id === this.cardToDisplay.id)
+            this.groupToEdit = JSON.parse(JSON.stringify(this.groupToEdit))
+            this.groupToEdit.cards.splice(cardIdx, 1, this.cardToDisplay)
             this.$emit('groupUpdated', this.groupToEdit)
-        },
-        saveCopyToGroup(copy) {
-            this.$emit('saveCopy', copy)
+            this.isModalShown = false
+            this.closeModal()
         },
         deleteGroup(groupId) {
-            console.log('got here', groupId);
             this.$emit('removeGroup', groupId)
         },
         close() {
@@ -203,8 +482,7 @@ export default {
             // console.log(...params)
         }
     },
-    emits: ['saveCopy', 'activitySave', 'openCardDetails', 'removeGroup', 'groupUpdated', 'addGroup', 'groupDnd', 'boardModified']
-
+    emits: ['boardUpdated','saveCopy', 'activitySave', 'openCardDetails', 'removeGroup', 'groupUpdated', 'addGroup', 'groupDnd', 'boardModified']
 }
 </script>
 

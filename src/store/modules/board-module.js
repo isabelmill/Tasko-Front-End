@@ -95,6 +95,7 @@ export default {
             }
         },
         async saveBoard({ commit }, { board }) {
+            if (board.isTemplate) return
             try {
                 if (board._id) commit({ type: 'setBoard', board });
                 const savedBoard = await boardService.save(board)
