@@ -216,7 +216,7 @@
     min-height: 56px;
     border-radius: 3px;
     .card-title {
-        max-width: rem(234px);
+        max-width: rem(236px);
         border-radius: 0 0 3px 3px;
         align-self: flex-end;
         padding: 6px 8px 2px;
@@ -245,6 +245,7 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
+    // padding-right: 8px;
     margin: 0;
     border-radius: 3px;
     width: 100%;
@@ -252,7 +253,9 @@
         width: 100%;
     }
     .card-title {
-        max-width: rem(234px);
+        padding-right: 8px;
+        word-wrap: break-word;
+        max-width: rem(256px);
         border-radius: 0 0 3px 3px;
         align-self: flex-end;
         padding: 4px 8px 2px;
@@ -262,7 +265,9 @@
         width: 100%;
         padding-bottom: 24px;
         margin: 0 !important;
+        height: fit-content;
         span {
+            height: fit-content;
             font-size: 16px;
             position: absolute;
             font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
