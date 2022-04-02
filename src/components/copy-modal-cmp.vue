@@ -1,5 +1,6 @@
 <template>
-    <section :style="{ top: setBottomPos(pos.bottom) + 'px', left: pos.left + 'px' }" class="copy-modal-main">
+    <section v-clickOutside="close"
+    :style="{ top: setBottomPos(pos.bottom) + 'px', left: pos.left + 'px' }" class="copy-modal-main">
         <div class="header-modal">
             <div>
                 <p>Copy card</p>
