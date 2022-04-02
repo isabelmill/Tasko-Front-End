@@ -47,12 +47,15 @@
 
 //card-preview
 .card-preview {
+    // display: flex;
+    max-width: rem(256px);
     // width: rem(256px);
     background-color: #fff;
     border-radius: 3px;
     box-shadow: 0 1px 0 #091e4240;
     cursor: pointer;
     display: block;
+    // display: flex;
     margin-bottom: 8px;
     max-width: 300px;
     min-height: 20px;
@@ -65,6 +68,7 @@
         cursor: pointer;
     }
     .card-title {
+        max-width: rem(234px);
         font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
         font-size: 14px;
         margin: 4px 0 0 0;
@@ -212,6 +216,7 @@
     min-height: 56px;
     border-radius: 3px;
     .card-title {
+        max-width: rem(234px);
         border-radius: 0 0 3px 3px;
         align-self: flex-end;
         padding: 6px 8px 2px;
@@ -247,6 +252,7 @@
         width: 100%;
     }
     .card-title {
+        max-width: rem(234px);
         border-radius: 0 0 3px 3px;
         align-self: flex-end;
         padding: 4px 8px 2px;
