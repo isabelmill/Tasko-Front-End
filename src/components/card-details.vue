@@ -384,7 +384,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="add-todo-container">
+                                    <div v-clickOutside="closeAdder" class="add-todo-container">
                                         <button
                                             v-if="!addingNewTodo || currChecklist.id !== checklist.id"
                                             @click.stop.prevent="openChecklistInput(checklist)"
@@ -872,27 +872,34 @@ export default {
         openTodo(checklist, todo) {
             this.currChecklist = JSON.parse(JSON.stringify(checklist))
             this.currOpenTodo = JSON.parse(JSON.stringify(todo))
+            
+            this.closeAdder()
         },
         async checkboxTodo(checklist, todo) {
             this.cardToEdit = JSON.parse(JSON.stringify(this.card))
             this.currChecklist = JSON.parse(JSON.stringify(checklist))
             this.currOpenTodo = JSON.parse(JSON.stringify(todo))
             this.currOpenTodo.isComplete = !this.currOpenTodo.isComplete
-            const checklistIdx = this.cardToEdit.checklists.findIndex(checklistToFind => checklistToFind.id = this.currChecklist.id)
+            const checklistIdx = this.cardToEdit.checklists.findIndex(checklistToFind => checklistToFind.id === this.currChecklist.id)
             const todoIdx = this.cardToEdit.checklists[checklistIdx].todos.findIndex(todoToFind => todoToFind.id === this.currOpenTodo.id)
             this.cardToEdit.checklists[checklistIdx].todos[todoIdx] = this.currOpenTodo
             this.$emit('cardModified', { card: this.cardToEdit, group: this.group })
             this.closeTodo()
+            this.closeAdder()
         },
         closeTodo() {
             this.currChecklist = {}
             this.currOpenTodo = {}
+            this.closeAdder()
         },
         openChecklist(checklist) {
             this.currChecklist = JSON.parse(JSON.stringify(checklist))
             this.isChecklistOpen = true
+            this.closeAdder()
         },
         saveChecklistTitle() {
+            
+            this.closeAdder()
             this.cardToEdit = JSON.parse(JSON.stringify(this.card))
             const checklistIdx = this.cardToEdit.checklists.findIndex(checklistToFind => checklistToFind.id === this.currChecklist.id)
             this.cardToEdit.checklists[checklistIdx] = this.currChecklist
@@ -903,16 +910,17 @@ export default {
         closeChecklist() {
             this.currChecklist = {}
             this.isChecklistOpen = false
+            
+            this.closeAdder()
         },
         openChecklistInput(checklist) {
             this.currChecklist = JSON.parse(JSON.stringify(checklist))
-            console.log(checklist)
             this.addingNewTodo = true
             this.currOpenTodo = boardService.getEmptyTodo()
         },
         saveTodo() {
             this.cardToEdit = JSON.parse(JSON.stringify(this.card))
-            const checklistIdx = this.cardToEdit.checklists.findIndex(checklistToFind => checklistToFind.id = this.currChecklist.id)
+            const checklistIdx = this.cardToEdit.checklists.findIndex(checklistToFind => checklistToFind.id === this.currChecklist.id)
             const todoIdx = this.cardToEdit.checklists[checklistIdx].todos.findIndex(todoToFind => todoToFind.id === this.currOpenTodo.id)
             console.log(checklistIdx,todoIdx)
             this.cardToEdit.checklists[checklistIdx].todos[todoIdx] = this.currOpenTodo
@@ -934,6 +942,7 @@ export default {
             this.cardToEdit.checklists[checklistIdx].todos.push(this.currOpenTodo)
             this.$emit('cardModified', { card: this.cardToEdit, group: this.group })
             this.currOpenTodo = boardService.getEmptyTodo()
+            
         },
         closeAdder() {
             this.addingNewTodo = false
