@@ -147,7 +147,7 @@
                             </div>
                             <div>
                                 <textarea
-                                    @click.stop.prevent="focus()"
+                                    
                                     name="mini-edit-ta"
                                     style="resize:none"
                                     v-model="cardToDisplay.title"
