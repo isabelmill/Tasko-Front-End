@@ -1,6 +1,11 @@
 <template>
     <section>
         <section>
+            <template-header
+                v-if="board && board.isTemplate"
+                :board="board"
+                @duplicateTemplate="addTemplateBoard"
+            ></template-header>
             <board-header
                 v-if="board"
                 :board="board"
@@ -18,7 +23,6 @@
             :style="{ 'backgroundColor': board.background }"
         >
             <group-list
-            
                 @saveCopy="saveCopyToBoard"
                 @boardModified="updateBoard"
                 @removeGroup="groupRemoveFromBoard"
@@ -70,6 +74,7 @@ import { socketService } from "../services/socket.service.js"
 import { userService } from "../services/user-service"
 import groupList from "../components/group-list.vue"
 import boardHeader from "../components/board-header.vue"
+import templateHeader from "../components/template-header.vue"
 import cardDetails from "../components/card-details.vue"
 
 export default {
@@ -77,7 +82,8 @@ export default {
         groupList,
         boardHeader,
         cardDetails,
-        socketService
+        socketService,
+        templateHeader
     },
     data() {
         return {
@@ -147,10 +153,9 @@ export default {
             this.boardToEdit[key] = val
             this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
         },
-        openCardDetailsModal({card,group}) {
-            console.log(card,group)
-            this.selectedCardGroupIdx = this.board.groups.findIndex(groupToFind => groupToFind.id === group.id)
-            this.selectedCardIdx = this.board.groups[this.selectedCardGroupIdx].cards.findIndex(cardToFind => cardToFind.id === card.id)
+        openCardDetailsModal(info) {
+            this.selectedCardIdx = this.board.groups.find(group => group.id === info.group.id).cards.findIndex(card => card.id === info.card.id)
+            this.selectedCardGroupIdx = this.board.groups.findIndex(group => group.id === info.group.id)
             this.isCardOpen = true
         },
         closeDiag() {
@@ -210,8 +215,22 @@ export default {
             this.boardToEdit = JSON.parse(JSON.stringify(this.board))
             const idx = this.boardToEdit.members.findIndex((member) => member._id === user._id)
             this.boardToEdit.members.splice(idx, 1)
-             this.saveActivity(' removed ' + user.fullname + ' from this board')
+            this.saveActivity(' removed ' + user.fullname + ' from this board')
             this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
+        },
+        addTemplateBoard(board) {
+            // if (!board.title) return
+            if (this.loggedinUser) {
+                board.createdBy = this.loggedinUser
+                board.members.push(this.loggedinUser)
+                this.newActivity.byMember = this.loggedinUser
+            }
+            board.isTemplate = false
+            this.newActivity.txt = 'created this board'
+            board.activities.push(this.newActivity)
+             this.newActivity = boardService.getEmptyActivity()
+            this.$store.dispatch({ type: 'saveBoard', board: board })
+            console.log('board in save new board:', board);
         }
     },
     computed: {
@@ -227,6 +246,7 @@ export default {
         loggedinUser() {
             return this.$store.getters.loggedinUser
         },
+
     },
     watch: {
         "$route.params.boardId": {
