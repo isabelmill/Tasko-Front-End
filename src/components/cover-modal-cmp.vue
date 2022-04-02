@@ -171,7 +171,7 @@
             />
             <button
                 type="button"
-                @click.stop.prevent="$refs['file'].click()"
+                @click="$refs['file'].click()"
                 class="create-btn"
             >Upload a cover image</button>
         </section>
