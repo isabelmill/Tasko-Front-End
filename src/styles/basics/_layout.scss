@@ -4,6 +4,10 @@
     width: 100%;
 }
 
+.smooth-dnd-container.horizontal {
+    display: flex;
+}
+
 .board-details-main {
     height: calc(100vh - 88px);
     width: 100%;
