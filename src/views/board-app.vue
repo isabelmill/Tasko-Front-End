@@ -139,7 +139,7 @@
                                     src="../assets/svg/project-management-templates.svg"
                                     alt="business-icon"
                                 />
-                                <p class="category-title">Life style</p>
+                                <p class="category-title">Lifestyle</p>
                             </div>
                             <board-list
                                 v-if="boards"

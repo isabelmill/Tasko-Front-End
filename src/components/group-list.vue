@@ -544,6 +544,9 @@ export default {
         },
         log(...params) {
             // console.log(...params)
+        },
+        closeAdder(){
+            this.isAddingCard = false
         }
     },
     emits: ['boardUpdated', 'saveCopy', 'activitySave', 'openCardDetails', 'removeGroup', 'groupUpdated', 'addGroup', 'groupDnd', 'boardModified']
