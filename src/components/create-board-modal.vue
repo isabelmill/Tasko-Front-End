@@ -132,6 +132,8 @@ export default {
                 this.newBoard.background = '#0079BF'
             }
             this.$emit("add", this.newBoard)
+            this.setColor = '#0079BF'
+            this.setPhoto = ''
         },
         setBoardColor(color = '#0079BF') {
             this.setColor = color
