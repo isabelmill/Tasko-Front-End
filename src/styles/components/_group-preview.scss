@@ -469,16 +469,16 @@
     .btn-add-card-out {
         font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
         cursor: pointer;
-        background-color: #e3e4e6;
+        background-color: #ebecf0;
         display: flex;
         // gap: 5px;
         border-radius: 3px;
         color: #5e6c84;
         border: none;
         margin: 0px 8px 8px 8px;
-        padding: 4px 8px;
-        // width: 100%;
-        width: rem(256px);
+        padding: 8px;
+
+        width: rem(250px);
         font-family: Roboto-regular;
         cursor: pointer;
         &:hover {
