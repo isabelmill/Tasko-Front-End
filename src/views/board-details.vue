@@ -221,6 +221,7 @@ export default {
         addTemplateBoard(board) {
             if (this.loggedinUser) {
                 board.createdBy = this.loggedinUser
+                // delete board.members[0]
                 board.members.push(this.loggedinUser)
                 this.newActivity.byMember = this.loggedinUser
             }

@@ -180,9 +180,9 @@
 
 <script>
 import FastAverageColor from 'fast-average-color'
-import axios from "axios"
+// import axios from "axios"
 import { uploadService } from "../services/upload-service.js"
-import { isDate } from 'moment'
+// import { isDate } from 'moment'
 import { utilService } from '../services/util-service.js'
 export default {
     components: {

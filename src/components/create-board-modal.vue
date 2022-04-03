@@ -116,6 +116,7 @@ export default {
     },
     created() {
         this.onUploadImg()
+        // this.setRightPos()
     },
     computed: {
         boards() {
@@ -157,7 +158,8 @@ export default {
         },
         closeUnsplash() {
             this.unsplashOpen = false
-        }
+        },
+
     },
     components: {
         unsplashModal,

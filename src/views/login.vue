@@ -59,6 +59,7 @@ export default {
                 password: '',
             }
             this.$router.push(`/board`)
+            this.$router.push(`/board`)
         },
     },
     components: {
