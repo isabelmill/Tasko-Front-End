@@ -75,7 +75,7 @@
                             v-clickOutside="closeBoardEdit"
                             @close="closeBoardEdit"
                             @add="saveNewBoard"
-                            :style="{ 'left': '730' + 'px', 'bottom': '0' }"
+                            :style="{ 'right': setRightPos(pos.right) + 'px', 'bottom': '0' }"
                             :newBoard="newBoard"
                         ></create-board-modal>
                         <!-- :style="{ 'top': pos.top + 'px', 'left': '830' + 'px', 'bottom': '0' }" -->
@@ -321,6 +321,7 @@ export default {
     methods: {
         calcPosOfBox(ref) {
             this.pos = this.$refs[ref].getBoundingClientRect()
+            console.log('this.pos:',this.pos.right);
         },
         setFilter(filterBy) {
             this.$store.dispatch({ type: 'filter', filterBy });
@@ -372,6 +373,17 @@ export default {
         generateTime(time) {
             const dateTimeAgo = moment(time).fromNow();
             return dateTimeAgo
+        },
+        setRightPos(rightPos) {
+            console.log('screen.height + "px"', window.innerWidth)
+            if ((window.innerWidth - rightPos) < 390) {
+                console.log('true')
+                const right = window.innerWidth - 390
+                console.log('bottom', right)
+                return right
+            } else {
+                return rightPos + 8
+            }
         },
     },
     computed: {
