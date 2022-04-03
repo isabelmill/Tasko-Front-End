@@ -27,7 +27,7 @@
                                 <p>Starred boards</p>
                             </div>
                             <board-list
-                                v-if="boards"
+                                v-if="starredBoards"
                                 :boards="starredBoards"
                                 @duplicateTemplate="saveNewBoard"
                                 @updateRecentlyWatched="addLastTimeWatched"
@@ -41,13 +41,27 @@
                                 <p>Recently viewed</p>
                             </div>
                             <board-list
-                                v-if="boards"
+                                v-if="recentlyBoards"
                                 :boards="recentlyBoards"
                                 @duplicateTemplate="saveNewBoard"
                                 @updateRecentlyWatched="addLastTimeWatched"
                                 @updateStarred="updateBoard"
                             />
                         </div>
+
+                        <div class="border-list">
+                            <div class="header">
+                                <p>YOUR WORKSPACES</p>
+                            </div>
+                            <board-list
+                                v-if="boards"
+                                :boards="boards"
+                                @duplicateTemplate="saveNewBoard"
+                                @updateRecentlyWatched="addLastTimeWatched"
+                                @updateStarred="updateBoard"
+                            />
+                        </div>
+
                         <button
                             class="create-btn"
                             @click="openBoardEdit(), calcPosOfBox('button')"
@@ -113,6 +127,23 @@
                             <board-list
                                 v-if="boards"
                                 :boards="categoryEducation"
+                                @duplicateTemplate="saveNewBoard"
+                                @updateRecentlyWatched="addLastTimeWatched"
+                            />
+                        </div>
+
+                        <div class="border-list">
+                            <div class="header-templates">
+                                <img
+                                    class="category-icon"
+                                    src="../assets/svg/project-management-templates.svg"
+                                    alt="business-icon"
+                                />
+                                <p class="category-title">Life style</p>
+                            </div>
+                            <board-list
+                                v-if="boards"
+                                :boards="categoryLifestyle"
                                 @duplicateTemplate="saveNewBoard"
                                 @updateRecentlyWatched="addLastTimeWatched"
                             />
@@ -300,7 +331,7 @@ export default {
         closeBoardEdit() {
             this.isEdit = false;
         },
-         saveNewBoard(board) {
+        saveNewBoard(board) {
             if (!board.title) return
             if (this.loggedinUser) {
                 board.createdBy = this.loggedinUser
@@ -310,9 +341,9 @@ export default {
             board.isTemplate = false
             this.newActivity.txt = 'created this board'
             board.activities.push(this.newActivity)
-             this.$store.dispatch({ type: 'saveBoard', board: board })
+            this.$store.dispatch({ type: 'saveBoard', board: board })
             this.isEdit = false
-            console.log('board in save new board:',board);
+            console.log('board in save new board:', board);
             this.newBoard = boardService.getEmptyBoard()
         },
         setFolder(folder) {
@@ -368,10 +399,12 @@ export default {
         categoryEducation() {
             return this.$store.getters.categoryEducation
         },
+        categoryLifestyle() {
+            return this.$store.getters.categoryLifestyle
+        },
         allActivities() {
             return this.$store.getters.allActivities
         },
-
     },
 
     components: {

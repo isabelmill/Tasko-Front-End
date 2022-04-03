@@ -22,6 +22,7 @@
 
 <script>
 import { uploadService } from "../services/upload-service.js";
+import { utilService } from '../services/util-service.js';
 export default {
     name: 'attachment-modal',
     props: {
@@ -65,11 +66,13 @@ export default {
             this.$emit('actionsClose');
         },
         addAttachment() {
+            if (this.link === '') return
             this.cardToEdit = JSON.parse(JSON.stringify(this.card))
             const attachment = {}
             if (this.name !== '') attachment.name = this.name
             else attachment.name = this.link
             attachment.link = this.link
+            attachment.id = utilService.makeId()
             this.cardToEdit.attachments.push(attachment)
             this.$emit('cardEdit', this.cardToEdit)
         },
@@ -78,7 +81,8 @@ export default {
             this.$emit('uploading')
             const result = await uploadService.uploadFromSystem(event)
             this.$emit('uploadComplete')
-            this.cardToEdit.attachments.push({
+            this.cardToEdit.attachments.unshift({
+                id: utilService.makeId(),
                 name: result.original_filename,
                 link: result.secure_url
             })

@@ -289,7 +289,7 @@ import datesModal from "./date-modal-cmp.vue";
 import deleteWarning from "./delete-warning-modal-cmp.vue";
 import coverModal from "./cover-modal-cmp.vue";
 import copyModal from "./copy-modal-cmp.vue";
-
+import { uploadService } from "../services/upload-service.js"
 import { Container, Draggable } from "vue3-smooth-dnd";
 import { applyDrag, generateItems } from '../services/dnd-service.js'
 import { boardService } from '../services/board-service';
