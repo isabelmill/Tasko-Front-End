@@ -167,9 +167,11 @@
         ref="user"
         class="user-avatar-in-app-header"
       >
-        {{
-          loggedinUser ? setMemberLetters(loggedinUser.fullname) : 'GU'
-        }}
+        <img v-if="loggedinUser?.imgUrl" :src="loggedinUser.imgUrl" alt />
+        <div
+          v-else
+          class="user-avatar"
+        >{{ loggedinUser ? setMemberLetters(loggedinUser.fullname) : 'GU' }}</div>
       </div>
 
       <logged-in-user-modal

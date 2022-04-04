@@ -9,10 +9,16 @@
             </div>
         </div>
         <div class="user-info-modal">
-            <div v-if="loggedinUser" class="user-avatar-in-modal">{{setMemberLetters(loggedinUser.fullname)}}</div>
+            <div v-if="loggedinUser" class="user-avatar-in-modal">
+                <img v-if="loggedinUser.imgUrl" :src="loggedinUser.imgUrl" alt />
+                <div
+                    v-else
+                    class="user-avatar"
+                >{{ loggedinUser ? setMemberLetters(loggedinUser.fullname) : 'GU' }}</div>
+            </div>
             <div v-if="!loggedinUser" class="user-avatar-in-modal">GU</div>
-        <div v-if="loggedinUser" class="user-details">{{loggedinUser.username}}</div>
-        <div v-if="!loggedinUser" class="user-details">Guest User</div>
+            <div v-if="loggedinUser" class="user-details">{{ loggedinUser.username }}</div>
+            <div v-if="!loggedinUser" class="user-details">Guest User</div>
         </div>
         <hr />
         <div @click="login" v-if="!loggedinUser" class="login">Log in</div>

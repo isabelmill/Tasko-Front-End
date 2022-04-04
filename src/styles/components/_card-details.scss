@@ -20,6 +20,7 @@
     font-size: 20;
     line-height: 32px;
     margin-top: -15px;
+
     &:hover {
         background-color: #00000029;
         color: #42526e;
@@ -47,6 +48,7 @@
     font-weight: 400;
     margin-bottom: 8px;
     width: 78px;
+
     &:hover {
         background-color: #00000029;
     }
@@ -69,6 +71,7 @@
     top: 0;
     font-size: 20;
     line-height: 32px;
+
     &:hover {
         background-color: #00000029;
         color: #42526e;
@@ -100,18 +103,21 @@
     display: flex;
     flex-direction: column;
     height: min-content;
+
     .card-details-header {
         display: flex;
         justify-content: space-between;
         padding-left: 20px;
         padding-right: 16px;
         padding-top: 20px;
+
         .card-details-header-icon {
             display: flex;
             flex-direction: row;
             gap: 17px;
             font-weight: 400;
             justify-content: center;
+
             p {
                 word-wrap: break-word;
                 height: 100%;
@@ -123,6 +129,7 @@
                 color: #172b4d;
             }
         }
+
         .card-details-icon {
             display: flex;
             align-items: center;
@@ -133,12 +140,14 @@
             width: 32px;
             cursor: pointer;
             transition: background-color 85ms, color 85ms;
+
             &:hover {
                 background-color: #091e4214;
                 color: #42526e;
             }
         }
     }
+
     .card-details-list-name {
         p {
             font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
@@ -150,9 +159,11 @@
             font-size: 13px;
         }
     }
+
     .card-details-edit {
         display: flex;
         flex-direction: column;
+
         label {
             color: #5e6c84;
             font-size: 12px;
@@ -162,6 +173,7 @@
             font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
             margin-bottom: 8px;
         }
+
         .card-details-btn {
             display: flex;
             align-items: center;
@@ -178,19 +190,23 @@
             font-weight: 400;
             margin-bottom: 8px;
             width: 165px;
+
             &:hover {
                 background-color: #091e4214;
             }
         }
     }
+
     .card-details-actions-container {
         display: flex;
         align-items: start;
         justify-content: center;
         padding: 0 16px 8px 20px;
         height: min-content;
+
         .card-details-main {
             margin-bottom: 24px;
+
             .card-details-members-labels-date {
                 display: flex;
                 flex-wrap: wrap;
@@ -198,20 +214,25 @@
                 margin-bottom: 35px;
                 margin-left: 42px;
                 gap: 16px;
+
                 .card-details-members-container {
                     display: flex;
                     gap: 5px;
+
                     .card-details-members {
                         padding-top: 5px;
+
                         .card-details-member-img {
                             border-radius: 50%;
                         }
                     }
                 }
+
                 .card-details-dates-container {
                     .card-details-dates {
                         padding-top: 5px;
                         display: flex;
+
                         .checkbox {
                             width: 20px;
                             height: 20px;
@@ -220,10 +241,12 @@
                             cursor: pointer;
                             margin: auto;
                             margin-right: 5px;
+
                             &:hover {
                                 background-color: #f0f1f1;
                             }
                         }
+
                         .done-img {
                             width: 20px;
                             border: 3px solid #0079bf;
@@ -236,12 +259,14 @@
                             margin-right: 5px;
                             transition: 1s;
                         }
+
                         input {
                             margin: 0;
                             margin-right: 5px;
                             height: 16px;
                             width: 16px;
                         }
+
                         .card-details-date {
                             color: #172b4d;
                             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Noto Sans", "Ubuntu", "Droid Sans", "Helvetica Neue", sans-serif;
@@ -263,11 +288,13 @@
                             transition-property: background-color, border-color, box-shadow;
                             transition-duration: 85ms;
                             transition-timing-function: ease;
+
                             &:hover {
                                 background-color: rgba(9, 30, 66, 0.08);
                                 box-shadow: none;
                                 border: none;
                             }
+
                             .overdue {
                                 color: #ffffff;
                                 background-color: #ec9488;
@@ -277,6 +304,7 @@
                                 border-radius: 2px;
                                 margin: auto 0 auto 8px;
                             }
+
                             .complete {
                                 color: #ffffff;
                                 background-color: #61bd4f;
@@ -286,6 +314,7 @@
                                 border-radius: 2px;
                                 margin: auto 0 auto 8px;
                             }
+
                             p {
                                 color: #172b4d;
                                 font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Noto Sans", "Ubuntu", "Droid Sans", "Helvetica Neue", sans-serif;
@@ -293,19 +322,23 @@
                                 line-height: 20px;
                                 font-weight: 400;
                             }
+
                             .down {
                                 padding-left: 5px;
                             }
                         }
                     }
                 }
+
                 .card-details-labels-container {
                     display: flex;
                     flex-direction: row;
                     flex-wrap: wrap;
+
                     // margin-right: 16px;
                     .card-details-labels {
                         padding-top: 5px;
+
                         .card-details-label {
                             display: flex;
                             align-items: center;
@@ -319,10 +352,12 @@
                             padding: 0 12px 3px 12px;
                             width: auto;
                             cursor: pointer;
+
                             &:hover {
                                 opacity: 0.8;
                             }
                         }
+
                         p {
 
                             text-align: center;
@@ -333,6 +368,7 @@
                         }
                     }
                 }
+
                 label {
                     color: #5e6c84;
                     font-size: 12px;
@@ -341,8 +377,10 @@
                     line-height: 20px;
                 }
             }
+
             .checklist {
                 margin-bottom: 24px;
+
                 .checklist-btn {
                     @include cardDetailsBtn();
                     background-color: #091e420a;
@@ -351,12 +389,14 @@
                     cursor: pointer;
                     margin-bottom: 0;
                 }
+
                 .card-details-checklist-show-details {
                     display: flex;
                     justify-content: space-between;
                     // margin-bottom: 10;
                     display: flex;
                     flex-direction: column;
+
                     .todo-text {
                         width: 428px;
                         font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
@@ -372,6 +412,7 @@
                         line-height: 20px;
                         padding-bottom: 4px;
                     }
+
                     .edit-todo-text {
                         box-sizing: border-box;
                         // flex-grow: stretch;
@@ -412,15 +453,18 @@
                         width: 32.5rem;
                         margin-bottom: 8px;
                     }
+
                     .edit-options {
                         display: flex;
                         justify-content: space-between;
+
                         // margin-bottom: 10px;
                         // margin-bottom: 2px;
                         .main-actions {
                             display: flex;
                             align-items: center;
                             margin-bottom: 6px;
+
                             .save-btn {
                                 background-color: #0079bf;
                                 color: #fff;
@@ -428,12 +472,14 @@
                                 box-shadow: none;
                                 width: unset;
                                 margin-right: 4px;
+
                                 &:hover {
                                     background-color: #026aa7;
                                     border: none;
                                     box-shadow: none;
                                 }
                             }
+
                             .todo-discard {
                                 // margin-top: 6px;
                                 height: 40px;
@@ -441,6 +487,7 @@
                                 justify-content: center;
                                 align-items: center;
                                 color: #091e42;
+
                                 .icon-closed {
                                     &:hover {
                                         color: #172b4d;
@@ -448,6 +495,7 @@
                                 }
                             }
                         }
+
                         .more-options {
                             display: flex;
                             border-radius: 3px;
@@ -456,33 +504,40 @@
                             width: 36px;
                             height: 32px;
                             padding: 8px 6px;
+
                             // justify-self: flex-end;
                             &:hover {
                                 background-color: #091e4214;
+
                                 .icon-overflow-menu-horizontal {
                                     color: #172b4d;
                                 }
                             }
+
                             .icon-overflow-menu-horizontal {
                                 color: #42526e;
                             }
                         }
                     }
+
                     .card-details-checklist {
                         width: 100%;
                         margin-bottom: 24px;
+
                         .checklist-header {
                             display: flex;
                             justify-content: space-between;
                             align-items: center;
                             width: 100%;
                             margin-bottom: 12px;
+
                             .checklist-title {
                                 display: flex;
                                 align-items: inline-flex;
                                 justify-content: space-between;
                                 gap: 17px;
                                 min-height: 32px;
+
                                 h3 {
                                     margin-top: 8px;
                                     padding-top: 3px;
@@ -501,18 +556,22 @@
                                     font-weight: 500;
                                     // height: 100%;
                                 }
+
                                 .icon-closed {
                                     cursor: pointer;
+
                                     &:hover {
                                         color: #172b4d;
                                     }
                                 }
                             }
+
                             .checklist-delete {
                                 position: relative;
                                 display: inline-block;
                             }
                         }
+
                         .todo-bar {
                             display: flex;
                             // display: block;
@@ -523,6 +582,7 @@
                             gap: 9px;
                             height: 14px;
                             width: 100%;
+
                             .bar-percentage {
                                 width: 32px;
                                 font-size: 11px;
@@ -531,13 +591,16 @@
                                 text-align: center;
                                 font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
                             }
+
                             .bar {
                                 flex: 1;
                             }
                         }
+
                         .todos-container {
                             min-height: 8px;
                             margin-bottom: 8px;
+
                             .checklist-todo {
                                 cursor: pointer;
                                 position: relative;
@@ -546,16 +609,19 @@
                                 // margin-bottom: 12px;
                                 height: 36px;
                                 height: min-content;
+
                                 // padding-bottom: 8px;
                                 &:hover {
                                     background-color: #091e420a;
                                 }
+
                                 .todo-checkbox {
                                     border-radius: 3px;
                                     cursor: pointer;
                                     // height: 36px;
                                     margin: -4px 6px 0 6px;
                                     width: 16px;
+
                                     .checkbox {
                                         background-color: #fafbfc;
                                         border-radius: 2px;
@@ -574,20 +640,24 @@
                                         white-space: nowrap;
                                         width: 16px;
                                         transition: all 0.2s ease-in-out;
+
                                         &:hover {
                                             background-color: #ebecf0;
                                             box-shadow: inset 0 0 0 2px #dfe1e6;
                                         }
                                     }
+
                                     .checkboxchecked {
                                         background-color: #0079bf;
                                         box-shadow: inset 0 0 0 2px #0079bf;
+
                                         &:hover {
                                             background-color: #0079bf;
                                             box-shadow: inset 0 0 0 2px #0079bf;
                                         }
                                     }
                                 }
+
                                 .todo-preview {
                                     display: inline-flex;
                                     // padding-top: 6px;
@@ -598,11 +668,13 @@
                                     min-height: 36px;
                                     height: min-content;
                                     margin-bottom: 0px;
+
                                     &:hover {
                                         .todo-options {
                                             visibility: visible;
                                         }
                                     }
+
                                     // justify-content: flex-start;
                                     .todo-options {
                                         display: flex;
@@ -615,14 +687,17 @@
                                         height: 24px;
                                         padding-top: 4px;
                                         margin-top: 6px;
+
                                         // display: block;
                                         // justify-self: flex-end;
                                         &:hover {
                                             background-color: #091e4214;
+
                                             .icon-overflow-menu-horizontal {
                                                 color: #172b4d;
                                             }
                                         }
+
                                         .icon-overflow-menu-horizontal {
                                             color: #42526e;
                                         }
@@ -632,8 +707,10 @@
                         }
                     }
                 }
+
                 .add-todo-container {
                     margin-left: 40px;
+
                     .add-todo-text {
                         overflow: hidden;
                         overflow-wrap: break-word;
@@ -656,11 +733,13 @@
                     }
                 }
             }
+
             .card-details-description {
                 display: flex;
                 gap: 17px;
                 align-items: center;
                 min-height: 32px;
+
                 h3 {
                     color: #172b4d;
                     font-size: 16px;
@@ -672,6 +751,7 @@
                     width: auto;
                     font-weight: 500;
                 }
+
                 button {
                     @include cardDetailsBtn();
                     background-color: #091e420a;
@@ -682,10 +762,12 @@
                     cursor: pointer;
                 }
             }
+
             .card-details-activity-show-attachments {
                 display: flex;
                 flex-direction: column;
                 min-height: 32px;
+
                 .loadaing-attachment {
                     width: 512px;
                     height: 80px;
@@ -699,6 +781,7 @@
                     overflow: hidden;
                     margin-left: 40px;
                 }
+
                 .loading-container {
                     background-color: #091e420a;
                     color: #5e6c84;
@@ -709,12 +792,14 @@
                     display: flex;
                     align-items: center;
                     justify-content: center;
+
                     .loading-svg {
                         width: 18px;
                         height: 18px;
                         margin-right: 8px;
                     }
                 }
+
                 .card-attachments-area {
                     display: flex;
                     margin-left: 40px;
@@ -723,13 +808,16 @@
                     margin-bottom: 8px;
                     margin-top: 9px;
                     cursor: pointer;
+
                     &:hover {
                         background-color: #eaecf0;
                     }
+
                     .attachment-area-body {
                         margin-bottom: 5px;
                         color: #5e6c84;
                         gap: 5px;
+
                         p {
                             color: #7a8697;
                             font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
@@ -742,6 +830,7 @@
                             width: auto;
                             font-weight: 400;
                         }
+
                         a {
                             color: #7a8697;
                             font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
@@ -754,15 +843,18 @@
                             width: auto;
                             font-weight: 400;
                             text-decoration: underline;
+
                             &:hover {
                                 color: #172b4d;
                             }
                         }
                     }
+
                     .attachment-area-footer {
                         display: flex;
                         align-items: center;
                         gap: 5px;
+
                         p {
                             text-decoration: underline;
                             color: #7a8697;
@@ -775,14 +867,17 @@
                             min-width: 40px;
                             width: auto;
                             font-weight: 400;
+
                             &:hover {
                                 color: #172b4d;
                             }
                         }
                     }
+
                     .card-attachment-area-header {
                         display: flex;
                         padding-top: 8px;
+
                         p {
                             color: #172b4d;
                             font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
@@ -796,9 +891,11 @@
                             font-weight: 700;
                         }
                     }
+
                     span {
                         padding-top: 1.5px;
                     }
+
                     img {
                         object-fit: contain;
                         background-repeat: no-repeat;
@@ -808,12 +905,14 @@
                         width: 112px;
                     }
                 }
+
                 .card-details-attachments {
                     display: flex;
                     gap: 17px;
                     align-items: center;
                     min-height: 32px;
                     padding-bottom: 10px;
+
                     h3 {
                         color: #172b4d;
                         font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
@@ -828,16 +927,19 @@
                     }
                 }
             }
+
             .card-details-activity-show-details {
                 display: flex;
                 justify-content: space-between;
                 margin-bottom: 10px;
                 min-height: 32px;
+
                 .card-details-activity {
                     display: flex;
                     gap: 17px;
                     align-items: center;
                     min-height: 32px;
+
                     h3 {
                         color: #172b4d;
                         font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
@@ -851,6 +953,7 @@
                         font-weight: 500;
                     }
                 }
+
                 button {
                     // margin-bottom: 0;
                     @include cardDetailsBtn();
@@ -861,17 +964,16 @@
                     margin-bottom: 0;
                 }
             }
+
             .card-details-input-user-comment {
                 display: flex;
                 align-items: center;
                 justify-items: center;
                 gap: 9px;
                 height: 40px;
-                .card-details-user-avatar {
-                    display: flex;
-                    width: 32px;
-                    height: 32px;
-                }
+
+
+
                 .card-details-input-comment {
                     cursor: pointer;
                     display: flex;
@@ -885,16 +987,19 @@
                     width: rem(520px);
                     transition-duration: 85ms;
                     transition-timing-function: ease;
+
                     .input-icon-btns {
                         display: flex;
                         flex-direction: column;
                         width: 650px;
+
                         .card-details-all-btns {
                             display: flex;
                             flex-direction: row;
                             justify-content: space-between;
                             align-items: center;
                             padding-bottom: 10px;
+
                             .card-details-save-btn {
                                 background-color: #0079bf;
                                 border: none;
@@ -906,16 +1011,19 @@
                                 height: rem(25px);
                                 margin-top: 10px;
                                 cursor: pointer;
+
                                 &:hover {
                                     background-color: #026aa7;
                                     border: none;
                                     box-shadow: none;
                                     color: #fff;
                                 }
+
                                 button {
                                     cursor: pointer;
                                 }
                             }
+
                             .icon-btns-inside-input {
                                 span {
                                     cursor: pointer;
@@ -923,20 +1031,24 @@
                             }
                         }
                     }
+
                     &:hover {
                         box-shadow: 1px 1px 5px -2px rgb(0 0 0 / 18%);
                     }
+
                     input {
                         cursor: pointer;
                         background-color: rgb(255, 255, 255);
                         border: 2px solid rgb(239, 238, 236);
                         border: none;
+
                         &:focus {
                             outline: none;
                         }
                     }
                 }
             }
+
             .card-details-input {
                 .card-details-text-add-btn {
                     display: flex;
@@ -944,6 +1056,7 @@
                     margin-top: 7px;
                     margin-bottom: 17px;
                     gap: 10px;
+
                     button {
                         background-color: #0079bf;
                         height: rem(31px);
@@ -955,6 +1068,7 @@
                         font-size: 14px;
                         font-weight: 400;
                         cursor: pointer;
+
                         &:hover {
                             background-color: #026aa7;
                             border: none;
@@ -962,10 +1076,12 @@
                             color: #fff;
                         }
                     }
+
                     span {
                         cursor: pointer;
                     }
                 }
+
                 textarea {
                     border-color: #091e4221;
                     height: 108px;
@@ -975,10 +1091,12 @@
                     padding: 12px;
                     font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
                     color: #42526e;
+
                     &:focus {
                         outline-color: #0079bf;
                     }
                 }
+
                 .card-description {
                     margin-top: 15px;
                     margin-bottom: 35px;
@@ -988,6 +1106,7 @@
                     color: #42526e;
                     font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
                 }
+
                 .open-input-btn {
                     background-color: #091e420a;
                     border: none;
@@ -1003,6 +1122,7 @@
                     height: rem(55px);
                     border-radius: 3px;
                     font-size: 13px;
+
                     &:hover {
                         background-color: #091e4214;
                         border: none;
@@ -1021,24 +1141,29 @@
     margin-top: 15px;
     justify-items: center;
     gap: 9px;
+
     .card-details-user-avatar {
         width: 32px;
         height: 32px;
         cursor: default;
     }
+
     .comment-info {
         .comment-info-name-date {
             margin-bottom: 5px;
+
             p {
                 font-size: 12px;
                 color: #747475;
             }
+
             span {
                 font-size: 14px;
                 color: #172b4d;
                 font-weight: 700;
             }
         }
+
         .comment-info-txt {
             color: rgb(23, 43, 77);
             display: flex;
@@ -1054,15 +1179,18 @@
             margin-bottom: 5px;
             font-size: 14px;
         }
+
         .comment-info-btns {
             display: flex;
             gap: 5px;
             align-items: center;
             padding-left: 5px;
+
             p {
                 color: #777f8b;
                 text-decoration: underline;
                 font-size: 13px;
+
                 &:hover {
                     color: #252627;
                     cursor: pointer;
@@ -1075,12 +1203,14 @@
 .card-details-user-comment {
     font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
     gap: 9px;
+
     .card-details-user-avatar {
         cursor: default;
         width: 32px;
         height: 32px;
         margin-top: 4px;
     }
+
     .card-details-input {
         color: #7e8085;
         display: flex;
@@ -1099,6 +1229,7 @@
         margin-bottom: 5px;
         font-size: 14px;
     }
+
     .card-details-input-show {
         color: #42526e;
         padding: 8px 15px 10px 13px;
@@ -1112,27 +1243,33 @@
         margin-bottom: 5px;
         font-size: 14px;
         max-height: min-content;
+
         input {
             font-size: 14px;
             border: none;
             width: 100%;
             color: #42526e;
             padding-bottom: 20px;
+
             &:focus {
                 outline: none;
             }
         }
+
         .card-details-all-btns {
             align-items: center;
             justify-content: space-between;
+
             .icon-btns-inside-input {
                 padding-top: 0;
                 display: flex;
                 gap: 20px;
+
                 span {
                     cursor: pointer;
                 }
             }
+
             button {
                 background-color: #0079bf;
                 border: none;
@@ -1141,6 +1278,7 @@
                 border-radius: 3px;
                 padding: 7px;
                 cursor: pointer;
+
                 &:hover {
                     background-color: #026aa7;
                 }
@@ -1166,18 +1304,22 @@
     top: 0;
     overflow-y: auto;
     overflow-x: hidden;
+
     .card-details-scroll::-webkit-scrollbar {
         width: 8px;
     }
+
     .card-details-scroll::-webkit-scrollbar-track {
         border-radius: 10px;
         background: #fff;
         z-index: 40;
     }
+
     .card-details-scroll::-webkit-scrollbar-thumb {
         border-radius: 4px;
         background-color: #fff;
     }
+
     .modal {
         z-index: 40;
         padding: unset;
@@ -1205,6 +1347,58 @@
 .last {
     margin-bottom: 20px;
 }
+
+
+.card-details-user-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    background-color: #172b4d;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 14px;
+    border-radius: 50%;
+    // padding-bottom: 1px;
+    // margin-bottom: 1px;
+
+    img {
+        display: flex;
+        object-fit: cover;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        cursor: pointer;
+        background-color: #172b4d;
+        color: #ffffff;
+        font-weight: 600;
+        font-size: 14px;
+        border-radius: 50%;
+        // padding-bottom: 1px;
+        // margin-bottom: 1px;
+    }
+
+    .user-avatar {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        cursor: pointer;
+        background-color: #172b4d;
+        color: #ffffff;
+        font-weight: 600;
+        font-size: 14px;
+        border-radius: 50%;
+        padding-bottom: 1px;
+        margin-bottom: 1px;
+        object-fit: cover;
+    }
+}
+
 
 .icon-card {
     @include to-icon("\e912");

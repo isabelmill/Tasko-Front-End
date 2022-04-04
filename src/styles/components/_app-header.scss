@@ -280,13 +280,47 @@
     width: 32px;
     height: 32px;
     cursor: pointer;
-    background-color: #172b4d;
+    // background-color: #172b4d;
     color: #ffffff;
     font-weight: 600;
     font-size: 14px;
     border-radius: 50%;
-    padding-bottom: 1px;
-    margin-bottom: 1px;
+    // padding-bottom: 1px;
+    // margin-bottom: 1px;
+    
+    img{
+        display: flex;
+        object-fit: cover;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        cursor: pointer;
+        background-color: #172b4d;
+        color: #ffffff;
+        font-weight: 600;
+        font-size: 14px;
+        border-radius: 50%;
+        // padding-bottom: 1px;
+        // margin-bottom: 1px;
+    }
+
+    .user-avatar{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        cursor: pointer;
+        background-color: #172b4d;
+        color: #ffffff;
+        font-weight: 600;
+        font-size: 14px;
+        border-radius: 50%;
+        padding-bottom: 1px;
+        margin-bottom: 1px;
+        object-fit: cover;
+    }
 }
 
 .template-boards-modal {

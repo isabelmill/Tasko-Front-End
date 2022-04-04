@@ -1,6 +1,7 @@
 // group-title
 .toggle-input {
     height: rem(40px);
+    min-height: 40px;
     display: flex;
     align-items: center;
     color: $memberBlue;
@@ -476,9 +477,8 @@
         border-radius: 3px;
         color: #5e6c84;
         border: none;
-        margin: 0px 8px 8px 8px;
+        margin: 8px;
         padding: 8px;
-
         width: rem(250px);
         font-family: Roboto-regular;
         cursor: pointer;

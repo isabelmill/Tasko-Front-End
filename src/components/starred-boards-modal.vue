@@ -22,7 +22,7 @@
                         :style="board.background ? { 'backgroundColor': board.background } : { 'background-image': `url(${board.backgroundThumb})` }"
                     ></div>
 
-                    <div class="modal-starred-board" >{{ board.title }}</div>
+                    <div class="modal-starred-board">{{ board.title }}</div>
                 </div>
             </div>
         </div>
@@ -47,9 +47,15 @@ export default {
             this.$router.push(`/board/${board._id}`)
         },
     },
-        computed: {
-        starredBoards(){
-            return this.$store.getters.starredBoards
+    computed: {
+        loggedinUser() {
+            return this.$store.getters.loggedinUser
+        },
+        starredBoards() {
+            if (this.$store.getters.boards && this.loggedinUser) {
+                const boards = JSON.parse(JSON.stringify(this.$store.getters.boards))
+                return boards.filter(board => board.isStarred && board.members.some(member => member._id === this.loggedinUser._id))
+            }
         },
     },
 }
