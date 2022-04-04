@@ -88,15 +88,14 @@
 
         .img-txt {
             display: flex;
-            // gap: 40px;
             margin-bottom: 60px;
             .txt-box {
                 margin-top: 114px;
+                
             }
             .img-box {
                 img {
-                    // vertical-align: middle;
-                    max-width: 520px;
+                    max-width: 450px;
                     height: auto;
                 }
             }

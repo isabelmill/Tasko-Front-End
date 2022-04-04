@@ -47,12 +47,13 @@
                                 @updateRecentlyWatched="addLastTimeWatched"
                                 @updateStarred="updateBoard"
                             />
-                        </div> -->
+                        </div>-->
 
                         <div class="border-list">
                             <div class="header">
                                 <p>YOUR WORKSPACES</p>
                             </div>
+
                             <board-list
                                 v-if="boards"
                                 :boards="boards"
@@ -60,24 +61,24 @@
                                 @updateRecentlyWatched="addLastTimeWatched"
                                 @updateStarred="updateBoard"
                             />
-                        </div>
 
-                        <button
-                            class="create-btn"
-                            @click="openBoardEdit(), calcPosOfBox('button')"
-                            ref="button"
-                            type="button"
-                        >
-                            <p>Create new board</p>
-                        </button>
-                        <create-board-modal
-                            v-if="isEdit"
-                            v-clickOutside="closeBoardEdit"
-                            @close="closeBoardEdit"
-                            @add="saveNewBoard"
-                            :style="{ 'right': setRightPos(pos.right) + 'px', 'bottom': '0' }"
-                            :newBoard="newBoard"
-                        ></create-board-modal>
+                            <button
+                                class="create-btn-boards"
+                                @click="openBoardEdit(), calcPosOfBox('button')"
+                                ref="button"
+                                type="button"
+                            >
+                                <p>Create new board</p>
+                            </button>
+                            <create-board-modal
+                                v-if="isEdit"
+                                v-clickOutside="closeBoardEdit"
+                                @close="closeBoardEdit"
+                                @add="saveNewBoard"
+                                :style="{ 'right': setRightPos(pos.right) + 'px', 'bottom': '0' }"
+                                :newBoard="newBoard"
+                            ></create-board-modal>
+                        </div>
                         <!-- :style="{ 'top': pos.top + 'px', 'left': '830' + 'px', 'bottom': '0' }" -->
                     </div>
                     <div v-if="isFolder.templates" class="boards-info">
@@ -209,9 +210,11 @@
                                     v-for=" activity in allActivities"
                                     :key="activity"
                                 >
-                                    <div
-                                        class="member-avatar-in-activity"
-                                    >{{ setMemberLetters(activity.byMember.fullname) }}</div>
+                                    <div class="member-avatar-in-activity">
+                                        {{
+                                            setMemberLetters(activity.byMember.fullname)
+                                        }}
+                                    </div>
                                     <div class="activity-info">
                                         <div class="activities-info-txt flex">
                                             <p>
@@ -321,7 +324,7 @@ export default {
     methods: {
         calcPosOfBox(ref) {
             this.pos = this.$refs[ref].getBoundingClientRect()
-            console.log('this.pos:',this.pos.right);
+            console.log('this.pos:', this.pos.right);
         },
         setFilter(filterBy) {
             this.$store.dispatch({ type: 'filter', filterBy });
