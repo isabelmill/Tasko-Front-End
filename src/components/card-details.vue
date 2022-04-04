@@ -243,7 +243,9 @@
                                                 @click.stop.prevent="deleteAttachment(attachment.id)"
                                             >Delete</a>
                                             <span>-</span>
-                                            <a @click.stop.prevent="editAttachName(attachment,$event)">Edit</a>
+                                            <a
+                                                @click.stop.prevent="editAttachName(attachment, $event)"
+                                            >Edit</a>
                                         </div>
                                         <div class="attachment-area-footer">
                                             <span class="icon-sm icon-cover"></span>
@@ -440,8 +442,13 @@
                         </div>
 
                         <div class="card-details-user-comment flex">
-                            <div class="card-details-user-avatar member">
-                                <div>{{ loggedinUser ? setMemberLetters(loggedinUser.fullname) : 'GU' }}</div>
+                            <div class="card-details-user-avatar">
+                                <!-- <div>{{ loggedinUser ? setMemberLetters(loggedinUser.fullname) : 'GU' }}</div> -->
+                                <img v-if="loggedinUser.imgUrl" :src="loggedinUser.imgUrl" alt />
+                                <div
+                                    v-else
+                                    class="user-avatar"
+                                >{{ loggedinUser ? setMemberLetters(loggedinUser.fullname) : 'GU' }}</div>
                             </div>
                             <div
                                 v-if="!showInput"
@@ -757,10 +764,10 @@ export default {
         }
     },
     methods: {
-        removeCover(){
+        removeCover() {
             this.cardToEdit = JSON.parse(JSON.stringify(this.card))
             this.cardToEdit.cover = {}
-              this.$emit('cardModified', { card: this.cardToEdit, group: this.group })
+            this.$emit('cardModified', { card: this.cardToEdit, group: this.group })
         },
         makeAttachCover(attachment) {
             this.cardToEdit = JSON.parse(JSON.stringify(this.card))
@@ -778,7 +785,7 @@ export default {
             this.cardToEdit.attachments.splice(idx, 1)
             this.$emit('cardModified', { card: this.cardToEdit, group: this.group })
         },
-        editAttachName(attachment,ev) {
+        editAttachName(attachment, ev) {
             this.currAttach = JSON.parse(JSON.stringify(attachment))
             this.edditingAttachName = true
             this.pos = ev.target.getBoundingClientRect()

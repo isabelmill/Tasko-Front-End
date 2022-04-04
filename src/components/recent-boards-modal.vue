@@ -49,13 +49,15 @@ export default {
         },
     },
     computed: {
+        loggedinUser() {
+            return this.$store.getters.loggedinUser
+        },
         recentBoardsForDisplay() {
-            let newBoards = []
-            newBoards = JSON.parse(JSON.stringify(this.boards))
-            newBoards.sort(function (a, b) {
-                return b.lastTimeWatched - a.lastTimeWatched;
-            });
-            return newBoards
+            if (this.$store.getters.boards && this.loggedinUser) {
+                const boards = JSON.parse(JSON.stringify(this.$store.getters.boards))
+                const newBoards = boards.filter(board => !board.isTemplate && board.members.some(member => member._id === this.loggedinUser._id))
+                return newBoards.sort((a, b) => b.lastTimeWatched - a.lastTimeWatched);
+            }
         },
     },
 

@@ -1,9 +1,9 @@
 <template>
     <section class="home-main">
         <nav>
-            <div  class="logo-box-home">
+            <div class="logo-box-home">
                 <div>
-                    <img src="../assets/img/logo-blue.png" alt="logo">
+                    <img src="../assets/img/logo-blue.png" alt="logo" />
                 </div>
                 <p>Tasko</p>
             </div>
@@ -25,7 +25,7 @@
                     </div>
                     <div class="input-mail-box">
                         <!-- <input name="email" type="email" placeholder="Email" /> -->
-                        <button type="submit" @click="goToBoards">Let's start</button>
+                        <button type="submit" @click.stop.prevent="goToBoards">Let's start</button>
                     </div>
                 </div>
                 <div class="img-box">
@@ -37,11 +37,16 @@
 </template>
 
 <script>
+import { userService } from '../services/user-service.js'
 export default {
 
     data() {
         return {
         }
+    },
+    async created() {
+        await userService.logout()
+
     },
     computed: {
 
@@ -53,7 +58,8 @@ export default {
         goTologin() {
             this.$router.push(`/login`)
         },
-        goToBoards(){
+        goToBoards() {
+            
             this.$router.push(`/board`)
         }
     },
