@@ -14,7 +14,7 @@
         </nav>
         <div class="home-main-box">
             <div class="img-txt">
-                <div>
+                <div class="txt-box">
                     <div>
                         <h1>Tasko helps teams move work forward.</h1>
                         <p>
