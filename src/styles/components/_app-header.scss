@@ -7,24 +7,29 @@
     display: flex;
     align-items: center;
     padding: 0 8px 0 8px;
-
+    .app-header {
+        display: flex;
+        gap: 2px;
+    }
     .logo-box {
         display: flex;
         justify-content: center;
         align-items: center;
-        gap: 6px;
+        gap: 2px;
         @include headerBtn();
         .logo-txt {
             font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
             font-size: rem(20px);
             font-weight: bold;
+            margin-bottom: 4px;
+
         }
         .logo-img {
             background-image: url(../assets/gif/logo-not.gif);
             background-repeat: no-repeat;
             background-size: contain;
             background-position: center;
-            margin-top: 3px;
+            margin-top: -2px;
             width: 20px;
             height: 20px;
         }

@@ -54,7 +54,7 @@ export default {
             this.$emit("close");
         },
         async onUploadImg() {
-            const res = await uploadImg(this.searchInput, 50);
+            const res = await uploadImg(this.searchInput, 20);
             this.photos = res.results
         },
         setBgc(photo) {

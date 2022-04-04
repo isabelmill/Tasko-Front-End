@@ -1,113 +1,114 @@
 <template>
   <section class="app-header-main" ref="appheader">
-    <!-- :style="board && isOnBoard ? { 'background-color': lightenDarkenColor(board.background, -20) } : null" -->
-    <router-link to="/board" class="logo-box">
-      <span class="logo-img"></span>
-      <p class="logo-txt">Tasko</p>
-    </router-link>
-    <a @click="openRecentBoardsModal(), calcPosOfBox()" class="link" to="/" ref="recent">
-      Recent
-      <svg
-        width="16"
-        height="16"
-        role="presentation"
-        focusable="false"
-        viewBox="0 0 24 24"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M11.2929 16.7071L4.22185 9.63606C3.83132 9.24554 3.83132 8.61237 4.22185 8.22185C4.61237 7.83133 5.24554 7.83133 5.63606 8.22185L12 14.5858L18.364 8.22185C18.7545 7.83132 19.3877 7.83132 19.7782 8.22185C20.1687 8.61237 20.1687 9.24554 19.7782 9.63606L12.7071 16.7071C12.3166 17.0977 11.6834 17.0977 11.2929 16.7071Z"
-          fill="currentColor"
-        />
-      </svg>
-    </a>
-    <recent-boards-modal
-      v-if="openRecentModal && boards"
-      :boards="boards"
-      :style="{ top: '48' + 'px', left: posRecent.left + 'px' }"
-      v-clickOutside="closeRecentModal"
-      @close="closeRecentModal"
-    ></recent-boards-modal>
-    <a @click="openStarredBoardsModal(), calcPosOfBox()" ref="starred" class="link">
-      Starred
-      <svg
-        width="16"
-        height="16"
-        role="presentation"
-        focusable="false"
-        viewBox="0 0 24 24"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M11.2929 16.7071L4.22185 9.63606C3.83132 9.24554 3.83132 8.61237 4.22185 8.22185C4.61237 7.83133 5.24554 7.83133 5.63606 8.22185L12 14.5858L18.364 8.22185C18.7545 7.83132 19.3877 7.83132 19.7782 8.22185C20.1687 8.61237 20.1687 9.24554 19.7782 9.63606L12.7071 16.7071C12.3166 17.0977 11.6834 17.0977 11.2929 16.7071Z"
-          fill="currentColor"
-        />
-      </svg>
-    </a>
-    <starred-boards-modal
-      v-if="openStarredModal && boards"
-      :boards="boards"
-      :style="{ top: '48' + 'px', left: pos.left + 'px' }"
-      v-clickOutside="closeEditMode"
-      @close="closeEditMode"
-    ></starred-boards-modal>
+    <div class="app-header">
+      <!-- :style="board && isOnBoard ? { 'background-color': lightenDarkenColor(board.background, -20) } : null" -->
+      <router-link to="/board" class="logo-box">
+        <span class="logo-img"></span>
+        <p class="logo-txt">Tasko</p>
+      </router-link>
+      <a @click="openRecentBoardsModal(), calcPosOfBox()" class="link" to="/" ref="recent">
+        Recent
+        <svg
+          width="16"
+          height="16"
+          role="presentation"
+          focusable="false"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M11.2929 16.7071L4.22185 9.63606C3.83132 9.24554 3.83132 8.61237 4.22185 8.22185C4.61237 7.83133 5.24554 7.83133 5.63606 8.22185L12 14.5858L18.364 8.22185C18.7545 7.83132 19.3877 7.83132 19.7782 8.22185C20.1687 8.61237 20.1687 9.24554 19.7782 9.63606L12.7071 16.7071C12.3166 17.0977 11.6834 17.0977 11.2929 16.7071Z"
+            fill="currentColor"
+          />
+        </svg>
+      </a>
+      <recent-boards-modal
+        v-if="openRecentModal && boards"
+        :boards="boards"
+        :style="{ top: '48' + 'px', left: posRecent.left + 'px' }"
+        v-clickOutside="closeRecentModal"
+        @close="closeRecentModal"
+      ></recent-boards-modal>
+      <a @click="openStarredBoardsModal(), calcPosOfBox()" ref="starred" class="link">
+        Starred
+        <svg
+          width="16"
+          height="16"
+          role="presentation"
+          focusable="false"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M11.2929 16.7071L4.22185 9.63606C3.83132 9.24554 3.83132 8.61237 4.22185 8.22185C4.61237 7.83133 5.24554 7.83133 5.63606 8.22185L12 14.5858L18.364 8.22185C18.7545 7.83132 19.3877 7.83132 19.7782 8.22185C20.1687 8.61237 20.1687 9.24554 19.7782 9.63606L12.7071 16.7071C12.3166 17.0977 11.6834 17.0977 11.2929 16.7071Z"
+            fill="currentColor"
+          />
+        </svg>
+      </a>
+      <starred-boards-modal
+        v-if="openStarredModal && boards"
+        :boards="boards"
+        :style="{ top: '48' + 'px', left: pos.left + 'px' }"
+        v-clickOutside="closeEditMode"
+        @close="closeEditMode"
+      ></starred-boards-modal>
 
-    <a class="link" to="/" @click="openTemplateModal(), calcPosOfBox()" ref="template">
-      Templates
-      <svg
-        width="16"
-        height="16"
-        role="presentation"
-        focusable="false"
-        viewBox="0 0 24 24"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M11.2929 16.7071L4.22185 9.63606C3.83132 9.24554 3.83132 8.61237 4.22185 8.22185C4.61237 7.83133 5.24554 7.83133 5.63606 8.22185L12 14.5858L18.364 8.22185C18.7545 7.83132 19.3877 7.83132 19.7782 8.22185C20.1687 8.61237 20.1687 9.24554 19.7782 9.63606L12.7071 16.7071C12.3166 17.0977 11.6834 17.0977 11.2929 16.7071Z"
-          fill="currentColor"
-        />
-      </svg>
-    </a>
+      <a class="link" to="/" @click="openTemplateModal(), calcPosOfBox()" ref="template">
+        Templates
+        <svg
+          width="16"
+          height="16"
+          role="presentation"
+          focusable="false"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M11.2929 16.7071L4.22185 9.63606C3.83132 9.24554 3.83132 8.61237 4.22185 8.22185C4.61237 7.83133 5.24554 7.83133 5.63606 8.22185L12 14.5858L18.364 8.22185C18.7545 7.83132 19.3877 7.83132 19.7782 8.22185C20.1687 8.61237 20.1687 9.24554 19.7782 9.63606L12.7071 16.7071C12.3166 17.0977 11.6834 17.0977 11.2929 16.7071Z"
+            fill="currentColor"
+          />
+        </svg>
+      </a>
 
-    <template-modal
-      v-if="openTemplate && boards"
-      :boards="boards"
-      :style="{ top: '48' + 'px', left: posTemplate.left + 'px' }"
-      v-clickOutside="closeTemplate"
-      @close="closeTemplate"
-      @duplicateTemplate="saveNewBoard"
-    ></template-modal>
+      <template-modal
+        v-if="openTemplate && boards"
+        :boards="boards"
+        :style="{ top: '48' + 'px', left: posTemplate.left + 'px' }"
+        v-clickOutside="closeTemplate"
+        @close="closeTemplate"
+        @duplicateTemplate="saveNewBoard"
+      ></template-modal>
 
-    <a class="link" to="/" @click="openCreateModal(), calcPosOfBox()" ref="create">
-      Create
-      <svg
-        width="16"
-        height="16"
-        role="presentation"
-        focusable="false"
-        viewBox="0 0 24 24"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M11.2929 16.7071L4.22185 9.63606C3.83132 9.24554 3.83132 8.61237 4.22185 8.22185C4.61237 7.83133 5.24554 7.83133 5.63606 8.22185L12 14.5858L18.364 8.22185C18.7545 7.83132 19.3877 7.83132 19.7782 8.22185C20.1687 8.61237 20.1687 9.24554 19.7782 9.63606L12.7071 16.7071C12.3166 17.0977 11.6834 17.0977 11.2929 16.7071Z"
-          fill="currentColor"
-        />
-      </svg>
-    </a>
+      <a class="link" to="/" @click="openCreateModal(), calcPosOfBox()" ref="create">
+        Create
+        <svg
+          width="16"
+          height="16"
+          role="presentation"
+          focusable="false"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M11.2929 16.7071L4.22185 9.63606C3.83132 9.24554 3.83132 8.61237 4.22185 8.22185C4.61237 7.83133 5.24554 7.83133 5.63606 8.22185L12 14.5858L18.364 8.22185C18.7545 7.83132 19.3877 7.83132 19.7782 8.22185C20.1687 8.61237 20.1687 9.24554 19.7782 9.63606L12.7071 16.7071C12.3166 17.0977 11.6834 17.0977 11.2929 16.7071Z"
+            fill="currentColor"
+          />
+        </svg>
+      </a>
 
-    <create-board-modal
-      v-if="openCreate"
-      :style="{ top: '48' + 'px', left: posCreate.left + 'px' }"
-      v-clickOutside="closeCreateModal"
-      :newBoard="newBoard"
-      @add="saveNewBoard"
-      @close="closeCreateModal"
-    ></create-board-modal>
-    <!-- <button class="icon-btn"><font-awesome-icon icon="fa-regular fa-plus-large" /></button> -->
-    <!-- <button class="icon-btn">
+      <create-board-modal
+        v-if="openCreate"
+        :style="{ top: '48' + 'px', left: posCreate.left + 'px' }"
+        v-clickOutside="closeCreateModal"
+        :newBoard="newBoard"
+        @add="saveNewBoard"
+        @close="closeCreateModal"
+      ></create-board-modal>
+      <!-- <button class="icon-btn"><font-awesome-icon icon="fa-regular fa-plus-large" /></button> -->
+      <!-- <button class="icon-btn">
       <span class="icon-md icon-add-light"></span>
-    </button>-->
-
+      </button>-->
+    </div>
     <span class="search-nav">
       <search @setFilter="onSetFilter" @click="openSearchModal()" />
       <span class="span-icon">
