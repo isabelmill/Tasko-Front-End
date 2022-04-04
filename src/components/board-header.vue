@@ -93,12 +93,13 @@
                 v-for="member in membersForDisplay"
                 :key="member.fullname"
             >
-                <div class="users-avatar-name">
-                    <div
-                        @click="openRemoveUser(); calcPosOfBox(); setUser(member);"
-                        ref="user"
-                        class="users-avatar"
-                    >{{ setMemberLetters(member.fullname) }}</div>
+                <div
+                    class="users-avatar-name"
+                    @click="openRemoveUser(); calcPosOfBox(); setUser(member);"
+                    ref="user"
+                >
+                    <img class="member-avatar" v-if="member.imgUrl" :src="member.imgUrl" alt />
+                    <div v-else class="users-avatar">{{ setMemberLetters(member.fullname) }}</div>
                 </div>
             </div>
 
@@ -114,7 +115,7 @@
             <a href="#modal1">
                 <div class="invite">
                     <div class="icon-sm icon-add-member"></div>
-                    <a >Share</a>
+                    <a>Share</a>
                 </div>
             </a>
 
@@ -144,8 +145,15 @@
                                     @click="inviteUser(user)"
                                 >
                                     <div class="users-avatar-name">
+                                        <img
+                                            class="member-avatar"
+                                            v-if="user.imgUrl"
+                                            :src="user.imgUrl"
+                                            alt
+                                        />
                                         <div
-                                            class="users-avatar member"
+                                            v-else
+                                            class="users-avatar"
                                         >{{ setMemberLetters(user.fullname) }}</div>
                                         <p>{{ user.fullname }}</p>
                                     </div>
@@ -153,7 +161,14 @@
                             </div>
                             <div class="admin-info flex">
                                 <div class="admin-avatar-name">
+                                    <img
+                                        class="member-avatar"
+                                        v-if="board.createdBy.imgUrl"
+                                        :src="board.createdBy.imgUrl"
+                                        alt
+                                    />
                                     <div
+                                        v-else
                                         class="admin-avatar member"
                                     >{{ setMemberLetters(board.createdBy.fullname) }}</div>
                                     <p>{{ board.createdBy.fullname }}</p>

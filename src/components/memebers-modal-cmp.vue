@@ -19,7 +19,13 @@
                 class="member-container"
             >
                 <div class="member-div">
-                    <div class="member">{{ setMemberLetters(member.fullname) }}</div>
+                    <img
+                        class="member-avatar"
+                        v-if="member.imgUrl"
+                        :src="member.imgUrl"
+                        alt
+                    />
+                    <div v-else class="member">{{ setMemberLetters(member.fullname) }}</div>
                     <span>{{ member.fullname }}</span>
                     <div v-if="membersToEdit.includes(member._id)" class="icon-sm icon-check"></div>
                 </div>

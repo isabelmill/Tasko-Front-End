@@ -73,7 +73,7 @@
                 </div>
             </div>
             <unsplash-modal v-if="unsplashOpen" @close="closeUnsplash" v-clickOutside="closeUnsplash"
-             :style="{ 'left': '1040' + 'px', 'bottom': '0' }"
+             :style="{ 'left': '960' + 'px', 'bottom': '0' }"
              @changeBgc="setBoardPhoto"
             ></unsplash-modal>
             <label for>Board title</label>

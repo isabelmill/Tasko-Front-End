@@ -44,8 +44,8 @@ export default {
         return {
         }
     },
-    async created() {
-        await userService.logout()
+     created() {
+        // await userService.logout()
 
     },
     computed: {

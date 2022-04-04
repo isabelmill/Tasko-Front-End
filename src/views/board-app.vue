@@ -210,7 +210,13 @@
                                     v-for=" activity in allActivities"
                                     :key="activity"
                                 >
-                                    <div class="member-avatar-in-activity">
+                                    <img
+                                        class="member-avatar"
+                                        v-if="activity.byMember.imgUrl"
+                                        :src="activity.byMember.imgUrl"
+                                        alt
+                                    />
+                                    <div v-else class="member-avatar-in-activity">
                                         {{
                                             setMemberLetters(activity.byMember.fullname)
                                         }}
@@ -408,7 +414,7 @@ export default {
         recentlyBoards() {
             if (this.$store.getters.boards && this.loggedinUser) {
                 const boards = JSON.parse(JSON.stringify(this.$store.getters.boards))
-                 const newBoards = boards.filter(board => !board.isTemplate && board.members.some(member => member._id === this.loggedinUser._id))
+                const newBoards = boards.filter(board => !board.isTemplate && board.members.some(member => member._id === this.loggedinUser._id))
                 return newBoards.sort((a, b) => b.lastTimeWatched - a.lastTimeWatched);
             }
         },
@@ -426,6 +432,9 @@ export default {
         },
         categoryLifestyle() {
             return this.$store.getters.categoryLifestyle
+        },
+        board() {
+            return this.$store.getters.board
         },
         allActivities() {
             return this.$store.getters.allActivities

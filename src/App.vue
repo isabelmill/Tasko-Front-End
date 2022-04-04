@@ -13,8 +13,17 @@ import appHeader from './components/app-header.vue'
 
 export default {
   name: 'app',
+      data() {
+        return {
+            user: {
+                username: 'Guest-user',
+                password: '123',
+            },
+        }
+    },
   async created() {
     await this.$store.dispatch({ type: 'loadBoards' })
+    await this.$store.dispatch({ type: 'login', user: this.user })
   },
   methods: {
   },

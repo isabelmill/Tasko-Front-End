@@ -32,13 +32,16 @@
                     v-for=" activity in board.activities"
                     :key="activity"
                 >
+                    <img class="member-avatar" v-if="activity.byMember.imgUrl" :src="activity.byMember.imgUrl" alt />
                     <div
-                        class="member-avatar-in-activity"
+                        v-else class="member-avatar-in-activity"
                     >{{ setMemberLetters(activity.byMember.fullname) }}</div>
                     <div class="activity-info">
                         <div class="activities-info-txt flex">
-                            <p><span>{{ activity.byMember.username }}</span>
-                            {{ activity.txt }}</p>
+                            <p>
+                                <span>{{ activity.byMember.username }}</span>
+                                {{ activity.txt }}
+                            </p>
                         </div>
                         <div class="activity-timestamp">
                             <!-- {{moment(activity.createdAt).startOf('hour').fromNow()}} -->
@@ -180,9 +183,9 @@ export default {
 
     },
     methods: {
-        generateTime(time){
-        const dateTimeAgo = moment(time).fromNow();
-        return dateTimeAgo
+        generateTime(time) {
+            const dateTimeAgo = moment(time).fromNow();
+            return dateTimeAgo
         },
         closeModal() {
             this.$emit("close");
@@ -214,7 +217,7 @@ export default {
             this.unsplashSearch = this.searchInput
         },
         updateBgc(photo) {
-            console.log('photo:',photo);
+            console.log('photo:', photo);
             this.$emit('changeBgcPhoto', photo)
         },
         setMemberLetters(fullname) {

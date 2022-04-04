@@ -114,6 +114,23 @@
         float: left;
         .card-bar-members {
             margin-left: auto;
+
+            .members{
+
+                // .member-in-card{
+                    .member-avatar{
+                        height: 28px;
+                        width: 28px;
+                        border-radius: 50%;
+                        object-fit: cover;
+                        // padding-left: 5px;
+                        
+                    }
+                // }
+            }
+
+
+
         }
         .date {
             font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;

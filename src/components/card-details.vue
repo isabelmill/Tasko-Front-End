@@ -68,7 +68,13 @@
                                         :key="member._id"
                                     >
                                         <div class="card-details-member-img">
-                                            <div
+                                            <img
+                                                class="member-avatar"
+                                                v-if="member.imgUrl"
+                                                :src="member.imgUrl"
+                                                alt
+                                            />
+                                            <div v-else
                                                 class="member"
                                             >{{ setMemberLetters(member.fullname) }}</div>
                                         </div>
@@ -263,7 +269,7 @@
                             </div>
                         </div>
                         <!--checkLIST area -->
-                        <div class="checklist">
+                        <div v-if="card.checklists.length" class="checklist">
                             <div
                                 v-if="card.checklists.length"
                                 class="card-details-checklist-show-details"

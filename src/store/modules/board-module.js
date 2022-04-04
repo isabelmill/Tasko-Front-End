@@ -52,6 +52,7 @@ export default {
         },
         allActivities(state) {
             var allActivities = []
+            // state.selectedBoard.activities.forEach(activity => allActivities.unshift(activity))
             state.boards.forEach(board => board.activities.forEach(activity => allActivities.unshift(activity)))
             return allActivities
         },

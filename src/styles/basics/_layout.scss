@@ -7,9 +7,14 @@
 .smooth-dnd-container.horizontal {
     display: unset !important;
     .smooth-dnd-draggable-wrapper {
-        height: unset;
+        height: unset !important;
         display: block;
     }
+}
+
+.smooth-dnd-draggable-wrapper {
+    height: 0 !important;
+    display: block;
 }
 
 .board-details-main {
@@ -102,7 +107,7 @@
 }
 
 .smooth-dnd-container.horizontal>.smooth-dnd-draggable-wrapper {
-    height: unset;
+    // height: unset !important;
     display: flex;
 }
 
@@ -110,7 +115,7 @@
 .smooth-dnd-container {
     min-height: unset;
     min-height: 2px !important;
-    // height: 2px;
+    height: unset;
     gap: 8px;
 }
 
@@ -125,4 +130,20 @@
 
 body * {
     cursor: unset;
+}
+
+.smooth-dnd-container{
+    .horizontal{
+        .smooth-dnd-draggable-wrapper{
+            height: unset !important;
+        }
+    }
+}
+
+// .smooth-dnd-draggable-wrapper{
+//     height: 0 !important;
+// }
+
+.smooth-dnd-container.horizontal .smooth-dnd-draggable-wrapper{
+    height: min-content !important;
 }

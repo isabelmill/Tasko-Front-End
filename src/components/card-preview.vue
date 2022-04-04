@@ -1,7 +1,9 @@
 <template>
     <section @click.stop.prevent="openDetails">
-        <section ref="card-modal" class="card-preview cursor-pointer flex"
-        :style="(group.cards.findIndex(cardToFind=> cardToFind.id===card.id)===group.length-1)? {marginBottom: 0+'px'} : {}"
+        <section
+            ref="card-modal"
+            class="card-preview cursor-pointer flex"
+            :style="(group.cards.findIndex(cardToFind => cardToFind.id === card.id) === group.length - 1) ? { marginBottom: 0 + 'px' } : {}"
         >
             <section v-if="card.cover.type === 'color' && card.cover.size === 'large'">
                 <div
@@ -97,7 +99,15 @@
                                 class="member-in-card"
                                 v-for="member in card.members"
                                 :key="member._id"
-                            >{{ setMemberLetters(member.fullname) }}</div>
+                            >
+                                <img
+                                    class="member-avatar"
+                                    v-if="member.imgUrl"
+                                    :src="member.imgUrl"
+                                    alt
+                                />
+                                <div v-else class="member">{{ setMemberLetters(member.fullname) }}</div>
+                            </div>
                         </div>
                     </div>
                 </div>

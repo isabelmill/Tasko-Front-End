@@ -213,11 +213,13 @@ export default {
       posCreate: 0,
       newBoard: boardService.getEmptyBoard(),
       newActivity: boardService.getEmptyActivity(),
+      filter: '',
     }
   },
   methods: {
     onSetFilter(filterBy) {
-      this.$store.commit({ type: 'setFilter', filterBy })
+      this.filter = filterBy
+      // this.$store.commit({ type: 'setFilter', filterBy })
     },
     openSearchModal() {
       this.openSearch = true
@@ -321,7 +323,16 @@ export default {
       return this.$store.getters.boards
     },
     filteredBoards() {
-      return this.$store.getters.filteredBoards
+      if (this.$store.getters.boards && this.loggedinUser) {
+        const boards = JSON.parse(JSON.stringify(this.boards))
+        if (!this.filter.txt) return boards.filter(board => !board.isTemplate && board.members.some(member => member._id === this.loggedinUser._id))
+        if (this.filter.txt) {
+          const regexTxt = new RegExp(this.filter.txt, 'i')
+          return boards.filter(board =>
+            regexTxt.test(board.title) && !board.isTemplate && board.members.some(member => member._id === this.loggedinUser._id))
+        }
+      }
+      // return this.$store.getters.filteredBoards
     },
     isOnBoard() {
       const { boardId } = this.$route.params

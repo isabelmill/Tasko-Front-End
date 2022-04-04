@@ -211,19 +211,36 @@
                 display: flex;
                 flex-wrap: wrap;
                 max-width: 500px;
-                margin-bottom: 35px;
+                margin-bottom: 25px;
                 margin-left: 42px;
                 gap: 16px;
 
                 .card-details-members-container {
                     display: flex;
-                    gap: 5px;
-
+                    gap: 4px;
+                    
                     .card-details-members {
                         padding-top: 5px;
-
+                        
                         .card-details-member-img {
+                            // gap: 5px;
+                            display: flex;
                             border-radius: 50%;
+                            
+                            .member-avatar {
+                                border-radius: 50%;
+                                object-fit: cover;
+                                height: 32px;
+                                width: 32px;
+
+                            }
+
+                            .member{
+                                font-size: 12px;
+                                height: 32px;
+                                width: 32px;
+                            }
+
                         }
                     }
                 }
@@ -1113,10 +1130,10 @@
                     box-shadow: none;
                     padding: 8px 12px;
                     cursor: pointer;
-                    margin-top: 15px;
+                    margin-top: 12px;
                     font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
                     color: #42526e;
-                    margin-bottom: 24px;
+                    margin-bottom: 15px;
                     margin-left: 42px;
                     width: rem(520px);
                     height: rem(55px);
