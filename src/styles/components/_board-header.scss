@@ -327,7 +327,26 @@
         position: relative;
     }
 
-    img {
+    .admin-avatar{
+        font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        background-color: #172b4d;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        letter-spacing: 1px;
+        color: #fff;
+        cursor: default;
+        font-weight: 600;
+        font-size: 12px;
+        // margin-right: -7px;
+        position: relative;
+    }
+
+    .admin-img {
         width: 9px;
         height: 9px;
         position: absolute;

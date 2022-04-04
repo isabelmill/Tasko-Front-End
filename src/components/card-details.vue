@@ -443,7 +443,6 @@
 
                         <div class="card-details-user-comment flex">
                             <div class="card-details-user-avatar">
-                                <!-- <div>{{ loggedinUser ? setMemberLetters(loggedinUser.fullname) : 'GU' }}</div> -->
                                 <img v-if="loggedinUser.imgUrl" :src="loggedinUser.imgUrl" alt />
                                 <div
                                     v-else
@@ -491,7 +490,11 @@
                                 :key="comment"
                             >
                                 <div class="card-details-user-avatar member">
-                                    <div>{{ setMemberLetters(comment.byMember.fullname) }}</div>
+                                    <img v-if="loggedinUser?.imgUrl" :src="loggedinUser.imgUrl" alt />
+                                    <div
+                                        v-else
+                                        class="user-avatar"
+                                    >{{ loggedinUser ? setMemberLetters(loggedinUser.fullname) : 'GU' }}</div>
                                 </div>
                                 <div class="comment-info">
                                     <div class="comment-info-name-date">

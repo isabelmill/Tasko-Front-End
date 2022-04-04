@@ -72,7 +72,14 @@
             </button>
 
             <div class="users-avatar-admin">
-                <div class="users-avatar">{{ setMemberLetters(board.createdBy.fullname) }}</div>
+                <!-- <div class="users-avatar">{{ setMemberLetters(board.createdBy.fullname) }}</div> -->
+                <img
+                    class="admin-avatar"
+                    v-if="board.createdBy.imgUrl"
+                    :src="board.createdBy.imgUrl"
+                    alt
+                />
+                <div v-else class="user-avatar">{{ setMemberLetters(board.createdBy.fullname) }}</div>
                 <img
                     class="admin-img"
                     src="https://a.trellocdn.com/prgb/dist/images/chevron.88a4454280d68a816b89.png"
@@ -81,7 +88,11 @@
             </div>
 
             <div class="empty-div"></div>
-            <div class="board-members-render" v-for="member in membersForDisplay" :key="member.fullname">
+            <div
+                class="board-members-render"
+                v-for="member in membersForDisplay"
+                :key="member.fullname"
+            >
                 <div class="users-avatar-name">
                     <div
                         @click="openRemoveUser(); calcPosOfBox(); setUser(member);"
@@ -100,13 +111,15 @@
                 @remove="removeMember"
             ></remove-user-modal>
 
-            <div class="invite">
-                <div class="icon-sm icon-add-member"></div>
-                <a href="#modal1">Share</a>
-            </div>
+            <a href="#modal1">
+                <div class="invite">
+                    <div class="icon-sm icon-add-member"></div>
+                    <a >Share</a>
+                </div>
+            </a>
 
             <!-- invite modal start -->
-            <div  v-if="loggedinUser._id === board.createdBy._id" id="modal1" class="overlay">
+            <div v-if="loggedinUser._id === board.createdBy._id" id="modal1" class="overlay">
                 <a class="cancel" href="#"></a>
                 <div class="invite-modal-container">
                     <div class="invite-modal">
@@ -298,6 +311,6 @@ export default {
         menuBar,
         removeUserModal,
     },
-    emits: ['changeBoardBgc', 'changeBgcColor', 'starredChange', 'titleChange', 'makeMember','removeInvitedUser']
+    emits: ['changeBoardBgc', 'changeBgcColor', 'starredChange', 'titleChange', 'makeMember', 'removeInvitedUser']
 }
 </script>
