@@ -15,10 +15,11 @@ export default {
             return state.selectedBoard
         },
         boards(state) {
+            console.log('state.loggedinUser._id:',state.loggedinUser._id);
             return state.boards.filter(board => board.members.some(member => member._id === state.loggedinUser._id) && !board.isTemplate)
         },
         starredBoards(state) {
-            return state.boards.filter(board => board.isStarred && board.members.some(member => member._id === state.loggedinUser?._id))
+            return state.boards.filter(board => board.isStarred && board.members.some(member => member._id === state.loggedinUser._id))
         },
         recentlyBoards(state) {
             const recentlyBoards = JSON.parse(JSON.stringify(state.boards))

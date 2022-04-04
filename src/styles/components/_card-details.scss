@@ -315,8 +315,8 @@
                             font-weight: 600;
                             height: 28px;
                             margin: 0 4px 4px 0;
-                            min-width: 40px;
-                            padding: 0 12px;
+                            // min-width: 40px;
+                            padding: 0 12px 3px 12px;
                             width: auto;
                             cursor: pointer;
                             &:hover {
@@ -324,6 +324,7 @@
                             }
                         }
                         p {
+
                             text-align: center;
                             margin: auto;
                             font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;

@@ -30,7 +30,7 @@ function getUsers() {
 async function getById(userId) {
     // const user = await storageService.get('user', userId)
     const user = await httpService.get(`user/${userId}`)
-        // gWatchedUser = user;
+    // gWatchedUser = user;
     return user;
 }
 
@@ -42,7 +42,7 @@ function remove(userId) {
 async function update(user) {
     // await storageService.put('user', user)
     user = await httpService.put(`user/${user._id}`, user)
-        // Handle case in which admin updates other user's details
+    // Handle case in which admin updates other user's details
     if (getLoggedinUser()._id === user._id) _saveLocalUser(user)
     return user;
 }
@@ -65,7 +65,7 @@ async function signup(userInfo) {
     try {
         // const res = await axios.post(USER_URL + '/signup', userInfo)
         // sessionStorage.setItem(STORAGE_KEY_LOGGEDIN, JSON.stringify(user))
-        console.log('userInfo:',userInfo);
+        console.log('userInfo:', userInfo);
         const loggedUser = await httpService.post('auth/signup', userInfo)
         sessionStorage.setItem(STORAGE_KEY_LOGGEDIN, JSON.stringify(loggedUser))
     } catch (err) {
@@ -77,11 +77,16 @@ async function signup(userInfo) {
 async function logout() {
     try {
         // const res = await axios.post(USER_URL + '/logout')
-        // const guestUser = await getById('624559a71ec4197167765f73')
-        // console.log('guestUser:', guestUser)
+        const guestUser = await getById('624559a71ec4197167765f73')
+        // const guestUser = {
+        //     'fullname': "Guest User",
+        //     'username': "Guest-user",
+        //     '_id': '624559a71ec4197167765f73'
+        // }
+        console.log('guestUser:', guestUser)
         await httpService.post('auth/logout')
-        sessionStorage.setItem(STORAGE_KEY_LOGGEDIN, null)
-            // return res.data
+        sessionStorage.setItem(STORAGE_KEY_LOGGEDIN, JSON.stringify(guestUser))
+        // return res.data
     } catch (err) {
         console.log('logout err:', err);
     }
