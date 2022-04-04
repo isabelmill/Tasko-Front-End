@@ -42,11 +42,15 @@ export default {
 
     data() {
         return {
+            user: {
+                username: 'Guest-user',
+                password: '123',
+            },
         }
     },
-     created() {
+    created() {
         // await userService.logout()
-
+        this.$store.dispatch({ type: 'login', user: this.user })
     },
     computed: {
 
@@ -59,7 +63,7 @@ export default {
             this.$router.push(`/login`)
         },
         goToBoards() {
-            
+
             this.$router.push(`/board`)
         }
     },
