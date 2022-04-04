@@ -17,7 +17,7 @@
                 name="password"
                 autocomplete="on"
             />
-            <button @click="login">Log in</button>
+            <button @click.stop.prevent="login">Log in</button>
             <a>OR</a>
             <div class="google-btn">
                 <img
@@ -27,7 +27,7 @@
                 <span>Continue with Google</span>
             </div>
             <hr />
-            <p @click="goToSignup">Sign up for an account</p>
+            <p @click.stop.prevent="goToSignup">Sign up for an account</p>
         </div>
     </section>
 </template>
@@ -58,7 +58,6 @@ export default {
                 username: '',
                 password: '',
             }
-            this.$router.push(`/board`)
             this.$router.push(`/board`)
         },
     },

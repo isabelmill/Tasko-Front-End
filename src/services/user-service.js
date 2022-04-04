@@ -76,14 +76,7 @@ async function signup(userInfo) {
 //guest userid: 624559a71ec4197167765f73
 async function logout() {
     try {
-        // const res = await axios.post(USER_URL + '/logout')
         const guestUser = await getById('624559a71ec4197167765f73')
-        // const guestUser = {
-        //     'fullname': "Guest User",
-        //     'username': "Guest-user",
-        //     '_id': '624559a71ec4197167765f73'
-        // }
-        console.log('guestUser:', guestUser)
         await httpService.post('auth/logout')
         sessionStorage.setItem(STORAGE_KEY_LOGGEDIN, JSON.stringify(guestUser))
         // return res.data

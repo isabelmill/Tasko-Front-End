@@ -47,7 +47,7 @@
                                 @updateRecentlyWatched="addLastTimeWatched"
                                 @updateStarred="updateBoard"
                             />
-                        </div> -->
+                        </div>-->
 
                         <div class="border-list">
                             <div class="header">
@@ -321,7 +321,7 @@ export default {
     methods: {
         calcPosOfBox(ref) {
             this.pos = this.$refs[ref].getBoundingClientRect()
-            console.log('this.pos:',this.pos.right);
+            console.log('this.pos:', this.pos.right);
         },
         setFilter(filterBy) {
             this.$store.dispatch({ type: 'filter', filterBy });
@@ -391,13 +391,23 @@ export default {
             return this.$store.getters.loggedinUser
         },
         boards() {
-            return this.$store.getters.boards
+            if (this.$store.getters.boards && this.loggedinUser) {
+                const boards = JSON.parse(JSON.stringify(this.$store.getters.boards))
+                return boards.filter(board => board.members.some(member => member._id === this.loggedinUser._id) && !board.isTemplate)
+            }
         },
         starredBoards() {
-            return this.$store.getters.starredBoards
+            if (this.$store.getters.boards && this.loggedinUser) {
+                const boards = JSON.parse(JSON.stringify(this.$store.getters.boards))
+                return boards.filter(board => board.isStarred && board.members.some(member => member._id === this.loggedinUser._id))
+            }
         },
         recentlyBoards() {
-            return this.$store.getters.recentlyBoards
+            if (this.$store.getters.boards && this.loggedinUser) {
+                const boards = JSON.parse(JSON.stringify(this.$store.getters.boards))
+                 const newBoards = boards.filter(board => !board.isTemplate && board.members.some(member => member._id === this.loggedinUser._id))
+                return newBoards.sort((a, b) => b.lastTimeWatched - a.lastTimeWatched);
+            }
         },
         templates() {
             return this.$store.getters.templates

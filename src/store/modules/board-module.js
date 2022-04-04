@@ -1,5 +1,9 @@
-import { boardService } from '../../services/board-service.js'
-import { userService } from '../../services/user-service.js'
+import {
+    boardService
+} from '../../services/board-service.js'
+import {
+    userService
+} from '../../services/user-service.js'
 
 export default {
     state: {
@@ -8,18 +12,23 @@ export default {
         filterBy: {
             txt: '',
         },
-        loggedinUser: userService.getLoggedinUser(),
+        loggedinUser: userService.getLoggedinUser()
     },
     getters: {
         board(state) {
             return state.selectedBoard
         },
         boards(state) {
-            console.log('state.loggedinUser._id:',state.loggedinUser._id);
-            return state.boards.filter(board => board.members.some(member => member._id === state.loggedinUser._id) && !board.isTemplate)
+            return state.boards
+            // if (state.boards) {
+            //     // state.loggedinUser = userService.getLoggedinUser()
+            //     return state.boards.filter(board => board.members.some(member => member._id === state.loggedinUser._id) && !board.isTemplate)
+            // }
         },
         starredBoards(state) {
-            return state.boards.filter(board => board.isStarred && board.members.some(member => member._id === state.loggedinUser._id))
+            if (state.boards) {
+                return state.boards.filter(board => board.isStarred && board.members.some(member => member._id === state.loggedinUser._id))
+            }
         },
         recentlyBoards(state) {
             const recentlyBoards = JSON.parse(JSON.stringify(state.boards))
@@ -59,56 +68,100 @@ export default {
         },
     },
     mutations: {
-        setBoards(state, { boards }) {
+        setBoards(state, {
+            boards
+        }) {
+            state.loggedinUser = userService.getLoggedinUser()
             state.boards = boards
         },
-        setBoard(state, { board }) {
+        setBoard(state, {
+            board
+        }) {
             state.selectedBoard = board;
         },
-        removeBoard(state, { id }) {
+        removeBoard(state, {
+            id
+        }) {
             const idx = state.boards.findIndex((board) => board._id === id)
             state.boards.splice(idx, 1)
         },
-        saveBoard(state, { board }) {
+        saveBoard(state, {
+            board
+        }) {
             const idx = state.boards.findIndex((currBoard) => currBoard._id === board._id)
             if (idx !== -1) state.boards.splice(idx, 1, board)
             else state.boards.push(board)
         },
-        setFilter(state, { filterBy }) {
+        setFilter(state, {
+            filterBy
+        }) {
             state.filterBy = filterBy
         },
+        updateUser(state) {
+            state.loggedinUser = userService.getLoggedinUser()
+        }
     },
     actions: {
-        async loadBoards({ commit, state }) {
+        async loadBoards({
+            commit,
+            state
+        }) {
             try {
                 const boards = await boardService.query()
-                commit({ type: 'setBoards', boards });
+                commit({
+                    type: 'setBoards',
+                    boards
+                });
             } catch (err) {
                 console.log('err');
             }
         },
-        async loadBoardById({ commit }, { newId }) {
+        async loadBoardById({
+            commit
+        }, {
+            newId
+        }) {
             try {
                 const board = await boardService.getById(newId)
-                commit({ type: 'setBoard', board })
+                commit({
+                    type: 'setBoard',
+                    board
+                })
             } catch (err) {
                 console.log('err!!');
             }
         },
-        async removeBoard({ commit }, { id }) {
+        async removeBoard({
+            commit
+        }, {
+            id
+        }) {
             try {
                 await boardService.remove(id)
-                commit({ type: 'removeBoard', id });
+                commit({
+                    type: 'removeBoard',
+                    id
+                });
             } catch (err) {
                 console.log('err!!');
             }
         },
-        async saveBoard({ commit }, { board }) {
+        async saveBoard({
+            commit
+        }, {
+            board
+        }) {
             if (board.isTemplate) return
             try {
-                if (board._id) commit({ type: 'setBoard', board });
+                if (board._id) commit({
+                    type: 'setBoard',
+                    board
+                });
                 const savedBoard = await boardService.save(board)
-                commit({ type: 'saveBoard', board: savedBoard });
+                commit({
+                    type: 'saveBoard',
+                    board: savedBoard
+                });
             } catch (err) {
                 console.log('sorry user connot do that!!!');
             }
