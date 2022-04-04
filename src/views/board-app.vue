@@ -35,7 +35,7 @@
                             />
                         </div>
 
-                        <div class="border-list">
+                        <!-- <div class="border-list">
                             <div class="header">
                                 <span class="icon-lg icon-clock-boards"></span>
                                 <p>Recently viewed</p>
@@ -47,7 +47,7 @@
                                 @updateRecentlyWatched="addLastTimeWatched"
                                 @updateStarred="updateBoard"
                             />
-                        </div>
+                        </div> -->
 
                         <div class="border-list">
                             <div class="header">
