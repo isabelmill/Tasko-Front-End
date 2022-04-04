@@ -1,7 +1,7 @@
 <template>
     <section @click.stop.prevent="openDetails">
         <section ref="card-modal" class="card-preview cursor-pointer flex"
-        :style="(group.cards.findIndex(cardToFind=> cardToFind.id===card.id)===group.length-1)? {paddingBottom: 0+'px'} : {paddingBottom: 8+'px'}"
+        :style="(group.cards.findIndex(cardToFind=> cardToFind.id===card.id)===group.length-1)? {marginBottom: 0+'px'} : {}"
         >
             <section v-if="card.cover.type === 'color' && card.cover.size === 'large'">
                 <div
