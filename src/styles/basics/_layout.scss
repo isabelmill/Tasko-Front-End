@@ -6,6 +6,9 @@
 
 .smooth-dnd-container.horizontal {
     display: unset !important;
+    .smooth-dnd-draggable-wrapper {
+        height: unset;
+    }
 }
 
 .board-details-main {
