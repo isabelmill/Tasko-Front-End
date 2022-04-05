@@ -109,7 +109,7 @@
 
 .smooth-dnd-container.horizontal>.smooth-dnd-draggable-wrapper {
     // height: unset !important;
-    display: flex;
+    display: flex !important;
 }
 
 // .smooth-dnd-container.horizontal>.smooth-dnd-draggable-wrapper {}
