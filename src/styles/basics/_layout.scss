@@ -8,13 +8,14 @@
     display: unset !important;
     .smooth-dnd-draggable-wrapper {
         height: unset !important;
-        display: block;
+        display: unset;
+        display: flex;
     }
 }
 
 .smooth-dnd-draggable-wrapper {
     height: 0 !important;
-    display: block;
+    display: flex;
 }
 
 .board-details-main {
@@ -114,7 +115,7 @@
 // .smooth-dnd-container.horizontal>.smooth-dnd-draggable-wrapper {}
 .smooth-dnd-container {
     min-height: unset;
-    min-height: 2px !important;
+    min-height: 4px !important;
     height: unset;
     gap: 8px;
 }
@@ -132,9 +133,9 @@ body * {
     cursor: unset;
 }
 
-.smooth-dnd-container{
-    .horizontal{
-        .smooth-dnd-draggable-wrapper{
+.smooth-dnd-container {
+    .horizontal {
+        .smooth-dnd-draggable-wrapper {
             height: unset !important;
         }
     }
@@ -143,7 +144,6 @@ body * {
 // .smooth-dnd-draggable-wrapper{
 //     height: 0 !important;
 // }
-
-.smooth-dnd-container.horizontal .smooth-dnd-draggable-wrapper{
+.smooth-dnd-container.horizontal .smooth-dnd-draggable-wrapper {
     height: min-content !important;
 }
