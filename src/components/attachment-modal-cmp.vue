@@ -52,11 +52,8 @@ export default {
     },
     methods: {
         setBottomPos(BottomPos) {
-            console.log('screen.height + "px"', window.innerHeight)
             if ((window.innerHeight - BottomPos) < 240) {
-                console.log('true')
                 const bottom = window.innerHeight - 240
-                console.log('bottom', bottom)
                 return bottom
             } else {
                 return BottomPos + 8
@@ -86,7 +83,6 @@ export default {
                 name: result.original_filename,
                 link: result.secure_url
             })
-            // console.log(this.cardToEdit.attachments)
             this.$emit('cardEdit', this.cardToEdit)
         },
     },

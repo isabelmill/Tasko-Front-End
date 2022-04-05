@@ -51,10 +51,8 @@ async function update(user) {
 
 async function login(user) {
     try {
-        // const res = await axios.post(USER_URL + '/login', user)
         const loggedUser = await httpService.post('auth/login', user)
         sessionStorage.setItem(STORAGE_KEY_LOGGEDIN, JSON.stringify(loggedUser));
-        // console.log('loggedUser:',loggedUser);
         return loggedUser
     } catch (err) {
         console.log('login err:', err);
@@ -65,7 +63,6 @@ async function signup(userInfo) {
     try {
         // const res = await axios.post(USER_URL + '/signup', userInfo)
         // sessionStorage.setItem(STORAGE_KEY_LOGGEDIN, JSON.stringify(user))
-        console.log('userInfo:', userInfo);
         const loggedUser = await httpService.post('auth/signup', userInfo)
         sessionStorage.setItem(STORAGE_KEY_LOGGEDIN, JSON.stringify(loggedUser))
     } catch (err) {

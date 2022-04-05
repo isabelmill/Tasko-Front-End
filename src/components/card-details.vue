@@ -842,20 +842,15 @@ export default {
             this.$emit('cardModified', { card, group: this.group })
         },
         async attachmentBGC(el) {
-            // console.log(el)
             const fac = new FastAverageColor()
             const img = el.props.src
-            // var color= '';\
             try {
                 const color = await fac.getColorAsync(img)
-                // console.log(color)
                 el.props['background-color'] = color.hex
             }
             catch (err) {
                 console.log(err)
             }
-            // // console.log(color.hex)
-            //     return color
 
         },
         sendCardCopyToStore(copy) {
@@ -986,7 +981,6 @@ export default {
             this.cardToEdit = JSON.parse(JSON.stringify(this.card))
             const checklistIdx = this.cardToEdit.checklists.findIndex(checklistToFind => checklistToFind.id === this.currChecklist.id)
             const todoIdx = this.cardToEdit.checklists[checklistIdx].todos.findIndex(todoToFind => todoToFind.id === this.currOpenTodo.id)
-            console.log(checklistIdx, todoIdx)
             this.cardToEdit.checklists[checklistIdx].todos[todoIdx] = this.currOpenTodo
             this.$emit('cardModified', { card: this.cardToEdit, group: this.group })
             this.currChecklist = {}

@@ -377,7 +377,6 @@ export default {
         },
         saveNewCard(group) {
             if (this.newCard.title === '') return
-            console.log(this.newCard.title)
             this.groupToEdit = JSON.parse(JSON.stringify(group))
             this.groupToEdit.cards.push(this.newCard)
             this.$emit('groupUpdated', this.groupToEdit)
@@ -403,8 +402,6 @@ export default {
             checklists.forEach(checklist => allTodosSum += checklist.todos.length)
             checklists.forEach(checklist => checklist.todos.forEach(todo => completedTodos.push(todo)))
             completedTodos = completedTodos.filter(todo => todo.isComplete)
-            console.log('completedTodos', completedTodos)
-            console.log('completed length', completedTodos.length)
             return completedTodos.length + '/' + allTodosSum
         },
         openThisModal(modalName, ref) {
@@ -541,9 +538,6 @@ export default {
             return index => {
                 return this.boardToEdit.groups.filter(p => p.id === groupId)[0].cards[index]
             }
-        },
-        log(...params) {
-            // console.log(...params)
         },
         closeAdder(){
             this.isAddingCard = false

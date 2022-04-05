@@ -217,7 +217,6 @@ export default {
             this.unsplashSearch = this.searchInput
         },
         updateBgc(photo) {
-            console.log('photo:', photo);
             this.$emit('changeBgcPhoto', photo)
         },
         setMemberLetters(fullname) {

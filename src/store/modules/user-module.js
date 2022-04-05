@@ -44,7 +44,6 @@ export default {
     },
     actions: {
         async login({ commit }, { user}) {
-            console.log('user:', user);
             try {
                 const newUser = await userService.login(user)
                 commit({ type: 'login', user: newUser})
@@ -87,7 +86,6 @@ export default {
                     user
                 })
                 // socketService.emit(SOCKET_EMIT_USER_WATCH, userId) 
-                console.log('user:', user);
                 socketService.off(SOCKET_EVENT_USER_UPDATED)
                 socketService.on(SOCKET_EVENT_USER_UPDATED, user => {
                     commit({type: 'setWatchedUser', user })})
@@ -115,17 +113,5 @@ export default {
             }
 
         },
-        // async increaseScore({commit}) {
-        //     try {
-        //         const score = await userService.changeScore(100)
-        //         commit({
-        //             type: 'setUserScore',
-        //             score
-        //         })
-        //     } catch (err) {
-        //         console.log('userStore: Error in increaseScore', err)
-        //         throw err
-        //     }
-        // }
     },
 }

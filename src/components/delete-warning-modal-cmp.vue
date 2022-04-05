@@ -41,11 +41,8 @@ export default {
     },
     methods: {
         setBottomPos(BottomPos) {
-            console.log('screen.height + "px"', window.innerHeight)
             if ((window.innerHeight - BottomPos) < 175) {
-                console.log('true')
                 const bottom = window.innerHeight - 175
-                console.log('bottom', bottom)
                 return bottom
             } else {
                 return BottomPos + 8

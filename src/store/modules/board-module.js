@@ -164,7 +164,7 @@ export default {
                     board: savedBoard
                 });
             } catch (err) {
-                console.log('sorry user connot do that!!!');
+                console.log('sorry user cannot do that!!!');
             }
         },
         // filter({ commit, dispatch }, { filterBy }) {

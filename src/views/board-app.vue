@@ -330,7 +330,6 @@ export default {
     methods: {
         calcPosOfBox(ref) {
             this.pos = this.$refs[ref].getBoundingClientRect()
-            console.log('this.pos:', this.pos.right);
         },
         setFilter(filterBy) {
             this.$store.dispatch({ type: 'filter', filterBy });
@@ -353,7 +352,6 @@ export default {
             board.activities.push(this.newActivity)
             this.$store.dispatch({ type: 'saveBoard', board: board })
             this.isEdit = false
-            console.log('board in save new board:', board);
             this.newBoard = boardService.getEmptyBoard()
         },
         setFolder(folder) {
@@ -384,11 +382,8 @@ export default {
             return dateTimeAgo
         },
         setRightPos(rightPos) {
-            console.log('screen.height + "px"', window.innerWidth)
             if ((window.innerWidth - rightPos) < 390) {
-                console.log('true')
                 const right = window.innerWidth - 390
-                console.log('bottom', right)
                 return right
             } else {
                 return rightPos + 8

@@ -230,7 +230,6 @@ export default {
             board.activities.push(this.newActivity)
              this.newActivity = boardService.getEmptyActivity()
             this.$store.dispatch({ type: 'saveBoard', board: board })
-            console.log('board in save new board:', board);
         }
     },
     computed: {

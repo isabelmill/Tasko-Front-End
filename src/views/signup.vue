@@ -7,7 +7,7 @@
             />
             <h1>Tasko</h1>
         </div>
-        <form @submit.prevent="signup" action="signup">
+        <form @submit.stop.prevent="signup" action="signup">
             <div class="signup-container">
                 <h1>Sign up for your account</h1>
                 <input v-model="newUser.username" placeholder="Enter username" type="text" />

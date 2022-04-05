@@ -31,7 +31,6 @@ export default {
             this.$emit('updateRecentlyWatched',boardToEdit )
         },
         addBoard(board){
-            console.log('board in list :',board);
             this.$emit('duplicateTemplate',board )
         }
 

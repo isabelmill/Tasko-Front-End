@@ -58,11 +58,9 @@ export default {
             this.photos = res.results
         },
         setBgc(photo) {
-            console.log('photo:', photo.thumb);
             this.$emit('changeBgc', photo)
         },
         updateSearch() {
-            console.log('this.search:',this.search);
             this.searchInput = this.search
         }
     },
