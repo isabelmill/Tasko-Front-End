@@ -9,13 +9,13 @@
     .smooth-dnd-draggable-wrapper {
         height: unset !important;
         display: unset;
-        display: flex !important;
+        // display: flex !important;
     }
 }
 
 .smooth-dnd-draggable-wrapper {
     height: 0 !important;
-    display: flex !important;
+    // display: flex !important;
 }
 
 .board-details-main {
@@ -146,5 +146,9 @@ body * {
 // }
 .smooth-dnd-container.horizontal .smooth-dnd-draggable-wrapper {
     height: min-content !important;
-    display: flex !important;
+    // display: flex !important;
+}
+
+.smooth-dnd-draggable-wrapper{
+    display: block !important;
 }

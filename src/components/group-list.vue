@@ -32,8 +32,6 @@
                             group-name="col"
                             orientation="vertical"
                             :get-child-payload="getCardPayload(group.id)"
-                            @drag-start="(e) => log('drag start', e)"
-                            @drag-end="(e) => log('drag end', e)"
                             @drop="(e) => onCardDrop(group.id, e)"
                         >
                             <Draggable v-for="card in group.cards" :key="card.id">
