@@ -3,10 +3,14 @@
 @import 'setup/variables';
 @import 'setup/functions';
 @import 'setup/mixins';
+@import 'setup/mq';
+
+
 // // BASICS
 @import 'basics/helpers';
 @import 'basics/base';
 @import 'basics/layout';
+
 // // COMPONENTS
 @import './components/app-header';
 @import './components/board-header';
@@ -18,6 +22,7 @@
 @import './components/menu-side-bar';
 @import './components/123';
 @import './components/user-modal';
+
 // // views
 @import './views/board-app';
 @import './views/home';

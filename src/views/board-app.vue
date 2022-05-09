@@ -75,6 +75,7 @@
                                 v-clickOutside="closeBoardEdit"
                                 @close="closeBoardEdit"
                                 @add="saveNewBoard"
+                                class="create-board-modal-board-app"
                                 :style="{ 'right': setRightPos(pos.right) + 'px', 'bottom': '0' }"
                                 :newBoard="newBoard"
                             ></create-board-modal>
