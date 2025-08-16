@@ -1,27 +1,25 @@
 import Axios from 'axios'
-import
-router
-from '../router/index.js'
+import router from '../router/index.js'
 
-const BASE_URL = process.env.NODE_ENV === 'production' ?
-    '/api/' :
-    '//localhost:3030/api/'
+// Use environment variable for API base URL
+// - VUE_APP_API_URL should be set in .env.production and .env.development
+const BASE_URL = process.env.VUE_APP_API_URL || 'http://localhost:3030/api'
 
-var axios = Axios.create({
-    withCredentials: true
+const axios = Axios.create({
+    withCredentials: true // keep this if using cookies/session auth
 })
 
 export const httpService = {
-    get(endpoint, data) {
-        return ajax(endpoint, 'GET', data)
+    get(endpoint, params = null) {
+        return ajax(endpoint, 'GET', params)
     },
-    post(endpoint, data) {
+    post(endpoint, data = null) {
         return ajax(endpoint, 'POST', data)
     },
-    put(endpoint, data) {
+    put(endpoint, data = null) {
         return ajax(endpoint, 'PUT', data)
     },
-    delete(endpoint, data) {
+    delete(endpoint, data = null) {
         return ajax(endpoint, 'DELETE', data)
     }
 }
@@ -32,17 +30,14 @@ async function ajax(endpoint, method = 'GET', data = null) {
             url: `${BASE_URL}${endpoint}`,
             method,
             data,
-            params: (method === 'GET') ? data : null
+            params: method === 'GET' ? data : null
         })
         return res.data
     } catch (err) {
-        console.log(`Had Issues ${method}ing to the backend, endpoint: ${endpoint}, with data:`, data)
-        console.dir(err)
+        console.error(`Error ${method}ing to backend at ${endpoint} with data:`, data)
         if (err.response && err.response.status === 401) {
-            // Depends on routing startegy - hash or history
-            // window.location.assign('/#/login')
-            // window.location.assign('/login')
-            // router.push('/login')
+            // Handle unauthorized errors
+            router.push('/login') // redirect to login page
         }
         throw err
     }
