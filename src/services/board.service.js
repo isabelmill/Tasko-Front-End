@@ -287,7 +287,7 @@ function _makeId(length = 8) {
 }
 
 function _createBoards() {
-    let boards = utilService.loadFromStorage(BOARDS_KEY)
+    let boards = utilService.loadFromStorage(STORAGE_KEY)
     if (!boards || !boards.length) {
         boards = [{
             "_id": "b101",
