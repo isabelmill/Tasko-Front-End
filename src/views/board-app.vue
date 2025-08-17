@@ -299,7 +299,7 @@
 </template>
 
 <script>
-import { boardService } from '../services/board-service'
+import { boardService } from '../services/board.service'
 import boardList from '../components/board-list.vue'
 import unsplash from '../components/unsplash.vue'
 import createBoardModal from '../components/create-board-modal.vue'

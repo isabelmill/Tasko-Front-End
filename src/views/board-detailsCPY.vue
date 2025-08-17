@@ -69,9 +69,9 @@
 </template>
 
 <script>
-import { boardService } from "../services/board-service.js"
+import { boardService } from "../services/board.service.js"
 import { socketService } from "../services/socket.service.js"
-import { userService } from "../services/user-service"
+import { userService } from "../services/user.service"
 import groupList from "../components/group-list.vue"
 import boardHeader from "../components/board-header.vue"
 import templateHeader from "../components/template-header.vue"

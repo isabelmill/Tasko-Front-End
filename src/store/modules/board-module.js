@@ -1,9 +1,9 @@
 import {
     boardService
-} from '../../services/board-service.js'
+} from '../../services/board.service.js'
 import {
     userService
-} from '../../services/user-service.js'
+} from '../../services/user.service.js'
 
 export default {
     state: {

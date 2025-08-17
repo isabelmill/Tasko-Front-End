@@ -202,7 +202,7 @@
 <script>
 import menuBar from "../components/menu-bar.vue"
 import removeUserModal from "../components/remove-user-modal.vue"
-// import { userService } from '../services/user-service'
+// import { userService } from '../services/user.service'
 
 export default {
     props: {

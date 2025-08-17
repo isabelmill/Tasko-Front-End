@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { utilService } from '../services/util-service'
+import { utilService } from '../services/util.service'
 import labelEditorModalCmp from "./label-editor-modal-cmp.vue"
 export default {
     components: {

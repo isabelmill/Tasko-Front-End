@@ -438,7 +438,7 @@ import FastAverageColor from 'fast-average-color';
 import copyModal from "./copy-modal-cmp.vue";
 import checklistModal from "./checklist-modal-cmp.vue";
 import attachEditModal from "./attach-edit-modal-cmp.vue";
-import { boardService } from "../services/board-service.js"
+import { boardService } from "../services/board.service.js"
 import moment from 'moment';
 import todoOptions from "./todo-options-cmp.vue";
 

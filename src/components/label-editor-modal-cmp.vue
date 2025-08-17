@@ -87,7 +87,7 @@
 </template>
 
 <script>
-import { utilService } from '../services/util-service.js'
+import { utilService } from '../services/util.service.js'
 export default {
     name: 'label-editor',
     props: {

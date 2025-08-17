@@ -1,6 +1,6 @@
 import {
     utilService
-} from "../services/util-service.js"
+} from "../services/util.service.js"
 import {
     asyncStorageService
 } from "../services/storage-service.js"
