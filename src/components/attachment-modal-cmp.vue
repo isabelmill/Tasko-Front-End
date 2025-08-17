@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import { uploadService } from "../services/upload-service.js";
+import { uploadService } from "../services/upload.service.js";
 import { utilService } from '../services/util-service.js';
 export default {
     name: 'attachment-modal',

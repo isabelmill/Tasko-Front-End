@@ -93,7 +93,7 @@
 </template>      
 
 <script>
-import { uploadImg } from '../services/unsplash-service.js';
+import { uploadImg } from '../services/unsplash.service.js';
 import unsplashModal from './unsplash-modal.vue';
 export default {
 

@@ -1,4 +1,4 @@
-import { asyncStorageService } from './async-storage.service.js'
+import { asyncStorageService } from './storage.service.js'
 
 const STORAGE_KEY = 'board'
 

@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import { uploadImg } from '../services/unsplash-service.js';
+import { uploadImg } from '../services/unsplash.service.js';
 // import unsplash from '../components/unsplash.vue'
 export default {
     props: {
