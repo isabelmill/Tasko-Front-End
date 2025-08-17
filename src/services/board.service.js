@@ -679,7 +679,7 @@ function _createBoards() {
                 }
             }],
         }]
-        utilService.saveToStorage(BOARDS_KEY, boards)
+        utilService.saveToStorage(STORAGE_KEY, boards)
     }
     return boards
 }
