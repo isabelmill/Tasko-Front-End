@@ -1,6 +1,6 @@
 import {
     userService
-} from '../../services/user-service.js'
+} from '../../services/user.service.js'
 
 export default {
     state: {
