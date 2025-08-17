@@ -124,7 +124,7 @@ import loggedInUserModal from "./logged-in-user-modal.vue"
 import templateModal from "./template-modal.vue"
 import FastAverageColor from 'fast-average-color'
 import createBoardModal from "./create-board-modal.vue"
-import { boardService } from '../services/board-service'
+import { boardService } from '../services/board.service'
 import searchModal from "./search-modal.vue"
 import moreModal from "./more-modal.vue"
 
