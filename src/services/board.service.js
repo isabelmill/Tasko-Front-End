@@ -16,9 +16,15 @@ export const boardService = {
     updateCard,
     moveCard,
     moveCardsBulk,
+    getEmptyBoard,
+    getEmptyGroup,
+    getEmptyCard,
+    getEmptyActivity,
 }
 
-// Basic board CRUD
+// ---------------------------
+// BASIC CRUD
+// ---------------------------
 function query() {
     return asyncStorageService.query(STORAGE_KEY)
 }
@@ -37,7 +43,7 @@ function remove(boardId) {
 }
 
 // ---------------------------
-// GROUPS
+// GROUPS & CARDS (existing logic stays intact)
 // ---------------------------
 function addGroup(boardId, newGroup) {
     return getById(boardId).then((board) => {
@@ -59,7 +65,7 @@ function removeGroup(boardId, groupId) {
         const idx = board.groups.findIndex((g) => g._id === groupId)
         if (idx === -1) return board
 
-        const [removed] = board.groups.splice(idx, 1)
+        board.groups.splice(idx, 1)
         board.activities = board.activities || []
         board.activities.push({
             id: _makeId(),
@@ -102,9 +108,6 @@ function moveGroup(boardId, fromIdx, toIdx) {
     })
 }
 
-// ---------------------------
-// CARDS
-// ---------------------------
 function addCard(boardId, groupId, newCard) {
     return getById(boardId).then((board) => {
         const group = board.groups.find((g) => g._id === groupId)
@@ -204,7 +207,7 @@ function moveCardsBulk(boardId, fromGroupId, toGroupId, cardIds, toIdx) {
                 cardId: card._id,
                 fromGroupId,
                 toGroupId,
-                fromIdx: null, // optional, could be tracked if needed
+                fromIdx: null,
                 toIdx: toIdx + i,
                 timestamp: Date.now(),
             })
@@ -212,6 +215,60 @@ function moveCardsBulk(boardId, fromGroupId, toGroupId, cardIds, toIdx) {
 
         return asyncStorageService.put(STORAGE_KEY, board).then(() => board)
     })
+}
+
+// ---------------------------
+// EMPTY TEMPLATES
+// ---------------------------
+function getEmptyBoard() {
+    return {
+        _id: _makeId(),
+        title: '',
+        isStarred: false,
+        background: '#ffffff',
+        backgroundPhoto: '',
+        backgroundThumb: '',
+        createdBy: null,
+        members: [],
+        groups: [],
+        activities: [],
+        isTemplate: false,
+        category: '',
+        lastTimeWatched: Date.now(),
+    }
+}
+
+function getEmptyGroup() {
+    return {
+        _id: _makeId(),
+        title: '',
+        cards: [],
+        style: {},
+    }
+}
+
+function getEmptyCard() {
+    return {
+        _id: _makeId(),
+        title: '',
+        description: '',
+        comments: [],
+        attachments: [],
+        checklists: [],
+        members: [],
+        dueDate: null,
+        labels: [],
+        style: {},
+    }
+}
+
+function getEmptyActivity() {
+    return {
+        id: _makeId(),
+        txt: '',
+        byMember: null,
+        createdAt: Date.now(),
+    }
 }
 
 // ---------------------------

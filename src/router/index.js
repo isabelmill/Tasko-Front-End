@@ -14,14 +14,14 @@ const router = createRouter({
             component: home
         },
         {
-            path: '/board',
-            name: 'board-app',
-            component: boardApp,
-        },
-        {
             path: '/board/:boardId',
             name: 'board-details',
             component: boardDetails,
+        },
+        {
+            path: '/board',
+            name: 'board-app',
+            component: boardApp,
         },
         {
             path: '/login',

@@ -17,8 +17,9 @@
                 @removeInvitedUser="removeMember"
             />
         </section>
+
         <section
-            v-if="board"
+            v-if="board && board.groups.length"
             class="board-details-main"
             :style="{ 'backgroundColor': board.background }"
         >
@@ -35,7 +36,8 @@
                 @groupDnd="updateBoardDnd"
             ></group-list>
         </section>
-        <section v-if="isCardOpen" class="dialog-container card-details-scroll">
+
+        <section v-if="isCardOpen && cardToShow && groupToShow" class="dialog-container card-details-scroll">
             <card-details
                 ref="cardDetailsModal"
                 class="modal"
@@ -50,21 +52,6 @@
                 :group="groupToShow"
             ></card-details>
         </section>
-        <!-- <section>
-            <dialog ref="cardDetailsModal" class="modal">
-                <card-details
-                    v-if="isCardOpen"
-                    @deleteCardFromGroup="deleteCardFromGroup"
-                    @boardModified="updateBoard"
-                    @cardModified="updateCard"
-                    @closeDialog="closeDiag"
-                    @saveCopy="SaveCopyToBoard"
-                    :board="board"
-                    :card="cardToShow"
-                    :group="groupToShow"
-                ></card-details>
-            </dialog>
-        </section>-->
     </section>
 </template>
 
@@ -96,13 +83,8 @@ export default {
             newActivity: boardService.getEmptyActivity(),
         }
     },
-    created() {
-    },
     mounted() {
-
         socketService.on('board-changed', this.socketBoardUpdate)
-
-        // socketService.on('connected', this.socketTest)
     },
     methods: {
         socketBoardUpdate(board) {
@@ -113,6 +95,7 @@ export default {
             this.newActivity = boardService.getEmptyActivity()
             if (this.loggedinUser) this.newActivity.byMember = this.loggedinUser
             const idx = this.boardToEdit.groups.findIndex((group) => group.id === groupId)
+            if (idx === -1) return
             this.saveActivity('removed list ' + this.boardToEdit.groups[idx].title)
             this.boardToEdit.groups.splice(idx, 1)
             this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
@@ -120,31 +103,32 @@ export default {
         addNewGroup(newGroup) {
             if (!newGroup.title) return
             this.boardToEdit = JSON.parse(JSON.stringify(this.board))
-            this.saveActivity('added ' + newGroup.title + '  to this board')
+            this.saveActivity('added ' + newGroup.title + ' to this board')
             this.boardToEdit.groups.push(newGroup)
             this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
             this.newGroup = boardService.getEmptyGroup()
-            this.show = false;
         },
         close() {
-            this.show = false;
             this.newGroup.title = ""
         },
         updateCard({ card, group }) {
             this.groupToEdit = JSON.parse(JSON.stringify(group))
             const cardToEditIdx = this.groupToEdit.cards.findIndex(cardToFind => cardToFind.id === card.id)
+            if (cardToEditIdx === -1) return
             this.groupToEdit.cards[cardToEditIdx] = card
             this.updateGroup(this.groupToEdit)
         },
         deleteCardFromGroup({ card, group }) {
             this.groupToEdit = JSON.parse(JSON.stringify(group))
             const cardToEditIdx = this.groupToEdit.cards.findIndex(cardToFind => cardToFind.id === card.id)
+            if (cardToEditIdx === -1) return
             this.groupToEdit.cards.splice(cardToEditIdx, 1)
             this.updateGroup(this.groupToEdit)
         },
         updateGroup(editedGroup) {
             this.boardToEdit = JSON.parse(JSON.stringify(this.board))
             const groupIdx = this.boardToEdit.groups.findIndex(group => group.id === editedGroup.id)
+            if (groupIdx === -1) return
             this.boardToEdit.groups[groupIdx] = editedGroup
             this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
         },
@@ -154,13 +138,14 @@ export default {
             this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
         },
         openCardDetailsModal(info) {
-            this.selectedCardIdx = this.board.groups.find(group => group.id === info.group.id).cards.findIndex(card => card.id === info.card.id)
-            this.selectedCardGroupIdx = this.board.groups.findIndex(group => group.id === info.group.id)
+            const group = this.board.groups?.find(g => g.id === info.group.id)
+            if (!group) return
+            this.selectedCardGroupIdx = this.board.groups.indexOf(group)
+            this.selectedCardIdx = group.cards.findIndex(card => card.id === info.card.id)
             this.isCardOpen = true
         },
         closeDiag() {
             this.isCardOpen = false
-            // this.$refs.cardDetailsModal.close()
         },
         saveCopyToBoard(copy) {
             this.groupToEdit = JSON.parse(JSON.stringify(copy.posCopy.group))
@@ -184,9 +169,7 @@ export default {
         },
         changeBoardBgcColor(color) {
             this.boardToEdit = JSON.parse(JSON.stringify(this.board))
-
             this.saveActivity('changed the background of this board')
-
             this.boardToEdit.background = color
             this.boardToEdit.backgroundPhoto = ''
             this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
@@ -214,6 +197,7 @@ export default {
         removeMember(user) {
             this.boardToEdit = JSON.parse(JSON.stringify(this.board))
             const idx = this.boardToEdit.members.findIndex((member) => member._id === user._id)
+            if (idx === -1) return
             this.boardToEdit.members.splice(idx, 1)
             this.saveActivity(' removed ' + user.fullname + ' from this board')
             this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
@@ -221,62 +205,41 @@ export default {
         addTemplateBoard(board) {
             if (this.loggedinUser) {
                 board.createdBy = this.loggedinUser
-                // delete board.members[0]
                 board.members.push(this.loggedinUser)
                 this.newActivity.byMember = this.loggedinUser
             }
             board.isTemplate = false
             this.newActivity.txt = 'created this board'
             board.activities.push(this.newActivity)
-             this.newActivity = boardService.getEmptyActivity()
+            this.newActivity = boardService.getEmptyActivity()
             this.$store.dispatch({ type: 'saveBoard', board: board })
         }
     },
     computed: {
         board() {
-            return this.$store.getters.board
+            return this.$store.getters.board || { groups: [], activities: [], members: [], background: '' }
         },
         cardToShow() {
-            return this.board.groups[this.selectedCardGroupIdx].cards[this.selectedCardIdx]
+            const group = this.board.groups?.[this.selectedCardGroupIdx]
+            if (!group) return null
+            return group.cards?.[this.selectedCardIdx] || null
         },
         groupToShow() {
-            return this.board.groups[this.selectedCardGroupIdx]
+            return this.board.groups?.[this.selectedCardGroupIdx] || null
         },
         loggedinUser() {
             return this.$store.getters.loggedinUser
         },
-
     },
     watch: {
         "$route.params.boardId": {
             async handler(newId) {
                 if (newId) {
                     await this.$store.dispatch({ type: 'loadBoardById', newId })
-                    // socketService.emit('board updated', board => {
-                    //     this.socketTest(board)
-                    // })
-                    if (this.loggedinUser) {
-                        socketService.emit('watch board', newId)
-                        socketService.emit('set-user-socket', this.loggedinUser._id)
-                    }
-                    // else socketService.emit('set-user-socket', '')
                 }
             },
             immediate: true
-        },
+        }
     }
 }
-
 </script>
-
-<style>
-.modal {
-    border-radius: 2px;
-    box-shadow: 0 0 1em rgb(0, 0, 0/0.3);
-}
-
-.modal::backdrop {
-    background: black;
-    opacity: 0.3;
-}
-</style>
