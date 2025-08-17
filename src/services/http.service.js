@@ -27,6 +27,7 @@ export const httpService = {
   },
 }
 
+//try 
 async function ajax(endpoint, method = 'GET', data = null) {
   try {
     const res = await axios({
