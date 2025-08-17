@@ -2,8 +2,7 @@ import Axios from 'axios'
 import router from '../router/index.js'
 
 // Base URL: use environment variable if exists, otherwise fallback to Render backend
-const BASE_URL = process.env.VUE_APP_API_URL || 'http://localhost:3030/api'
-
+const BASE_URL = process.env.VUE_APP_API_URL
 
 const axios = Axios.create({
   withCredentials: true, // include cookies for session auth
