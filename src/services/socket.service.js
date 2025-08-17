@@ -1,8 +1,9 @@
 import { io } from 'socket.io-client'
 
 const isProd = process.env.NODE_ENV === 'production'
+const RAW_URL = process.env.VUE_APP_API_URL || ''
 const BACKEND_URL = isProd
-  ? process.env.VUE_APP_API_URL.replace('/api', '')
+  ? RAW_URL.replace('/api', '')
   : 'http://localhost:3030'
 
 export const socketService = createSocketService()
