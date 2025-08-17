@@ -29,7 +29,7 @@ export const boardService = {
 async function query() {
     // return asyncStorageService.query(BOARDS_KEY);
     try {
-        return await httpService.get('board')
+        return await httpService.get('/board')
     } catch (err) {
         console.log('query err:', err);
     }
@@ -38,7 +38,7 @@ async function query() {
 async function getById(boardId) {
     // return asyncStorageService.get(BOARDS_KEY, boardId)
     try {
-        const res = await httpService.get(`board/${boardId}`)
+        const res = await httpService.get(`/board/${boardId}`)
         return res
     } catch (err) {
         console.log('getById err:', err);
@@ -48,7 +48,7 @@ async function getById(boardId) {
 async function remove(boardId) {
     // return asyncStorageService.remove(BOARDS_KEY, boardId);
     try {
-        return await httpService.delete(`board/${boardId}`)
+        return await httpService.delete(`/board/${boardId}`)
     } catch (err) {
         console.log('remove err:', err);
     }
@@ -66,9 +66,9 @@ async function save(board) {
     // }
     try {
         if (board._id) {
-            return await httpService.put(`board/${board._id}`, board)
+            return await httpService.put(`/board/${board._id}`, board)
         } else {
-            return await httpService.post(`board/`, board)
+            return await httpService.post(`/board/`, board)
         }
     } catch (err) {
         console.log('remove err:', err);
