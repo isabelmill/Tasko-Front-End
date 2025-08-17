@@ -30,7 +30,7 @@ export const httpService = {
 async function ajax(endpoint, method = 'GET', data = null) {
   try {
     const res = await axios({
-      url: `${BASE_URL}${endpoint}`, // ensure slash
+      url: `${BASE_URL}/${endpoint}`, // ensure slash
       method,
       data: method !== 'GET' ? data : null,
       params: method === 'GET' ? data : null,
