@@ -2,6 +2,8 @@ import { asyncStorageService } from './storage.service.js'
 
 const STORAGE_KEY = 'board'
 
+_createBoards();
+
 export const boardService = {
     query,
     getById,
