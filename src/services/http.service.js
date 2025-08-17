@@ -1,11 +1,11 @@
 import Axios from 'axios'
 import router from '../router/index.js'
 
-// Base URL from environment variables or fallback
-const BASE_URL = process.env.VUE_APP_API_URL || 'http://localhost:3030/api'
+// Base URL from environment variables or fallback to deployed backend
+const BASE_URL = process.env.VUE_APP_API_URL || 'https://tasko-back-end.onrender.com/api'
 
 const axios = Axios.create({
-  withCredentials: true, // required if backend uses cookies/session auth
+  withCredentials: true, // needed for cookies/session auth
 })
 
 export const httpService = {
@@ -26,14 +26,14 @@ export const httpService = {
 async function ajax(endpoint, method = 'GET', data = null) {
   try {
     const res = await axios({
-      url: `${BASE_URL}/${endpoint}`, // ensure proper slash
+      url: `${BASE_URL}${endpoint}`,
       method,
       data: method !== 'GET' ? data : null,
       params: method === 'GET' ? data : null
     })
     return res.data
   } catch (err) {
-    console.error(`Error ${method}ing to ${endpoint} with data:`, data)
+    console.error(`Error ${method}ing to ${endpoint} with data:`, data, err)
     if (err.response?.status === 401) {
       router.push('/login')
     }

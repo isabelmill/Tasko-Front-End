@@ -17,38 +17,38 @@ window.userService = userService
 
 // ======= User CRUD =======
 function getUsers() {
-  return httpService.get('user')
+  return httpService.get('/user')
 }
 
 async function getById(userId) {
-  return httpService.get(`user/${userId}`)
+  return httpService.get(`/user/${userId}`)
 }
 
 function remove(userId) {
-  return httpService.delete(`user/${userId}`)
+  return httpService.delete(`/user/${userId}`)
 }
 
 async function update(user) {
-  const updatedUser = await httpService.put(`user/${user._id}`, user)
+  const updatedUser = await httpService.put(`/user/${user._id}`, user)
   if (getLoggedinUser()?._id === updatedUser._id) _saveLocalUser(updatedUser)
   return updatedUser
 }
 
 // ======= Auth =======
-async function login(user) {
-  const loggedUser = await httpService.post('auth/login', user)
+async function login(credentials) {
+  const loggedUser = await httpService.post('/auth/login', credentials)
   _saveLocalUser(loggedUser)
   return loggedUser
 }
 
 async function signup(userInfo) {
-  const loggedUser = await httpService.post('auth/signup', userInfo)
+  const loggedUser = await httpService.post('/auth/signup', userInfo)
   _saveLocalUser(loggedUser)
   return loggedUser
 }
 
 async function logout() {
-  await httpService.post('auth/logout')
+  await httpService.post('/auth/logout')
   sessionStorage.removeItem(STORAGE_KEY_LOGGEDIN)
 }
 
