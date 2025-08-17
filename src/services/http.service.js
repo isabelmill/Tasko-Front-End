@@ -5,8 +5,8 @@ import router from '../router/index.js'
 //const BASE_URL = process.env.VUE_APP_API_URL
 const BASE_URL =
   import.meta.env.MODE === 'production'
-    ? 'https://tasko-back-end.onrender.com/api'
-    : 'http://localhost:3030/api';
+    ? 'https://tasko-back-end.onrender.com/api/'
+    : 'http://localhost:3030/api/';
 
 const axios = Axios.create({
   withCredentials: true, // include cookies for session auth
@@ -30,7 +30,7 @@ export const httpService = {
 async function ajax(endpoint, method = 'GET', data = null) {
   try {
     const res = await axios({
-      url: `${BASE_URL}/${endpoint}`, // ensure slash
+      url: `${BASE_URL}${endpoint}`, // ensure slash
       method,
       data: method !== 'GET' ? data : null,
       params: method === 'GET' ? data : null,
