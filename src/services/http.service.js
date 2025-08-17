@@ -2,7 +2,11 @@ import Axios from 'axios'
 import router from '../router/index.js'
 
 // Base URL: use environment variable if exists, otherwise fallback to Render backend
-const BASE_URL = process.env.VUE_APP_API_URL
+//const BASE_URL = process.env.VUE_APP_API_URL
+const BASE_URL =
+  import.meta.env.MODE === 'production'
+    ? 'https://tasko-back-end.onrender.com/api/'
+    : 'http://localhost:3030/api/';
 
 const axios = Axios.create({
   withCredentials: true, // include cookies for session auth
