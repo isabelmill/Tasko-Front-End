@@ -1,446 +1,247 @@
 <template>
-    <section class="board-app-main">
-        <div class="main-container">
-            <div class="contact">
-                <div>
-                    <ul class="folders">
-                        <li @click="setFolder('boards')" :class="setColors('boards')">
-                            <span class="icon-sm icon-board"></span>
-                            <p>Boards</p>
-                        </li>
-                        <li @click="setFolder('templates')" :class="setColors('templates')">
-                            <span class="icon-sm icon-template"></span>
-                            <p>Templates</p>
-                        </li>
-                        <li @click="setFolder('home')" :class="setColors('home')">
-                            <span class="icon-sm icon-home"></span>
-                            <p>Home</p>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="folder-info">
-                    <div v-if="isFolder.boards" class="boards-info">
-                        <div class="border-list">
-                            <div class="header">
-                                <span class="icon-lg icon-star-boards"></span>
-                                <p>Starred boards</p>
-                            </div>
-                            <board-list
-                                v-if="starredBoards"
-                                :boards="starredBoards"
-                                @duplicateTemplate="saveNewBoard"
-                                @updateRecentlyWatched="addLastTimeWatched"
-                                @updateStarred="updateBoard"
-                            />
-                        </div>
-
-                        <!-- <div class="border-list">
-                            <div class="header">
-                                <span class="icon-lg icon-clock-boards"></span>
-                                <p>Recently viewed</p>
-                            </div>
-                            <board-list
-                                v-if="recentlyBoards"
-                                :boards="recentlyBoards"
-                                @duplicateTemplate="saveNewBoard"
-                                @updateRecentlyWatched="addLastTimeWatched"
-                                @updateStarred="updateBoard"
-                            />
-                        </div>-->
-
-                        <div class="border-list">
-                            <div class="header">
-                                <p>YOUR WORKSPACES</p>
-                            </div>
-
-                            <board-list
-                                v-if="boards"
-                                :boards="boards"
-                                @duplicateTemplate="saveNewBoard"
-                                @updateRecentlyWatched="addLastTimeWatched"
-                                @updateStarred="updateBoard"
-                            />
-
-                            <button
-                                class="create-btn-boards"
-                                @click="openBoardEdit(), calcPosOfBox('button')"
-                                ref="button"
-                                type="button"
-                            >
-                                <p>Create new board</p>
-                            </button>
-                            <create-board-modal
-                                v-if="isEdit"
-                                v-clickOutside="closeBoardEdit"
-                                @close="closeBoardEdit"
-                                @add="saveNewBoard"
-                                class="create-board-modal-board-app"
-                                :style="{ 'right': setRightPos(pos.right) + 'px', 'bottom': '0' }"
-                                :newBoard="newBoard"
-                            ></create-board-modal>
-                        </div>
-                        <!-- :style="{ 'top': pos.top + 'px', 'left': '830' + 'px', 'bottom': '0' }" -->
-                    </div>
-                    <div v-if="isFolder.templates" class="boards-info">
-                        <div class="border-list">
-                            <div class="header-templates">
-                                <img
-                                    class="category-icon"
-                                    src="../assets/svg/business-templates.svg"
-                                    alt="business-icon"
-                                />
-                                <p class="category-title">Business</p>
-                            </div>
-                            <board-list
-                                v-if="boards"
-                                :boards="categoryBusiness"
-                                @duplicateTemplate="saveNewBoard"
-                                @updateRecentlyWatched="addLastTimeWatched"
-                            />
-                        </div>
-
-                        <div class="border-list">
-                            <div class="header-templates">
-                                <img
-                                    class="category-icon"
-                                    src="../assets/svg/design-templates.svg"
-                                    alt="business-icon"
-                                />
-                                <p class="category-title">Design</p>
-                            </div>
-                            <board-list
-                                v-if="boards"
-                                :boards="categoryDesign"
-                                @duplicateTemplate="saveNewBoard"
-                                @updateRecentlyWatched="addLastTimeWatched"
-                            />
-                        </div>
-
-                        <div class="border-list">
-                            <div class="header-templates">
-                                <img
-                                    class="category-icon"
-                                    src="../assets/svg/education-templates.svg"
-                                    alt="business-icon"
-                                />
-                                <p class="category-title">Education</p>
-                            </div>
-                            <board-list
-                                v-if="boards"
-                                :boards="categoryEducation"
-                                @duplicateTemplate="saveNewBoard"
-                                @updateRecentlyWatched="addLastTimeWatched"
-                            />
-                        </div>
-
-                        <div class="border-list">
-                            <div class="header-templates">
-                                <img
-                                    class="category-icon"
-                                    src="../assets/svg/project-management-templates.svg"
-                                    alt="business-icon"
-                                />
-                                <p class="category-title">Lifestyle</p>
-                            </div>
-                            <board-list
-                                v-if="boards"
-                                :boards="categoryLifestyle"
-                                @duplicateTemplate="saveNewBoard"
-                                @updateRecentlyWatched="addLastTimeWatched"
-                            />
-                        </div>
-                        <!-- 
-                        <div class="border-list">
-                            <div class="header-templates">
-                                <img
-                                    class="category-icon"
-                                    src="../assets/svg/engineering-templates.svg"
-                                    alt="business-icon"
-                                />
-                                <p class="category-title">Engineering</p>
-                            </div>
-                            <board-list
-                                v-if="boards"
-                                :boards="templates"
-                                @updateRecentlyWatched="addLastTimeWatched"
-                            />
-                        </div>
-
-                        <div class="border-list">
-                            <div class="header-templates">
-                                <img
-                                    class="category-icon"
-                                    src="../assets/svg/marketing-templates.svg"
-                                    alt="business-icon"
-                                />
-                                <p class="category-title">Marketing</p>
-                            </div>
-                            <board-list
-                                v-if="boards"
-                                :boards="templates"
-                                @updateRecentlyWatched="addLastTimeWatched"
-                            />
-                        </div>
-
-                        <div class="border-list">
-                            <div class="header-templates">
-                                <img
-                                    class="category-icon"
-                                    src="../assets/svg/project-management-templates.svg"
-                                    alt="business-icon"
-                                />
-                                <p class="category-title">Project management</p>
-                            </div>
-                            <board-list
-                                v-if="boards"
-                                :boards="templates"
-                                @updateRecentlyWatched="addLastTimeWatched"
-                            />
-                        </div>-->
-                    </div>
-                    <div v-if="isFolder.home" class="home-info">
-                        <div class="activities">
-                            <div class="side-bar-menu-activity-container">
-                                <div class="activity-header flex">
-                                    <span class="icon-sm icon-activity-home"></span>
-                                    <h1>Activity</h1>
-                                </div>
-                                <div
-                                    class="activities-render flex"
-                                    v-for=" activity in allActivities"
-                                    :key="activity"
-                                >
-                                    <img
-                                        class="member-avatar"
-                                        v-if="activity.byMember.imgUrl"
-                                        :src="activity.byMember.imgUrl"
-                                        alt
-                                    />
-                                    <div v-else class="member-avatar-in-activity">
-                                        {{
-                                            setMemberLetters(activity.byMember.fullname)
-                                        }}
-                                    </div>
-                                    <div class="activity-info">
-                                        <div class="activities-info-txt flex">
-                                            <p>
-                                                <span>{{ activity.byMember.username }}</span>
-                                                {{ activity.txt }}
-                                            </p>
-                                        </div>
-                                        <div class="activity-timestamp">
-                                            <!-- {{moment(activity.createdAt).startOf('hour').fromNow()}} -->
-                                            {{ generateTime(activity.createdAt) }}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="boards">
-                            <div class="starred-boards">
-                                <div class="starred-boards-header">
-                                    <span class="icon-sm icon-star-home"></span>
-                                    <p>Starred</p>
-                                </div>
-                                <div class="modal-starred-boards-list">
-                                    <div class="modal-starred-board-list">
-                                        <div
-                                            class="boards-render-modal-starred"
-                                            @click="goToDetails(board)"
-                                            v-for="board in starredBoards"
-                                            :board="board"
-                                            :key="board"
-                                        >
-                                            <div
-                                                class="board-background-starred-modal"
-                                                :style="board.background ? { 'backgroundColor': board.background } : { 'background-image': `url(${board.backgroundPhoto})` }"
-                                            ></div>
-
-                                            <div class="modal-starred-board">{{ board.title }}</div>
-                                            <span class="icon-sm icon-star-home-board"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <br />
-                            <br />
-                            <div class="starred-boards">
-                                <div class="starred-boards-header">
-                                    <span class="icon-sm icon-clock-home"></span>
-                                    <p>Recently viewed</p>
-                                </div>
-                                <div class="modal-starred-boards-list">
-                                    <div class="modal-starred-board-list">
-                                        <div
-                                            class="boards-render-modal-starred"
-                                            @click="goToDetails(board)"
-                                            v-for="board in recentlyBoards"
-                                            :board="board"
-                                            :key="board"
-                                        >
-                                            <div
-                                                class="board-background-starred-modal"
-                                                :style="board.background ? { 'backgroundColor': board.background } : { 'background-image': `url(${board.backgroundPhoto})` }"
-                                            ></div>
-
-                                            <div class="modal-starred-board">{{ board.title }}</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+  <section class="board-app-main">
+    <div class="main-container">
+      <div class="contact">
+        <!-- Sidebar -->
+        <div>
+          <ul class="folders">
+            <li @click="setFolder('boards')" :class="setColors('boards')">
+              <span class="icon-sm icon-board"></span>
+              <p>Boards</p>
+            </li>
+            <li @click="setFolder('templates')" :class="setColors('templates')">
+              <span class="icon-sm icon-template"></span>
+              <p>Templates</p>
+            </li>
+            <li @click="setFolder('home')" :class="setColors('home')">
+              <span class="icon-sm icon-home"></span>
+              <p>Home</p>
+            </li>
+          </ul>
         </div>
-    </section>
+
+        <!-- Main content -->
+        <div class="folder-info">
+          <!-- BOARDS -->
+          <div v-if="isFolder.boards">
+            <BoardSection
+              v-if="starredBoards && starredBoards.length"
+              :title="'Starred boards'"
+              icon="icon-star-boards"
+              :boards="starredBoards"
+              :showStar="true"
+              @goToDetails="goToDetails"
+            />
+
+            <BoardSection
+              v-if="boards && boards.length"
+              :title="'Your Workspaces'"
+              icon=""
+              :boards="boards"
+              @goToDetails="goToDetails"
+            />
+
+            <button
+              class="create-btn-boards"
+              @click="openBoardEdit(); calcPosOfBox('button')"
+              ref="button"
+              type="button"
+            >
+              <p>Create new board</p>
+            </button>
+
+            <create-board-modal
+              v-if="isEdit"
+              v-clickOutside="closeBoardEdit"
+              @close="closeBoardEdit"
+              @add="saveNewBoard"
+              class="create-board-modal-board-app"
+              :style="{ right: setRightPos(pos.right) + 'px', bottom: '0' }"
+              :newBoard="newBoard"
+            />
+          </div>
+
+          <!-- TEMPLATES -->
+          <div v-if="isFolder.templates">
+            <BoardSection
+              v-if="categoryBusiness && categoryBusiness.length"
+              title="Business"
+              icon=""
+              :boards="categoryBusiness"
+              @goToDetails="goToDetails"
+            />
+            <BoardSection
+              v-if="categoryDesign && categoryDesign.length"
+              title="Design"
+              icon=""
+              :boards="categoryDesign"
+              @goToDetails="goToDetails"
+            />
+            <BoardSection
+              v-if="categoryEducation && categoryEducation.length"
+              title="Education"
+              icon=""
+              :boards="categoryEducation"
+              @goToDetails="goToDetails"
+            />
+            <BoardSection
+              v-if="categoryLifestyle && categoryLifestyle.length"
+              title="Lifestyle"
+              icon=""
+              :boards="categoryLifestyle"
+              @goToDetails="goToDetails"
+            />
+          </div>
+
+          <!-- HOME -->
+          <div v-if="isFolder.home">
+            <div class="activities">
+              <div class="side-bar-menu-activity-container">
+                <div class="activity-header flex">
+                  <span class="icon-sm icon-activity-home"></span>
+                  <h1>Activity</h1>
+                </div>
+
+                <div
+                  class="activities-render flex"
+                  v-for="activity in allActivities"
+                  :key="activity._id || activity.createdAt"
+                >
+                  <img
+                    v-if="activity.byMember.imgUrl"
+                    class="member-avatar"
+                    :src="activity.byMember.imgUrl"
+                    alt
+                  />
+                  <div v-else class="member-avatar-in-activity">
+                    {{ setMemberLetters(activity.byMember.fullname) }}
+                  </div>
+
+                  <div class="activity-info">
+                    <div class="activities-info-txt flex">
+                      <p>
+                        <span>{{ activity.byMember.username }}</span>
+                        {{ activity.txt }}
+                      </p>
+                    </div>
+                    <div class="activity-timestamp">
+                      {{ generateTime(activity.createdAt) }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <BoardSection
+              v-if="starredBoards && starredBoards.length"
+              :boards="starredBoards"
+              :showStar="true"
+              title="Starred"
+              icon="icon-star-home"
+              @goToDetails="goToDetails"
+            />
+            <BoardSection
+              v-if="recentlyBoards && recentlyBoards.length"
+              :boards="recentlyBoards"
+              title="Recently viewed"
+              icon="icon-clock-home"
+              @goToDetails="goToDetails"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 </template>
 
 <script>
 import { boardService } from '../services/board.service'
-import boardList from '../components/board-list.vue'
-import unsplash from '../components/unsplash.vue'
+import BoardSection from '../views/board-section.vue'
 import createBoardModal from '../components/create-board-modal.vue'
-import moment from 'moment';
+import moment from 'moment'
 
 export default {
-    name: 'board-app',
-    data() {
-        return {
-            preFolder: '',
-            currFolder: '',
-            isFolder: {
-                boards: false,
-                templates: false,
-                home: false,
-            },
-            filterBy: null,
-            isEdit: false,
-            newBoard: boardService.getEmptyBoard(),
-            newActivity: boardService.getEmptyActivity(),
-            setColor: '',
-            pos: 0,
-
-        }
+  name: 'board-app',
+  components: { BoardSection, createBoardModal },
+  data() {
+    return {
+      preFolder: '',
+      currFolder: '',
+      isFolder: { boards: false, templates: false, home: false },
+      isEdit: false,
+      newBoard: boardService.getEmptyBoard(),
+      newActivity: boardService.getEmptyActivity(),
+      pos: 0,
+    }
+  },
+  created() {
+    this.setFolder('boards')
+  },
+  methods: {
+    setFolder(folder) {
+      this.currFolder = folder
+      if (this.preFolder) this.isFolder[this.preFolder] = false
+      this.preFolder = folder
+      this.isFolder[folder] = true
     },
-    created() {
-        this.setFolder('boards')
+    setColors(folder) {
+      return this.isFolder[folder] ? 'selected-folder' : 'folder'
     },
-    methods: {
-        calcPosOfBox(ref) {
-            this.pos = this.$refs[ref].getBoundingClientRect()
-        },
-        setFilter(filterBy) {
-            this.$store.dispatch({ type: 'filter', filterBy });
-        },
-        openBoardEdit() {
-            this.isEdit = true;
-        },
-        closeBoardEdit() {
-            this.isEdit = false;
-        },
-        saveNewBoard(board) {
-            if (!board.title) return
-            if (this.loggedinUser) {
-                board.createdBy = this.loggedinUser
-                board.members.push(this.loggedinUser)
-                this.newActivity.byMember = this.loggedinUser
-            }
-            board.isTemplate = false
-            this.newActivity.txt = 'created this board'
-            board.activities.push(this.newActivity)
-            this.$store.dispatch({ type: 'saveBoard', board: board })
-            this.isEdit = false
-            this.newBoard = boardService.getEmptyBoard()
-        },
-        setFolder(folder) {
-            this.currFolder = folder
-            this.isFolder[this.preFolder] = !this.isFolder[this.preFolder]
-            this.preFolder = folder
-            this.isFolder[folder] = !this.isFolder[folder]
-        },
-        setColors(folder) {
-            return this.isFolder[folder] ? 'selected-folder' : 'folder'
-        },
-        updateBoard(board) {
-            this.$store.dispatch({ type: 'saveBoard', board: board })
-        },
-        addLastTimeWatched(board) {
-            this.$store.dispatch({ type: 'saveBoard', board: board })
-        },
-        goToDetails(board) {
-            this.$emit("close");
-            this.$router.push(`/board/${board._id}`)
-        },
-        setMemberLetters(fullname) {
-            const firstLetters = fullname.split(' ').map(word => word[0]).join('');
-            return firstLetters.toUpperCase()
-        },
-        generateTime(time) {
-            const dateTimeAgo = moment(time).fromNow();
-            return dateTimeAgo
-        },
-        setRightPos(rightPos) {
-            if ((window.innerWidth - rightPos) < 390) {
-                const right = window.innerWidth - 390
-                return right
-            } else {
-                return rightPos + 8
-            }
-        },
+    calcPosOfBox(ref) {
+      this.pos = this.$refs[ref].getBoundingClientRect()
     },
-    computed: {
-        loggedinUser() {
-            return this.$store.getters.loggedinUser
-        },
-        boards() {
-            if (this.$store.getters.boards && this.loggedinUser) {
-                const boards = JSON.parse(JSON.stringify(this.$store.getters.boards))
-                return boards.filter(board => board.members.some(member => member._id === this.loggedinUser._id) && !board.isTemplate)
-            }
-        },
-        starredBoards() {
-            if (this.$store.getters.boards && this.loggedinUser) {
-                const boards = JSON.parse(JSON.stringify(this.$store.getters.boards))
-                return boards.filter(board => board.isStarred && board.members.some(member => member._id === this.loggedinUser._id))
-            }
-        },
-        recentlyBoards() {
-            if (this.$store.getters.boards && this.loggedinUser) {
-                const boards = JSON.parse(JSON.stringify(this.$store.getters.boards))
-                const newBoards = boards.filter(board => !board.isTemplate && board.members.some(member => member._id === this.loggedinUser._id))
-                return newBoards.sort((a, b) => b.lastTimeWatched - a.lastTimeWatched);
-            }
-        },
-        templates() {
-            return this.$store.getters.templates
-        },
-        categoryBusiness() {
-            return this.$store.getters.categoryBusiness
-        },
-        categoryDesign() {
-            return this.$store.getters.categoryDesign
-        },
-        categoryEducation() {
-            return this.$store.getters.categoryEducation
-        },
-        categoryLifestyle() {
-            return this.$store.getters.categoryLifestyle
-        },
-        board() {
-            return this.$store.getters.board
-        },
-        allActivities() {
-            return this.$store.getters.allActivities
-        },
+    openBoardEdit() { this.isEdit = true },
+    closeBoardEdit() { this.isEdit = false },
+    saveNewBoard(board) {
+      if (!board.title) return
+      if (this.loggedinUser) {
+        board.createdBy = this.loggedinUser
+        board.members.push(this.loggedinUser)
+        this.newActivity.byMember = this.loggedinUser
+      }
+      board.isTemplate = false
+      this.newActivity.txt = 'created this board'
+      board.activities.push(this.newActivity)
+      this.$store.dispatch({ type: 'saveBoard', board })
+      this.isEdit = false
+      this.newBoard = boardService.getEmptyBoard()
     },
-
-    components: {
-        boardList,
-        unsplash,
-        createBoardModal
+    goToDetails(board) {
+      this.$router.push(`/board/${board._id}`)
     },
+    setMemberLetters(fullname) {
+      return fullname.split(' ').map(w => w[0]).join('').toUpperCase()
+    },
+    generateTime(time) {
+      return moment(time).fromNow()
+    },
+    setRightPos(rightPos) {
+      return (window.innerWidth - rightPos) < 390 ? window.innerWidth - 390 : rightPos + 8
+    },
+  },
+  computed: {
+    loggedinUser() { return this.$store.getters.loggedinUser },
+    boards() {
+      if (!this.$store.getters.boards || !this.loggedinUser) return []
+      return this.$store.getters.boards
+        .filter(b => b.members.some(m => m._id === this.loggedinUser._id) && !b.isTemplate)
+    },
+    starredBoards() {
+      if (!this.$store.getters.boards || !this.loggedinUser) return []
+      return this.$store.getters.boards
+        .filter(b => b.isStarred && b.members.some(m => m._id === this.loggedinUser._id))
+    },
+    recentlyBoards() {
+      if (!this.$store.getters.boards || !this.loggedinUser) return []
+      return this.$store.getters.boards
+        .filter(b => !b.isTemplate && b.members.some(m => m._id === this.loggedinUser._id))
+        .sort((a, b) => b.lastTimeWatched - a.lastTimeWatched)
+    },
+    categoryBusiness() { return this.$store.getters.categoryBusiness },
+    categoryDesign() { return this.$store.getters.categoryDesign },
+    categoryEducation() { return this.$store.getters.categoryEducation },
+    categoryLifestyle() { return this.$store.getters.categoryLifestyle },
+    allActivities() { return this.$store.getters.allActivities },
+  }
 }
 </script>
