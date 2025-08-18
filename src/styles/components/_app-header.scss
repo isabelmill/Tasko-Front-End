@@ -29,7 +29,7 @@
         }
 
         .logo-img {
-            background-image: url(../assets/gif/logo-not.gif);
+            background-image: url(../../assets/gif/logo-not.gif);
             background-repeat: no-repeat;
             background-size: contain;
             background-position: center;
@@ -40,7 +40,7 @@
 
         &:hover {
             .logo-img {
-                background-image: url(../assets/gif/logo-move.gif);
+                background-image: url(../../assets/gif/logo-move.gif);
             }
         }
     }

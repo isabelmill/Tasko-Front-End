@@ -1,10 +1,10 @@
 import { io } from 'socket.io-client'
 
-const isProd = process.env.NODE_ENV === 'production'
-const RAW_URL = process.env.VUE_APP_API_URL || ''
-const BACKEND_URL = isProd
-  ? RAW_URL.replace('/api', '')
-  : 'http://localhost:3030'
+// ---- Determine backend URL ----
+const BACKEND_URL =
+  import.meta.env.MODE === 'production'
+    ? 'https://tasko-back-end.onrender.com'
+    : 'http://localhost:3030'
 
 export const socketService = createSocketService()
 window.socketService = socketService
